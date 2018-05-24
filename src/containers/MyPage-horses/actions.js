@@ -2,7 +2,8 @@ import {
   START_LOAD_MY_HORSES_ARRAY,
   GET_MY_HORSES_ARRAY_SUCCESS,
   FAIL_LOAD_MY_HORSES_ARRAY,
-  GET_HORSE_INFO
+  GET_HORSE_INFO,
+  MOVE_MY_PAGE_PAGE
 } from '../../actionTypes'
 
 export const startLoadMyHorseArray = () => ({
@@ -24,4 +25,9 @@ export const getHorseInfoSuccess = (data) => ({
     id: data[0].toNumber(),
     horse: data
   }
+});
+
+export const moveMyPageHorsePagination = (page) => ({
+  type: MOVE_MY_PAGE_PAGE,
+  data: page
 });

@@ -99,6 +99,48 @@ export const styles = {
       zIndex: 0
     }
   },
+  horseImageAngry: {
+    face: {
+      position: 'absolute',
+      top: '12.%',
+      left: 0,
+      width: '30.0%',
+      height: '36.0%',
+      zIndex: 0
+    },
+    hair: {
+      position: 'absolute',
+      top: 0,
+      left: '5.9%',
+      width: '46.1%',
+      height: '45.0%',
+      zIndex: 2
+    },
+    body: {
+      position: 'absolute',
+      top: '36.4%',
+      left: '28.2%',
+      width: '34.6%',
+      height: '30.0%',
+      zIndex: 2
+    },
+    frontLeg:{
+      position: 'absolute',
+      top: '37.1%',
+      left: '16.8%',
+      width: '14.8%',
+      height: '56.2%',
+      zIndex: 0
+    },
+    backLeg: {
+      position: 'absolute',
+      top: '34.7%',
+      right: '15.2%',
+      width: '30.8%',
+      height: '60.8%',
+      zIndex: 0
+    }
+  },
   horseImageContainer: function(type){
     switch(type){
       case 'normal':
@@ -119,7 +161,7 @@ export const styles = {
           backgroundColor: 'linear-gradient(-135deg, rgba(0, 0, 0, 1), rgba(255,35, 0, 1) 50%,rgba(255,219,0,1))',
           position: 'relative',
           margin: '0',
-          marginLeft: '100px',
+          marginTop: '60px',
           border: '1px solid rgba(0,0,0,0.1)'
         };
       case 'parents':

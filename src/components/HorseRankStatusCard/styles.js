@@ -1,7 +1,7 @@
 export const styles = (props) =>  ({
   horseStatusCard: {
-    width: '328px',
-    height: '415px',
+    width: '228px',
+    height: '515px',
     marginLeft: props.isLeft ? '0' : '56px',
     position: 'relative'
   },
@@ -12,7 +12,6 @@ export const styles = (props) =>  ({
     fontSize: '21px',
     margin: '0',
     marginTop: '21px',
-    marginLeft: '100px'
   },
   powerTotal: {
     height: '30px',
@@ -69,8 +68,8 @@ export const STYLE = {
     position: 'absolute',
     left: '0px',
     top: '0px',
-    width: '100px',
-    height: '100px',
+    width: '60px',
+    height: '60px',
     border: 'none',
     zIndex:'5'
   },
@@ -79,8 +78,8 @@ export const STYLE = {
     color: 'black',
     fontWeight: '800',
     position: 'absolute',
-    top: ' 5px',
-    left: '5px'
+    top: ' 10px',
+    left: '10px'
   },
   strengthParam: function(width){
     return ({

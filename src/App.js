@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
 import getWeb3 from './utils/getWeb3'
 import HorseGame from '../build/contracts/HorseGame.json'
-import {Route, Switch} from 'react-router-dom'
-import Top from './containers/Top/'
-import MyPageHorses from './containers/MyPage-horses'
 import { Helmet } from 'react-helmet'
 import './css/oswald.css'
 import './css/open-sans.css'
 import './css/pure-min.css'
 import './App.css'
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect'
 import Header from './components/Header/'
-const address = '0xf204a4ef082f5c04bb89f7d5e6568b796096735a';
+const address = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
 
 class App extends Component {
   constructor (props) {

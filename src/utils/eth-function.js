@@ -9,11 +9,30 @@ export const getMyHorsesArray = () => {
   })
 };
 
-export const getHorseWinCount = (horseId) => {
+export const getHorseWinCountArray = (horseId) => {
   return new Promise((resolve, reject) => {
     window.contract_instance.getWinCountsArray(function(err,result){
       if(err){console.log(err);reject(err);}
       resolve(result);
+    })
+  })
+};
+
+export const getHorseTotalPrizeArray = () => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.getTotalPrizeArray(function(err, result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const getHorseGeneArray = () => {
+  return new Promise((resolve,reject) => {
+    window.contract_instance.getHorseGenesArray(function(err, result){
+      if(err){reject(err)}
+      console.log(result)
+      resolve(result)
     })
   })
 };

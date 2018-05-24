@@ -4,13 +4,16 @@ import injectSaga from '../../utils/injectSaga'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import {startLoadMyHorseArray} from './actions'
+import {
+  startLoadMyHorseArray,
+  moveMyPageHorsePagination
+} from './actions'
 import saga from './saga'
 import {
   selectHorseArray,
   selectHorseArrayLoading,
   selectHorseIdToHorseInfo,
-  selectHorseIdArray
+  selectHorseIdArray,
 } from "./selectors";
 import HorseStatusCard from '../../components/HorseStatusCard'
 import Pagination from '../../components/Pagination'
@@ -65,6 +68,8 @@ class MyPageHorses extends Component{
   onChangePage(currentPage){
     this.setState({
       currentPage: currentPage
+    },function(){
+      this.props.movePage(currentPage)
     })
   }
 
@@ -96,7 +101,8 @@ const mapStateToProps = createStructuredSelector({
   horseIdToInfo: selectHorseIdToHorseInfo()
 });
 const mapDispatchToProps = (dispatch) => ({
-  horseArrayLoadStart: ()=>dispatch(startLoadMyHorseArray())
+  horseArrayLoadStart: ()=>dispatch(startLoadMyHorseArray()),
+  movePage: (page)=>dispatch(moveMyPageHorsePagination(page))
 });
 
 const withConnect = connect(mapStateToProps,mapDispatchToProps);

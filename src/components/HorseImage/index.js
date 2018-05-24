@@ -7,13 +7,22 @@ import origin from '../../assets/textures/origins/origin1_2.png'
 class HorseImage extends Component{
   constructor(props){
     super(props);
-    this.reg = /4.*/
+    this.cryReg = /4.*/;
+    this.angryReg = /3.*/;
   }
-
   returnTextureGene(){
     const gene = this.props.horseGene;
     const status = gene.slice(gene.length-38,gene.length - 20);
     return status
+  }
+  returnTextureType(texStr){
+    if(texStr.match(this.cryReg) !== null || texStr.match(this.cryReg)){
+      return styles.horseImageCry;
+    }else if(texStr.match(this.angryReg) !== null || texStr.match(this.angryReg)){
+      return styles.horseImageAngry;
+    }else{
+      return styles.horseImageBase;
+    }
   }
   render(){
     if(this.props.horseGene != undefined){
@@ -24,19 +33,19 @@ class HorseImage extends Component{
                 src={require(`../../assets/origins/origin${mapGeneToTexture(this.returnTextureGene())[5]}_2.png`)}
             />
             <img
-                style={String(mapGeneToTexture(this.returnTextureGene())[5]).match(this.reg) ? styles.horseImageCry.face : styles.horseImageBase.face}
+                style={this.returnTextureType(String(mapGeneToTexture(this.returnTextureGene())[5])).face}
                 src={require(`../../assets/textures/${mapGeneToTexture(this.returnTextureGene())[0]}.png`)}
             />
             <img
-                style={String(mapGeneToTexture(this.returnTextureGene())[5]).match(this.reg) ? styles.horseImageCry.hair : styles.horseImageBase.hair}
+                style={this.returnTextureType(String(mapGeneToTexture(this.returnTextureGene())[5])).hair}
                 src={require(`../../assets/textures/${mapGeneToTexture(this.returnTextureGene())[1]}.png`)}
             />
             <img
-                style={String(mapGeneToTexture(this.returnTextureGene())[5]).match(this.reg) ? styles.horseImageCry.body : styles.horseImageBase.body}
+                style={this.returnTextureType(String(mapGeneToTexture(this.returnTextureGene())[5])).body}
                 src={require(`../../assets/textures/${mapGeneToTexture(this.returnTextureGene())[2]}3.png`)}
             />
             <img
-                style={String(mapGeneToTexture(this.returnTextureGene())[5]).match(this.reg) ? styles.horseImageCry.frontLeg : styles.horseImageBase.frontLeg}
+                style={this.returnTextureType(String(mapGeneToTexture(this.returnTextureGene())[5])).frontLeg}
                 src={require(`../../assets/textures/${mapGeneToTexture(this.returnTextureGene())[3]}4.png`)}
             />
             <img

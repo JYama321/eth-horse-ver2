@@ -2,14 +2,16 @@ import {call, put, select, takeLatest} from 'redux-saga/effects';
 import {
   START_LOAD_MY_HORSES_ARRAY,
   GET_MY_HORSES_ARRAY_SUCCESS,
+  MOVE_MY_PAGE_PAGE
 } from "../../actionTypes";
 import {
   getMyHorseArraySuccess,
   failGetMyHorseArray,
-  getHorseInfoSuccess
+  getHorseInfoSuccess,
 } from "./actions";
 import {
-  selectHorseIdArray
+  selectHorseIdArray,
+  selectCurrentPage
 } from "./selectors";
 import {
   getMyHorsesArray,
@@ -19,6 +21,7 @@ import {
 export function* getMyHorseArray(){
   try{
     const horsesArray = yield call(getMyHorsesArray);
+    console.log(horsesArray);
     yield put(getMyHorseArraySuccess(horsesArray))
   }catch (err){
     yield put(failGetMyHorseArray())
@@ -28,7 +31,8 @@ export function* getMyHorseArray(){
 export function* batchGetHorseInfo(){
   try{
     const idArray = yield select(selectHorseIdArray());
-    const arr = idArray.toArray();
+    const currentPage = yield select(selectCurrentPage());
+    const arr = idArray.toArray().slice(8*(currentPage-1),8*currentPage);
     for(let i=0;i<arr.length;i++){
       const horse = yield call(getHorseData,arr[i].toNumber());
       yield put(getHorseInfoSuccess(horse));
@@ -39,7 +43,10 @@ export function* batchGetHorseInfo(){
 }
 
 
+
+
 export default function* myHorseSaga(){
   yield takeLatest(START_LOAD_MY_HORSES_ARRAY,getMyHorseArray);
   yield takeLatest(GET_MY_HORSES_ARRAY_SUCCESS,batchGetHorseInfo);
+  yield takeLatest(MOVE_MY_PAGE_PAGE,batchGetHorseInfo);
 }

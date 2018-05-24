@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button'
 import PropTypes from 'prop-types'
 
 export default class Pagination extends Component{
-  static PropTypes = {
+  static propTypes = {
     totalPage: PropTypes.number.isRequired,
     currentPage: PropTypes.number.isRequired,
     buttonPerPage: PropTypes.number.isRequired,

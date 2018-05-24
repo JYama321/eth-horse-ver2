@@ -6,7 +6,7 @@ export const styles =  {
     left: 0,
     right: 0,
     width: '100%',
-    height: '1270px'
+    height: '1070px'
   },
   horseContainer: {
     display: 'flex',
@@ -30,6 +30,6 @@ export const styles =  {
     flexWrap: 'wrap',
     width: '1080px',
     height: '100%',
-    margin: '0 auto'
+    margin: '100px auto 0'
   }
 };

@@ -5,39 +5,61 @@ import {
   GET_MY_HORSES_ARRAY_SUCCESS,
   FAIL_LOAD_MY_HORSES_ARRAY,
   GET_HORSE_INFO,
+  MOVE_MY_PAGE_PAGE,
+  START_LOAD_HORSE_GENE_ARRAY,
+  LOAD_HORSE_GENE_ARRAY_SUCCESS,
+  LOAD_HORSE_GENE_ARRAY_FAILED,
+  MOVE_GENE_RANK_PAGE,
+  START_LOAD_HORSE_TOTAL_PRIZE_ARRAY,
+  LOAD_HORSE_TOTAL_PRIZE_ARRAY_FAILED,
+  LOAD_HORSE_TOTAL_PRIZE_ARRAY_SUCCESS,
+  MOVE_TOTAL_PRIZE_RANK_PAGE,
+  START_LOAD_WIN_COUNT_HORSE_ARRAY,
+  LOAD_WIN_COUNT_ARRAY_SUCCESS,
+  LOAD_WIN_COUNT_ARRAY_FAILED,
+  MOVE_WIN_COUNT_RANK_PAGE
 } from "./actionTypes";
 
 const globalState = fromJS({
   isMyHorseArrayLoading: false,
   myHorseIdArray: [], //my horse
+  myHorsePageCurrentPage: 1,
 
-  isSellHorseArrayLoaded: false,
+  isSellHorseArrayLoading: false,
   sellHorseArray: [],  // all sell horses
-  isHorseSellPriceArrayLoaded: false,
+  isHorseSellPriceArrayLoading: false,
   horseSellPriceArray: [], // sell price sort
 
-  bidHorseArrayLoaded: false,
+  bidHorseArrayLoading: false,
   bidHorseArray: [], // all bid horses
-  horseMinBidPriceArrayLoaded: false,
+  horseMinBidPriceArrayLoading: false,
   horseMinBidPriceArray: [], //min bid price sort
 
-  sireHorseArrayLoaded: false,
+  sireHorseArrayLoading: false,
   sireHorseArray: [], // all sire horses
-  horseSirePriceArrayLoaded: false,
+  horseSirePriceArrayLoading: false,
   horseSirePriceArray: [], //sire price sort
 
-  horseGeneArrayLoaded: false,
+  horseGeneArrayLoading: false,
   horseGeneArray: [], //strength rank
-  horsePrizeArrayLoaded: false,
+  rankGeneCurrentPage: 1,
+  horsePrizeArrayLoading: false,
   horsePrizeArray: [], // prize rank
+  rankPrizeCurrentPage: 1,
+  horseWinCountArrayLoading: false,
+  horseWinCountArray: [], // prize rank
+  rankWinCountCurrentPage: 1,
 
-  allRaceArrayLoaded: false,
+  allRaceArrayLoading: false,
   allRaceArray: [], // all races
-  wanedRaceArrayLoaded: false,
+
+  wanedRaceArrayLoading: false,
   wantedRaceArray: [], // currently wanted race
-  bettingRaceArrayLoaded: false,
+
+  bettingRaceArrayLoading: false,
   bettingRaceArray: [], // currently betting race
-  checkedRaceArrayLoaded: false,
+
+  checkedRaceArrayLoading: false,
   checkedRaceArray: [], // already end race
 
   location: null,
@@ -59,6 +81,32 @@ function globalReducer(state = globalState ,action){
       } else {
         return state.set('horseIdToHorseInfo',state.get('horseIdToHorseInfo').set(String(action.data.id),action.data.horse))
       }
+    case MOVE_MY_PAGE_PAGE:
+      return state.set('myHorsePageCurrentPage',action.data);
+    case START_LOAD_HORSE_GENE_ARRAY:
+      return state.set('horseGeneArrayLoading',true);
+    case LOAD_HORSE_GENE_ARRAY_SUCCESS:
+      return state.set('horseGeneArrayLoading',false).set('horseGeneArray',List(action.data));
+    case LOAD_HORSE_GENE_ARRAY_FAILED:
+      return state.set('horseGeneArrayLoading',false);
+    case MOVE_GENE_RANK_PAGE:
+      return state.set('rankGeneCurrentPage',action.data);
+    case START_LOAD_HORSE_TOTAL_PRIZE_ARRAY:
+      return state.set('horsePrizeArrayLoading', true);
+    case LOAD_HORSE_TOTAL_PRIZE_ARRAY_FAILED:
+      return state.set('horsePrizeArrayLoading', false);
+    case LOAD_HORSE_TOTAL_PRIZE_ARRAY_SUCCESS:
+      return state.set('horsePrizeArrayLoading', false).set('horsePrizeArray', List(action.data));
+    case MOVE_TOTAL_PRIZE_RANK_PAGE:
+      return state.set('rankPrizeCurrentPage', action.data);
+    case START_LOAD_WIN_COUNT_HORSE_ARRAY:
+      return state.set('horseWinCountArrayLoading',true);
+    case LOAD_WIN_COUNT_ARRAY_SUCCESS:
+      return state.set('horseWinCountArray', List(action.data)).set('horseWinCountArrayLoading', false);
+    case LOAD_WIN_COUNT_ARRAY_FAILED:
+      return state.set('horseWinCountArrayLoading', false);
+    case MOVE_WIN_COUNT_RANK_PAGE:
+      return state.set('rankWinCountCurrentPage', action.data);
     default:
       return state;
   }

@@ -71,7 +71,7 @@ export function mapGeneToTexture(gene) {
   const genePieces =
       [gene.slice(0,3),gene.slice(3,6),gene.slice(6,9),gene.slice(9,12),gene.slice(12,15),gene.slice(15,18)];
   let textureInfo = [];
-  for(var i=0; i<5; i++){
+  for(let i=0; i<5; i++){
     let index;
     if(Number(genePieces[i]) < 800){
       index = Math.floor(Number(genePieces[i] / 80));
