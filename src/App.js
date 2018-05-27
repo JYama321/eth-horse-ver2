@@ -9,7 +9,9 @@ import './App.css'
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect'
 import Header from './components/Header/'
+import {Route} from 'react-router-dom'
 const address = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
+import MyPageHorses from './containers/MyPage-horses/'
 
 class App extends Component {
   constructor (props) {
@@ -48,12 +50,14 @@ class App extends Component {
       return(
           <div>
             <Helmet
-                titleTemplate="%s - React.js Boilerplate"
-                defaultTitle="React.js Boilerplate"
+                titleTemplate="%s - Eth Horse"
+                defaultTitle="Eth Horse"
             >
-              <meta name="description" content="A React.js Boilerplate application" />
+              <meta name="description" content="An decentralized horse race platform" />
             </Helmet>
             <Header/>
+            <Route exact path='/'/>
+            <Route exact path='/my-horses' component={MyPageHorses}/>
           </div>
       )
     }else{
