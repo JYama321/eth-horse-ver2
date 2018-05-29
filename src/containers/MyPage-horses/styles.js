@@ -1,12 +1,12 @@
 export const styles =  {
   outerContainer: {
-    position: 'relative',
-    top: 0,
+    position: 'absolute',
+    top: 'calc(96px + 4.5%)',
     bottom: 0,
     left: 0,
     right: 0,
     width: '100%',
-    height: '1270px'
+    height: '870px'
   },
   horseContainer: {
     display: 'flex',
@@ -28,6 +28,7 @@ export const styles =  {
     position: 'relative',
     display: 'flex',
     flexWrap: 'wrap',
+    alignContent: 'flex-start',
     width: '1080px',
     height: '100%',
     margin: '0 auto'

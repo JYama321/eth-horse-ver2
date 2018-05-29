@@ -146,18 +146,18 @@ export const styles = {
       case 'normal':
         return {
           display: 'block',
-          width: '228px',
-          height: '187px',
+          width: '185px',
+          height: '152px',
           backgroundColor: 'linear-gradient(-135deg, rgba(0, 0, 0, 1), rgba(255,35, 0, 1) 50%,rgba(255,219,0,1))',
           position: 'relative',
           margin: '0 auto',
-          border: '1px solid rgba(0,0,0,0.1)'
+          top: '37px'
         };
       case 'rank':
         return {
           display: 'block',
-          width: '228px',
-          height: '187px',
+          width: '200px',
+          height: '164px',
           backgroundColor: 'linear-gradient(-135deg, rgba(0, 0, 0, 1), rgba(255,35, 0, 1) 50%,rgba(255,219,0,1))',
           position: 'relative',
           margin: '0',
@@ -167,10 +167,11 @@ export const styles = {
       case 'parents':
         return {
           display: 'block',
-          width: '292.6px',
-          height: '240px',
+          width: '200px',
+          height: '164px',
           position: 'relative',
-          margin: '0 auto'
+          margin: '0 auto',
+          top: '38px'
         }
       case 'large':
         return {
@@ -178,13 +179,14 @@ export const styles = {
           width: '430px',
           height: '352.6px',
           position: 'relative',
-          margin: '0 auto'
-        }
+          margin: '0 auto',
+          top: '135px'
+        };
       default:
         return {
           display: 'block',
-          width: '228px',
-          height: '187px',
+          width: '200px',
+          height: '164px',
           backgroundColor: 'linear-gradient(-135deg, rgba(0, 0, 0, 1), rgba(255,35, 0, 1) 50%,rgba(255,219,0,1))',
           position: 'relative',
           margin: '0 auto',

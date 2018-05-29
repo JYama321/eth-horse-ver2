@@ -2,9 +2,14 @@ import React,{Component} from 'react'
 import {mapGeneToTexture} from "../../utils/mapGeneToTextures";
 import {styles} from './styles'
 import origin from '../../assets/textures/origins/origin1_2.png'
+import PropTypes from 'prop-types'
 
 
 class HorseImage extends Component{
+  static propTypes = {
+    type: PropTypes.string.isRequired,
+    horseGene: PropTypes.string.isRequired
+  };
   constructor(props){
     super(props);
     this.cryReg = /4.*/;

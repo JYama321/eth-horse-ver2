@@ -12,7 +12,7 @@ export function betRace(raceId,horseId,betValue){
   })
 }
 export function horseStatus(gene){
-  const params = [gene.slice(0,3),gene.slice(3,6),gene.slice(6,9),gene.slice(9,12),gene.slice(12,15)]
+  const params = [gene.slice(0,3),gene.slice(3,6),gene.slice(6,9),gene.slice(9,12),gene.slice(12,15)];
   let strength=0,attributes=[];
   params.forEach(function (elem,index,self) {
     const num = Number(elem);

@@ -90,12 +90,11 @@ export function mapGeneToTexture(gene) {
   return textureInfo
 }
 
-
 export function mapGeneToTextureName(gene){
   let textureNames = [];
   const textureInfo = mapGeneToTexture(gene);
   for(let i=0; i<5; i++){
-    textureNames.push(mapEnToTextureNames["en"][textureInfo[i]]);
+    textureNames.push(mapEnToTextureNames["en"][textureInfo[i].slice(0,1)]);
   }
   return textureNames;
 }

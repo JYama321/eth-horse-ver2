@@ -1,12 +1,20 @@
 import React,{Component} from 'react';
 import HorseImage from '../HorseImage/'
 import daen from '../../assets/static_assets/daen.png';
+import {mapGeneToTexture} from "../../utils/mapGeneToTextures";
 import {styles,STYLE} from './styles';
 import rankKing from '../../assets/static_assets/rank-king.png'
 import { Link } from 'react-router-dom';
 import {horseStatus} from "../../utils/functions";
+import icon from '../../assets/texture_icons/g.png'
+import PropTypes from 'prop-types'
 
 export default class HorseStatusCard extends Component{
+  static propTypes = {
+    info: PropTypes.array.isRequired,
+    isMyHorse: PropTypes.bool,
+    isLeft: PropTypes.bool
+  }
   buyHorse(){
 
   }
@@ -19,34 +27,28 @@ export default class HorseStatusCard extends Component{
     if(this.props.isMyHorse){
       return(
           <div style={styles(this.props).horseStatusCard}>
-            <Link to={"/horses/" + this.props.info[0].toNumber()}>
-              <HorseImage
-                  type="normal"
-                  horseGene={this.props.info ? this.props.info[1].c.join(',').replace(/,/g,'') : undefined}
-              />
-            </Link>
-            <div style={styles(this.props).horseStatus}>
-              <b style={STYLE.horseName}>{this.props.info ? this.props.info[2] : ''}</b>
-              <div style={styles(this.props).powerTotal}>
-                <p style={styles(this.props).powerTotalP}>power total</p>
-                <p style={STYLE.powerNum}>{this.returnStatus().powerTotal}</p>
-                <img
-                    style={styles(this.props).powerImg}
-                    src={daen}
+            <div style={STYLE.horseImageBack} className='horse-back'>
+              <Link to={"/horses/" + this.props.info[0].toNumber()}>
+                <HorseImage
+                    type="normal"
+                    horseGene={this.props.info ? this.props.info[1].c.join(',').replace(/,/g,'') : undefined}
                 />
+              </Link>
+              <div style={styles(this.props).powerTotal}>
+                <p style={styles(this.props).powerTotalP}>power total: {this.returnStatus().powerTotal}</p>
               </div>
-              <div style={STYLE.horsePowerDiagram}>
-                <span className="strength-param" style={STYLE.strengthParam(Math.ceil(this.returnStatus().params[0] / 1000 * 20))}></span>
-                <span className="speed-param" style={STYLE.speedParam(Math.ceil(this.returnStatus().params[1] / 1000 * 20))}></span>
-                <span className="stamina-param" style={STYLE.staminaParam(Math.ceil(this.returnStatus().params[2] / 1000 * 20))}></span>
-                <span className="intelligence-param" style={STYLE.intelligenceParam(Math.ceil(this.returnStatus().params[3] / 1000 * 20))}></span>
-                <span className="luck-param" style={STYLE.luckParam(Math.ceil(this.returnStatus().params[4] / 1000 * 20))}></span>
-              </div>
+            </div>
+            <div style={styles(this.props).horseStatus}>
+              <div style={STYLE.horseName}><b>{this.props.info ? this.props.info[2] : ''}</b></div>
               <div style={STYLE.horseStats}>
                 <img
-                    src={rankKing}
+                    src={icon}
+                    style={STYLE.iconImg}
                 />
-                <p style={STYLE.horseStatsP}>Rarity high / Type pair</p>
+                <img
+                    src={rankKing}
+                    style={STYLE.rankImg}
+                />
               </div>
             </div>
           </div>
@@ -63,19 +65,7 @@ export default class HorseStatusCard extends Component{
             <div className="horse-status-myhorse">
               <b style={STYLE.horseName}>{this.props.info ? this.props.info[2] : ''}</b>
               <div style={styles(this.props).powerTotal}>
-                <p style={styles(this.props).powerTotalP}>power total</p>
-                <p style={STYLE.powerNum}>{this.returnStatus().powerTotal}</p>
-                <img
-                    style={styles(this.props).powerImg}
-                    src={daen}
-                />
-              </div>
-              <div style={STYLE.horsePowerDiagram}>
-                <span className="strength-param" style={STYLE.strengthParam(Math.ceil(this.returnStatus().params[0] / 1000 * 20))}></span>
-                <span className="speed-param" style={STYLE.speedParam(Math.ceil(this.returnStatus().params[1] / 1000 * 20))}></span>
-                <span className="stamina-param" style={STYLE.staminaParam(Math.ceil(this.returnStatus().params[2] / 1000 * 20))}></span>
-                <span className="intelligence-param" style={STYLE.intelligenceParam(Math.ceil(this.returnStatus().params[3] / 1000 * 20))}></span>
-                <span className="luck-param" style={STYLE.luckParam(Math.ceil(this.returnStatus().params[4] / 1000 * 20))}></span>
+                <p style={styles(this.props).powerTotalP}>power total: {this.returnStatus().powerTotal}</p>
               </div>
               <div className="horse-rank-stats">
                 <img

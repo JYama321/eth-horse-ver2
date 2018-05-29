@@ -69,3 +69,7 @@ code {
   height: 16px;
   margin-right: 10px;
 }
+
+.horse-back{
+  background-image: url("./assets/static_assets/horse-back.png");
+}

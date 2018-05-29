@@ -17,6 +17,7 @@ import {
 } from "./selectors";
 import HorseStatusCard from '../../components/HorseStatusCard'
 import Pagination from '../../components/Pagination'
+import loadingGif from '../../assets/static_assets/umaloading.gif'
 
 
 class MyPageHorses extends Component{
@@ -59,7 +60,14 @@ class MyPageHorses extends Component{
         )
       }else{
         return(
-            <h1 key={'loading-'+index}>Loading{elem.toNumber()}</h1>
+            <img
+                key={'loading-'+index}
+                src={loadingGif}
+                style={{
+                  width: '200px',
+                  height: '200px'
+                }}
+            />
         )
       }
     })

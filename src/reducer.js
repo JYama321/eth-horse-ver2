@@ -17,7 +17,13 @@ import {
   START_LOAD_WIN_COUNT_HORSE_ARRAY,
   LOAD_WIN_COUNT_ARRAY_SUCCESS,
   LOAD_WIN_COUNT_ARRAY_FAILED,
-  MOVE_WIN_COUNT_RANK_PAGE
+  MOVE_WIN_COUNT_RANK_PAGE,
+  START_GET_HORSE_INFO,
+  GET_HORSE_INFO_FAILED,
+  GET_MAMA_INFO_SUCCESS,
+  GET_MAMA_INFO_FAILED,
+  GET_PAPA_INFO_FAILED,
+  GET_PAPA_INFO_SUCCESS
 } from "./actionTypes";
 
 const globalState = fromJS({
@@ -63,7 +69,11 @@ const globalState = fromJS({
   checkedRaceArray: [], // already end race
 
   location: null,
-  horseIdToHorseInfo: {}
+  horseIdToHorseInfo: {},
+  isHorseInfoLoading: true,
+  currentSearchHorseId: 0,
+  isPapaLoading: true,
+  isMamaLoading: true
 });
 
 function globalReducer(state = globalState ,action){
@@ -75,11 +85,11 @@ function globalReducer(state = globalState ,action){
     case FAIL_LOAD_MY_HORSES_ARRAY:
       return state.set('isMyHorseArrayLoading', false);
     case GET_HORSE_INFO:
-      const horse = state.get('horseIdToHorseInfo').get(action.data.id);
+      const horse = state.get('horseIdToHorseInfo').get(String(action.data.id));
       if(horse){
         return state
       } else {
-        return state.set('horseIdToHorseInfo',state.get('horseIdToHorseInfo').set(String(action.data.id),action.data.horse))
+        return state.set('horseIdToHorseInfo',state.get('horseIdToHorseInfo').set(String(action.data.id),action.data.horse)).set('isHorseInfoLoading',false)
       }
     case MOVE_MY_PAGE_PAGE:
       return state.set('myHorsePageCurrentPage',action.data);
@@ -107,6 +117,18 @@ function globalReducer(state = globalState ,action){
       return state.set('horseWinCountArrayLoading', false);
     case MOVE_WIN_COUNT_RANK_PAGE:
       return state.set('rankWinCountCurrentPage', action.data);
+    case START_GET_HORSE_INFO:
+      return state.set('isHorseInfoLoading',true).set('currentSearchHorseId',action.data);
+    case GET_HORSE_INFO_FAILED:
+      return state.set('GET_HORSE_INFO_FAILED', false);
+    case GET_MAMA_INFO_SUCCESS:
+      return state.set('isMamaLoading', false);
+    case GET_MAMA_INFO_FAILED:
+      return state.set('isMamaLoading', false);
+    case GET_PAPA_INFO_SUCCESS:
+      return state.set('isPapaLoading', false);
+    case GET_PAPA_INFO_FAILED:
+      return state.set('isPapaLoading', false);
     default:
       return state;
   }

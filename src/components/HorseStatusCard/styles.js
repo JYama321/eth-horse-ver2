@@ -1,25 +1,27 @@
 export const styles = (props) =>  ({
   horseStatusCard: {
-    width: '228px',
-    height: '415px',
+    width: '225px',
+    height: '275px',
     marginLeft: props.isLeft ? '0' : '56px',
+    marginBottom: '3%'
   },
   horseStatus: {
     width: '228px',
-    height: '225px',
+    height: '30px',
     textAlign: 'left',
     fontSize: '21px',
-    marginTop: '21px'
+    display: 'flex'
   },
   powerTotal: {
-    height: '30px',
+    height: '20px',
     width: '100%',
-    marginTop: '30px',
-    position: 'relative',
-    fontSize: '15px'
+    position: 'absolute',
+    fontSize: '15px',
+    bottom: '14px',
+    textAlign: 'center'
   },
   powerTotalP: {
-    lineHeight: '30px'
+    lineHeight: '20px'
   },
   powerImg: {
     position: 'absolute',
@@ -27,7 +29,7 @@ export const styles = (props) =>  ({
     top: 0,
     height: '30px',
     width: 'auto'
-  }
+  },
 });
 
 export const STYLE = {
@@ -37,14 +39,13 @@ export const STYLE = {
     fontSize: '15px',
     lineHeight: '30px',
     top: 0,
-    color: 'white',
+    color: 'black',
     zIndex: 3,
   },
   horseStats: {
     height: '30px',
-    width: '100%',
+    width: '30%',
     position: 'relative',
-    marginTop: '21px'
   },
   horseStatsP: {
     fontSize: '15px',
@@ -54,13 +55,19 @@ export const STYLE = {
   },
   horseName: {
     fontSize: '21px',
-    marginTop: '27px'
+    width: '70%'
   },
   horsePowerDiagram: {
     height: '30px',
     width: '100%',
     position: 'relative',
     marginTop: '14px'
+  },
+  horseImageBack: {
+    width: '225px',
+    height: '225px',
+    backgroundSize: '225px 225px',
+    position: 'relative'
   },
   strengthParam: function(width){
     return ({
@@ -101,5 +108,19 @@ export const STYLE = {
       float: 'left',
       backgroundColor: 'rgba(0,0,0,1)'
     })
+  },
+  iconImg: {
+    width: '25px',
+    height: '25px',
+    right: '35px',
+    bottom: '0px',
+    position: 'absolute'
+  },
+  rankImg: {
+    width: '25px',
+    height: '28px',
+    position: 'absolute',
+    right: '0px',
+    bottom: '0px'
   }
 };
