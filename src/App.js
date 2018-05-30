@@ -12,6 +12,8 @@ import Header from './components/Header/'
 import {Route} from 'react-router-dom'
 import MyPageHorses from './containers/MyPage-horses/'
 import HorseInfo from './containers/Info-horse/'
+import SireHorsePage from './containers/SireHorsePage/'
+
 const address = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
 class App extends Component {
   constructor (props) {
@@ -59,6 +61,7 @@ class App extends Component {
             <Route exact path='/'/>
             <Route exact path='/my-horses' component={MyPageHorses}/>
             <Route exact path='/horses/:id' component={HorseInfo}/>
+            <Route exact path='/horses/:id/sire' component={SireHorsePage}/>
           </div>
       )
     }else{

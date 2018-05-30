@@ -47,6 +47,5 @@ export const parentsInfoStyle = {
     height: '240px',
     backgroundSize: '320px 240px',
     border: '1px solid rgba(0,0,0,0.5)',
-
-  }
+  },
 };

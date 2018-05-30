@@ -42,6 +42,59 @@ export const horseInfoStyles = {
     width: '100%',
     lineHeight: '20px',
     bottom: '56px',
+  },
+  sellHorseModalButton: {
+    width: '90px',
+    height: '20px',
+    backgroundSize: '90px 20px',
+    position: 'absolute',
+    right: '30px',
+    bottom: '30px',
+    color: 'white',
+    fontSize: '15px',
+    lineHeight: '20px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    outline: 'none'
+  },
+  sireHorseButton: {
+    width: '80px',
+    height: '20px',
+    backgroundSize: '80px 20px',
+    position: 'absolute',
+    right: '240px',
+    top: '30px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    outline: 'none',
+    lineHeight: '20px',
+    fontSize: '14px'
+  },
+  trainHorseButton: {
+    width: '80px',
+    height: '20px',
+    backgroundSize: '80px 20px',
+    position: 'absolute',
+    right: '140px',
+    top: '30px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    outline: 'none',
+    lineHeight: '20px',
+    fontSize: '14px'
+  },
+  joinRaceButton: {
+    width: '80px',
+    height: '20px',
+    backgroundSize: '80px 20px',
+    position: 'absolute',
+    right: '40px',
+    top: '30px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    outline: 'none',
+    lineHeight: '20px',
+    fontSize: '14px'
   }
 
 };

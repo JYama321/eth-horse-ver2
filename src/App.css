@@ -46,6 +46,7 @@ code {
   font-family: 'GoudyOldstyle-Regular', 'Arial Narrow', sans-serif;
 }
 
+
 .navbar a {
   color: #fff;
 }
@@ -71,5 +72,13 @@ code {
 }
 
 .horse-back{
-  background-image: url("./assets/static_assets/horse-back.png");
+  background-image: url("./assets/static_assets/horse-back2.png");
+}
+
+.sellHorseButton{
+  background-image: url("./assets/static_assets/sq.png");
+}
+
+.button-back-transparent{
+  background-image: url("./assets/static_assets/buton-back-transparent.png");
 }

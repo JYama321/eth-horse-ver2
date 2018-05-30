@@ -17,10 +17,19 @@ import saga from './saga'
 import injectSaga from '../../utils/injectSaga'
 
 class HorseInfo extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      isOpenSireModal: false
+    }
+  }
   componentDidMount(){
     if(!this.props.horseIdToInfo.get(this.props.match.params.id)){
       this.props.startGetHorseInfo(this.props.match.params.id)
     }
+  }
+  moveToSire(){
+    this.props.history.push('/horses/' + this.props.match.params.id + '/sire')
   }
   render () {
     if(!this.props.isHorseInfoLoading){
@@ -34,7 +43,25 @@ class HorseInfo extends Component{
               </div>
               <div style={horseInfoStyles.horseInfoRight}>
                 <div style={horseInfoStyles.horseImageBack} className='horse-back'>
+                  <button
+                      style={horseInfoStyles.sireHorseButton}
+                      className='button-back-transparent'
+                      onClick={()=>this.moveToSire()}
+                  >Sire Horse</button>
+                  <button
+                      style={horseInfoStyles.trainHorseButton}
+                      className='button-back-transparent'
+                  >training</button>
+                  <button
+                      style={horseInfoStyles.joinRaceButton}
+                      className='button-back-transparent'
+                  >join race+</button>
                   <HorseImage type={'large'} horseGene={this.props.horseIdToInfo.get(this.props.match.params.id) ? this.props.horseIdToInfo.get(this.props.match.params.id)[1].c.join(',').replace(/,/g,'') : '000000000'}/>
+                  <button
+                      style={horseInfoStyles.sellHorseModalButton}
+                      className='sellHorseButton'
+                      onClick={()=>this.props.history.push('/horses/' + this.props.match.params.id + '/sell')}
+                  >Sell Horse</button>
                 </div>
                 <div style={horseInfoStyles.horseParentsContainer}>
                   <div style={horseInfoStyles.horseParentsTop}>

@@ -46,4 +46,11 @@ export const getHorseData = (horseId) => {
   })
 };
 
-
+export const horseToOnSale = (horseId,price) => {
+  return new Promise((resolve,reject) => {
+    window.contract_instance.horseTokenToOnSale(horseId,window.web3.toWei(price,'ether'),function(err,result){
+      if(err) {reject(err)}
+      resolve(result)
+    })
+  })
+};

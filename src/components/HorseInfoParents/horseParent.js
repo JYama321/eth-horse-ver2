@@ -4,6 +4,7 @@ import HorseImage from '../../components/HorseImage/'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+
 export default class Parent extends Component {
   static propTypes={
     gene: PropTypes.string.isRequired,
