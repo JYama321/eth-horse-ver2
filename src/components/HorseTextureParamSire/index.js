@@ -8,7 +8,7 @@ export default function HorseTextureParamSire(props){
         <p style={styles.bottomTexText}>
           {types[props.num]}&nbsp;/
           <span style={styles.texRight}>
-          <img src={require(`../../assets/texture_icons/${mapGeneToTexture(props.gene)[0].slice(0,1)}.png`)} style={styles.bottomIconImg}/>
+          <img src={require(`../../assets/texture_icons/${mapGeneToTexture(props.gene)[props.num].slice(0,1)}.png`)} style={styles.bottomIconImg}/>
             &nbsp;{mapGeneToTextureName(props.gene)[props.num]} /
             &nbsp;<img src={require('../../assets/static_assets/rank-king.png')} style={styles.bottomRankImg}/>
             &nbsp;rarity normal

@@ -23,3 +23,4 @@ export const GET_MAMA_INFO_SUCCESS='getMamaInfoSuccess';
 export const GET_PAPA_INFO_SUCCESS='getPapaInfo';
 export const GET_MAMA_INFO_FAILED='getMamaInfoFailed';
 export const GET_PAPA_INFO_FAILED='getPapaInfoFailed';
+export const SET_CURRENT_SIRE_HORSE_ID='setCurrentSireHorseId';

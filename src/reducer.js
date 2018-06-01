@@ -23,7 +23,8 @@ import {
   GET_MAMA_INFO_SUCCESS,
   GET_MAMA_INFO_FAILED,
   GET_PAPA_INFO_FAILED,
-  GET_PAPA_INFO_SUCCESS
+  GET_PAPA_INFO_SUCCESS,
+  SET_CURRENT_SIRE_HORSE_ID
 } from "./actionTypes";
 
 const globalState = fromJS({
@@ -73,6 +74,7 @@ const globalState = fromJS({
   horseIdToHorseInfo: {},
   isHorseInfoLoading: true,
   currentSearchHorseId: 0,
+  currentSireHorseId: 0,
   isPapaLoading: true,
   isMamaLoading: true
 });
@@ -120,6 +122,8 @@ function globalReducer(state = globalState ,action){
       return state.set('rankWinCountCurrentPage', action.data);
     case START_GET_HORSE_INFO:
       return state.set('isHorseInfoLoading',true).set('currentSearchHorseId',action.data);
+    case SET_CURRENT_SIRE_HORSE_ID:
+      return state.set('currentSireHorseId', action.data);
     case GET_HORSE_INFO_FAILED:
       return state.set('GET_HORSE_INFO_FAILED', false);
     case GET_MAMA_INFO_SUCCESS:

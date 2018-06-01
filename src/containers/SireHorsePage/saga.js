@@ -11,7 +11,8 @@ import {
 } from "./actions";
 import {
   selectHorseIdArray,
-  selectCurrentPage
+  selectCurrentPage,
+  selectCurrentSireHorseId,
 } from "./selectors";
 import {
   getMyHorsesArray,
@@ -30,8 +31,11 @@ export function* getMyHorseArray(){
 export function* batchGetHorseInfo(){
   try{
     const idArray = yield select(selectHorseIdArray());
+    const currentHorseId = yield select(selectCurrentSireHorseId());
+    console.log(currentHorseId);
+    const filteredArray = idArray.filter(elem => elem.toNumber() !== currentHorseId).slice(0,3);
     const currentPage = yield select(selectCurrentPage());
-    const arr = idArray.toArray().slice(3*(currentPage-1),3*currentPage);
+    const arr = filteredArray.toArray().slice(3*(currentPage-1),3*currentPage);
     for(let i=0;i<arr.length;i++){
       const horse = yield call(getHorseData,arr[i].toNumber());
       yield put(getHorseInfoSuccess(horse));

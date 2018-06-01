@@ -3,7 +3,8 @@ import {
   GET_MY_HORSES_ARRAY_SUCCESS,
   FAIL_LOAD_MY_HORSES_ARRAY,
   GET_HORSE_INFO,
-  START_GET_HORSE_INFO
+  START_GET_HORSE_INFO,
+  SET_CURRENT_SIRE_HORSE_ID
 } from '../../actionTypes'
 
 export const startLoadMyHorseArray = () => ({
@@ -25,6 +26,11 @@ export const getHorseInfoSuccess = (data) => ({
     id: data[0].toNumber(),
     horse: data
   }
+});
+
+export const setSireHorseId = (id) => ({
+  type: SET_CURRENT_SIRE_HORSE_ID,
+  data: id
 });
 
 

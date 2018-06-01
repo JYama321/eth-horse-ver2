@@ -10,11 +10,13 @@ import HorseTextureParamSire from '../../components/HorseTextureParamSire'
 import {
   selectHorseIdToHorseInfo,
   selectHorseIdArray,
-  selectHorseArrayLoading
+  selectHorseArrayLoading,
+  selectCurrentSireHorseId
 } from "./selectors";
 import {
   startLoadMyHorseArray,
-  getHorseInfoSuccess
+  getHorseInfoSuccess,
+  setSireHorseId
 } from './actions'
 import { getHorseData } from "../../utils/eth-function";
 import HorseStatusCard from '../../components/HorseStatusCard/'
@@ -22,7 +24,6 @@ import { createStructuredSelector } from 'reselect';
 import loadingGif from '../../assets/static_assets/umaloading.gif'
 import saga from './saga'
 import injectSaga from "../../utils/injectSaga";
-import {horseInfoLeftBottom} from "../../components/HorseInfoLeftParameterBottom/horseInfoLeftBottom";
 
 class SireHorsePage extends Component{
   constructor(props){
@@ -33,10 +34,13 @@ class SireHorsePage extends Component{
     }
   }
   async componentDidMount(){
+    if(Number(this.props.match.params.id) !== this.props.currentSireHorseId){
+      this.props.setCurrentSireHorseId(Number(this.props.match.params.id))
+    }
     if(!this.props.isMyHorseArrayLoadDone){
       this.props.horseArrayLoadStart()
     }
-    const sireHorse = this.props.horseIdToInfo.get(this.props.match.params.id)
+    const sireHorse = this.props.horseIdToInfo.get(this.props.match.params.id);
     if(sireHorse){
       this.setState({
         sireHorseInfoLoaded: true
@@ -51,7 +55,7 @@ class SireHorsePage extends Component{
   }
   renderHorses(){
     const self = this;
-    const array = this.props.horseIdArray ? this.props.horseIdArray.slice(3*(this.state.currentPage-1),3*this.state.currentPage) : [];
+    const array = this.props.horseIdArray ? this.props.horseIdArray.filter(elem => elem.toNumber() !== Number(this.props.match.params.id)).slice(3*(this.state.currentPage-1),3*this.state.currentPage) : [];
     return array.map((elem,index) => {
       const horse = self.props.horseIdToInfo.get(String(elem.toNumber())) ? self.props.horseIdToInfo.get(String(elem.toNumber())) : null;
       if(horse) {
@@ -100,7 +104,8 @@ class SireHorsePage extends Component{
       const id = this.props.match.params.id;
       const horse = this.props.horseIdToInfo.get(id);
       const gene = horse[1].c.join(',').replace(/,/g,'');
-      const powerGene = gene.slice(gene.length-15,gene.length)
+      const powerGene = gene.slice(gene.length-15,gene.length);
+      const texGene = gene.slice(gene.length-38,gene.length-20);
       return (
           <div style={sellHorseModalStyle.modalContainer}>
             <div style={sellHorseModalStyle.modalContent}>
@@ -142,11 +147,11 @@ class SireHorsePage extends Component{
                           Rarity high / Type pair
                         </p>
                         <div style={sellHorseModalStyle.textureStatsContainer}>
-                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={gene} num={0}/>
-                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={gene} num={1}/>
-                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={gene} num={2}/>
-                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={gene} num={3}/>
-                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={gene} num={4}/>
+                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={texGene} num={0}/>
+                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={texGene} num={1}/>
+                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={texGene} num={2}/>
+                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={texGene} num={3}/>
+                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={texGene} num={4}/>
                         </div>
                       </div>
                     </div>
@@ -170,11 +175,13 @@ class SireHorsePage extends Component{
 const mapStateToProps = () => createStructuredSelector({
   horseIdToInfo: selectHorseIdToHorseInfo(),
   horseIdArray: selectHorseIdArray(),
-  isMyHorseArrayLoadDone: selectHorseArrayLoading()
+  isMyHorseArrayLoadDone: selectHorseArrayLoading(),
+  currentSireHorseId: selectCurrentSireHorseId()
 });
 const mapDispatchToProps = (dispatch) => ({
   horseArrayLoadStart: ()=>dispatch(startLoadMyHorseArray()),
-  getHorseDataSuccess: (horse)=>dispatch(getHorseInfoSuccess(horse))
+  getHorseDataSuccess: (horse)=>dispatch(getHorseInfoSuccess(horse)),
+  setCurrentSireHorseId: (id) => dispatch(setSireHorseId(id))
 });
 
 const withConnect = connect(mapStateToProps,mapDispatchToProps);
