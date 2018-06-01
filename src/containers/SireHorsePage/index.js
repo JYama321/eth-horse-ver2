@@ -4,6 +4,9 @@ import {connect} from 'react-redux'
 import { compose } from 'redux'
 import HorseImage from '../../components/HorseImage/'
 import HorseStatusGragh from '../../components/HorseStatusGragh'
+import HorseStatusParamImages from '../../components/HorseStatusParamImages'
+import SireRaceNum from '../../components/HorseStatusSireRaceNum'
+import HorseTextureParamSire from '../../components/HorseTextureParamSire'
 import {
   selectHorseIdToHorseInfo,
   selectHorseIdArray,
@@ -19,6 +22,7 @@ import { createStructuredSelector } from 'reselect';
 import loadingGif from '../../assets/static_assets/umaloading.gif'
 import saga from './saga'
 import injectSaga from "../../utils/injectSaga";
+import {horseInfoLeftBottom} from "../../components/HorseInfoLeftParameterBottom/horseInfoLeftBottom";
 
 class SireHorsePage extends Component{
   constructor(props){
@@ -111,11 +115,41 @@ class SireHorsePage extends Component{
                     {horse[2]}
                   </p>
                   <div style={sellHorseModalStyle.sireHorseStatus}>
-                    <p style={sellHorseModalStyle.sireHorsePowerTotal}>power total : {this.powerTotal(powerGene)}</p>
-                    <HorseStatusGragh
-                        gene={powerGene}
-                        style={sellHorseModalStyle.horseParamDiagram}
-                    />
+                    <div style={sellHorseModalStyle.sireHorseStatusComponent}>
+                      <p style={sellHorseModalStyle.sireHorsePowerTotal}>power total : {this.powerTotal(powerGene)}</p>
+                      <HorseStatusGragh
+                          gene={powerGene}
+                          style={sellHorseModalStyle.horseParamDiagram}
+                      />
+                      <HorseStatusParamImages
+                          gene={powerGene}
+                          style={sellHorseModalStyle.statusParamDiagram}
+                      />
+                      <SireRaceNum
+                          style={sellHorseModalStyle.sireAndRaceNum}
+                          sireIndex={horse[6].toNumber()}
+                          raceIndex={horse[7].toNumber()}
+                      />
+                    </div>
+                    <div style={sellHorseModalStyle.sireHorseStatusComponent}>
+                      <div style={sellHorseModalStyle.sireHorseRightContainer}>
+                        <p style={sellHorseModalStyle.rarity}>
+                          <img
+                              style={sellHorseModalStyle.rarityImg}
+                              src={require('../../assets/static_assets/rank-king.png')}
+                          />
+                          &nbsp;
+                          Rarity high / Type pair
+                        </p>
+                        <div style={sellHorseModalStyle.textureStatsContainer}>
+                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={gene} num={0}/>
+                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={gene} num={1}/>
+                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={gene} num={2}/>
+                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={gene} num={3}/>
+                          <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={gene} num={4}/>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

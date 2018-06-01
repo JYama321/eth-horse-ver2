@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {hILeftParamStyle} from "./horseInfoLeftParamStyle";
 import PropTypes from 'prop-types'
 import HorseStatusGragh from '../HorseStatusGragh'
+import HorseStatusParamImages from '../HorseStatusParamImages'
+import SireRaceNum from '../HorseStatusSireRaceNum'
 class HorseInfoLeftParameters extends Component{
   static propTypes={
     gene: PropTypes.string.isRequired,
@@ -30,37 +32,8 @@ class HorseInfoLeftParameters extends Component{
               gene={gene}
               style={hILeftParamStyle.horseParamDiagram}
           />
-          <div style={hILeftParamStyle.statusParamDiagram}>
-            <p style={hILeftParamStyle.statusParamDiagramP}>
-              <img src={require('../../assets/static_assets/power-square.png')}/>
-              &nbsp; strength
-              <span style={hILeftParamStyle.statusParamNum}>{Math.ceil(Number(gene.slice(0,3)) / 100)}</span>
-            </p>
-            <p style={hILeftParamStyle.statusParamDiagramP}>
-              <img src={require('../../assets/static_assets/power-square2.png')}/>
-              &nbsp; speed
-              <span style={hILeftParamStyle.statusParamNum}>{Math.ceil(Number(gene.slice(3,6)) / 100)}</span>
-            </p>
-            <p style={hILeftParamStyle.statusParamDiagramP}>
-              <img src={require('../../assets/static_assets/power-square3.png')}/>
-              &nbsp; stamina
-              <span style={hILeftParamStyle.statusParamNum}>{Math.ceil(Number(gene.slice(6,9)) / 100)}</span>
-            </p>
-            <p style={hILeftParamStyle.statusParamDiagramP}>
-              <img src={require('../../assets/static_assets/power-square4.png')}/>
-              &nbsp; intelligence
-              <span style={hILeftParamStyle.statusParamNum}>{Math.ceil(Number(gene.slice(9,12)) / 100)}</span>
-            </p>
-            <p style={hILeftParamStyle.statusParamDiagramP}>
-              <img src={require('../../assets/static_assets/power-square5.png')}/>
-              &nbsp; luck
-              <span style={hILeftParamStyle.statusParamNum}>{Math.ceil(Number(gene.slice(12,15)) / 100)}</span>
-            </p>
-          </div>
-          <div style={hILeftParamStyle.sireAndRaceNum}>
-            <p style={hILeftParamStyle.sireRaceNumP}>Remaining Sire Number<span style={hILeftParamStyle.statusParamNum}>{this.props.sireIndex}</span></p>
-            <p style={hILeftParamStyle.sireRaceNumP}>Remaining Race Number<span style={hILeftParamStyle.statusParamNum}>{this.props.raceIndex}</span></p>
-          </div>
+          <HorseStatusParamImages gene={gene} style={hILeftParamStyle.statusParamDiagram}/>
+          <SireRaceNum style={hILeftParamStyle.sireAndRaceNum} sireIndex={this.props.sireIndex} raceIndex={this.props.raceIndex}/>
         </div>
     )
   }

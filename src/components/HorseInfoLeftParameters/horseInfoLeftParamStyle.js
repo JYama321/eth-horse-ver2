@@ -38,21 +38,6 @@ export const hILeftParamStyle = {
     borderBottom: '2px solid rgba(0,0,0,0.5)',
     position: 'relative'
   },
-  statusParamDiagramP: {
-    width: '100%',
-    height: '20%',
-    lineHeight: '20px',
-    fontSize: '15px',
-    position: 'relative'
-  },
-  statusParamImg: {
-    height: '20px',
-    width: '20px',
-  },
-  statusParamNum: {
-    position: 'absolute',
-    right: 0
-  },
   sireAndRaceNum: {
     width: '300px',
     height: '30px',

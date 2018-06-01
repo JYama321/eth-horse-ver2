@@ -37,19 +37,6 @@ export const horseInfoLeftBottom = {
     width: '100%',
     height: '60px'
   },
-  bottomTexTop: {
-    fontSize: '18px',
-    lineHeight: '30px',
-    height: '30px'
-  },
-  bottomTexText: {
-    fontSize: '15px',
-    lineHeight: '20px'
-  },
-  bottomIconImg: {
-    width: '15px',
-    height: '15px'
-  },
   bottomRankImg: {
     width: '20px',
     height: '20px'

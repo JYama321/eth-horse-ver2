@@ -36,7 +36,8 @@ export const sellHorseModalStyle = {
     width: '700px',
     height: '330px',
     position: 'relative',
-    top: '36px'
+    display: 'flex',
+    flexWrap: 'wrap'
   },
   sireHorseName: {
     width: '100%',
@@ -48,8 +49,9 @@ export const sellHorseModalStyle = {
   },
   sireHorsePowerTotal: {
     fontSize: '21px',
-    height: '21px',
+    height: '30px',
     width: '100%',
+    marginTop: '18px',
     textAlign: 'left'
   },
   sireHorseStatusParams: {
@@ -57,9 +59,39 @@ export const sellHorseModalStyle = {
     height: '260px',
     display: 'flex'
   },
-  sireHorseStatusLeft: {
+  sireHorseStatusComponent: {
     width: '50%',
-    height: '100%',
+    height: '300px'
+  },
+  sireHorseRightContainer: {
+    width: '320px',
+    height: '265px'
+  },
+  rarity: {
+    position: 'relative',
+    width: '100%',
+    height: '30px',
+    textAlign: 'left',
+    fontSize: '21px',
+    lineHeight: '30px',
+    marginTop: '18px'
+  },
+  rarityImg: {
+    width: '25px',
+    height: '25px'
+  },
+  textureStatsContainer: {
+    width: '320px',
+    height: '238px',
+    position: 'relative',
+    marginTop: '35px'
+  },
+  bottomTexContainer: {
+    position: 'relative',
+    width: '100%',
+    height: '20px',
+    fontSize: '15px',
+    marginTop: '30px'
   },
   sireHorseList: {
     width: '1080px',
@@ -100,8 +132,20 @@ export const sellHorseModalStyle = {
   },
   horseParamDiagram: {
     height: '30px',
-    width: '100%',
+    width: '300px',
     position: 'relative',
     marginTop: '35px'
+  },
+  statusParamDiagram: {
+    width: '300px',
+    height: '100px',
+    marginTop: '17px',
+    position: 'relative'
+  },
+  sireAndRaceNum: {
+    width: '300px',
+    height: '30px',
+    marginTop: '35px',
+    position: 'relative'
   },
 };
