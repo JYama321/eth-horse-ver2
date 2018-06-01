@@ -1,9 +1,9 @@
 
-
 export const getMyHorsesArray = () => {
   return new Promise((resolve, reject) => {
     window.contract_instance.ownedTokensIds(window.web3.eth.coinbase,function(err,result){
       if(err){console.log(err)}
+      console.log(result,'getMyHorseArray')
       resolve(result)
     })
   })
@@ -31,7 +31,6 @@ export const getHorseGeneArray = () => {
   return new Promise((resolve,reject) => {
     window.contract_instance.getHorseGenesArray(function(err, result){
       if(err){reject(err)}
-      console.log(result)
       resolve(result)
     })
   })

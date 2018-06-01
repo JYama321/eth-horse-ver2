@@ -32,7 +32,9 @@ class MyPageHorses extends Component{
   }
 
   componentDidMount(){
-    this.props.horseArrayLoadStart()
+    if(!this.props.horseArrayLoadDone){
+      this.props.horseArrayLoadStart()
+    }
   }
 
   componentWillReceiveProps(props,state){
@@ -82,7 +84,7 @@ class MyPageHorses extends Component{
   }
 
   render(){
-    if(!this.props.horseArrayLoading){
+    if(this.props.horseArrayLoadDone){
       return(
           <div style={styles.outerContainer}>
             <div style={styles.innerContainer}>
@@ -103,7 +105,7 @@ class MyPageHorses extends Component{
 }
 
 const mapStateToProps = createStructuredSelector({
-  horseArrayLoading: selectHorseArrayLoading(),
+  horseArrayLoadDone: selectHorseArrayLoading(),
   horseArray: selectHorseArray(),
   horseIdArray: selectHorseIdArray(),
   horseIdToInfo: selectHorseIdToHorseInfo()

@@ -27,7 +27,8 @@ import {
 } from "./actionTypes";
 
 const globalState = fromJS({
-  isMyHorseArrayLoading: false,
+  isMyHorseArrayLoadDone: false,
+  isMySireHorseArrayLoading: false,
   myHorseIdArray: [], //my horse
   myHorsePageCurrentPage: 1,
 
@@ -79,11 +80,11 @@ const globalState = fromJS({
 function globalReducer(state = globalState ,action){
   switch (action.type){
     case START_LOAD_MY_HORSES_ARRAY:
-      return state.set('isMyHorseArrayLoading',true);
+      return state.set('isMyHorseArrayLoadDone',false);
     case GET_MY_HORSES_ARRAY_SUCCESS:
-      return state.set('myHorseIdArray',List(action.data)).set('isMyHorseArrayLoading',false);
+      return state.set('myHorseIdArray',List(action.data)).set('isMyHorseArrayLoadDone',true);
     case FAIL_LOAD_MY_HORSES_ARRAY:
-      return state.set('isMyHorseArrayLoading', false);
+      return state.set('isMyHorseArrayLoadDone', false);
     case GET_HORSE_INFO:
       const horse = state.get('horseIdToHorseInfo').get(String(action.data.id));
       if(horse){

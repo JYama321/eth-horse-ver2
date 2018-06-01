@@ -3,7 +3,7 @@ import {
   GET_MY_HORSES_ARRAY_SUCCESS,
   FAIL_LOAD_MY_HORSES_ARRAY,
   GET_HORSE_INFO,
-  MOVE_MY_PAGE_PAGE
+  START_GET_HORSE_INFO
 } from '../../actionTypes'
 
 export const startLoadMyHorseArray = () => ({
@@ -26,4 +26,5 @@ export const getHorseInfoSuccess = (data) => ({
     horse: data
   }
 });
+
 

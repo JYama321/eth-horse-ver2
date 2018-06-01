@@ -19,9 +19,9 @@ import {
 } from '../../utils/eth-function'
 
 export function* getMyHorseArray(){
+  console.log('getMyHorseArray');
   try{
     const horsesArray = yield call(getMyHorsesArray);
-    console.log(horsesArray);
     yield put(getMyHorseArraySuccess(horsesArray))
   }catch (err){
     yield put(failGetMyHorseArray())

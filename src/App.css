@@ -82,3 +82,11 @@ code {
 .button-back-transparent{
   background-image: url("./assets/static_assets/buton-back-transparent.png");
 }
+
+.sire-horse-back{
+  background-image: url("./assets/static_assets/horse-back.png")
+}
+
+.sire-horse-button{
+  background-image: url("./assets/static_assets/sq.png");
+}

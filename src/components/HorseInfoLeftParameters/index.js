@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {hILeftParamStyle} from "./horseInfoLeftParamStyle";
 import PropTypes from 'prop-types'
-
+import HorseStatusGragh from '../HorseStatusGragh'
 class HorseInfoLeftParameters extends Component{
   static propTypes={
     gene: PropTypes.string.isRequired,
@@ -26,13 +26,10 @@ class HorseInfoLeftParameters extends Component{
           <p style={hILeftParamStyle.powerTotalTex}>
             power total : {this.totalPower()}
           </p>
-          <div style={hILeftParamStyle.horseParamDiagram}>
-            <span style={hILeftParamStyle.strengthParam(Number(gene.slice(0,3)),0.2)}></span>
-            <span style={hILeftParamStyle.strengthParam(Number(gene.slice(3,6)),0.4)}></span>
-            <span style={hILeftParamStyle.strengthParam(Number(gene.slice(6,9)),0.6)}></span>
-            <span style={hILeftParamStyle.strengthParam(Number(gene.slice(9,12)),0.8)}></span>
-            <span style={hILeftParamStyle.strengthParam(Number(gene.slice(12,15)),1)}></span>
-          </div>
+          <HorseStatusGragh
+              gene={gene}
+              style={hILeftParamStyle.horseParamDiagram}
+          />
           <div style={hILeftParamStyle.statusParamDiagram}>
             <p style={hILeftParamStyle.statusParamDiagramP}>
               <img src={require('../../assets/static_assets/power-square.png')}/>

@@ -4,7 +4,7 @@ const selectGlobal = state => state.global;
 
 const selectHorseArrayLoading = () => createSelector(
     selectGlobal,
-    (substate) => substate.get('isMyHorseArrayLoading')
+    (substate) => substate.get('isMyHorseArrayLoadDone')
 );
 
 const selectHorseArray = () => createSelector(

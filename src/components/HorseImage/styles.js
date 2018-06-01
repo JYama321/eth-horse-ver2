@@ -172,7 +172,7 @@ export const styles = {
           position: 'relative',
           margin: '0 auto',
           top: '38px'
-        }
+        };
       case 'large':
         return {
           display: 'block',
@@ -181,6 +181,15 @@ export const styles = {
           position: 'relative',
           margin: '0 auto',
           top: '135px'
+        };
+      case 'sire':
+        return {
+          display: 'block',
+          width: '255px',
+          height: '209.1px',
+          position: 'relative',
+          margin: '0 auto',
+          top: '70px'
         };
       default:
         return {

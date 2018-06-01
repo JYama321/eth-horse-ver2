@@ -24,7 +24,7 @@ class HorseInfoParents extends Component{
     const papa = this.props.horseIdToInfo.get(String(this.props.papaId));
     const mama = this.props.horseIdToInfo.get(String(this.props.mamaId));
     const self = this;
-    if(!papa){
+    if(!papa && this.props.papaId !== 0){
       try {
         getHorseData(this.props.papaId).then(function(result){
           self.props.getHorseInfoSuccess(result);
@@ -36,7 +36,7 @@ class HorseInfoParents extends Component{
     }else{
       self.setState({isPapaLoading: false})
     }
-    if(!mama){
+    if(!mama && this.props.mamaId !== 0){
       try {
         getHorseData(this.props.mamaId).then(function(result){
           self.props.getHorseInfoSuccess(result);

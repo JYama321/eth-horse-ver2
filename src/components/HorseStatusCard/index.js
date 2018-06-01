@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import {horseStatus} from "../../utils/functions";
 import icon from '../../assets/texture_icons/g.png'
 import PropTypes from 'prop-types'
+const buttonSquare = require('../../assets/static_assets/sq.png');
 
 export default class HorseStatusCard extends Component{
   static propTypes = {
