@@ -81,7 +81,7 @@ export const sellHorseModalStyle = {
     height: '25px'
   },
   textureStatsContainer: {
-    width: '320px',
+    width: '100%',
     height: '238px',
     position: 'relative',
     marginTop: '35px'

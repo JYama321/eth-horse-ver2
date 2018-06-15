@@ -90,3 +90,15 @@ code {
 .sire-horse-button{
   background-image: url("./assets/static_assets/sq.png");
 }
+
+.horse-price-imgae{
+  background-image: url("./assets/static_assets/priceBack.png");
+}
+
+.market-buy-button{
+  background-image: url('./assets/static_assets/buyButton.png');
+}
+
+.race-current-state{
+  background-image: url("./assets/static_assets/raceStatus.png");
+}

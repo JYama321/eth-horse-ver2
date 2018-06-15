@@ -1,9 +1,10 @@
 export const styles = (props) =>  ({
   horseStatusCard: {
     width: '225px',
-    height: '275px',
+    height: '320px',
     marginLeft: props.isLeft ? '0' : '56px',
-    marginBottom: '3%'
+    marginBottom: '3%',
+    position: 'relative'
   },
   horseStatus: {
     width: '228px',
@@ -132,5 +133,19 @@ export const STYLE = {
     position: 'absolute',
     right: '0px',
     bottom: '0px'
+  },
+  buyButton: {
+    width: '150px',
+    height: '30px',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    backgroundSize: '150px 30px',
+    fontSize: '16px',
+    color: 'white',
+    lineHeight: '30px',
+    backgroundRepeat: 'no-repeat',
+    outline: 'none',
+    border: 'none'
   }
 };

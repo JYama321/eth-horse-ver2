@@ -24,7 +24,24 @@ import {
   GET_MAMA_INFO_FAILED,
   GET_PAPA_INFO_FAILED,
   GET_PAPA_INFO_SUCCESS,
-  SET_CURRENT_SIRE_HORSE_ID
+  SET_CURRENT_SIRE_HORSE_ID,
+  START_LOAD_ON_SALE_HORSES,
+  FAIL_LOAD_ON_SALE_HORSE_ARRAY,
+  GET_ON_SALE_HORSE_SUCCESS,
+  START_LOAD_SALE_HORSE_PRICES,
+  FAIL_LOAD_SALE_HORSE_PRICES,
+  GET_SALE_HORSE_PRICES_SUCCESS,
+  CHANGE_MARKET_PAGE,
+  CHANGE_CURRENT_DISP_RACES,
+  //races
+  CHANGE_RACE_PAGE,
+  GET_RACES_ARRAY_SUCCESS,
+  FAIL_GET_RACES_ARRAY,
+  START_LOAD_RACE_ARRAY,
+  GET_WANTED_RACE_ARRAY,
+  GET_BETTING_RACE_ARRAY,
+  GET_CHECKED_RACE_ARRAY,
+  GET_RACE_INFO
 } from "./actionTypes";
 
 const globalState = fromJS({
@@ -33,10 +50,11 @@ const globalState = fromJS({
   myHorseIdArray: [], //my horse
   myHorsePageCurrentPage: 1,
 
-  isSellHorseArrayLoading: false,
+  isSellHorseArrayLoaded: false,
   sellHorseArray: [],  // all sell horses
-  isHorseSellPriceArrayLoading: false,
-  horseSellPriceArray: [], // sell price sort
+  isHorseSellPriceArrayLoaded: false,
+  horseSellPriceArray: [], // sell price sort,
+  marketCurrentPage: 1,
 
   bidHorseArrayLoading: false,
   bidHorseArray: [], // all bid horses
@@ -58,13 +76,15 @@ const globalState = fromJS({
   horseWinCountArray: [], // prize rank
   rankWinCountCurrentPage: 1,
 
-  allRaceArrayLoading: false,
-  allRaceArray: [], // all races
-
-  wanedRaceArrayLoading: false,
+  allRaceArrayLoaded: false,
+  allRaceArray: 1, // all races,
+  isAllRaceArrayLoaded: false,
+  raceCurrentPage: 1,
+  raceIdToRaceInfo: {},
+  wanedRaceArrayLoaded: false,
   wantedRaceArray: [], // currently wanted race
 
-  bettingRaceArrayLoading: false,
+  bettingRaceArrayLoaded: false,
   bettingRaceArray: [], // currently betting race
 
   checkedRaceArrayLoading: false,
@@ -76,7 +96,10 @@ const globalState = fromJS({
   currentSearchHorseId: 0,
   currentSireHorseId: 0,
   isPapaLoading: true,
-  isMamaLoading: true
+  isMamaLoading: true,
+
+
+  racesCurrentDisplay: 'not-ended'
 });
 
 function globalReducer(state = globalState ,action){
@@ -94,6 +117,12 @@ function globalReducer(state = globalState ,action){
       } else {
         return state.set('horseIdToHorseInfo',state.get('horseIdToHorseInfo').set(String(action.data.id),action.data.horse)).set('isHorseInfoLoading',false)
       }
+    case START_LOAD_ON_SALE_HORSES:
+      return state.set('isSellHorseArrayLoaded', false);
+    case FAIL_LOAD_ON_SALE_HORSE_ARRAY:
+      return state.set('isSellHorseArrayLoaded', true);
+    case GET_ON_SALE_HORSE_SUCCESS:
+      return state.set('isSellHorseArrayLoaded', true).set('sellHorseArray',List(action.data));
     case MOVE_MY_PAGE_PAGE:
       return state.set('myHorsePageCurrentPage',action.data);
     case START_LOAD_HORSE_GENE_ARRAY:
@@ -102,6 +131,14 @@ function globalReducer(state = globalState ,action){
       return state.set('horseGeneArrayLoading',false).set('horseGeneArray',List(action.data));
     case LOAD_HORSE_GENE_ARRAY_FAILED:
       return state.set('horseGeneArrayLoading',false);
+    case START_LOAD_SALE_HORSE_PRICES:
+      return state.set('isHorseSellPriceArrayLoaded', false);
+    case CHANGE_MARKET_PAGE:
+      return state.set('marketCurrentPage', action.data);
+    case FAIL_LOAD_SALE_HORSE_PRICES:
+      return state.set('isHorseSellPriceArrayLoaded', false);
+    case GET_SALE_HORSE_PRICES_SUCCESS:
+      return state.set('horseSellPriceArray', List(action.data)).set('isHorseSellPriceArrayLoaded',true);
     case MOVE_GENE_RANK_PAGE:
       return state.set('rankGeneCurrentPage',action.data);
     case START_LOAD_HORSE_TOTAL_PRIZE_ARRAY:
@@ -134,6 +171,24 @@ function globalReducer(state = globalState ,action){
       return state.set('isPapaLoading', false);
     case GET_PAPA_INFO_FAILED:
       return state.set('isPapaLoading', false);
+    case CHANGE_CURRENT_DISP_RACES:
+      return state.set('racesCurrentDisplay', action.data);
+    case CHANGE_RACE_PAGE:
+      return state.set('raceCurrentPage', action.data);
+    case START_LOAD_RACE_ARRAY:
+      return state.set('allRaceArrayLoaded', false);
+    case GET_RACES_ARRAY_SUCCESS:
+      return state.set('allRaceArray', action.data).set('allRaceArrayLoaded', true);
+    case FAIL_GET_RACES_ARRAY:
+      return state.set('allRaceArrayLoaded', false);
+    case GET_WANTED_RACE_ARRAY:
+      return state.set('wantedRaceArray', action.data);
+    case GET_BETTING_RACE_ARRAY:
+      return state.set('bettingRaceArray', action.data);
+    case GET_CHECKED_RACE_ARRAY:
+      return state.set('checkedRaceArray', action.data);
+    case GET_RACE_INFO:
+      return state.set('raceIdToRaceInfo',state.get('raceIdToRaceInfo').set(String(action.data.id),action.data.race));
     default:
       return state;
   }

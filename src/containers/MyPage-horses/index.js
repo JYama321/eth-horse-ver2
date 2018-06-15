@@ -35,6 +35,9 @@ class MyPageHorses extends Component{
     if(!this.props.horseArrayLoadDone){
       this.props.horseArrayLoadStart()
     }
+    this.setState({
+      totalPage: Math.ceil(this.props.horseIdArray.toArray().length / 8)
+    })
   }
 
   componentWillReceiveProps(props,state){

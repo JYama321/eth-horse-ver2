@@ -11,7 +11,8 @@ import {
 } from "./actions";
 import {
   selectHorseIdArray,
-  selectCurrentPage
+  selectCurrentPage,
+  selectHorseIdToHorseInfo
 } from "./selectors";
 import {
   getMyHorsesArray,
@@ -19,7 +20,6 @@ import {
 } from '../../utils/eth-function'
 
 export function* getMyHorseArray(){
-  console.log('getMyHorseArray');
   try{
     const horsesArray = yield call(getMyHorsesArray);
     yield put(getMyHorseArraySuccess(horsesArray))
@@ -32,16 +32,18 @@ export function* batchGetHorseInfo(){
   try{
     const idArray = yield select(selectHorseIdArray());
     const currentPage = yield select(selectCurrentPage());
+    const horseInfo = yield select(selectHorseIdToHorseInfo());
     const arr = idArray.toArray().slice(8*(currentPage-1),8*currentPage);
     for(let i=0;i<arr.length;i++){
-      const horse = yield call(getHorseData,arr[i].toNumber());
-      yield put(getHorseInfoSuccess(horse));
+      if(!horseInfo.get(String(arr[i].toNumber()))){
+        const horse = yield call(getHorseData,arr[i].toNumber());
+        yield put(getHorseInfoSuccess(horse));
+      }
     }
   } catch(err) {
     console.log(err)
   }
 }
-
 
 
 

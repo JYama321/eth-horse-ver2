@@ -35,7 +35,6 @@ import {
 export function* getHorseGenes(){
   try{
     const horsesArray = yield call(getHorseGeneArray);
-    console.log(horsesArray);
     const geneIdArray = horsesArray.map(function(elem,index,self){
       const gene = elem.c.join(',').replace(/,/g,'');
       const strength =

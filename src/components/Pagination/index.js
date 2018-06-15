@@ -12,9 +12,9 @@ export default class Pagination extends Component{
   constructor(props){
     super(props);
     this.state={
-      currentPage: 0,
-      totalPage: 0,
-      buttonPerPage: 0
+      currentPage: 1,
+      totalPage: 1,
+      buttonPerPage: 10
     }
   }
   componentWillReceiveProps(nextProps){

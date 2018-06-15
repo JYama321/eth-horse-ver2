@@ -11,7 +11,7 @@ export default function HorseTextureParamSire(props){
           <img src={require(`../../assets/texture_icons/${mapGeneToTexture(props.gene)[props.num].slice(0,1)}.png`)} style={styles.bottomIconImg}/>
             &nbsp;{mapGeneToTextureName(props.gene)[props.num]} /
             &nbsp;<img src={require('../../assets/static_assets/rank-king.png')} style={styles.bottomRankImg}/>
-            &nbsp;rarity normal
+            &nbsp;<span style={styles.rarityTex}>rarity normal</span>
           </span>
         </p>
       </div>
@@ -34,15 +34,23 @@ const styles={
   },
   bottomIconImg: {
     width: '15px',
-    height: '15px'
+    height: '15px',
   },
   bottomRankImg: {
     width: '15px',
-    height: '15px'
+    height: '15px',
+    position: 'absolute',
+    left: '120px'
   },
   texRight: {
     position: 'absolute',
-    left: '100px',
+    left: '80px',
     fontSize: '12px',
+  },
+  rarityTex: {
+    position: 'absolute',
+    left: '140px',
+    width: '90px',
+    height: '15px'
   }
 };

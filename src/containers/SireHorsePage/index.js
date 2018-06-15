@@ -170,7 +170,7 @@ class SireHorsePage extends Component{
       return null
     }
   }
-}
+}1
 
 const mapStateToProps = () => createStructuredSelector({
   horseIdToInfo: selectHorseIdToHorseInfo(),
