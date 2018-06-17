@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import {
   selectMyPageCurrentDisp,
-  selectBalance
+  selectBalance,
+  selectActivity,
+  selectTicketNum
 } from "./selectors";
+import {
+  changeCurrentDisplay
+} from "./actions";
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect';
 import MyPageHorses from '../MyPage-horses'
@@ -15,7 +20,10 @@ class MyPage extends Component {
     switch(this.props.currentDisplay){
       case 'status':
         return <MyPageStatus
-            balance={self.props.balance}
+            balance={String(self.props.balance)}
+            changeDisplay={this.props.changeDisplay}
+            activities={this.props.activity.toArray()}
+            ticketNum={this.props.ticketNum.toNumber()}
         />;
       case 'my-horses':
         return <MyPageHorses/>;
@@ -29,8 +37,12 @@ class MyPage extends Component {
 
 const mapStateToProps = () => createStructuredSelector({
   currentDisplay: selectMyPageCurrentDisp(),
-  balance: selectBalance()
+  balance: selectBalance(),
+  activity: selectActivity(),
+  ticketNum: selectTicketNum()
+});
+const mapDispatchToProps = (dispatch) => ({
+  changeDisplay: (page) => dispatch(changeCurrentDisplay(page))
 });
 
-
-export default connect(mapStateToProps)(MyPage)
+export default connect(mapStateToProps,mapDispatchToProps)(MyPage)

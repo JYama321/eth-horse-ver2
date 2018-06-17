@@ -1,13 +1,26 @@
 import React, { Component } from 'react'
-import { myPageStyles } from "./styles";
+import { myPageStyles } from "./styles"
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
+import ActivityCardSmall from '../../components/ActivityCardSmall'
+
 
 class MyPageStatus extends Component{
   static propTypes={
-    balance: PropTypes.string
+    balance: PropTypes.string.isRequired,
+    changeDisplay: PropTypes.func.isRequired,
+    activities: PropTypes.array.isRequired,
+    ticketNum: PropTypes.number.isRequired
   };
-  changeMyPageDisplay(){
+  renderActivityCard(){
+    return this.props.activities.slice(0,3).map((elem,index) => {
+      return <ActivityCardSmall
+          event={elem.event}
+          args={elem.args}
+          key={'activity-' + index}
+      />
+    })
+  }
+  renderTickets(){
 
   }
   render(){
@@ -26,7 +39,23 @@ class MyPageStatus extends Component{
               </div>
             </div>
             <div style={myPageStyles.activityBox}>
-              <div style={myPageStyles.activityTitle}><b>Activity</b> <button >more ></button></div>
+              <div style={myPageStyles.activityTitle}><b>Activity</b>
+                <button style={myPageStyles.activityMore} onClick={()=> this.props.changeDisplay('activity')}>more ></button>
+              </div>
+              <div style={myPageStyles.activityHistory}>
+                {this.renderActivityCard()}
+              </div>
+              <div style={myPageStyles.statusPageTicket}>
+                <div style={myPageStyles.ticketTitle}>
+                  Owned Ticket:
+                  <button style={myPageStyles.activityMore}>
+                    More >
+                  </button>
+                </div>
+                <div style={myPageStyles.ticketCardContainer}>
+
+                </div>
+              </div>
             </div>
           </div>
         </div>

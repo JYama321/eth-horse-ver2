@@ -5,7 +5,7 @@ import hostRaceLog from '../../assets/static_assets/event-host-race.png'
 import applyRaceLog from '../../assets/static_assets/event-applyrace.png'
 import {betRace} from "../../utils/functions";
 import {
-  activityCardWhite,
+  activityCard,
   activityCardP,
   eventDetail,
   cardImg
@@ -23,9 +23,9 @@ class ActivityCard extends Component{
     switch (event){
       case 'Transfer':
         return (
-            <div style={activityCardWhite.getHorse}>
+            <div style={activityCard.getHorse}>
               <img
-                  style={cardImg}
+                  style={cardImg.getHorse}
                   src={boughtLog}
               />
               <p style={activityCardP}>get horse</p>
@@ -35,9 +35,9 @@ class ActivityCard extends Component{
         const deposit = window.web3.fromWei(args._deposit,'ether');
         const minWinnerPrize = window.web3.fromWei(args._minWinnerPrize,'ether');
         return (
-            <div style={activityCardWhite.hostRace}>
+            <div style={activityCard.hostRace}>
               <img
-                  style={cardImg}
+                  style={cardImg.default}
                   src={hostRaceLog}
               />
               <p style={activityCardP}>Host Race</p>
@@ -46,16 +46,16 @@ class ActivityCard extends Component{
                 <Link to={"/races/" + args._raceId}>The Race</Link>
                 &nbsp;
                 Deposit: {deposit == '0' ? 0 : deposit.toFixed(2)} ETH
-                &nbsp;
+                <br/>
                 Min WinnerPrize: {minWinnerPrize == '0' ? 0 : minWinnerPrize.toFixed(2)}
               </p>
             </div>
         );
       case 'BetRace':
         return (
-            <div style={activityCardWhite.betRace}>
+            <div style={activityCard.betRace}>
               <img
-                  style={cardImg}
+                  style={cardImg.default}
                   src={betRace}
               />
               <p style={activityCardP}>sale horse</p>
@@ -64,9 +64,9 @@ class ActivityCard extends Component{
         );
       case 'HorseOnSale':
         return (
-            <div style={activityCardWhite.onBid}>
+            <div style={activityCard.onBid}>
               <img
-                  style={cardImg}
+                  style={cardImg.default}
                   src={saleLog}
               />
               <p style={activityCardP}>sell horse</p>
@@ -75,9 +75,9 @@ class ActivityCard extends Component{
         );
       case 'ApplyRace':
         return (
-            <div style={activityCardWhite.applyRace}>
+            <div style={activityCard.applyRace}>
               <img
-                  style={cardImg}
+                  style={cardImg.default}
                   src={saleLog}
               />
               <p style={activityCardP}>Apply Race</p>
@@ -89,9 +89,9 @@ class ActivityCard extends Component{
         );
       case 'HorseOnBidSale':
         return (
-            <div style={activityCardWhite.onBid}>
+            <div style={activityCard.onBid}>
               <img
-                  style={cardImg}
+                  style={cardImg.default}
                   src={saleLog}
               />
               <p style={activityCardP}>Horse to Auction</p>
@@ -102,7 +102,7 @@ class ActivityCard extends Component{
         );
       default:
         return (
-            <div style={activityCardWhite}>
+            <div style={activityCard.default}>
               <img
                   style={cardImg}
                   src={saleLog}

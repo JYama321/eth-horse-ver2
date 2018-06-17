@@ -159,7 +159,15 @@ export const getBetInfo = (raceId) => {
   return new Promise((resolve, reject) => {
     window.contract_instance.bettingInfo(raceId, function(err, result){
       if(err){reject(err)}
-      console.log(result)
+      resolve(result)
+    })
+  })
+};
+
+export const getTicketNum = (address) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.ticketNum(address, function (err, result) {
+      if(err){reject(err)}
       resolve(result)
     })
   })

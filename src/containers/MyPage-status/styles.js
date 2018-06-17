@@ -19,7 +19,7 @@ export const myPageStyles = {
   },
   statusBox: {
     width: '320px',
-    height: '5650px',
+    height: '565px',
     position: 'relative',
     margin: '0 150px 0 90px'
   },
@@ -74,19 +74,48 @@ export const myPageStyles = {
     backgroundSize: '160px 25px'
   },
   activityBox: {
-    width: '520px',
+    width: '510px',
     height: '480px',
     position: 'relative',
   },
   activityTitle: {
     width: '100%',
     height:'30px',
-    borderBottom: '1px solid #000',
+    borderBottom: '2px solid #000',
     textAlign: 'left',
+    position: 'relative'
+  },
+  activityHistory: {
+    width: '100%',
+    height: '300px',
+    paddingTop:'85px',
     position: 'relative'
   },
   activityMore: {
     position: 'absolute',
-    right: 0
+    right: 0,
+    outline: 'none',
+    border: 'none',
+    background: 'none'
+  },
+  statusPageTicket: {
+    width: '100%',
+    height: '130px'
+  },
+  ticketTitle: {
+    width: '100%',
+    height: '38px',
+    borderBottom: '2px solid #000',
+    textAlign: 'left',
+    position: 'relative'
+  },
+  ticketMoreButton :{
+    outline: 'none',
+    border: 'none'
+  },
+  ticketCardContainer: {
+    width: '100%',
+    height: '60px',
+
   }
 };

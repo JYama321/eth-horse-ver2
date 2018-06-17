@@ -11,8 +11,19 @@ const selectBalance = () => createSelector(
     selectGlobal,
     substate => substate.get('balance')
 );
+const selectActivity = () => createSelector(
+    selectGlobal,
+    substate => substate.get('activities')
+);
+
+const selectTicketNum = () => createSelector(
+    selectGlobal,
+    substate => substate.get('ticketNum')
+);
 
 export {
   selectMyPageCurrentDisp,
-  selectBalance
+  selectBalance,
+  selectActivity,
+  selectTicketNum
 }

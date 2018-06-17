@@ -46,7 +46,8 @@ import {
   GET_ACTIVITIES,
   CHANGE_MY_PAGE_DISP,
   //Balance
-  GET_USER_BALANCE
+  GET_USER_BALANCE,
+  GET_TICKET_NUM
 } from "./actionTypes";
 
 const globalState = fromJS({
@@ -110,7 +111,9 @@ const globalState = fromJS({
   //activity
   activities: [],
   //balance
-  balance: 0
+  balance: 0,
+  //ticketNum
+  ticketNum: 0
 });
 
 function globalReducer(state = globalState ,action){
@@ -208,6 +211,8 @@ function globalReducer(state = globalState ,action){
       return state.set('activities', state.get('activities').concat(action.data));
     case GET_USER_BALANCE:
       return state.set('balance', action.data);
+    case GET_TICKET_NUM:
+      return state.set('ticketNum', action.data);
     default:
       return state;
   }

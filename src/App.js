@@ -16,21 +16,22 @@ import Market from './containers/Market/'
 import Races from './containers/Races/'
 import RaceInfo from './containers/RaceInfo'
 import MyPage from './containers/MyPage'
-
 import {
   getWantedRaces,
   getBettingRaces,
   getCheckedRaces,
   getMyRaces,
   getActivities,
-  getUserBalance
+  getUserBalance,
+  getTicket
 } from './actions'
 const address = '0xcb152a2aa90055a0d255ca7dbaeb85edfdc86096';
 import {
   getWantedRaceArray,
   getBettingRaceArray,
   getCheckedRaceArray,
-  getMyRaceArrray
+  getMyRaceArrray,
+  getTicketNum
 } from './utils/eth-function'
 
 class App extends Component {
@@ -54,6 +55,8 @@ class App extends Component {
     this.props.getBettingArray(bettingArray);
     this.props.getCheckedArray(checkedArray);
     this.props.getMyRace(myRaceArray);
+    const ticketNum = await getTicketNum(window.web3.eth.coinbase);
+    this.props.getTicket(ticketNum);
     this.setState({ loaded: true});
     //get events
     const self = this;
@@ -146,7 +149,8 @@ const mapDispatchToProps = (dispatch) => ({
   getCheckedArray: (array) => dispatch(getCheckedRaces(array)),
   getMyRace: (array) => dispatch(getMyRaces(array)),
   getActivity: (activity) => dispatch(getActivities(activity)),
-  getBalance: (balance) => dispatch(getUserBalance(balance))
+  getBalance: (balance) => dispatch(getUserBalance(balance)),
+  getTicket: (num) => dispatch(getTicket(num))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
