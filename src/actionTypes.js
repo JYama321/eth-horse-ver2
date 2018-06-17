@@ -43,3 +43,4 @@ export const GET_RACE_INFO = 'getRaceInfo';
 export const GET_ACTIVITIES = 'getActivities';
 export const GET_MY_RACES = 'getMyRaces';
 export const CHANGE_MY_PAGE_DISP = 'changeMyPageDispllay';
+export const GET_USER_BALANCE = 'getUserBalance';

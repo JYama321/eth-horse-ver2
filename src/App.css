@@ -114,3 +114,7 @@ code {
 .bet-button{
   background-image: url("./assets/static_assets/sq.png");
 }
+
+.eth-balance-back{
+  background-image: url("./assets/static_assets/square3.png");
+}

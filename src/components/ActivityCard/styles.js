@@ -1,13 +1,78 @@
 export const activityCard = {
-  width: '100%',
-  height: '70px',
-  position: 'relative',
-  backgroundColor: 'rgba(0,0,0,0.3)'
+  hostRace: {
+    width: '100%',
+    height: '70px',
+    position: 'relative',
+    backgroundColor: 'rgba(255,255,255,0.3)'
+  },
+  getHorse: {
+    width: '100%',
+    height: '70px',
+    position: 'relative',
+    backgroundColor: 'rgba(30,255,255,0.3)'
+  },
+  sellHorse: {
+    width: '100%',
+    height: '70px',
+    position: 'relative',
+    backgroundColor: 'rgba(255,30,255,0.3)'
+  },
+  betRace: {
+    width: '100%',
+    height: '70px',
+    position: 'relative',
+    backgroundColor: 'rgba(255,255,30,0.3)'
+  },
+  applyRace: {
+    width: '100%',
+    height: '70px',
+    position: 'relative',
+    backgroundColor: 'rgba(30,30,255,0.3)'
+  },
+  onBid: {
+    width: '100%',
+    height: '70px',
+    position: 'relative',
+    backgroundColor: 'rgba(255,30,30,0.3)'
+  }
 };
 export const activityCardWhite = {
-  width: '100%',
-  height: '70px',
-  position: 'relative',
+  hostRace: {
+    width: '100%',
+    height: '70px',
+    position: 'relative',
+    backgroundColor: 'rgba(100,200,200,0.3)'
+  },
+  getHorse: {
+    width: '100%',
+    height: '70px',
+    position: 'relative',
+    backgroundColor: 'rgba(30,255,255,0.3)'
+  },
+  sellHorse: {
+    width: '100%',
+    height: '70px',
+    position: 'relative',
+    backgroundColor: 'rgba(255,30,255,0.3)'
+  },
+  betRace: {
+    width: '100%',
+    height: '70px',
+    position: 'relative',
+    backgroundColor: 'rgba(255,255,30,0.3)'
+  },
+  applyRace: {
+    width: '100%',
+    height: '70px',
+    position: 'relative',
+    backgroundColor: 'rgba(30,30,255,0.3)'
+  },
+  onBid: {
+    width: '100%',
+    height: '70px',
+    position: 'relative',
+    backgroundColor: 'rgba(255,30,30,0.3)'
+  }
 };
 export const cardImg = {
   margin: '14px 35px',

@@ -7,6 +7,12 @@ const selectMyPageCurrentDisp = () => createSelector(
     substate => substate.get('myPageCurrentDisplay')
 );
 
+const selectBalance = () => createSelector(
+    selectGlobal,
+    substate => substate.get('balance')
+);
+
 export {
-  selectMyPageCurrentDisp
+  selectMyPageCurrentDisp,
+  selectBalance
 }

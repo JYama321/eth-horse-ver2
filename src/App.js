@@ -22,7 +22,8 @@ import {
   getBettingRaces,
   getCheckedRaces,
   getMyRaces,
-  getActivities
+  getActivities,
+  getUserBalance
 } from './actions'
 const address = '0xcb152a2aa90055a0d255ca7dbaeb85edfdc86096';
 import {
@@ -56,11 +57,15 @@ class App extends Component {
     this.setState({ loaded: true});
     //get events
     const self = this;
+    window.web3.eth.getBalance(window.web3.eth.coinbase,function(err,result){
+      if(err){console.log(err)}
+      self.props.getBalance(window.web3.fromWei(result,'ether').toNumber().toFixed(2))
+    });
     const hostRace = window.contract_instance.HostRace({_host:window.web3.eth.coinbase},{
       fromBlock: 0,
       toBlock: 'latest',
     });
-    const Transfer = window.contract_instance.Transfer({
+    const GetHorse = window.contract_instance.Transfer({
       _to: window.web3.eth.coinbase
     },{
       fromBlock: 0,
@@ -102,7 +107,7 @@ class App extends Component {
     ApplyRace.get(function(err,logs){
       self.props.getActivity(logs)
     });
-    Transfer.get(function(err, logs) {
+    GetHorse.get(function(err, logs) {
       self.props.getActivity(logs)
     });
   }
@@ -140,7 +145,8 @@ const mapDispatchToProps = (dispatch) => ({
   getBettingArray: (array) => dispatch(getBettingRaces(array)),
   getCheckedArray: (array) => dispatch(getCheckedRaces(array)),
   getMyRace: (array) => dispatch(getMyRaces(array)),
-  getActivity: (activity) => dispatch(getActivities(activity))
+  getActivity: (activity) => dispatch(getActivities(activity)),
+  getBalance: (balance) => dispatch(getUserBalance(balance))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);

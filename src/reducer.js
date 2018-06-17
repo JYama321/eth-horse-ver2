@@ -44,7 +44,9 @@ import {
   GET_MY_RACES,
   GET_RACE_INFO,
   GET_ACTIVITIES,
-  CHANGE_MY_PAGE_DISP
+  CHANGE_MY_PAGE_DISP,
+  //Balance
+  GET_USER_BALANCE
 } from "./actionTypes";
 
 const globalState = fromJS({
@@ -104,9 +106,11 @@ const globalState = fromJS({
   isMamaLoading: true,
   //header
   racesCurrentDisplay: 'now-wanted',
-  myPageCurrentDisplay: 'my-horses',
+  myPageCurrentDisplay: 'status',
   //activity
-  activities: []
+  activities: [],
+  //balance
+  balance: 0
 });
 
 function globalReducer(state = globalState ,action){
@@ -202,6 +206,8 @@ function globalReducer(state = globalState ,action){
       return state.set('raceIdToRaceInfo',state.get('raceIdToRaceInfo').set(String(action.data.id),action.data.race));
     case GET_ACTIVITIES:
       return state.set('activities', state.get('activities').concat(action.data));
+    case GET_USER_BALANCE:
+      return state.set('balance', action.data);
     default:
       return state;
   }
