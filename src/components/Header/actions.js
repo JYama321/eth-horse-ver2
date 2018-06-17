@@ -1,5 +1,6 @@
 import {
-  CHANGE_CURRENT_DISP_RACES
+  CHANGE_CURRENT_DISP_RACES,
+  CHANGE_MY_PAGE_DISP
 } from "../../actionTypes";
 
 
@@ -8,3 +9,7 @@ export const changeCurrentDispRaces = (raceType) => ({
   data: raceType
 });
 
+export const changeMyPageCurrentDisplay = (page) => ({
+  type: CHANGE_MY_PAGE_DISP,
+  data: page
+});

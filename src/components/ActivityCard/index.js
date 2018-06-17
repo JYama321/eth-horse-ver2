@@ -11,23 +11,41 @@ import {
   eventDetail,
   cardImg
 } from "./styles";
+import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 
 
 class ActivityCard extends Component{
+  static propTypes={
+    event: PropTypes.string.isRequired,
+    args: PropTypes.object.isRequired
+  };
+
   renderCard(event,args){
+    const address = window.web3.eth.coinbase;
     switch (event){
       case 'Transfer':
-        console.log(args)
-        return (
-            <div style={activityCard}>
-              <img
-                  style={cardImg}
-                  src={boughtLog}
-              />
-              <p style={activityCardP}>get horse</p>
-              <p style={eventDetail}>event Get Horse from {args._from} </p>
-            </div>);
+        if(args._from === address){
+          return (
+              <div style={activityCard}>
+                <img
+                    style={cardImg}
+                    src={saleLog}
+                />
+                <p style={activityCardP}>sell horse</p>
+                <p style={eventDetail}>Get Horse from {args._to}</p>
+              </div>);
+        }else{
+          return (
+              <div style={activityCard}>
+                <img
+                    style={cardImg}
+                    src={boughtLog}
+                />
+                <p style={activityCardP}>get horse</p>
+                <p style={eventDetail}>Get Horse from {args._from}</p>
+              </div>);
+        }
       case 'HostRace':
         return (
             <div style={activityCard}>
@@ -49,7 +67,7 @@ class ActivityCard extends Component{
                   src={betRace}
               />
               <p style={activityCardP}>sale horse</p>
-              <p style={eventDetail}>event Buy Horse Price 3 ETH from  [user address] </p>
+              <p style={eventDetail}>Buy Horse Price 3 ETH from  [user address] </p>
             </div>
         );
       case 'HorseOnSale':
@@ -60,10 +78,21 @@ class ActivityCard extends Component{
                   src={saleLog}
               />
               <p style={activityCardP}>sell horse</p>
-              <p style={eventDetail}>event Sell Horse Price ${} ETH from  [user address] </p>
+              <p style={eventDetail}>Sell Horse Price ${} ETH from  [user address] </p>
             </div>
         );
       case 'ApplyRace':
+        return (
+            <div style={activityCard}>
+              <img
+                  style={cardImg}
+                  src={applyRaceLog}
+              />
+              <p style={activityCardP}>Apply Race</p>
+              <p style={eventDetail}>Apply Race to <Link to={"/races/"+  args._raceId.toNumber()}>Race</Link></p>
+            </div>
+        );
+      case 'HorseOnBidSale':
         return (
             <div style={activityCard}>
               <img
@@ -102,6 +131,8 @@ class ActivityCard extends Component{
               <p style={eventDetail}>event Get Horse from {args._from} </p>
             </div>);
       case 'HostRace':
+        const deposit = window.web3.fromWei(args._deposit,'ether');
+        const minWinnerPrize = window.web3.fromWei(args._minWinnerPrize,'ether');
         return (
             <div style={activityCardWhite}>
               <img
@@ -109,8 +140,13 @@ class ActivityCard extends Component{
                   src={hostRaceLog}
               />
               <p style={activityCardP}>Host Race</p>
-              <p style={eventDetail}>event HostRace
+              <p style={eventDetail}>HostRace
+                &nbsp;
                 <Link to={"/races/" + args._raceId}>The Race</Link>
+                &nbsp;
+                Deposit: {deposit == '0' ? 0 : deposit.toFixed(2)} ETH
+                &nbsp;
+                Min WinnerPrize: {minWinnerPrize == '0' ? 0 : minWinnerPrize.toFixed(2)} ETH
               </p>
             </div>
         );

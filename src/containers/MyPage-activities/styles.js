@@ -1,24 +1,20 @@
-export const racePageStyles = {
+export const activityPageStyle = {
   outerContainer: {
     position: 'absolute',
+    top: 'calc(256px + 4.5%)',
+    bottom: 0,
+    left: 0,
+    right: 0,
     width: '100%',
-    height: '1440px',
-    top: '255px',
+    height: '870px'
   },
   innerContainer: {
     position: 'relative',
     display: 'flex',
-    flexPack: 'justify',
-    justifyContent: 'space-between',
     flexWrap: 'wrap',
     alignContent: 'flex-start',
     width: '1080px',
     height: '100%',
     margin: '0 auto'
-  },
-  headerBottom: {
-    width: '100%',
-    height: '150px',
-    display: 'flex',
   }
 };

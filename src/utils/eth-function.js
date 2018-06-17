@@ -145,3 +145,22 @@ export const getCheckedRaceArray = () => {
     })
   })
 };
+
+export const getMyRaceArrray = () => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.getMyRaces(function(err, result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const getBetInfo = (raceId) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.bettingInfo(raceId, function(err, result){
+      if(err){reject(err)}
+      console.log(result)
+      resolve(result)
+    })
+  })
+};

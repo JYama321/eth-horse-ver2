@@ -42,6 +42,16 @@ const selectCheckedRaceArray = () => createSelector(
     substate => substate.get('checkedRaceArray')
 );
 
+const selectRaceCurrentDisp = () => createSelector(
+    selectGlobal,
+    substate => substate.get('racesCurrentDisplay')
+);
+
+const selectMyRaeArray = () => createSelector(
+    selectGlobal,
+    substate => substate.get('myRacesArray')
+);
+
 export {
   selectRaceInfo,
   selectAllRaceArray,
@@ -50,5 +60,7 @@ export {
   selectWantedRaceArray,
   selectCheckedRaceArray,
   selectHorseInfo,
-  selectCurrentPage
+  selectCurrentPage,
+  selectRaceCurrentDisp,
+  selectMyRaeArray
 }

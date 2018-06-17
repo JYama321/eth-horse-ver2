@@ -40,3 +40,6 @@ export const GET_WANTED_RACE_ARRAY = 'getWantedRaceArray';
 export const GET_BETTING_RACE_ARRAY = 'getBettingRaceArray';
 export const GET_CHECKED_RACE_ARRAY = 'getCheckedRaceArray';
 export const GET_RACE_INFO = 'getRaceInfo';
+export const GET_ACTIVITIES = 'getActivities';
+export const GET_MY_RACES = 'getMyRaces';
+export const CHANGE_MY_PAGE_DISP = 'changeMyPageDispllay';

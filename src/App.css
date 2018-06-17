@@ -102,3 +102,15 @@ code {
 .race-current-state{
   background-image: url("./assets/static_assets/raceStatus.png");
 }
+
+.race-info-horse-back{
+  background-image: url('./assets/static_assets/horse-back2.png');
+}
+
+.race-horse-info-back{
+  background-image: url('./assets/static_assets/buton-back-transparent.png');
+}
+
+.bet-button{
+  background-image: url("./assets/static_assets/sq.png");
+}

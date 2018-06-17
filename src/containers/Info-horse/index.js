@@ -7,7 +7,6 @@ import {horseInfoPageStyles, sellHorseModalStyle} from "./styles"
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import PropTypes from 'prop-types'
 import HorseInfoParents from '../../components/HorseInfoParents'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -81,7 +80,7 @@ class HorseInfo extends Component{
                   onChange={e=>this.changePrice(e)}
                   value={this.state.horsePrice}
               />
-              ETH
+                ETH
               <Button
                   variant="raised"
                   size='medium'
@@ -90,8 +89,8 @@ class HorseInfo extends Component{
                   className={classes.button}
                   onClick={()=>horseToOnSale(this.props.match.params.id,this.state.horsePrice)}
               >
-        SellHorse
-      </Button>
+                SellHorse
+              </Button>
               </span>
             </Modal>
             <div style={horseInfoStyles.innerContainer}>

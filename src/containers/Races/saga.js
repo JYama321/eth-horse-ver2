@@ -1,9 +1,5 @@
 import {call, put, select, takeLatest} from 'redux-saga/effects';
 import {
-  getAllRaceArray,
-  getWantedRaceArray,
-  getBettingRaceArray,
-  getCheckedRaceArray,
   getRace
 } from "../../utils/eth-function";
 import {
@@ -11,27 +7,16 @@ import {
   CHANGE_RACE_PAGE
 } from "../../actionTypes";
 import {
-  getRacesArray,
-  getBettingRaces,
-  getWantedRaces,
   failGetRaces,
-  getCheckedRaces,
   getRaceInfo
 } from "./actions";
 import{
-
+  selectWantedRaceArray,
 } from './selectors'
 export function* startGetRaces () {
   try{
-    const allRaceNum = yield call(getAllRaceArray);
-    const wantedRaces = yield call(getWantedRaceArray);
-    const bettingRaces = yield call(getBettingRaceArray);
-    const checkedRaces = yield call(getCheckedRaceArray);
-    yield put(getWantedRaces(wantedRaces));
-    yield put(getBettingRaces(bettingRaces));
-    yield put(getCheckedRaces(checkedRaces));
-    yield put(getRacesArray(allRaceNum));
-    for(let i=0;i<allRaceNum;i++){
+    const wantedRaces = yield select(selectWantedRaceArray());
+    for(let i=0;i<wantedRaces.length;i++){
       const race = yield call(getRace,i);
       yield put(getRaceInfo(race));
     }

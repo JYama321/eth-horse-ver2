@@ -182,6 +182,15 @@ export const styles = {
           margin: '0 auto',
           top: '135px'
         };
+      case 'race-horse':
+        return {
+          display: 'block',
+          width: '380px',
+          height: '311px',
+          position: 'relative',
+          margin: '0 auto',
+          top: '67.5px'
+        };
       case 'sire':
         return {
           display: 'block',

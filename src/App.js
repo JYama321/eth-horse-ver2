@@ -10,12 +10,27 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect'
 import Header from './components/Header/'
 import {Route} from 'react-router-dom'
-import MyPageHorses from './containers/MyPage-horses/'
 import HorseInfo from './containers/Info-horse/'
 import SireHorsePage from './containers/SireHorsePage/'
 import Market from './containers/Market/'
 import Races from './containers/Races/'
-const address = '0x2a504b5e7ec284aca5b6f49716611237239f0b97';
+import RaceInfo from './containers/RaceInfo'
+import MyPage from './containers/MyPage'
+
+import {
+  getWantedRaces,
+  getBettingRaces,
+  getCheckedRaces,
+  getMyRaces,
+  getActivities
+} from './actions'
+const address = '0xcb152a2aa90055a0d255ca7dbaeb85edfdc86096';
+import {
+  getWantedRaceArray,
+  getBettingRaceArray,
+  getCheckedRaceArray,
+  getMyRaceArrray
+} from './utils/eth-function'
 
 class App extends Component {
   constructor (props) {
@@ -24,33 +39,75 @@ class App extends Component {
       loaded: false
     }
   }
-  componentWillMount() {
+  async componentWillMount() {
+    const result = await getWeb3();
+    window.web3 = result.web3;
+    const contract = window.web3.eth.contract(HorseGame.abi);
+    window.contract_instance = contract.at(address);
+    //raceArrays
+    const wantedArray = await getWantedRaceArray();
+    const bettingArray = await getBettingRaceArray();
+    const checkedArray = await getCheckedRaceArray();
+    const myRaceArray = await getMyRaceArrray();
+    this.props.getWantedArray(wantedArray);
+    this.props.getBettingArray(bettingArray);
+    this.props.getCheckedArray(checkedArray);
+    this.props.getMyRace(myRaceArray);
+    this.setState({ loaded: true});
+    //get events
     const self = this;
-    getWeb3
-        .then(results => {
-          window.web3 = results.web3;
-          return window.web3;
-        })
-        .then(result => {
-          const contract = window.web3.eth.contract(HorseGame.abi);
-          window.contract_instance = contract.at(address);
-          window.web3.eth.defaultAccount = window.web3.eth.accounts[0];
-          return window.contract_instance
-        }).then(function (instance) {
-      self.setState({
-        loaded:true
-      });
-      return instance;
-    }).then(function (instance) {
-      // self.props.actions.getEtherBalance();
-      return instance
-    }).catch((err) => {
-      console.log(err);
-      console.log('Error finding web3.')
-    })
+    const hostRace = window.contract_instance.HostRace({_host:window.web3.eth.coinbase},{
+      fromBlock: 0,
+      toBlock: 'latest',
+    });
+    const Transfer = window.contract_instance.Transfer({
+      _to: window.web3.eth.coinbase
+    },{
+      fromBlock: 0,
+      toBlock: 'latest',
+    });
+    const HorseOnSale = window.contract_instance.HorseOnSale({
+      _from: window.web3.eth.coinbase
+    },{
+      fromBlock: 0,
+      toBlock: 'latest'
+    });
+    const ApplyRace = window.contract_instance.ApplyRace({
+      _owner: window.web3.eth.coinbase
+    },{
+      fromBlock: 0,
+      toBlock: 'latest'
+    });
+    const BetRace = window.contract_instance.BetRace({
+      _voter: window.web3.eth.coinbase
+    },{
+      fromBlock: 0,
+      toBlock: 'latest'
+    });
+    const HorseOnBidSale = window.contract_instance.HorseOnBidSale({
+      _from: window.web3.eth.coinbase
+    },{
+      fromBlock: 0,
+      toBlock: 'latest'
+    });
+    BetRace.get(function(err,logs){
+      self.props.getActivity(logs)
+    });
+    HorseOnSale.get(function(err,logs){
+      self.props.getActivity(logs)
+    });
+    hostRace.get(function(error, logs){
+      self.props.getActivity(logs)
+    });
+    ApplyRace.get(function(err,logs){
+      self.props.getActivity(logs)
+    });
+    Transfer.get(function(err, logs) {
+      self.props.getActivity(logs)
+    });
   }
   render() {
-    if(window.web3 && window.contract_instance){
+    if(this.state.loaded){
       return(
           <div>
             <Helmet
@@ -61,11 +118,12 @@ class App extends Component {
             </Helmet>
             <Header/>
             <Route exact path='/'/>
-            <Route exact path='/my-horses' component={MyPageHorses}/>
+            <Route exact path='/my-page' component={MyPage}/>
             <Route exact path='/horses/:id' component={HorseInfo}/>
             <Route exact path='/horses/:id/sire' component={SireHorsePage}/>
             <Route exact path='/market-place' component={Market}/>
             <Route exact path='/races' component={Races} />
+            <Route exact path='/races/:id' component={RaceInfo}/>
           </div>
       )
     }else{
@@ -77,4 +135,12 @@ const mapStateToProps = (state,ownProps) => ({
   state: state
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  getWantedArray: (array) => dispatch(getWantedRaces(array)),
+  getBettingArray: (array) => dispatch(getBettingRaces(array)),
+  getCheckedArray: (array) => dispatch(getCheckedRaces(array)),
+  getMyRace: (array) => dispatch(getMyRaces(array)),
+  getActivity: (activity) => dispatch(getActivities(activity))
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);

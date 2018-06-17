@@ -41,7 +41,10 @@ import {
   GET_WANTED_RACE_ARRAY,
   GET_BETTING_RACE_ARRAY,
   GET_CHECKED_RACE_ARRAY,
-  GET_RACE_INFO
+  GET_MY_RACES,
+  GET_RACE_INFO,
+  GET_ACTIVITIES,
+  CHANGE_MY_PAGE_DISP
 } from "./actionTypes";
 
 const globalState = fromJS({
@@ -90,6 +93,8 @@ const globalState = fromJS({
   checkedRaceArrayLoading: false,
   checkedRaceArray: [], // already end race
 
+  myRacesArray: [],
+
   location: null,
   horseIdToHorseInfo: {},
   isHorseInfoLoading: true,
@@ -97,9 +102,11 @@ const globalState = fromJS({
   currentSireHorseId: 0,
   isPapaLoading: true,
   isMamaLoading: true,
-
-
-  racesCurrentDisplay: 'not-ended'
+  //header
+  racesCurrentDisplay: 'now-wanted',
+  myPageCurrentDisplay: 'my-horses',
+  //activity
+  activities: []
 });
 
 function globalReducer(state = globalState ,action){
@@ -175,6 +182,8 @@ function globalReducer(state = globalState ,action){
       return state.set('racesCurrentDisplay', action.data);
     case CHANGE_RACE_PAGE:
       return state.set('raceCurrentPage', action.data);
+    case CHANGE_MY_PAGE_DISP:
+      return state.set('myPageCurrentDisplay', action.data);
     case START_LOAD_RACE_ARRAY:
       return state.set('allRaceArrayLoaded', false);
     case GET_RACES_ARRAY_SUCCESS:
@@ -187,8 +196,12 @@ function globalReducer(state = globalState ,action){
       return state.set('bettingRaceArray', action.data);
     case GET_CHECKED_RACE_ARRAY:
       return state.set('checkedRaceArray', action.data);
+    case GET_MY_RACES:
+      return state.set('myRacesArray', action.data);
     case GET_RACE_INFO:
       return state.set('raceIdToRaceInfo',state.get('raceIdToRaceInfo').set(String(action.data.id),action.data.race));
+    case GET_ACTIVITIES:
+      return state.set('activities', state.get('activities').concat(action.data));
     default:
       return state;
   }

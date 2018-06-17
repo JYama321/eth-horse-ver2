@@ -20,7 +20,9 @@ import {
   selectWantedRaceArray,
   selectBettingRaceArray,
   selectCheckedRaceArray,
-  selectHorseInfo
+  selectHorseInfo,
+  selectRaceCurrentDisp,
+  selectMyRaeArray
 } from "./selectors";
 
 
@@ -54,38 +56,150 @@ class Races extends Component{
     })
   }
 
+  currentState(index){
+    const wantedArray = this.props.wantedRaceArray;
+    const bettingArray = this.props.bettingRaceArray;
+    const checkedArray = this.props.checkedRaceArray;
+    if(wantedArray[index]){
+      return 'now wanted'
+    }else if(bettingArray[index]){
+      return 'now betting'
+    }else if(checkedArray[index]){
+      return 'ended'
+    }else{
+      return 'calculate odds'
+    }
+  }
   renderRaces(){
     const self = this;
-    const array = this.props.wantedRaceArray ? this.props.wantedRaceArray.slice(4*(this.state.currentPage-1),4*this.state.currentPage) : [];
-    return array.map((elem,index) => {
-      const race = self.props.raceIdToRaceInfo.get(String(index+1)) ? self.props.raceIdToRaceInfo.get(String(index+1)) : null;
-      if(race){
-        return (
-            <RaceCard
-                getHorse={self.props.getHorse}
-                horseInfo={this.props.horseIdToInfo}
-                race={race}
-                key={'race'+index}
-            />
-        )
-      }else{
-        return(
-            <img
-                key={'loading-'+index}
-                src={loadingGif}
-                style={{
-                  width: '200px',
-                  height: '200px'
-                }}
-            />
-        )
-      }
-    });
+    switch(this.props.currentDisplay){
+      case 'now-wanted':
+        const wantedArray = this.props.wantedRaceArray ? this.props.wantedRaceArray.slice(4*(this.state.currentPage-1),4*this.state.currentPage) : [];
+        return wantedArray.map((elem,index) => {
+          const race = self.props.raceIdToRaceInfo.get(String(index+1 + (self.state.currentPage-1) * 4)) ? self.props.raceIdToRaceInfo.get(String(index+1)) : null;
+          if(race && elem){
+            return (
+                <RaceCard
+                    getHorse={self.props.getHorse}
+                    horseInfo={this.props.horseIdToInfo}
+                    currentState='now wanted'
+                    race={race}
+                    key={'race'+index}
+                />
+            )
+          }else if(elem){
+            return(
+                <img
+                    key={'loading-'+index}
+                    src={loadingGif}
+                    style={{
+                      width: '200px',
+                      height: '200px'
+                    }}
+                />
+            )
+          }else{
+            return null
+          }
+        });
+      case 'now-betting':
+        const bettingArray = this.props.bettingRaceArray ? this.props.bettingRaceArray.slice(4*(this.state.currentPage-1),4*this.state.currentPage) : [];
+        return bettingArray.map((elem,index) => {
+          const race = self.props.raceIdToRaceInfo.get(String(index + 1 + (self.state.currentPage-1) * 4)) ? self.props.raceIdToRaceInfo.get(String(index+1)) : null;
+          if(race && elem){
+            return (
+                <RaceCard
+                    getHorse={self.props.getHorse}
+                    horseInfo={this.props.horseIdToInfo}
+                    currentState='now betting'
+                    race={race}
+                    key={'race'+index}
+                />
+            )
+          }else if (elem){
+            return(
+                <img
+                    key={'loading-'+index}
+                    src={loadingGif}
+                    style={{
+                      width: '200px',
+                      height: '200px'
+                    }}
+                />
+            )
+          }else{
+            return null
+          }
+        });
+      case 'ended':
+        const checkedArray = this.props.checkedRaceArray ? this.props.checkedRaceArray.slice(4*(this.state.currentPage-1),4*this.state.currentPage) : [];
+        return checkedArray.map((elem,index) => {
+          const race = self.props.raceIdToRaceInfo.get(String(index + 1 + (self.state.currentPage-1) * 4)) ? self.props.raceIdToRaceInfo.get(String(index+1)) : null;
+          if(race && elem){
+            return (
+                <RaceCard
+                    getHorse={self.props.getHorse}
+                    horseInfo={this.props.horseIdToInfo}
+                    currentState='ended'
+                    race={race}
+                    key={'race'+index}
+                />
+            )
+          }else if (elem) {
+            return(
+                <img
+                    key={'loading-'+index}
+                    src={loadingGif}
+                    style={{
+                      width: '200px',
+                      height: '200px'
+                    }}
+                />
+            )
+          } else {
+            return null
+          }
+        });
+      case 'my-races':
+        const myRaceArray = this.props.myRaceArray ? this.props.myRaceArray.slice(4*(this.state.currentPage-1),4*this.state.currentPage) : [];
+        return myRaceArray.map((elem,index) => {
+          const race = self.props.raceIdToRaceInfo.get(String(index+1 + (self.state.currentPage-1) * 4)) ? self.props.raceIdToRaceInfo.get(String(index+1)) : null;
+          if(race && elem){
+            return (
+                <RaceCard
+                    getHorse={self.props.getHorse}
+                    horseInfo={this.props.horseIdToInfo}
+                    race={race}
+                    currentState={self.currentState(elem.toNumber()-1)}
+                    isMyRace={true}
+                    key={'race'+index}
+                />
+            )
+          }else if (elem) {
+            return(
+                <img
+                    key={'loading-'+index}
+                    src={loadingGif}
+                    style={{
+                      width: '200px',
+                      height: '200px'
+                    }}
+                />
+            )
+          } else {
+            return null
+          }
+        });
+      default:
+        return null
+    }
   }
   render () {
     return(
         <div style={racePageStyles.outerContainer}>
           <div style={racePageStyles.innerContainer}>
+            <div style={racePageStyles.headerBottom}>
+            </div>
             {this.renderRaces()}
           </div>
           <Pagination
@@ -106,7 +220,9 @@ const mapStateToProps = (state) => createStructuredSelector({
   wantedRaceArray: selectWantedRaceArray(),
   bettingRaceArray: selectBettingRaceArray(),
   checkedRaceArray: selectCheckedRaceArray(),
-  horseIdToInfo: selectHorseInfo()
+  horseIdToInfo: selectHorseInfo(),
+  currentDisplay: selectRaceCurrentDisp(),
+  myRaceArray: selectMyRaeArray()
 });
 const mapDispatchToProps = (dispatch) => ({
   startLoadRaces: () => dispatch(startLoadRaceArray()),

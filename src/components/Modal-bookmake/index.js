@@ -1,7 +1,16 @@
 import React, {Component} from 'react'
 import ModalComponent from '../Modal-base/'
 import RaceAppliedHorseList from "../ModalAppliedHorseList";
+import PropTypes from 'prop-types'
+import HorseImage from '../HorseImage'
+
+
 class BookMakeModal extends Component{
+  static propTypes={
+    isModalOpen: PropTypes.bool.isRequired,
+    closeModal: PropTypes.func.isRequired,
+
+  };
   constructor(props) {
     super(props);
     this.state={
@@ -21,9 +30,6 @@ class BookMakeModal extends Component{
     }
   }
 
-  closeModal(){
-    this.props.actions.changeBookMakeModal()
-  }
   onChangeBetRate1(e){
     this.setState({
       betRate1: e.target.value
@@ -71,6 +77,7 @@ class BookMakeModal extends Component{
     return(
         <ModalComponent
             isActive={this.props.isModalOpen}
+            closeModal={this.props.closeModal}
         >
           <div className="apply-race-modal-contents">
             <div className="apply-horse-list">
@@ -90,7 +97,7 @@ class BookMakeModal extends Component{
             </button>
             <button
                 className="apply-race-close-button"
-                onClick={()=>this.closeModal()}
+                onClick={()=>this.props.closeModal()}
             >
               Close
             </button>

@@ -54,16 +54,31 @@ export const headerStyles = {
     borderLeft: '1px solid #000'
   },
   headerLeftMarket: {
-    width: '315px',
+    width: '100%',
     height: '25px',
     display: 'flex'
   },
-  headerLeftButtonMarket: {
-    lineHeight: '20px',
-    fontSize: '14px',
-    width: '33%',
-    textAlign: 'left',
-    outline: 'none',
-    border: 'none'
+  headerLeftButtonMarket: function(isDisplayed) {
+    if(isDisplayed){
+      return {
+        lineHeight: '20px',
+        fontSize: '14px',
+        width: '25%',
+        textAlign: 'left',
+        outline: 'none',
+        border: 'none',
+        textDecoration: 'underline',
+        fontWeight: 'bold'
+      }
+    } else {
+      return {
+        lineHeight: '20px',
+        fontSize: '14px',
+        width: '25%',
+        textAlign: 'left',
+        outline: 'none',
+        border: 'none'
+      }
+    }
   }
 };

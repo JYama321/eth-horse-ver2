@@ -1,5 +1,4 @@
 import {
-  GET_RACES_ARRAY_SUCCESS,
   FAIL_GET_RACES_ARRAY,
   GET_WANTED_RACE_ARRAY,
   GET_BETTING_RACE_ARRAY,
@@ -7,36 +6,19 @@ import {
   GET_RACE_INFO,
   START_LOAD_RACE_ARRAY,
   GET_HORSE_INFO,
-  CHANGE_RACE_PAGE
+  CHANGE_RACE_PAGE,
+  CHANGE_CURRENT_DISP_RACES
 } from "../../actionTypes";
 
 export const startLoadRaceArray = () => ({
   type: START_LOAD_RACE_ARRAY
 });
 
-export const getRacesArray = (data) => ({
-  type: GET_RACES_ARRAY_SUCCESS,
-  data: data
-});
 
 export const failGetRaces = () => ({
   type: FAIL_GET_RACES_ARRAY
 });
 
-export const getWantedRaces = (array) => ({
-  type: GET_WANTED_RACE_ARRAY,
-  data: array
-});
-
-export const getBettingRaces = (array) => ({
-  type: GET_BETTING_RACE_ARRAY,
-  data: array
-});
-
-export const getCheckedRaces = (array) => ({
-  type: GET_CHECKED_RACE_ARRAY,
-  data: array
-});
 
 export const getRaceInfo = (info) => ({
   type: GET_RACE_INFO,
@@ -57,4 +39,9 @@ export const getHorseInfo = (data) => ({
 export const changeRacePage = (page) => ({
   type: CHANGE_RACE_PAGE,
   data: page
+});
+
+export const changeRaceCurrentDisp = (disp) => ({
+  type: CHANGE_CURRENT_DISP_RACES,
+  data: disp
 });
