@@ -2,11 +2,6 @@ import {createSelector} from 'reselect'
 
 const selectGlobal = state => state.global;
 
-const selectHorseArrayLoading = () => createSelector(
-    selectGlobal,
-    (substate) => substate.get('isMyHorseArrayLoadDone')
-);
-
 const selectHorseArray = () => createSelector(
     selectGlobal,
     (substate) => substate.get('horseArrayLoaded')
@@ -29,7 +24,6 @@ const selectHorseIdToHorseInfo = () => createSelector(
 
 export {
   selectGlobal,
-  selectHorseArrayLoading,
   selectHorseArray,
   selectHorseIdArray,
   selectHorseIdToHorseInfo,

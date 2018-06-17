@@ -33,6 +33,9 @@ import {
   getMyRaceArrray,
   getTicketNum
 } from './utils/eth-function'
+import {
+  selectBalance
+} from "./selectors";
 
 class App extends Component {
   constructor (props) {
@@ -124,7 +127,9 @@ class App extends Component {
             >
               <meta name="description" content="An decentralized horse race platform" />
             </Helmet>
-            <Header/>
+            <Header
+                balance={this.props.balance}
+            />
             <Route exact path='/'/>
             <Route exact path='/my-page' component={MyPage}/>
             <Route exact path='/horses/:id' component={HorseInfo}/>
@@ -139,8 +144,8 @@ class App extends Component {
     }
   }
 }
-const mapStateToProps = (state,ownProps) => ({
-  state: state
+const mapStateToProps = (state,ownProps) => createStructuredSelector({
+  balance: selectBalance()
 });
 
 const mapDispatchToProps = (dispatch) => ({

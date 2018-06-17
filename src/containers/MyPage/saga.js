@@ -1,7 +1,7 @@
 import {call, put, select, takeLatest} from 'redux-saga/effects';
 import {
+  START_LOAD_MY_HORSES_ARRAY,
   GET_MY_HORSES_ARRAY_SUCCESS,
-  MOVE_MY_PAGE_PAGE
 } from "../../actionTypes";
 import {
   getMyHorseArraySuccess,
@@ -47,6 +47,6 @@ export function* batchGetHorseInfo(){
 
 
 export default function* myHorseSaga(){
+  yield takeLatest(START_LOAD_MY_HORSES_ARRAY,getMyHorseArray);
   yield takeLatest(GET_MY_HORSES_ARRAY_SUCCESS,batchGetHorseInfo);
-  yield takeLatest(MOVE_MY_PAGE_PAGE,batchGetHorseInfo);
 }

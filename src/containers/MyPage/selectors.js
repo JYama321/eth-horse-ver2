@@ -21,9 +21,31 @@ const selectTicketNum = () => createSelector(
     substate => substate.get('ticketNum')
 );
 
+const selectHorseIdArray = () => createSelector(
+    selectGlobal,
+    (substate) => substate.get('myHorseIdArray')
+);
+
+const selectHorseArrayLoading = () => createSelector(
+    selectGlobal,
+    (substate) => substate.get('isMyHorseArrayLoadDone')
+);
+const selectCurrentPage = () => createSelector(
+    selectGlobal,
+    (substate) => substate.get('myHorsePageCurrentPage')
+);
+const selectHorseIdToHorseInfo = () => createSelector(
+    selectGlobal,
+    (substate) => substate.get('horseIdToHorseInfo')
+);
+
 export {
   selectMyPageCurrentDisp,
   selectBalance,
   selectActivity,
-  selectTicketNum
+  selectTicketNum,
+  selectHorseIdArray,
+  selectHorseArrayLoading,
+  selectCurrentPage,
+  selectHorseIdToHorseInfo
 }

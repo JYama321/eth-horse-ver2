@@ -116,6 +116,23 @@ export const myPageStyles = {
   ticketCardContainer: {
     width: '100%',
     height: '60px',
-
+  },
+  statusHorseList: {
+    width: '1080px',
+    height: '380px',
+    marginTop: '80px'
+  },
+  statusHorseLisTitle: {
+    width: '100%',
+    height: '40px',
+    textAlign: 'left',
+    borderBottom: '2px solid #000'
+  },
+  statusPageHorseList: {
+    width: '100%',
+    height: '270px',
+    display: 'flex',
+    marginTop: '56px',
+    justifyContent: 'space-between'
   }
 };

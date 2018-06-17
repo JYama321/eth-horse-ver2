@@ -12,8 +12,12 @@ import {
   selectMyPageCurrentDisp
 } from './selectors'
 import history from '../../utils/history'
+import PropTypes from 'prop-types'
 
 class Header extends Component {
+  static propTypes={
+    balance: PropTypes.number.isRequired
+  };
   renderHeaderLeft(){
     const place = history.location.pathname.split('/')[1];
     switch(place){
@@ -54,8 +58,8 @@ class Header extends Component {
   }
   renderHeaderRight(){
     return(
-        <div>
-          ETH
+        <div style={headerStyles.headerRightBalance}>
+          {this.props.balance} ETH
         </div>
     )
   }
@@ -72,7 +76,6 @@ class Header extends Component {
               <MenuItem path={'/market-place'} pathName={'Market'}/>
               <MenuItem path={'/races'} pathName={'Race'}/>
               <MenuItem path={'/events'} pathName={'Events'}/>
-              <MenuItem path={'/activities'} pathName={'Activity'}/>
             </div>
           </div>
           </div>

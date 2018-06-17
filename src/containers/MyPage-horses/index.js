@@ -5,13 +5,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import {
-  startLoadMyHorseArray,
   moveMyPageHorsePagination
 } from './actions'
 import saga from './saga'
 import {
   selectHorseArray,
-  selectHorseArrayLoading,
   selectHorseIdToHorseInfo,
   selectHorseIdArray,
 } from "./selectors";
@@ -32,9 +30,6 @@ class MyPageHorses extends Component{
   }
 
   componentDidMount(){
-    if(!this.props.horseArrayLoadDone){
-      this.props.horseArrayLoadStart()
-    }
     this.setState({
       totalPage: Math.ceil(this.props.horseIdArray.toArray().length / 8)
     })
@@ -86,35 +81,29 @@ class MyPageHorses extends Component{
     })
   }
 
-  render(){
-    if(this.props.horseArrayLoadDone){
-      return(
-          <div style={styles.outerContainer}>
-            <div style={styles.innerContainer}>
-              {this.renderHorses()}
-              <Pagination
-                  totalPage={this.state.totalPage}
-                  currentPage={this.state.currentPage}
-                  buttonPerPage={this.state.buttonPerPage}
-                  onChangePage={this.onChangePage}
-              />
-            </div>
+  render() {
+    return (
+        <div style={styles.outerContainer}>
+          <div style={styles.innerContainer}>
+            {this.renderHorses()}
+            <Pagination
+                totalPage={this.state.totalPage}
+                currentPage={this.state.currentPage}
+                buttonPerPage={this.state.buttonPerPage}
+                onChangePage={this.onChangePage}
+            />
           </div>
-      )
-    } else {
-      return null
-    }
+        </div>
+    )
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  horseArrayLoadDone: selectHorseArrayLoading(),
   horseArray: selectHorseArray(),
   horseIdArray: selectHorseIdArray(),
   horseIdToInfo: selectHorseIdToHorseInfo()
 });
 const mapDispatchToProps = (dispatch) => ({
-  horseArrayLoadStart: ()=>dispatch(startLoadMyHorseArray()),
   movePage: (page)=>dispatch(moveMyPageHorsePagination(page))
 });
 

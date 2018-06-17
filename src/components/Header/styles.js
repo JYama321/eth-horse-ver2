@@ -21,6 +21,7 @@ export const headerStyles = {
     height: '160px',
     position: 'relative',
     margin: '0 auto',
+    borderBottom: '2px solid #000'
   },
   headerBottomContents: {
     position: 'absolute',
@@ -35,7 +36,18 @@ export const headerStyles = {
   },
   headerBottomRight: {
     height: '100%',
-    width: '50%'
+    width: '50%',
+    position: 'relative'
+  },
+  headerRightBalance: {
+    width: '150px',
+    height: '25px',
+    color: 'white',
+    position: 'absolute',
+    backgroundColor: 'black',
+    right: 0,
+    top: 0,
+    textAlign: 'center'
   },
   headerTitle: {
     fontFamily: '"GoudyOldstyle-Regular", "Arial Narrow"',

@@ -6,10 +6,6 @@ import {
   MOVE_MY_PAGE_PAGE
 } from '../../actionTypes'
 
-export const startLoadMyHorseArray = () => ({
-  type: START_LOAD_MY_HORSES_ARRAY
-});
-
 export const getMyHorseArraySuccess = (array) => ({
   type: GET_MY_HORSES_ARRAY_SUCCESS,
   data: array
