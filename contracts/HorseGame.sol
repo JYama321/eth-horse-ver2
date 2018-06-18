@@ -115,8 +115,7 @@ contract HorseGameBase is Ownable{
     mapping(uint => uint[]) public raceIdToHorseIds;//raceIdと参加する馬のIdを紐付ける
     mapping(uint => uint) public raceIdToDeposit; //レースにデポジットされたETHの値
 
-
-    event HorseOnSale(address indexed _from,uint _tokenId,uint _now);
+    event HorseOnSale(address indexed _from,uint _tokenId, string _type);
     event Transfer(address indexed _from,address indexed _to,uint256 _tokenId, uint _now);
     event ApplyRace(address indexed _owner,uint _raceId,uint _horseId,uint _now);
     event BetRace(address indexed _voter,uint _betValue, uint _raceId, uint _horseId, uint _now);
@@ -140,6 +139,10 @@ contract HorseGameBase is Ownable{
 
     function getOnMinBidPricesArray() external view returns(uint[]){
         return horseOnMinBidPrices;
+    }
+
+    function getHorseGenesArray() external view returns(uint[]){
+        return horseGenes;
     }
 
     //balance of owner
@@ -239,7 +242,7 @@ contract HorseGameBase is Ownable{
         horse.isOnSale = true;
         tokenIdToOnSaleIndex[_tokenId] = horsesOnSale.push(_tokenId) - 1;
         horseOnSalePrices[_tokenId.sub(1)] = _price;
-        emit HorseOnSale(tokenOwner[_tokenId],_tokenId, now);
+        emit HorseOnSale(tokenOwner[_tokenId],_tokenId, "sale");
     }
 
     function horseTokenToNotOnSale(uint _tokenId) external{
@@ -284,7 +287,7 @@ contract HorseGameBase is Ownable{
         horse.isOnSireSale = true;
         tokenIdToOnSireSaleIndex[_tokenId] = horsesOnSireSale.push(_tokenId) - 1;
         horseOnSirePrices[_tokenId.sub(1)] = _price;
-        emit HorseOnSale(tokenOwner[_tokenId], _tokenId, now);
+        emit HorseOnSale(tokenOwner[_tokenId], _tokenId, "sire");
     }
 
 
@@ -369,6 +372,7 @@ contract HorseBet is HorseGameBase{
     bool[] public wantedRaces;
     bool[] public bettingRaces;
     bool[] public checkedRaces;
+    mapping (address => uint[]) public mapUserToRaceIds;
 
 
     modifier hostOnly(uint _raceId,address _sender){
@@ -376,6 +380,7 @@ contract HorseBet is HorseGameBase{
         require(race.host == _sender);
         _;
     }
+
 
     function checkRaceResult(uint _raceId) external {
         Race storage race = races[_raceId.sub(1)];
@@ -428,7 +433,6 @@ contract HorseBet is HorseGameBase{
         horseTotalPrize[race.winnerHorseId.sub(1)].add(prize);
         msg.sender.transfer(prize);
     }
-
 
     function myBetInfo(uint _raceId) external view returns(uint,uint,uint){
         Race storage race = races[_raceId.sub(1)];
@@ -500,6 +504,7 @@ contract HorseBet is HorseGameBase{
             isChecked: false,
             isBetting: false
             });
+        mapUserToRaceIds[msg.sender].push(races.length.add(1));
         races.push(race);
         wantedRaces.push(true);
         bettingRaces.push(false);
@@ -527,7 +532,21 @@ contract HorseBet is HorseGameBase{
         return races.length;
     }
 
+    function getWantedRaces() external view returns(bool[]){
+        return wantedRaces;
+    }
 
+    function getBettingRaces() external view returns(bool[]){
+        return bettingRaces;
+    }
+
+    function getCheckedRaces() external view returns(bool[]){
+        return checkedRaces;
+    }
+
+    function getMyRaces() external view returns(uint[]){
+        return mapUserToRaceIds[msg.sender];
+    }
 }
 
 
@@ -585,6 +604,7 @@ contract HorseBid is HorseBet{
         horseOnMinBidPrices[_tokenId.sub(1)] = _minPrice;
         tokenIdToAuction[_tokenId] = bid;
         tokenIdToBidIndex[_tokenId] = horsesOnBid.push(_tokenId).sub(1);
+        emit HorseOnSale(msg.sender,_tokenId,"auction");
     }
 
     function changeAuctionStatus(uint _addTime,uint _price, uint _tokenId) external{
@@ -639,9 +659,7 @@ contract HorseBid is HorseBet{
             sender.transfer(payback);
         }
     }
-
 }
-
 
 contract HorseGame is HorseBid{
     uint ticketPrice;

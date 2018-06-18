@@ -50,8 +50,10 @@ contract GeneFunction{
                 uint con = quot / 100;
                 if(fakeGene % quot > 5 * con * 10){
                     newGene = newGene.add(_maleGene % quot - _maleGene % con);
-                }else{
+                }else if(fakeGene % quot > 1 * con * 10){
                     newGene = newGene.add(_femaleGene % quot - _femaleGene % con);
+                }else{
+                    newGene = newGene.add(fakeGene % quot - fakeGene % con);
                 }
             }
             return newGene;
