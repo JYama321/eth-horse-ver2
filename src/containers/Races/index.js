@@ -238,15 +238,7 @@ class Races extends Component{
     return(
         <div style={racePageStyles.outerContainer}>
           <div style={racePageStyles.innerContainer}>
-            <Modal
-                isOpen={this.state.isHostRaceModalOpen}
-                style={racePageStyles.modalContent}
-                onRequestClose={()=>this.closeModal()}
-            >
-              <div>
-                うんこ
-              </div>
-            </Modal>
+
             <ApplyRaceModal
                 isActive={this.state.isApplyRaceModalOpen} ownedHorses={this.props.ownedHorses.toArray()}
                 horseInfo={this.props.horseIdToInfo} closeModal={()=>this.closeApplyRaceModal()} raceId={this.state.currentSelectedRaceId}

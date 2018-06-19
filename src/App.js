@@ -26,7 +26,7 @@ import {
   getTicket,
   getMyHorseArraySuccess
 } from './actions'
-const address = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
+const address = '0x8acee021a27779d8e98b9650722676b850b25e11';
 import {
   getWantedRaceArray,
   getBettingRaceArray,

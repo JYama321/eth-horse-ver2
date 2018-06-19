@@ -3,7 +3,6 @@ export const getMyHorsesArray = () => {
   return new Promise((resolve, reject) => {
     window.contract_instance.ownedTokensIds(window.web3.eth.coinbase,function(err,result){
       if(err){console.log(err)}
-      console.log(result,'getMyHorseArray')
       resolve(result)
     })
   })
@@ -196,6 +195,24 @@ export const ownerOf = (horseId) => {
 export const applyRace = (raceId,horseId) => {
   return new Promise((resolve, reject) => {
     window.contract_instance.applyRace(raceId,horseId,{from: window.web3.eth.coinbase, gas: 3000000},function(err, result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const getHorseStrengthBalance = (raceId) => {
+  return new Promise((resolve,reject) => {
+    window.contract_instance.getRaceStrengthInfo(raceId,function(err,result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const decideBetRate = (raceId,rates) => {
+  return new Promise((resolve,reject) => {
+    window.contract_instance.decideBetRate(raceId,rates[0]*100,rates[2]*100,{from: window.web3.eth.coinbase},function(err,result){
       if(err){reject(err)}
       resolve(result)
     })

@@ -1,33 +1,76 @@
 import React, {Component} from 'react'
-import ModalComponent from '../Modal-base/'
-import RaceAppliedHorseList from "../ModalAppliedHorseList";
 import PropTypes from 'prop-types'
-import HorseImage from '../HorseImage'
+import HorseStatusCard from '../../components/HorseStatusCard'
+import { bookMakeModalStyle } from './styles'
+import {
+  getHorseStrengthBalance,
+  decideBetRate
+} from "../../utils/eth-function";
+import Modal from 'react-modal'
 
-
+Modal.setAppElement('#root');
 class BookMakeModal extends Component{
   static propTypes={
     isModalOpen: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
-
+    race: PropTypes.array.isRequired,
+    horseInfo: PropTypes.object.isRequired
   };
   constructor(props) {
     super(props);
     this.state={
-      horses: [],
       betRate1: 0,
       betRate2: 0,
-      raceId: 0
+      expectedBetRate:[],
+      betRates: [],
+      loaded: false,
+      isOpen: false
     }
   }
-  componentWillReceiveProps(nextProps,prevState){
-    if(nextProps.raceId !== prevState.raceId){
-      const self = this;
+  componentDidMount(){
+    const self = this;
+    getHorseStrengthBalance(this.props.race[0].toNumber()).then(function(result){
+      console.log(result);
+      const sum = result[0].toNumber() + result[1].toNumber();
       self.setState({
-        horses: nextProps.horses,
-        raceId: nextProps.raceId
+        expectedBetRate: [(sum / result[0].toNumber()).toFixed(2), (sum / result[1]).toFixed(2)],
+      })
+    })
+  }
+  componentWillReceiveProps(props){
+    if(props.horseInfo.get(String(props.race[2].toNumber())) && props.horseInfo.get(String(props.race[3].toNumber()))){
+      this.setState({
+        loaded: true
       })
     }
+  }
+  changeBetValue(e,num){
+    let rates = this.state.betRates;
+    rates[num] = e.target.value;
+    this.setState({
+      betRates: rates
+    })
+  }
+  renderHorse(horse,num){
+    console.log(this.state.expectedBetRate[num]);
+    return (
+        <div style={bookMakeModalStyle.horseCardContainer}>
+          <HorseStatusCard
+              info={horse}
+              isMyHorse={true}
+              isLeft={true}
+          />
+          <div style={bookMakeModalStyle.applyRaceButton}>expected bet rate: {this.state.expectedBetRate[num]}</div>
+          <input
+              value={this.state.betRates[num]}
+              onChange={e=>this.changeBetValue(e,num)}
+              type="number"
+              step="0.01"
+              style={bookMakeModalStyle.inputField}
+              min="1"
+          />
+        </div>
+    )
   }
 
   onChangeBetRate1(e){
@@ -40,70 +83,42 @@ class BookMakeModal extends Component{
       betRate2: e.target.value
     })
   }
-  // decideBetRate(){
-  //   const data = {
-  //     betRate1: Math.ceil(this.state.betRate1 * 100),
-  //     betRate2: Math.ceil(this.state.betRate2 * 100),
-  //     raceId: this.props.raceId
-  //   };
-  //   const self = this;
-  //   this.props.actions.decideBetRate(data).then(function(){
-  //     data.betRate = Math.ceil(this.state.betRate2 * 100);
-  //     self.props.actions.decideBetRate(data)
-  //   })
-  // }
+  decideBetRate(){
+    const data = {
+      betRate1: Math.ceil(this.state.betRate1 * 100),
+      betRate2: Math.ceil(this.state.betRate2 * 100),
+      raceId: this.props.raceId
+    };
+    const self = this;
+    this.props.actions.decideBetRate(data).then(function(){
+      data.betRate = Math.ceil(this.state.betRate2 * 100);
+      self.props.actions.decideBetRate(data)
+    })
+  }
   render(){
-    const horse = this.state.horses.map((elem,index) => {
+    if(this.state.loaded){
+      const horseOne = this.props.horseInfo.get(String(this.props.race[2].toNumber()));
+      const horseTwo = this.props.horseInfo.get(String(this.props.race[3].toNumber()));
+      const raceId = this.props.race[0].toNumber();
       return(
-          <div
-              className="apply-horse-content-container"
-              key={index}
+          <Modal
+              isOpen={this.props.isModalOpen}
+              style={bookMakeModalStyle.modalContent}
+              onRequestClose={this.props.closeModal}
           >
-            <RaceAppliedHorseList
-                name={elem[1]}
-                gene={elem[2].c.join(',').replace(/,/g,'')}
-                remainRaceNum={elem[7].toNumber}
-            />
-          </div>
+            <div style={bookMakeModalStyle.modalTopTitle}>
+              Decide Betting Rate
+            </div>
+            <div style={bookMakeModalStyle.horseListContainer}>
+              {this.renderHorse(horseOne,0)}
+              {this.renderHorse(horseTwo,1)}
+            </div>
+            <button style={bookMakeModalStyle.decideBetButton} onClick={()=>decideBetRate(raceId,this.state.betRates)}>decide betting rate</button>
+          </Modal>
       )
-    });
-    let strengths=[];
-    // if(this.state.horses.length ===2){
-    //   strengths = functions.returnExpectedBetRate(
-    //       [this.state.horses[0] ? this.state.horses[0][2].c.join(',').replace(/,/g,'') : "12345",
-    //         this.state.horses[1] ? this.state.horses[1][2].c.join(',').replace(/,/g,'') : "12345"]
-    //   )
-    // }
-    return(
-        <ModalComponent
-            isActive={this.props.isModalOpen}
-            closeModal={this.props.closeModal}
-        >
-          <div className="apply-race-modal-contents">
-            <div className="apply-horse-list">
-              {horse}
-            </div>
-            <div className="expected-rate">Expected <h5>{strengths[0] + " : " + strengths[1]}</h5> </div>
-            <div className="bookmake-rate-list">
-              <div>
-                <b>BetRate1</b>&nbsp;<input type="number" value={this.state.betRate1} onChange={e=>this.onChangeBetRate1(e)} />
-              </div>
-              <div>
-                <b>BetRate2</b>&nbsp;<input type="number" value={this.state.betRate2} onChange={e=>this.onChangeBetRate2(e)} />
-              </div>
-            </div>
-            <button className="decide-bet-button" onClick={()=>this.decideBetRate()} >
-              Done
-            </button>
-            <button
-                className="apply-race-close-button"
-                onClick={()=>this.props.closeModal()}
-            >
-              Close
-            </button>
-          </div>
-        </ModalComponent>
-    )
+    }else{
+      return null
+    }
   }
 }
 
