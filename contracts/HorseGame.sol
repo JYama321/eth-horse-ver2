@@ -119,7 +119,7 @@ contract HorseGameBase is Ownable{
     event Transfer(address indexed _from,address indexed _to,uint256 _tokenId, uint _now);
     event ApplyRace(address indexed _owner,uint _raceId,uint _horseId,uint _now);
     event BetRace(address indexed _voter,uint _betValue, uint _raceId, uint _horseId, uint _now);
-    event HostRace(address indexed _host, uint _deposit, uint _minWinnerPrize, uint _now);
+    event HostRace(address indexed _host, uint _deposit, uint _minWinnerPrize, uint _raceId);
 
     function getWinCountsArray() external view returns(uint[]){
         return horseWinCounts;
@@ -509,7 +509,7 @@ contract HorseBet is HorseGameBase{
         wantedRaces.push(true);
         bettingRaces.push(false);
         checkedRaces.push(false);
-        emit HostRace(msg.sender, msg.value, _minWinnerPrize, now);
+        emit HostRace(msg.sender, msg.value, _minWinnerPrize, races.length);
     }
 
     function applyRace(uint _raceId, uint _horseId) external{
