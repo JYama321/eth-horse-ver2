@@ -1,7 +1,7 @@
 import {
   CHANGE_MY_PAGE_DISP, FAIL_LOAD_MY_HORSES_ARRAY,
   GET_MY_HORSES_ARRAY_SUCCESS, START_LOAD_MY_HORSES_ARRAY,
-  GET_HORSE_INFO
+  GET_HORSE_INFO, START_LOAD_MY_HORSES
 } from "../../actionTypes";
 
 
@@ -17,6 +17,10 @@ export const getMyHorseArray = (array) => ({
 
 export const startLoadMyHorseArray = () => ({
   type: START_LOAD_MY_HORSES_ARRAY
+});
+
+export const startLoadMyHorses = () => ({
+  type: START_LOAD_MY_HORSES
 });
 
 export const getMyHorseArraySuccess = (array) => ({

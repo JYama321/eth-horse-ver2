@@ -47,7 +47,10 @@ import {
   CHANGE_MY_PAGE_DISP,
   //Balance
   GET_USER_BALANCE,
-  GET_TICKET_NUM
+  GET_TICKET_NUM,
+  //horse owner
+  GET_CURRENT_SEARCH_HORSE_OWNER,
+  CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE
 } from "./actionTypes";
 
 const globalState = fromJS({
@@ -55,6 +58,7 @@ const globalState = fromJS({
   isMySireHorseArrayLoading: false,
   myHorseIdArray: [], //my horse
   myHorsePageCurrentPage: 1,
+  applyRaceHorseCurrentPage: 1,
 
   isSellHorseArrayLoaded: false,
   sellHorseArray: [],  // all sell horses
@@ -102,6 +106,8 @@ const globalState = fromJS({
   horseIdToHorseInfo: {},
   isHorseInfoLoading: true,
   currentSearchHorseId: 0,
+  currentSearchHorseOwner: '',
+
   currentSireHorseId: 0,
   isPapaLoading: true,
   isMamaLoading: true,
@@ -113,7 +119,8 @@ const globalState = fromJS({
   //balance
   balance: 0,
   //ticketNum
-  ticketNum: 0
+  ticketNum: 0,
+  
 });
 
 function globalReducer(state = globalState ,action){
@@ -173,6 +180,8 @@ function globalReducer(state = globalState ,action){
       return state.set('rankWinCountCurrentPage', action.data);
     case START_GET_HORSE_INFO:
       return state.set('isHorseInfoLoading',true).set('currentSearchHorseId',action.data);
+    case GET_CURRENT_SEARCH_HORSE_OWNER:
+      return state.set('currentSearchHorseOwner', action.data);
     case SET_CURRENT_SIRE_HORSE_ID:
       return state.set('currentSireHorseId', action.data);
     case GET_HORSE_INFO_FAILED:
@@ -213,6 +222,8 @@ function globalReducer(state = globalState ,action){
       return state.set('balance', action.data);
     case GET_TICKET_NUM:
       return state.set('ticketNum', action.data);
+    case CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE:
+      return state.set('applyRaceHorseCurrentPage', action.data);
     default:
       return state;
   }

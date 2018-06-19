@@ -10,6 +10,7 @@ class RaceAppliedHorseList extends Component {
     const status = gene.slice(gene.length-15,gene.length);
     return functions.horseStatus(status)
   }
+  
   render(){
     return(
         <div className="apply-horse-container">

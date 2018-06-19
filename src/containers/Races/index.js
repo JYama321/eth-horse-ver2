@@ -22,9 +22,14 @@ import {
   selectCheckedRaceArray,
   selectHorseInfo,
   selectRaceCurrentDisp,
-  selectMyRaeArray
+  selectMyRaeArray,
+  selectMyHorseIdArray
 } from "./selectors";
+import {hostRace, getHorseData} from "../../utils/eth-function";
+import ApplyRaceModal from '../../components/ModalApplyRace'
+import Modal from 'react-modal'
 
+Modal.setAppElement('#root');
 
 class Races extends Component{
   constructor(props){
@@ -32,15 +37,26 @@ class Races extends Component{
     this.state = {
       totalPage: 1,
       currentPage: 1,
-      buttonPerPage: 10
+      buttonPerPage: 10,
+      isHostRaceModalOpen: false,
+      isApplyRaceModalOpen: false,
+      currentSelectedRaceId: 0
     };
-    this.onChangePage = this.onChangePage.bind(this)
+    this.onChangePage = this.onChangePage.bind(this);
+    this.openApplyRaceModal = this.openApplyRaceModal.bind(this)
   }
 
   componentDidMount(){
+    const self = this;
     if(!this.props.raceArrayLoaded){
       this.props.startLoadRaces();
     }
+    //my horse の先頭3匹は取得しておく
+    this.props.ownedHorses.toArray().slice(0,3).forEach(function(elem,index){
+      getHorseData(elem.toNumber()).then((elem) => {
+        self.props.getHorse(elem)
+      })
+    })
   }
   componentWillReceiveProps(props,state){
     this.setState({
@@ -83,7 +99,9 @@ class Races extends Component{
                     getHorse={self.props.getHorse}
                     horseInfo={this.props.horseIdToInfo}
                     currentState='now wanted'
+                    isMyRace={false}
                     race={race}
+                    openApplyRaceModal={this.openApplyRaceModal}
                     key={'race'+index}
                 />
             )
@@ -194,11 +212,47 @@ class Races extends Component{
         return null
     }
   }
+  openModal(){
+    this.setState({
+      isHostRaceModalOpen: true
+    })
+  }
+  closeModal(){
+    this.setState({
+      isHostRaceModalOpen: false
+    })
+  }
+  openApplyRaceModal(num){
+    console.log(num)
+    this.setState({
+      isApplyRaceModalOpen: true,
+      currentSelectedRaceId: num
+    })
+  }
+  closeApplyRaceModal(){
+    this.setState({
+      isApplyRaceModalOpen: false
+    })
+  }
   render () {
     return(
         <div style={racePageStyles.outerContainer}>
           <div style={racePageStyles.innerContainer}>
+            <Modal
+                isOpen={this.state.isHostRaceModalOpen}
+                style={racePageStyles.modalContent}
+                onRequestClose={()=>this.closeModal()}
+            >
+              <div>
+                うんこ
+              </div>
+            </Modal>
+            <ApplyRaceModal
+                isActive={this.state.isApplyRaceModalOpen} ownedHorses={this.props.ownedHorses.toArray()}
+                horseInfo={this.props.horseIdToInfo} closeModal={()=>this.closeApplyRaceModal()} raceId={this.state.currentSelectedRaceId}
+            />
             <div style={racePageStyles.headerBottom}>
+              <button style={racePageStyles.holdRaceButton} onClick={()=>this.openModal()}>Hold Race +</button>
             </div>
             {this.renderRaces()}
           </div>
@@ -222,7 +276,8 @@ const mapStateToProps = (state) => createStructuredSelector({
   checkedRaceArray: selectCheckedRaceArray(),
   horseIdToInfo: selectHorseInfo(),
   currentDisplay: selectRaceCurrentDisp(),
-  myRaceArray: selectMyRaeArray()
+  myRaceArray: selectMyRaeArray(),
+  ownedHorses: selectMyHorseIdArray()
 });
 const mapDispatchToProps = (dispatch) => ({
   startLoadRaces: () => dispatch(startLoadRaceArray()),

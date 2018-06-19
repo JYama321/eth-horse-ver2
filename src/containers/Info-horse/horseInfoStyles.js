@@ -57,6 +57,20 @@ export const horseInfoStyles = {
     border: 'none',
     outline: 'none'
   },
+  currentHorsePrice: {
+    width: '220px',
+    height: '20px',
+    backgroundSize: '220px 20px',
+    position: 'absolute',
+    right: '130px',
+    bottom: '30px',
+    fontSize: '15px',
+    lineHeight: '20px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    outline: 'none',
+    textAlign: 'center'
+  },
   sireHorseButton: {
     width: '80px',
     height: '20px',
@@ -70,6 +84,7 @@ export const horseInfoStyles = {
     lineHeight: '20px',
     fontSize: '14px'
   },
+
   trainHorseButton: {
     width: '80px',
     height: '20px',

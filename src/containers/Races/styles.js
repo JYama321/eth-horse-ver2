@@ -19,6 +19,27 @@ export const racePageStyles = {
   headerBottom: {
     width: '100%',
     height: '150px',
-    display: 'flex',
+    position: 'relative'
+  },
+  holdRaceButton: {
+    fontSize: '16px',
+    height: '30px',
+    lineHeight: '30px',
+    position: 'absolute',
+    outline: 'none',
+    border: 'none',
+    right: 0,
+    top: '56px',
+  },
+  modalContent: {
+    top : '50%',
+    left  : '50%',
+    right : 'auto',
+    bottom : 'auto',
+    marginRight : '-50%',
+    transform : 'translate(-50%, -50%)',
+    height: '100px',
+    position: 'absolute',
+    zIndex: 8888
   }
 };

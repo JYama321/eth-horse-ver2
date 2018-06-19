@@ -43,13 +43,6 @@ class MyPageActivity extends Component{
       fromBlock: 0,
       toBlock: 'latest'
     });
-    const HorseOnBidSale = window.contract_instance.HorseOnBidSale({
-      _from: window.web3.eth.coinbase
-    },{
-      fromBlock: 0,
-      toBlock: 'latest'
-    });
-
   }
 
   renderCard(){

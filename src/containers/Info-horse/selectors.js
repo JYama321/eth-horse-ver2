@@ -17,9 +17,15 @@ const selectIsHorseInfoLoading = () => createSelector(
     (substate) => substate.get('isHorseInfoLoading')
 );
 
+const selectHorseOwner = () => createSelector(
+    selectGlobal,
+    substate => substate.get('currentSearchHorseOwner')
+);
+
 
 export {
   selectHorseIdToHorseInfo,
   selectCurrentHorseId,
-  selectIsHorseInfoLoading
+  selectIsHorseInfoLoading,
+  selectHorseOwner
 }

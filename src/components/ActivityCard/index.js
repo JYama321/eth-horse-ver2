@@ -29,7 +29,7 @@ class ActivityCard extends Component{
                   src={boughtLog}
               />
               <p style={activityCardP}>get horse</p>
-              <p style={eventDetail}>Get Horse from {args._from} </p>
+              <p style={eventDetail}>Get <Link to={'/horses/' + args._tokenId}>Horse</Link> from {args._from} </p>
             </div>);
       case 'HostRace':
         const deposit = window.web3.fromWei(args._deposit,'ether');

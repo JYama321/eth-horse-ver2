@@ -23,15 +23,17 @@ import {
   getMyRaces,
   getActivities,
   getUserBalance,
-  getTicket
+  getTicket,
+  getMyHorseArraySuccess
 } from './actions'
-const address = '0xcb152a2aa90055a0d255ca7dbaeb85edfdc86096';
+const address = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
 import {
   getWantedRaceArray,
   getBettingRaceArray,
   getCheckedRaceArray,
   getMyRaceArrray,
-  getTicketNum
+  getTicketNum,
+  getMyHorsesArray
 } from './utils/eth-function'
 import {
   selectBalance
@@ -54,6 +56,8 @@ class App extends Component {
     const bettingArray = await getBettingRaceArray();
     const checkedArray = await getCheckedRaceArray();
     const myRaceArray = await getMyRaceArrray();
+    const myHorseArray = await getMyHorsesArray();
+    this.props.getMyHorseArray(myHorseArray);
     this.props.getWantedArray(wantedArray);
     this.props.getBettingArray(bettingArray);
     this.props.getCheckedArray(checkedArray);
@@ -95,12 +99,6 @@ class App extends Component {
       fromBlock: 0,
       toBlock: 'latest'
     });
-    const HorseOnBidSale = window.contract_instance.HorseOnBidSale({
-      _from: window.web3.eth.coinbase
-    },{
-      fromBlock: 0,
-      toBlock: 'latest'
-    });
     BetRace.get(function(err,logs){
       self.props.getActivity(logs)
     });
@@ -128,7 +126,8 @@ class App extends Component {
               <meta name="description" content="An decentralized horse race platform" />
             </Helmet>
             <Header
-                balance={this.props.balance}
+                balance={String(this.props.balance)}
+                history={this.props.history.location.pathname}
             />
             <Route exact path='/'/>
             <Route exact path='/my-page' component={MyPage}/>
@@ -155,7 +154,8 @@ const mapDispatchToProps = (dispatch) => ({
   getMyRace: (array) => dispatch(getMyRaces(array)),
   getActivity: (activity) => dispatch(getActivities(activity)),
   getBalance: (balance) => dispatch(getUserBalance(balance)),
-  getTicket: (num) => dispatch(getTicket(num))
+  getTicket: (num) => dispatch(getTicket(num)),
+  getMyHorseArray: (array) => dispatch(getMyHorseArraySuccess(array))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);

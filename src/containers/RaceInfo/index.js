@@ -44,6 +44,7 @@ class RaceInfo extends Component {
             <div style={raceInfoStyle.innerContainer}>
               <div style={raceInfoStyle.raceName}>
                 Race Name Here
+                <button >Apply Race</button>
               </div>
               <div style={raceInfoStyle.winnerPrize}>
                 Winner Prize&nbsp;

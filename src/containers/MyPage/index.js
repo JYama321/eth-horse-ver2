@@ -10,7 +10,7 @@ import {
 } from "./selectors";
 import {
   changeCurrentDisplay,
-  startLoadMyHorseArray
+  startLoadMyHorses
 } from "./actions";
 import { connect } from 'react-redux'
 import { compose } from 'redux'
@@ -23,10 +23,7 @@ import injectSaga from "../../utils/injectSaga";
 
 class MyPage extends Component {
   componentDidMount(){
-    const self = this;
-    if(!this.props.myHorseIdsLoaded){
-      self.props.startGetMyHorses()
-    }
+    this.props.startGetMyHorses()
   }
   render(){
     if(this.props.myHorseIdsLoaded){
@@ -64,7 +61,7 @@ const mapStateToProps = () => createStructuredSelector({
 });
 const mapDispatchToProps = (dispatch) => ({
   changeDisplay: (page) => dispatch(changeCurrentDisplay(page)),
-  startGetMyHorses: (array) => dispatch(startLoadMyHorseArray(array))
+  startGetMyHorses: (array) => dispatch(startLoadMyHorses(array))
 });
 const withSaga = injectSaga({ key: 'my-page',saga});
 const withConnect = connect(mapStateToProps,mapDispatchToProps);

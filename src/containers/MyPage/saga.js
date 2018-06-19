@@ -1,11 +1,8 @@
 import {call, put, select, takeLatest} from 'redux-saga/effects';
 import {
-  START_LOAD_MY_HORSES_ARRAY,
-  GET_MY_HORSES_ARRAY_SUCCESS,
+  START_LOAD_MY_HORSES,
 } from "../../actionTypes";
 import {
-  getMyHorseArraySuccess,
-  failGetMyHorseArray,
   getHorseInfoSuccess,
 } from "./actions";
 import {
@@ -14,18 +11,9 @@ import {
   selectHorseIdToHorseInfo
 } from "./selectors";
 import {
-  getMyHorsesArray,
   getHorseData
 } from '../../utils/eth-function'
 
-export function* getMyHorseArray(){
-  try{
-    const horsesArray = yield call(getMyHorsesArray);
-    yield put(getMyHorseArraySuccess(horsesArray))
-  }catch (err){
-    yield put(failGetMyHorseArray())
-  }
-}
 
 export function* batchGetHorseInfo(){
   try{
@@ -47,6 +35,5 @@ export function* batchGetHorseInfo(){
 
 
 export default function* myHorseSaga(){
-  yield takeLatest(START_LOAD_MY_HORSES_ARRAY,getMyHorseArray);
-  yield takeLatest(GET_MY_HORSES_ARRAY_SUCCESS,batchGetHorseInfo);
+  yield takeLatest(START_LOAD_MY_HORSES,batchGetHorseInfo);
 }

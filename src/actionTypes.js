@@ -1,5 +1,6 @@
 export const GET_MY_HORSES_ARRAY_SUCCESS = 'getMyHorsesArray';
 export const START_LOAD_MY_HORSES_ARRAY = 'startLoadMyHorsesArray';
+export const START_LOAD_MY_HORSES = 'startLoadMyHorses';
 export const FAIL_LOAD_MY_HORSES_ARRAY = 'failLoadMyHorsesArray';
 export const GET_HORSE_INFO = 'getHorseInfo';
 export const MOVE_MY_PAGE_PAGE = 'moveMyPagePage';
@@ -45,3 +46,6 @@ export const GET_MY_RACES = 'getMyRaces';
 export const CHANGE_MY_PAGE_DISP = 'changeMyPageDispllay';
 export const GET_USER_BALANCE = 'getUserBalance';
 export const GET_TICKET_NUM = 'getTicketNum';
+export const GET_CURRENT_SEARCH_HORSE_OWNER = 'getCurrentSearchHorseOwner';
+export const CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE = 'changeApplyRaceHorseCurrentPage';
+

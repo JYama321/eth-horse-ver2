@@ -88,7 +88,7 @@ export const myPageStyles = {
   activityHistory: {
     width: '100%',
     height: '300px',
-    paddingTop:'85px',
+    paddingTop:'78px',
     position: 'relative'
   },
   activityMore: {

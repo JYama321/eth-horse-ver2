@@ -6,7 +6,7 @@ import rankKing from '../../assets/static_assets/rank-king.png'
 import { Link } from 'react-router-dom';
 import {horseStatus} from "../../utils/functions";
 const img = require('../../assets/static_assets/triangle.png')
-export default class HorseStatusCard extends Component{
+export default class HorseRankStatusCard extends Component{
   buyHorse(){
 
   }

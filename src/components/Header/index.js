@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import MenuItem from './menuItem'
 import {headerStyles} from "./styles";
 import {createStructuredSelector} from 'reselect'
+import {withRouter} from 'react-router-dom'
 import {
   changeCurrentDispRaces,
   changeMyPageCurrentDisplay
@@ -11,16 +12,25 @@ import {
   selectRaceCurrentDisp,
   selectMyPageCurrentDisp
 } from './selectors'
-import history from '../../utils/history'
 import PropTypes from 'prop-types'
 
 class Header extends Component {
   static propTypes={
-    balance: PropTypes.number.isRequired
+    balance: PropTypes.string.isRequired
   };
+  constructor(props){
+    super(props);
+    this.state={
+      location: ''
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      location: nextProps.history.split('/')[1]
+    })
+  }
   renderHeaderLeft(){
-    const place = history.location.pathname.split('/')[1];
-    switch(place){
+    switch(this.state.location){
       case 'races':
         return(
             <div style={headerStyles.headerLeftMarket}>
@@ -63,6 +73,24 @@ class Header extends Component {
         </div>
     )
   }
+  renderHeaderBottom(){
+    if(this.state.location == 'horses'){
+      return null
+    }else {
+      return (
+          <div style={headerStyles.headerBottomContainer}>
+            <div style={headerStyles.headerBottomContents}>
+              <div style={headerStyles.headerBottomLeft}>
+                {this.renderHeaderLeft()}
+              </div>
+              <div style={headerStyles.headerBottomRight}>
+                {this.renderHeaderRight()}
+              </div>
+            </div>
+          </div>
+      )
+    }
+  }
   render() {
     return (
         <div style={headerStyles.container}>
@@ -76,19 +104,11 @@ class Header extends Component {
               <MenuItem path={'/market-place'} pathName={'Market'}/>
               <MenuItem path={'/races'} pathName={'Race'}/>
               <MenuItem path={'/events'} pathName={'Events'}/>
+              <MenuItem path={'/ranking'} pathName={'Ranking'}/>
             </div>
           </div>
           </div>
-          <div style={headerStyles.headerBottomContainer}>
-            <div style={headerStyles.headerBottomContents}>
-              <div style={headerStyles.headerBottomLeft}>
-                {this.renderHeaderLeft()}
-              </div>
-              <div style={headerStyles.headerBottomRight}>
-                {this.renderHeaderRight()}
-              </div>
-            </div>
-          </div>
+          {this.renderHeaderBottom()}
         </div>
     )
   }

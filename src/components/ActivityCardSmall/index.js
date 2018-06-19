@@ -14,7 +14,7 @@ import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 
 
-class ActivityCard extends Component{
+class ActivityCardSmall extends Component{
   static propTypes={
     event: PropTypes.string.isRequired,
     args: PropTypes.object.isRequired
@@ -29,7 +29,7 @@ class ActivityCard extends Component{
                   src={boughtLog}
               />
               <p style={activityCardP}>get horse</p>
-              <p style={eventDetail}>Get Horse from {args._from} </p>
+              <p style={eventDetail}>Get <Link to={'/horses/' + args._tokenId}>Horse</Link> from {args._from} </p>
             </div>);
       case 'HostRace':
         const deposit = window.web3.fromWei(args._deposit,'ether');
@@ -122,4 +122,4 @@ class ActivityCard extends Component{
 }
 
 
-export default ActivityCard;
+export default ActivityCardSmall;

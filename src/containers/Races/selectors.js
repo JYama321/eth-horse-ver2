@@ -52,6 +52,11 @@ const selectMyRaeArray = () => createSelector(
     substate => substate.get('myRacesArray')
 );
 
+const selectMyHorseIdArray = () => createSelector(
+    selectGlobal,
+    substate => substate.get('myHorseIdArray')
+);
+
 export {
   selectRaceInfo,
   selectAllRaceArray,
@@ -62,5 +67,6 @@ export {
   selectHorseInfo,
   selectCurrentPage,
   selectRaceCurrentDisp,
-  selectMyRaeArray
+  selectMyRaeArray,
+  selectMyHorseIdArray
 }
