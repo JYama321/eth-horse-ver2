@@ -247,13 +247,13 @@ class Races extends Component{
               <button style={racePageStyles.holdRaceButton} onClick={()=>this.openModal()}>Hold Race +</button>
             </div>
             {this.renderRaces()}
+            <Pagination
+                totalPage={this.state.totalPage}
+                currentPage={this.state.currentPage}
+                buttonPerPage={this.state.buttonPerPage}
+                onChangePage={this.onChangePage}
+            />
           </div>
-          <Pagination
-              totalPage={this.state.totalPage}
-              currentPage={this.state.currentPage}
-              buttonPerPage={this.state.buttonPerPage}
-              onChangePage={this.onChangePage}
-          />
         </div>
     )
   }

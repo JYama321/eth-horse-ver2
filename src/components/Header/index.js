@@ -25,8 +25,9 @@ class Header extends Component {
     }
   }
   componentWillReceiveProps(nextProps){
+    console.log(nextProps.history.location)
     this.setState({
-      location: nextProps.history.split('/')[1]
+      location: nextProps.history.location.pathname.split('/')[1]
     })
   }
   renderHeaderLeft(){
@@ -74,7 +75,7 @@ class Header extends Component {
     )
   }
   renderHeaderBottom(){
-    if(this.state.location == 'horses'){
+    if(this.state.location == 'horses' || '/'){
       return null
     }else {
       return (
@@ -97,14 +98,14 @@ class Header extends Component {
           <div style={headerStyles.headerTopContainer}>
           <div style={headerStyles.headerMenuContainer}>
             <div style={headerStyles.headerTitle}>
-              <h1 style={headerStyles.headerTitleH1}>Eth Horse</h1>
+              <h1 style={headerStyles.headerTitleH1}><button onClick={()=>this.props.history.push('/')} style={{background:'transparent',outline: 'none',border: 'none'}}>Eth Horse</button></h1>
             </div>
             <div style={headerStyles.headerRightMenu}>
-              <MenuItem path={'/my-page'} pathName={'MyPage'}/>
-              <MenuItem path={'/market-place'} pathName={'Market'}/>
-              <MenuItem path={'/races'} pathName={'Race'}/>
-              <MenuItem path={'/events'} pathName={'Events'}/>
-              <MenuItem path={'/ranking'} pathName={'Ranking'}/>
+              <MenuItem path={'/my-page'} pathName={'MyPage'} location={this.state.location}/>
+              <MenuItem path={'/market-place'} pathName={'Market'} location={this.state.location}/>
+              <MenuItem path={'/races'} pathName={'Race'} location={this.state.location}/>
+              <MenuItem path={'/events'} pathName={'Events'} location={this.state.location}/>
+              <MenuItem path={'/ranking'} pathName={'Ranking'} location={this.state.location}/>
             </div>
           </div>
           </div>

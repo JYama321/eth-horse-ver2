@@ -16,6 +16,7 @@ import Market from './containers/Market/'
 import Races from './containers/Races/'
 import RaceInfo from './containers/RaceInfo'
 import MyPage from './containers/MyPage'
+import Top from './containers/Top'
 import {
   getWantedRaces,
   getBettingRaces,
@@ -26,7 +27,7 @@ import {
   getTicket,
   getMyHorseArraySuccess
 } from './actions'
-const address = '0x8acee021a27779d8e98b9650722676b850b25e11';
+const address = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
 import {
   getWantedRaceArray,
   getBettingRaceArray,
@@ -127,9 +128,9 @@ class App extends Component {
             </Helmet>
             <Header
                 balance={String(this.props.balance)}
-                history={this.props.history.location.pathname}
+                history={this.props.history}
             />
-            <Route exact path='/'/>
+            <Route exact path='/' component={Top}/>
             <Route exact path='/my-page' component={MyPage}/>
             <Route exact path='/horses/:id' component={HorseInfo}/>
             <Route exact path='/horses/:id/sire' component={SireHorsePage}/>
