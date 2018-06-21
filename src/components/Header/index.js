@@ -26,7 +26,7 @@ class Header extends Component {
   }
   componentWillReceiveProps(nextProps){
     this.setState({
-      location: nextProps.history.split('/')[1]
+      location: nextProps.history.location.pathname.split('/')[1]
     })
   }
   renderHeaderLeft(){
@@ -97,7 +97,9 @@ class Header extends Component {
           <div style={headerStyles.headerTopContainer}>
             <div style={headerStyles.headerMenuContainer}>
               <div style={headerStyles.headerTitle}>
-                <h1 style={headerStyles.headerTitleH1}>Eth Horse</h1>
+                <h1 style={headerStyles.headerTitleH1} >
+                  <button onClick={()=>this.props.history.push('/')} style={{background:'transparent',outline:'none',border:'none'}}>Eth Horse</button>
+                </h1>
               </div>
               <div style={headerStyles.headerRightMenu}>
                 <MenuItem path={'/my-page'} pathName={'MyPage'}/>
