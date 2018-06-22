@@ -238,6 +238,7 @@ contract HorseGameBase is Ownable{
     function horseTokenToOnSale(uint _tokenId,uint _price) external{
         require(tokenOwner[_tokenId] == msg.sender);
         Horse storage horse = horses[_tokenId.sub(1)];
+        require(!horse.isOnSale);
         horse.price = _price;
         horse.isOnSale = true;
         tokenIdToOnSaleIndex[_tokenId] = horsesOnSale.push(_tokenId) - 1;
