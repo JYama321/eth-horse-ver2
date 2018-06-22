@@ -16,18 +16,14 @@ import PropTypes from 'prop-types'
 
 class Header extends Component {
   static propTypes={
-    balance: PropTypes.string.isRequired
+    balance: PropTypes.string.isRequired,
+    pathname: PropTypes.string.isRequired
   };
   constructor(props){
     super(props);
     this.state={
       location: ''
     }
-  }
-  componentWillReceiveProps(nextProps){
-    this.setState({
-      location: nextProps.history.location.pathname.split('/')[1]
-    })
   }
   renderHeaderLeft(){
     switch(this.state.location){
@@ -74,6 +70,7 @@ class Header extends Component {
     )
   }
   renderHeaderBottom(){
+    console.log(this.state.location)
     if(this.state.location == 'horses' || '/'){
       return null
     }else {
@@ -98,15 +95,15 @@ class Header extends Component {
             <div style={headerStyles.headerMenuContainer}>
               <div style={headerStyles.headerTitle}>
                 <h1 style={headerStyles.headerTitleH1} >
-                  <button onClick={()=>this.props.history.push('/')} style={{background:'transparent',outline:'none',border:'none'}}>Eth Horse</button>
+                  <button onClick={()=>this.props.history.push('/')} style={{background:'transparent',outline:'none',border: 'none'}}>Eth Horse</button>
                 </h1>
               </div>
               <div style={headerStyles.headerRightMenu}>
-                <MenuItem path={'/my-page'} pathName={'MyPage'}/>
-                <MenuItem path={'/market-place'} pathName={'Market'}/>
-                <MenuItem path={'/races'} pathName={'Race'}/>
-                <MenuItem path={'/events'} pathName={'Events'}/>
-                <MenuItem path={'/ranking'} pathName={'Ranking'}/>
+                <MenuItem path={'/my-page'} pathName={'MyPage'} currentPath={this.props.pathname}/>
+                <MenuItem path={'/market-place'} pathName={'Market'} currentPath={this.props.pathname}/>
+                <MenuItem path={'/races'} pathName={'Race'} currentPath={this.props.pathname}/>
+                <MenuItem path={'/events'} pathName={'Events'} currentPath={this.props.pathname}/>
+                <MenuItem path={'/ranking'} pathName={'Ranking'} currentPath={this.props.pathname}/>
               </div>
             </div>
           </div>
@@ -126,4 +123,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export default connect(matStateToProps,mapDispatchToProps)(Header);
+export default connect(matStateToProps,mapDispatchToProps)(withRouter(Header));

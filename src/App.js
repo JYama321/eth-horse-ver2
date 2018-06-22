@@ -39,14 +39,16 @@ import {
 import {
   selectBalance
 } from "./selectors";
+import logger from './utils/logger';
 
 class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      loaded: false
+      loaded: false,
     }
   }
+
   async componentWillMount() {
     const result = await getWeb3();
     window.web3 = result.web3;
@@ -128,7 +130,7 @@ class App extends Component {
             </Helmet>
             <Header
                 balance={String(this.props.balance)}
-                history={this.props.history}
+                pathname={this.props.history.location.pathname}
             />
             <Route exact path='/' component={Top}/>
             <Route exact path='/my-page' component={MyPage}/>
