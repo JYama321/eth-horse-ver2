@@ -1,23 +1,45 @@
 import React,{Component} from 'react';
-import MenuItem from './menuItem'
+import HeaderMenuItem from './menuItem'
 import {headerStyles} from "./styles";
 import {createStructuredSelector} from 'reselect'
 import {withRouter} from 'react-router-dom'
 import {
   changeCurrentDispRaces,
-  changeMyPageCurrentDisplay
+  changeMyPageCurrentDisplay,
+  changeMarketSort
 } from "./actions";
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 import {
   selectRaceCurrentDisp,
-  selectMyPageCurrentDisp
+  selectMyPageCurrentDisp,
+  selectMarketSort
 } from './selectors'
 import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+const styles = theme => ({
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120,
+    bottom: '25px'
+  },
+  selectEmpty: {
+    marginTop: theme.spacing.unit * 2,
+  },
+});
 
 class Header extends Component {
   static propTypes={
     balance: PropTypes.string.isRequired,
-    pathname: PropTypes.string.isRequired
+    pathname: PropTypes.string.isRequired,
+    classes: PropTypes.object.isRequired
   };
   constructor(props){
     super(props);
@@ -25,8 +47,11 @@ class Header extends Component {
       location: ''
     }
   }
-  renderHeaderLeft(){
-    switch(this.state.location){
+  onChangeSort(e){
+    this.props.changeSort(e.target.value)
+  }
+  renderHeaderLeft(path){
+    switch(path){
       case 'races':
         return(
             <div style={headerStyles.headerLeftMarket}>
@@ -57,7 +82,28 @@ class Header extends Component {
                 Activity
               </button>
             </div>
-        )
+        );
+      case 'market-place':
+        const { classes } = this.props;
+        return(
+            <div style={headerStyles.headerLeftMarket}>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="market-sort">Sort</InputLabel>
+                <Select
+                    value={this.props.marketSort}
+                    onChange={e=>this.onChangeSort(e)}
+                    inputProps={{
+                      name: 'sort',
+                      id: 'market-sort',
+                    }}
+                >
+                  <MenuItem value={'default'}>Default</MenuItem>
+                  <MenuItem value={'high-price'}>High Price</MenuItem>
+                  <MenuItem value={'low-price'}>Low Price</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+        );
       default:
         return null
     }
@@ -70,15 +116,15 @@ class Header extends Component {
     )
   }
   renderHeaderBottom(){
-    console.log(this.state.location)
-    if(this.state.location == 'horses' || '/'){
+    const path = this.props.pathname.split('/')[1];
+    if(path == ''){
       return null
     }else {
       return (
           <div style={headerStyles.headerBottomContainer}>
             <div style={headerStyles.headerBottomContents}>
               <div style={headerStyles.headerBottomLeft}>
-                {this.renderHeaderLeft()}
+                {this.renderHeaderLeft(path)}
               </div>
               <div style={headerStyles.headerBottomRight}>
                 {this.renderHeaderRight()}
@@ -99,11 +145,11 @@ class Header extends Component {
                 </h1>
               </div>
               <div style={headerStyles.headerRightMenu}>
-                <MenuItem path={'/my-page'} pathName={'MyPage'} currentPath={this.props.pathname}/>
-                <MenuItem path={'/market-place'} pathName={'Market'} currentPath={this.props.pathname}/>
-                <MenuItem path={'/races'} pathName={'Race'} currentPath={this.props.pathname}/>
-                <MenuItem path={'/events'} pathName={'Events'} currentPath={this.props.pathname}/>
-                <MenuItem path={'/ranking'} pathName={'Ranking'} currentPath={this.props.pathname}/>
+                <HeaderMenuItem path={'/my-page'} pathName={'MyPage'} currentPath={this.props.pathname}/>
+                <HeaderMenuItem path={'/market-place'} pathName={'Market'} currentPath={this.props.pathname}/>
+                <HeaderMenuItem path={'/races'} pathName={'Race'} currentPath={this.props.pathname}/>
+                <HeaderMenuItem path={'/events'} pathName={'Events'} currentPath={this.props.pathname}/>
+                <HeaderMenuItem path={'/ranking'} pathName={'Ranking'} currentPath={this.props.pathname}/>
               </div>
             </div>
           </div>
@@ -115,12 +161,17 @@ class Header extends Component {
 
 const matStateToProps = () => createStructuredSelector({
   currentDisplay: selectRaceCurrentDisp(),
-  myPageCurrentDisplay: selectMyPageCurrentDisp()
+  myPageCurrentDisplay: selectMyPageCurrentDisp(),
+  marketSort: selectMarketSort()
 });
 const mapDispatchToProps = (dispatch) => ({
   changeRaceDisp: (raceType) => dispatch(changeCurrentDispRaces(raceType)),
-  changeMyPageDisp: (page) => dispatch(changeMyPageCurrentDisplay(page))
+  changeMyPageDisp: (page) => dispatch(changeMyPageCurrentDisplay(page)),
+  changeSort: sort => dispatch(changeMarketSort(sort))
 });
 
+const withConnect = connect(matStateToProps,mapDispatchToProps)
 
-export default connect(matStateToProps,mapDispatchToProps)(withRouter(Header));
+export default compose(
+    withConnect
+)(withRouter(withStyles(styles)(Header)))

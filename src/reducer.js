@@ -50,7 +50,8 @@ import {
   GET_TICKET_NUM,
   //horse owner
   GET_CURRENT_SEARCH_HORSE_OWNER,
-  CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE
+  CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE,
+  CHANGE_MARKET_SORT
 } from "./actionTypes";
 
 const globalState = fromJS({
@@ -65,6 +66,7 @@ const globalState = fromJS({
   isHorseSellPriceArrayLoaded: false,
   horseSellPriceArray: [], // sell price sort,
   marketCurrentPage: 1,
+  marketSorted: 'default',
 
   bidHorseArrayLoading: false,
   bidHorseArray: [], // all bid horses
@@ -120,7 +122,7 @@ const globalState = fromJS({
   balance: 0,
   //ticketNum
   ticketNum: 0,
-  
+
 });
 
 function globalReducer(state = globalState ,action){
@@ -156,6 +158,8 @@ function globalReducer(state = globalState ,action){
       return state.set('isHorseSellPriceArrayLoaded', false);
     case CHANGE_MARKET_PAGE:
       return state.set('marketCurrentPage', action.data);
+    case CHANGE_MARKET_SORT:
+      return state.set('marketSorted', action.data);
     case FAIL_LOAD_SALE_HORSE_PRICES:
       return state.set('isHorseSellPriceArrayLoaded', false);
     case GET_SALE_HORSE_PRICES_SUCCESS:

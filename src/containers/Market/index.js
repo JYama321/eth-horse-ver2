@@ -10,7 +10,8 @@ import {
   selectOnSalePriceArrayLoaded,
   selectOnSalePriceArray,
   selectOnSaleHorseArray,
-  selectHorseIdToHorseInfo
+  selectHorseIdToHorseInfo,
+  selectMarketSort
 } from './selectors'
 import {
   startLoadOnSaleHorses,
@@ -54,41 +55,123 @@ class Market extends Component{
     })
   }
 
-  renderHorses(){
+  renderHorses(sort){
     const self = this;
-    const array = this.props.saleHorses ? this.props.saleHorses.slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
-    return array.map(function (elem,index) {
-      const isLeft = index % 4 === 0;
-      const horse = self.props.horseIdToInfo.get(String(elem.toNumber())) ? self.props.horseIdToInfo.get(String(elem.toNumber())) : null;
-      if(horse){
-        return (
-            <HorseStatusCard
-                info={horse}
-                isMyHorse={false}
-                isLeft={isLeft}
-                key={'saleHorse-'+index}
-            />
-        )
-      }else{
-        return(
-            <img
-                key={'loading-'+index}
-                src={loadingGif}
-                style={{
-                  width: '200px',
-                  height: '200px'
-                }}
-            />
-        )
-      }
-    })
+
+    switch(sort){
+      case 'default':
+        const defaultArray = this.props.saleHorses ? this.props.saleHorses.slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
+        return defaultArray.map(function (elem,index) {
+          const isLeft = index % 4 === 0;
+          const horse = self.props.horseIdToInfo.get(String(elem.toNumber())) ? self.props.horseIdToInfo.get(String(elem.toNumber())) : null;
+          if(horse){
+            return (
+                <HorseStatusCard
+                    info={horse}
+                    isMyHorse={false}
+                    isLeft={isLeft}
+                    key={'saleHorse-'+index}
+                />
+            )
+          }else{
+            return(
+                <img
+                    key={'loading-'+index}
+                    src={loadingGif}
+                    style={{
+                      width: '200px',
+                      height: '200px'
+                    }}
+                />
+            )
+          }
+        });
+      case 'high-price':
+        const higherOrderArray = this.props.saleHorsePrices ? this.props.saleHorsePrices.map((elem,index) => {
+          return {id: index+1, price: window.web3.fromWei(elem).toFixed(3)}
+        }).sort((a,b) => {
+          if(a.price < b.price){
+            return 1
+          } else if(a.price > b.price){
+            return -1
+          } else {
+            return 0
+          }
+        }).slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
+        return higherOrderArray.map(function (elem,index) {
+          const isLeft = index % 4 === 0;
+          const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
+          if(horse){
+            return (
+                <HorseStatusCard
+                    info={horse}
+                    isMyHorse={false}
+                    isLeft={isLeft}
+                    key={'saleHorse-'+index}
+                />
+            )
+          }else{
+            return(
+                <img
+                    key={'loading-'+index}
+                    src={loadingGif}
+                    style={{
+                      width: '200px',
+                      height: '200px'
+                    }}
+                />
+            )
+          }
+        });
+      case 'low-price':
+        const lowerOrderArray = this.props.saleHorsePrices ? this.props.saleHorsePrices.map((elem,index) => {
+          return {id: index+1, price: window.web3.fromWei(elem).toFixed(3)}
+        }).sort((a,b) => {
+          if(a.price > b.price){
+            return 1
+          } else if(a.price < b.price){
+            return -1
+          } else {
+            return 0
+          }
+        }).slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
+        console.log(lowerOrderArray);
+        return lowerOrderArray.map(function (elem,index) {
+          const isLeft = index % 4 === 0;
+          const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
+          if (horse) {
+            return (
+                <HorseStatusCard
+                    info={horse}
+                    isMyHorse={false}
+                    isLeft={isLeft}
+                    key={'saleHorse-' + index}
+                />
+            )
+          } else {
+            return (
+                <img
+                    key={'loading-' + index}
+                    src={loadingGif}
+                    style={{
+                      width: '200px',
+                      height: '200px'
+                    }}
+                />
+            )
+          }
+        });
+      default:
+        return null
+    };
   }
 
   render () {
+    const { sortType } = this.props;
     return (
         <div style={styles.outerContainer}>
           <div style={styles.innerContainer}>
-            {this.renderHorses()}
+            {this.renderHorses(sortType)}
             <Pagination
                 totalPage={this.state.totalPage}
                 currentPage={this.state.currentPage}
@@ -106,7 +189,8 @@ const mapStateToProps = createStructuredSelector({
   saleHorsesLoaded: selectOnSaleArrayLoaded(),
   saleHorsePrices: selectOnSalePriceArray(),
   saleHorsePricesLoaded: selectOnSalePriceArrayLoaded(),
-  horseIdToInfo: selectHorseIdToHorseInfo()
+  horseIdToInfo: selectHorseIdToHorseInfo(),
+  sortType: selectMarketSort()
 });
 
 const mapDispatchToProps = (dispatch)  => ({

@@ -48,4 +48,5 @@ export const GET_USER_BALANCE = 'getUserBalance';
 export const GET_TICKET_NUM = 'getTicketNum';
 export const GET_CURRENT_SEARCH_HORSE_OWNER = 'getCurrentSearchHorseOwner';
 export const CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE = 'changeApplyRaceHorseCurrentPage';
+export const CHANGE_MARKET_SORT = 'changeMarketSort';
 

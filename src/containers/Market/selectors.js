@@ -32,11 +32,17 @@ const selectCurrentMarketPage = () => createSelector(
     substate => substate.get('marketCurrentPage')
 );
 
+const selectMarketSort = () => createSelector(
+    selectGlobal,
+    substate => substate.get('marketSorted')
+);
+
 export {
   selectOnSaleArrayLoaded,
   selectOnSaleHorseArray,
   selectOnSalePriceArray,
   selectOnSalePriceArrayLoaded,
   selectHorseIdToHorseInfo,
-  selectCurrentMarketPage
+  selectCurrentMarketPage,
+  selectMarketSort
 }
