@@ -11,12 +11,14 @@ import {
   selectHorseIdToHorseInfo,
   selectHorseIdArray,
   selectHorseArrayLoading,
-  selectCurrentSireHorseId
+  selectCurrentSireHorseId,
+  selectCurrentSirePage
 } from "./selectors";
 import {
   startLoadMyHorseArray,
   getHorseInfoSuccess,
-  setSireHorseId
+  setSireHorseId,
+  changeSireHorsePage
 } from './actions'
 import { getHorseData } from "../../utils/eth-function";
 import HorseStatusCard from '../../components/HorseStatusCard/'
@@ -30,16 +32,16 @@ class SireHorsePage extends Component{
     super(props);
     this.state={
       currentPage: 1,
-      sireHorseInfoLoaded: false
+      totalPage: 1,
+      sireHorseInfoLoaded: false,
+
     }
   }
   async componentDidMount(){
     if(Number(this.props.match.params.id) !== this.props.currentSireHorseId){
       this.props.setCurrentSireHorseId(Number(this.props.match.params.id))
     }
-    if(!this.props.isMyHorseArrayLoadDone){
-      this.props.horseArrayLoadStart()
-    }
+    this.props.horseArrayLoadStart()
     const sireHorse = this.props.horseIdToInfo.get(this.props.match.params.id);
     if(sireHorse){
       this.setState({
@@ -52,6 +54,15 @@ class SireHorsePage extends Component{
         sireHorseInfoLoaded: true
       })
     }
+
+  }
+  componentWillReceiveProps(props) {
+    this.setState({
+      totalPage: Math.ceil((this.props.horseIdArray.toArray().length - 1) / 3)
+    });
+    this.setState({
+      currentPage: props.currentPage
+    })
   }
   renderHorses(){
     const self = this;
@@ -98,9 +109,15 @@ class SireHorsePage extends Component{
         Math.ceil(Number(gene.slice(9,12)) / 100)+
         Math.ceil(Number(gene.slice(12,15)) / 100)
   }
+  progressPage(){
+    this.props.changePage(this.state.currentPage+1)
+  }
+  backPage(){
+    this.props.changePage(this.state.currentPage-1)
+  }
 
   render () {
-    if(this.props.isMyHorseArrayLoadDone && this.state.sireHorseInfoLoaded){
+    if(this.state.sireHorseInfoLoaded){
       const id = this.props.match.params.id;
       const horse = this.props.horseIdToInfo.get(id);
       const gene = horse[1].c.join(',').replace(/,/g,'');
@@ -159,9 +176,11 @@ class SireHorsePage extends Component{
                 </div>
               </div>
               <div style={sellHorseModalStyle.sireHorseList}>
+                {this.state.currentPage > 1 ? <button style={sellHorseModalStyle.pageBackButton} onClick={()=>this.backPage()}>◀</button> : null}
                 <div style={sellHorseModalStyle.sireHorseListInnerContainer}>
                   {this.renderHorses()}
                 </div>
+                {this.state.currentPage < this.state.totalPage ? <button style={sellHorseModalStyle.pageNextButton} onClick={()=>this.progressPage()}>▶︎</button> : null}
               </div>
             </div>
           </div>
@@ -170,18 +189,19 @@ class SireHorsePage extends Component{
       return null
     }
   }
-}1
+}
 
 const mapStateToProps = () => createStructuredSelector({
   horseIdToInfo: selectHorseIdToHorseInfo(),
   horseIdArray: selectHorseIdArray(),
-  isMyHorseArrayLoadDone: selectHorseArrayLoading(),
-  currentSireHorseId: selectCurrentSireHorseId()
+  currentSireHorseId: selectCurrentSireHorseId(),
+  currentPage: selectCurrentSirePage()
 });
 const mapDispatchToProps = (dispatch) => ({
   horseArrayLoadStart: ()=>dispatch(startLoadMyHorseArray()),
   getHorseDataSuccess: (horse)=>dispatch(getHorseInfoSuccess(horse)),
-  setCurrentSireHorseId: (id) => dispatch(setSireHorseId(id))
+  setCurrentSireHorseId: (id) => dispatch(setSireHorseId(id)),
+  changePage: page => dispatch(changeSireHorsePage(page)),
 });
 
 const withConnect = connect(mapStateToProps,mapDispatchToProps);

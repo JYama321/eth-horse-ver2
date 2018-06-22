@@ -148,4 +148,22 @@ export const sellHorseModalStyle = {
     marginTop: '35px',
     position: 'relative'
   },
+  pageBackButton: {
+    width: '30px',
+    height: '30px',
+    position: 'absolute',
+    left: '3%',
+    top: '50%',
+    outline: 'none',
+    border: 'none'
+  },
+  pageNextButton: {
+    width: '30px',
+    height: '30px',
+    position: 'absolute',
+    right: '3%',
+    top: '50%',
+    outline: 'none',
+    border: 'none'
+  }
 };

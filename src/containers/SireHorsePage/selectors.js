@@ -32,6 +32,11 @@ const selectHorseIdToHorseInfo = () => createSelector(
     (substate) => substate.get('horseIdToHorseInfo')
 );
 
+const selectCurrentSirePage = () => createSelector(
+    selectGlobal,
+    substate => substate.get('sireHosePage')
+);
+
 export {
   selectGlobal,
   selectHorseArrayLoading,
@@ -39,5 +44,6 @@ export {
   selectHorseIdArray,
   selectHorseIdToHorseInfo,
   selectCurrentPage,
-  selectCurrentSireHorseId
+  selectCurrentSireHorseId,
+  selectCurrentSirePage
 }

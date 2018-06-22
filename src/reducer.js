@@ -24,7 +24,10 @@ import {
   GET_MAMA_INFO_FAILED,
   GET_PAPA_INFO_FAILED,
   GET_PAPA_INFO_SUCCESS,
+  //sire horses
   SET_CURRENT_SIRE_HORSE_ID,
+  CHANGE_SIRE_HORSE_PAGE,
+
   START_LOAD_ON_SALE_HORSES,
   FAIL_LOAD_ON_SALE_HORSE_ARRAY,
   GET_ON_SALE_HORSE_SUCCESS,
@@ -77,6 +80,7 @@ const globalState = fromJS({
   sireHorseArray: [], // all sire horses
   horseSirePriceArrayLoading: false,
   horseSirePriceArray: [], //sire price sort
+  sireHosePage: 1,
 
   horseGeneArrayLoading: false,
   horseGeneArray: [], //strength rank
@@ -228,6 +232,8 @@ function globalReducer(state = globalState ,action){
       return state.set('ticketNum', action.data);
     case CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE:
       return state.set('applyRaceHorseCurrentPage', action.data);
+    case CHANGE_SIRE_HORSE_PAGE:
+      return state.set('sireHosePage', action.data);
     default:
       return state;
   }

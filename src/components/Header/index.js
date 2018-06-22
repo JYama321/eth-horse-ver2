@@ -117,7 +117,7 @@ class Header extends Component {
   }
   renderHeaderBottom(){
     const path = this.props.pathname.split('/')[1];
-    if(path == ''){
+    if(path == '' || 'horses'){
       return null
     }else {
       return (

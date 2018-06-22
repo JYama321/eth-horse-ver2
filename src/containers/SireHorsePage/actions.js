@@ -4,7 +4,8 @@ import {
   FAIL_LOAD_MY_HORSES_ARRAY,
   GET_HORSE_INFO,
   START_GET_HORSE_INFO,
-  SET_CURRENT_SIRE_HORSE_ID
+  SET_CURRENT_SIRE_HORSE_ID,
+  CHANGE_SIRE_HORSE_PAGE
 } from '../../actionTypes'
 
 export const startLoadMyHorseArray = () => ({
@@ -33,4 +34,7 @@ export const setSireHorseId = (id) => ({
   data: id
 });
 
-
+export const changeSireHorsePage = (page) => ({
+  type: CHANGE_SIRE_HORSE_PAGE,
+  data: page
+});
