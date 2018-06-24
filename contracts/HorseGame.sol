@@ -373,6 +373,7 @@ contract HorseBet is HorseGameBase{
     bool[] public wantedRaces;
     bool[] public bettingRaces;
     bool[] public checkedRaces;
+    uint bettingTime = 5 hours;
     mapping (address => uint[]) public mapUserToRaceIds;
     mapping (uint => uint) public raceStartTime;
 
@@ -413,7 +414,7 @@ contract HorseBet is HorseGameBase{
         race.horseIdToBetRate[race.horseTwo] = _rate2;
         race.isBetting = true;
         bettingRaces[_raceId.sub(1)] = true;
-        raceStartTime[_raceId] = now + 5 hours;
+        raceStartTime[_raceId] = now + bettingTime;
     }
 
     function withdrawPayback(uint _raceId) external{
