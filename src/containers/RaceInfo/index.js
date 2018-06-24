@@ -43,14 +43,11 @@ class RaceInfo extends Component {
           <div style={raceInfoStyle.outerContainer}>
             <div style={raceInfoStyle.innerContainer}>
               <div style={raceInfoStyle.raceName}>
-                Race Name Here
+                {race[5]}
               </div>
               <div style={raceInfoStyle.winnerPrize}>
                 Winner Prize&nbsp;
                 {window.web3.fromWei(race[6],'ether').toNumber().toFixed(2)} ETH + {race[7].toNumber()} % of total bet
-              </div>
-              <div style={raceInfoStyle.remainTime}>
-                remainingTime&nbsp;{race[5].toNumber()}  seconds
               </div>
               <div style={raceInfoStyle.appliedHorseContainer}>
                 <RaceInfoHorse

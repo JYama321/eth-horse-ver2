@@ -10,7 +10,7 @@ export const raceCardStyles = {
     fontSize: '12px'
   },
   raceInfoContainer: {
-    height: '280px',
+    height: '250px',
     width: '100%',
     borderTop: '1px solid #000'
   },
@@ -55,7 +55,7 @@ export const raceCardStyles = {
     justifyContent: 'space-between'
   },
   horseContainer: {
-    height: '260px',
+    height: '230px',
     width: '230px',
     position: 'relative'
   },

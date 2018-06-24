@@ -27,6 +27,7 @@ import {
 } from "./selectors";
 import {hostRace, getHorseData} from "../../utils/eth-function";
 import ApplyRaceModal from '../../components/ModalApplyRace'
+import HostRaceModal from '../../components/ModalHostRace'
 import Modal from 'react-modal'
 
 Modal.setAppElement('#root');
@@ -39,11 +40,18 @@ class Races extends Component{
       currentPage: 1,
       buttonPerPage: 10,
       isHostRaceModalOpen: false,
+      bettingDuration:0,
+      prizeRate: 0,
+      minWinnerPrize: 0,
+      deposit: 0,
       isApplyRaceModalOpen: false,
-      currentSelectedRaceId: 0
+      currentSelectedRaceId: 0,
+
     };
     this.onChangePage = this.onChangePage.bind(this);
-    this.openApplyRaceModal = this.openApplyRaceModal.bind(this)
+    this.openApplyRaceModal = this.openApplyRaceModal.bind(this);
+    this.openHostRaceModal = this.openHostRaceModal.bind(this);
+    this.closeHostRaceModal = this.closeHostRaceModal.bind(this)
   }
 
   componentDidMount(){
@@ -130,6 +138,7 @@ class Races extends Component{
                     getHorse={self.props.getHorse}
                     horseInfo={this.props.horseIdToInfo}
                     currentState='now betting'
+                    isBetting={true}
                     race={race}
                     key={'race'+index}
                 />
@@ -189,6 +198,7 @@ class Races extends Component{
                     horseInfo={this.props.horseIdToInfo}
                     race={race}
                     currentState={self.currentState(elem.toNumber()-1)}
+                    openApplyRaceModal={this.openApplyRaceModal}
                     isMyRace={true}
                     key={'race'+index}
                 />
@@ -212,18 +222,17 @@ class Races extends Component{
         return null
     }
   }
-  openModal(){
+  openHostRaceModal(){
     this.setState({
       isHostRaceModalOpen: true
     })
   }
-  closeModal(){
+  closeHostRaceModal(){
     this.setState({
       isHostRaceModalOpen: false
     })
   }
   openApplyRaceModal(num){
-    console.log(num)
     this.setState({
       isApplyRaceModalOpen: true,
       currentSelectedRaceId: num
@@ -238,13 +247,13 @@ class Races extends Component{
     return(
         <div style={racePageStyles.outerContainer}>
           <div style={racePageStyles.innerContainer}>
-
+            <HostRaceModal closeModal={this.closeHostRaceModal} isActive={this.state.isHostRaceModalOpen}/>
             <ApplyRaceModal
                 isActive={this.state.isApplyRaceModalOpen} ownedHorses={this.props.ownedHorses.toArray()}
                 horseInfo={this.props.horseIdToInfo} closeModal={()=>this.closeApplyRaceModal()} raceId={this.state.currentSelectedRaceId}
             />
             <div style={racePageStyles.headerBottom}>
-              <button style={racePageStyles.holdRaceButton} onClick={()=>this.openModal()}>Hold Race +</button>
+              <button style={racePageStyles.holdRaceButton} onClick={()=>this.openHostRaceModal()}>Hold Race +</button>
             </div>
             {this.renderRaces()}
             <Pagination

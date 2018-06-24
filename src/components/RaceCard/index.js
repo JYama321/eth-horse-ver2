@@ -4,9 +4,12 @@ import PropTypes from 'prop-types'
 import { raceCardStyles } from "./styles";
 import {
   getHorseData,
+  getRaceStartTime,
+  checkResult
 } from "../../utils/eth-function";
 import { Link } from 'react-router-dom'
 import BookMakeModal from '../Modal-bookmake'
+
 
 class RaceCard extends Component{
   static propTypes = {
@@ -15,16 +18,20 @@ class RaceCard extends Component{
     horseInfo: PropTypes.object,
     currentState: PropTypes.string,
     isMyRace: PropTypes.bool,
-    openApplyRaceModal: PropTypes.func
+    openApplyRaceModal: PropTypes.func,
+    isBetting: PropTypes.bool
   };
   constructor(props){
     super(props);
     this.state={
-      isBookMakeModalOpen: false
+      isBookMakeModalOpen: false,
+      startTime: '',
+      dateNumber: 0
     };
     this.closeBookMakeModal = this.closeBookMakeModal.bind(this)
   }
   async componentDidMount(){
+    const self = this;
     if(this.props.race[2].toNumber() !== 0 && !this.props.horseInfo.get(String(this.props.race[2].toNumber()))){
       const horseOne = await getHorseData(this.props.race[2].toNumber());
       await this.props.getHorse(horseOne);
@@ -32,6 +39,15 @@ class RaceCard extends Component{
     if(this.props.race[3].toNumber() !== 0 && !this.props.horseInfo.get(String(this.props.race[3].toNumber()))) {
       const horseTwo = await getHorseData(this.props.race[3].toNumber());
       await this.props.getHorse(horseTwo);
+    }
+    if(this.props.isBetting){
+      getRaceStartTime(this.props.race[0].toNumber()).then((result) => {
+        const date = new Date(result.toNumber() * 1000);
+        self.setState({
+          startTime: date.getFullYear() + '/' +  date.getMonth() + '/' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
+          dateNumber: result.toNumber()
+         });
+      })
     }
   }
   openBookMakeModal(){
@@ -56,11 +72,15 @@ class RaceCard extends Component{
         return <button style={raceCardStyles.currentState} className='race-current-state'>ended</button>;
       case 'calculate odds':
         return <button style={raceCardStyles.currentState} className='race-current-state' onClick={()=>this.openBookMakeModal()}>decide odds</button>;
+      case 'check result':
+        return <button style={raceCardStyles.currentState} className='race-current-state' onClick={() => checkResult(raceId)}>Check Result</button>
       default:
         return null;
     }
   }
   render(){
+    const startTime = this.props.isBetting ? this.state.startTime : '？？？';
+    const currentState = new Date(this.state.dateNumber * 1000) < Date() && this.props.isBetting ? 'check result' : this.props.currentState
     if(this.props.isMyRace){
       return(
           <div style={raceCardStyles.cardContainer}>
@@ -71,13 +91,12 @@ class RaceCard extends Component{
                 horseInfo={this.props.horseInfo}
             />
             <div style={raceCardStyles.cartContainerTop}>
-              <p>2018.04.15</p>
+              <p>{startTime}</p>
             </div>
             <div style={raceCardStyles.raceInfoContainer}>
-              <Link to={'/races/' + this.props.race[0].toNumber()}><p style={raceCardStyles.raceNameP}>Race Name Here</p></Link>
-              <p style={raceCardStyles.winnerPrizeP}>{window.web3.fromWei(this.props.race[6],'ether').toNumber().toFixed(2)} ETH + {this.props.race[7].toNumber()} % of total bet</p>
-              <p style={raceCardStyles.remainTimeP}>Betting Duration{this.props.race[5].toNumber()}  seconds</p>
-              {this.renderCurrentStateButton(this.props.currentState)}
+              <Link to={'/races/' + this.props.race[0].toNumber()}><p style={raceCardStyles.raceNameP}>{this.props.race[5]}</p></Link>
+              <p style={raceCardStyles.winnerPrizeP}>Winner Prize:&nbsp; <b>{window.web3.fromWei(this.props.race[6],'ether').toNumber().toFixed(2)}</b> ETH + <b>{this.props.race[7].toNumber()}</b> % of total bet</p>
+              {this.renderCurrentStateButton(currentState)}
             </div>
             <div style={raceCardStyles.horseImgContainer}>
               <div style={raceCardStyles.horseContainer}>
@@ -99,12 +118,11 @@ class RaceCard extends Component{
       return(
           <div style={raceCardStyles.cardContainer}>
             <div style={raceCardStyles.cartContainerTop}>
-              <p>2018.04.15</p>
+              <p>{startTime}</p>
             </div>
             <div style={raceCardStyles.raceInfoContainer}>
-              <Link to={'/races/' + this.props.race[0].toNumber()}><p style={raceCardStyles.raceNameP}>Race Name Here</p></Link>
-              <p style={raceCardStyles.winnerPrizeP}>{window.web3.fromWei(this.props.race[6],'ether').toNumber().toFixed(2)} ETH + {this.props.race[7].toNumber()} % of total bet</p>
-              <p style={raceCardStyles.remainTimeP}>Betting Duration{this.props.race[5].toNumber()}  seconds</p>
+              <Link to={'/races/' + this.props.race[0].toNumber()}><p style={raceCardStyles.raceNameP}>{this.props.race[5]}</p></Link>
+              <p style={raceCardStyles.winnerPrizeP}>Winner Prize:&nbsp;<b>{window.web3.fromWei(this.props.race[6],'ether').toNumber().toFixed(2)}</b> ETH + <b>{this.props.race[7].toNumber()}</b> % of total bet</p>
               {this.renderCurrentStateButton(this.props.currentState)}
             </div>
             <div style={raceCardStyles.horseImgContainer}>

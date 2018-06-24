@@ -10,7 +10,6 @@ import HorseTextureParamSire from '../../components/HorseTextureParamSire'
 import {
   selectHorseIdToHorseInfo,
   selectHorseIdArray,
-  selectHorseArrayLoading,
   selectCurrentSireHorseId,
   selectCurrentSirePage
 } from "./selectors";
@@ -20,12 +19,25 @@ import {
   setSireHorseId,
   changeSireHorsePage
 } from './actions'
-import { getHorseData } from "../../utils/eth-function";
+import {
+  getHorseData, horseToOnSale,
+  sireHorses
+} from "../../utils/eth-function";
 import HorseStatusCard from '../../components/HorseStatusCard/'
 import { createStructuredSelector } from 'reselect';
 import loadingGif from '../../assets/static_assets/umaloading.gif'
 import saga from './saga'
 import injectSaga from "../../utils/injectSaga";
+import Modal from 'react-modal'
+import TextField from '@material-ui/core/TextField'
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+});
 
 class SireHorsePage extends Component{
   constructor(props){
@@ -34,7 +46,10 @@ class SireHorsePage extends Component{
       currentPage: 1,
       totalPage: 1,
       sireHorseInfoLoaded: false,
-
+      isNameModalOpen: false,
+      horseName: '',
+      papaId: 0,
+      mamaId: 0
     }
   }
   async componentDidMount(){
@@ -66,9 +81,11 @@ class SireHorsePage extends Component{
   }
   renderHorses(){
     const self = this;
+    const { currentSireHorseId } = this.props;
     const array = this.props.horseIdArray ? this.props.horseIdArray.filter(elem => elem.toNumber() !== Number(this.props.match.params.id)).slice(3*(this.state.currentPage-1),3*this.state.currentPage) : [];
     return array.map((elem,index) => {
-      const horse = self.props.horseIdToInfo.get(String(elem.toNumber())) ? self.props.horseIdToInfo.get(String(elem.toNumber())) : null;
+      const horseId = elem.toNumber();
+      const horse = self.props.horseIdToInfo.get(String(horseId)) ? self.props.horseIdToInfo.get(String(horseId)) : null;
       if(horse) {
         if(horse[0].toNumber() !== Number(self.props.match.params.id)){
           return (
@@ -81,7 +98,8 @@ class SireHorsePage extends Component{
                     isMyHorse={true}
                     isLeft={true}
                 />
-                <button style={sellHorseModalStyle.sireHorseButton} className='sire-horse-button'>
+                <button style={sellHorseModalStyle.sireHorseButton} className='sire-horse-button'
+                        onClick={()=>this.openDecideNameModal(currentSireHorseId,horseId)}>
                   Sire Horse
                 </button>
               </div>
@@ -115,8 +133,28 @@ class SireHorsePage extends Component{
   backPage(){
     this.props.changePage(this.state.currentPage-1)
   }
-
+  openDecideNameModal(papaId,mamaId){
+    this.setState({
+      isNameModalOpen: true,
+      papaId: papaId,
+      mamaId: mamaId
+    })
+  }
+  changeName(e){
+    this.setState({
+      horseName: e.target.value
+    })
+  }
+  closeNameModalOpen(){
+    this.setState({
+      isNameModalOpen: false,
+      papaId: 0,
+      mamaId: 0,
+      horseName: ''
+    })
+  }
   render () {
+    const { classes } = this.props;
     if(this.state.sireHorseInfoLoaded){
       const id = this.props.match.params.id;
       const horse = this.props.horseIdToInfo.get(id);
@@ -125,6 +163,32 @@ class SireHorsePage extends Component{
       const texGene = gene.slice(gene.length-38,gene.length-20);
       return (
           <div style={sellHorseModalStyle.modalContainer}>
+            <Modal
+                isOpen={this.state.isNameModalOpen}
+                style={sellHorseModalStyle.sireNameModalContent}
+                onRequestClose={()=>this.closeNameModalOpen()}
+                contentLabel={'Name'}
+            >
+              <span>
+                <p style={sellHorseModalStyle.modalHorseName}>Horse Name</p>
+              <TextField
+                  type='string'
+                  label='Name'
+                  onChange={e=>this.changeName(e)}
+                  value={this.state.horseName}
+              />
+              <Button
+                  variant="raised"
+                  size='medium'
+                  color='primary'
+                  style={sellHorseModalStyle.sireHorseModalButton}
+                  className={classes.button}
+                  onClick={()=>sireHorses(this.state.papaId,this.state.mamaId,this.state.horseName)}
+              >
+                Sire Horses
+              </Button>
+              </span>
+            </Modal>
             <div style={sellHorseModalStyle.modalContent}>
               <div style={sellHorseModalStyle.sireHorseTop}>
                 <div style={sellHorseModalStyle.sireHorseImgWrapper}>
@@ -210,4 +274,4 @@ const withSaga = injectSaga({ key: 'my-horse',saga});
 export default compose(
     withConnect,
     withSaga
-)(SireHorsePage)
+)(withStyles(styles)(SireHorsePage))

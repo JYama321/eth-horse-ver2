@@ -28,7 +28,7 @@ export default class HorseStatusCard extends Component{
             <div
                 className='horse-price-imgae'
                 style={STYLE.horsePriceImg}
-            >{price.toFixed(2)} ETH</div>
+            >{price.toFixed(3)} ETH</div>
             <Link to={"/horses/" + horseId}>
               <HorseImage
                   type="normal"

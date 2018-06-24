@@ -165,5 +165,25 @@ export const sellHorseModalStyle = {
     top: '50%',
     outline: 'none',
     border: 'none'
+  },
+  sireNameModalContent : {
+    content: {
+      top : '50%',
+      left  : '50%',
+      right : 'auto',
+      bottom : 'auto',
+      marginRight : '-50%',
+      transform : 'translate(-50%, -50%)',
+      height: '100px',
+      position: 'absolute',
+      zIndex: 8888
+    }
+  },
+  modalHorseName: {
+    fontSize: '16px',
+  },
+  sireHorseModalButton: {
+    display: 'block',
+    left: 0
   }
 };

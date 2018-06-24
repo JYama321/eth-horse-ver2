@@ -4,7 +4,7 @@ const textureRateMapping = {
   rare: ["r",""]
 };
 
-const mapEnToTextureNames =  {
+export const mapEnToTextureNames =  {
   en:{
     a: 'Stormy Night',
     b: 'King of Tactics',

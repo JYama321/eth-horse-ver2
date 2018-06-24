@@ -71,7 +71,7 @@ export const getHorseData = (horseId) => {
 
 export const horseToOnSale = (horseId,price) => {
   return new Promise((resolve,reject) => {
-    window.contract_instance.horseTokenToOnSale(horseId,window.web3.toWei(price,'ether'),{from:window.web3.eth.coinbase},function(err,result){
+    window.contract_instance.horseTokenToOnSale(horseId,window.web3.toWei(price,'ether'),{from:window.web3.eth.coinbase, gasPrice: 10 ** 10},function(err,result){
       if(err) {reject(err)}
       resolve(result)
     })
@@ -147,8 +147,9 @@ export const getCheckedRaceArray = () => {
 
 export const getMyRaceArrray = () => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.getMyRaces(function(err, result){
+    window.contract_instance.getMyRaces({from: window.web3.eth.coinbase},function(err, result){
       if(err){reject(err)}
+      console.log(result);
       resolve(result)
     })
   })
@@ -158,6 +159,15 @@ export const getBetInfo = (raceId) => {
   return new Promise((resolve, reject) => {
     window.contract_instance.bettingInfo(raceId, function(err, result){
       if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const getOdds = (raceId) => {
+  return new Promise((resolve,reject) => {
+    window.contract_instance.getOdds(raceId, function (err, result) {
+      if(err) {reject(err)}
       resolve(result)
     })
   })
@@ -174,8 +184,8 @@ export const getTicketNum = (address) => {
 
 export const hostRace = (info) => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.hostRace(info.bettingDuration,info.minWinnerPrize,info.winnerPrizeFromBet,
-        {from: window.web3.eth.coinbase},function(err, result){
+    window.contract_instance.hostRace(info.raceName,info.minWinnerPrize,info.winnerPrizeFromBet,
+        {from: window.web3.eth.coinbase, gas: 5000000, gasPrice: 10 ** 10, value: info.deposit},function(err, result){
       if(err){reject(err)}
       resolve(result)
     })
@@ -194,7 +204,7 @@ export const ownerOf = (horseId) => {
 
 export const applyRace = (raceId,horseId) => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.applyRace(raceId,horseId,{from: window.web3.eth.coinbase, gas: 3000000},function(err, result){
+    window.contract_instance.applyRace(raceId,horseId,{from: window.web3.eth.coinbase, gas: 3000000, gasPrice: 10 ** 10},function(err, result){
       if(err){reject(err)}
       resolve(result)
     })
@@ -212,9 +222,48 @@ export const getHorseStrengthBalance = (raceId) => {
 
 export const decideBetRate = (raceId,rates) => {
   return new Promise((resolve,reject) => {
-    window.contract_instance.decideBetRate(raceId,rates[0]*100,rates[2]*100,{from: window.web3.eth.coinbase},function(err,result){
+    window.contract_instance.decideBetRate(raceId,rates[0]*100,rates[1]*100,{from: window.web3.eth.coinbase, gasPrice: 10 ** 10, gas: 5000000},function(err,result){
       if(err){reject(err)}
       resolve(result)
     })
+  })
+};
+
+export const checkResult = (raceId) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.checkRaceResult(raceId,function(err,result) {
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const sireHorses = (papaId,mamaId,name) => {
+  return new Promise((resolve,reject) => {
+    window.contract_instance.mateHorses(papaId,mamaId,name,{from: window.web3.eth.coinbase, gas: 5000000, gasPrice: 10 ** 10},function(err,result) {
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const getRaceStartTime = (raceId) => {
+  return new Promise((resolve,reject) => {
+    window.contract_instance.raceStartTime(raceId,function(err,result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const betRace = (raceId,horseId,value) => {
+  return new Promise((resolve, reject) => {
+    let array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    console.log(array[0]);
+    window.contract_instance.betRace(raceId,horseId,array[0],
+        {from: window.web3.eth.coinbase,gas: 3000000, gasPrice: 10 ** 10, value: window.web3.toWei(value,'ether')},function (err, result) {
+      console.log(result)
+        })
   })
 };

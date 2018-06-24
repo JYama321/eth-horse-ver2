@@ -9,6 +9,7 @@ import {
   selectHorseArrayLoaded
 } from "./selectors";
 import goalGif from '../../assets/static_assets/goal_movie.gif'
+import TopTutorialTextures from '../../components/TopTutorialTexture'
 class Top extends Component{
   constructor(props){
     super(props);
@@ -20,6 +21,14 @@ class Top extends Component{
     this.setState({
       tutorialMenu: menu
     })
+  }
+  renderTutorial(menu){
+    switch (menu){
+      case 'textures':
+        return <TopTutorialTextures/>;
+      default:
+        return null
+    }
   }
   render(){
     return(
@@ -74,6 +83,7 @@ class Top extends Component{
                   textures
                 </button>
               </div>
+              {this.renderTutorial(this.state.tutorialMenu)}
             </div>
             <button style={topStyles.startNowButton}>Start Playing Now</button>
           </div>

@@ -58,12 +58,17 @@ export const raceInfoHorseStyle = {
   bettingGage: {
     width: '100%',
     height: '20px',
-    backgroundColor: 'rgba(30,30,30,0.5)'
+    backgroundColor: 'rgba(30,30,30,0.5)',
+    position: 'relative'
   },
   currentTotalBet: {
     width: '100%',
     height: '20px',
-    top: '10px'
+    top: '10px',
+  },
+  currentMaxBet: {
+    right: 0,
+    position: 'absolute'
   },
   betAction: {
     width: '460px',

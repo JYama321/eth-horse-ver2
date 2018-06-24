@@ -1,4 +1,4 @@
-/* PAGE */
+holdRaceButtonholdRaceButton/* PAGE */
 
 body,
 .pure-g [class*=pure-u] {
@@ -76,6 +76,10 @@ code {
 }
 
 .sellHorseButton{
+  background-image: url("./assets/static_assets/sq.png");
+}
+
+.holdRaceButton{
   background-image: url("./assets/static_assets/sq.png");
 }
 

@@ -88,7 +88,15 @@ class Market extends Component{
         });
       case 'high-price':
         const higherOrderArray = this.props.saleHorsePrices ? this.props.saleHorsePrices.map((elem,index) => {
-          return {id: index+1, price: window.web3.fromWei(elem).toFixed(3)}
+          if(elem.toNumber() !== 0){
+            return {id: index+1, price: window.web3.fromWei(elem).toFixed(3), isValid: true}
+          } else {
+            return {id: index+1, price: 0, isValid: false}
+          }
+        }).filter(elem => {
+          if(elem.isValid){
+            return true
+          }
         }).sort((a,b) => {
           if(a.price < b.price){
             return 1
@@ -101,6 +109,7 @@ class Market extends Component{
         return higherOrderArray.map(function (elem,index) {
           const isLeft = index % 4 === 0;
           const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
+          console.log(higherOrderArray.toArray());
           if(horse){
             return (
                 <HorseStatusCard
@@ -125,7 +134,15 @@ class Market extends Component{
         });
       case 'low-price':
         const lowerOrderArray = this.props.saleHorsePrices ? this.props.saleHorsePrices.map((elem,index) => {
-          return {id: index+1, price: window.web3.fromWei(elem).toFixed(3)}
+          if(elem.toNumber() !== 0){
+            return {id: index+1, price: window.web3.fromWei(elem).toFixed(3), isValid: true}
+          } else {
+            return {id: index+1, price: 0, isValid: false}
+          }
+        }).filter(elem => {
+          if(elem.isValid){
+            return true;
+          }
         }).sort((a,b) => {
           if(a.price > b.price){
             return 1
@@ -135,7 +152,7 @@ class Market extends Component{
             return 0
           }
         }).slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
-        console.log(lowerOrderArray);
+        console.log(lowerOrderArray.toArray());
         return lowerOrderArray.map(function (elem,index) {
           const isLeft = index % 4 === 0;
           const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
