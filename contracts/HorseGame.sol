@@ -355,7 +355,7 @@ contract HorseBet is HorseGameBase{
         uint horseOne;
         uint horseTwo;
         bytes32 nonce;
-        uint bettingTime;
+        string raceName;
         uint minWinnerPrize;
         uint winnerPrizeFromBet;
         mapping(address => RaceParticipant) participantInfo;
@@ -374,6 +374,7 @@ contract HorseBet is HorseGameBase{
     bool[] public bettingRaces;
     bool[] public checkedRaces;
     mapping (address => uint[]) public mapUserToRaceIds;
+    mapping (uint => uint) public raceStartTime;
 
 
     modifier hostOnly(uint _raceId,address _sender){
@@ -385,7 +386,7 @@ contract HorseBet is HorseGameBase{
 
     function checkRaceResult(uint _raceId) external {
         Race storage race = races[_raceId.sub(1)];
-        require(!race.isChecked && race.bettingTime > now);
+        require(!race.isChecked && raceStartTime[_raceId] > now);
         Horse storage horse1 = horses[race.horseOne.sub(1)];
         Horse storage horse2 = horses[race.horseTwo.sub(1)];
         uint winnerIndex = raceFunction.generateWinnerIndex(race.nonce,horse1.genes,horse2.genes);
@@ -412,7 +413,7 @@ contract HorseBet is HorseGameBase{
         race.horseIdToBetRate[race.horseTwo] = _rate2;
         race.isBetting = true;
         bettingRaces[_raceId.sub(1)] = true;
-        race.bettingTime = now + race.bettingTime;
+        raceStartTime[_raceId] = now + 5 hours;
     }
 
     function withdrawPayback(uint _raceId) external{
@@ -487,7 +488,7 @@ contract HorseBet is HorseGameBase{
         );
     }
 
-    function hostRace(uint _bettingTime,uint _minWinnerPrize, uint _winnerPrizeFromBet) external payable{
+    function hostRace(string _raceName,uint _minWinnerPrize, uint _winnerPrizeFromBet) external payable{
         require(msg.value > _minWinnerPrize);
         Race memory race =  Race({
             raceId: races.length.add(1),
@@ -495,7 +496,7 @@ contract HorseBet is HorseGameBase{
             horseOne: 0,
             horseTwo: 0,
             nonce: bytes32(0),
-            bettingTime: _bettingTime,
+            raceName: _raceName,
             minWinnerPrize: _minWinnerPrize,
             winnerHorseId: 0,
             winnerPrizeFromBet: _winnerPrizeFromBet,
