@@ -51,7 +51,7 @@ export const getHorseTotalPrizeArray = () => {
   })
 };
 
-export const getHorseGeneArray = () => {
+export const getGeneArray = () => {
   return new Promise((resolve,reject) => {
     window.contract_instance.getHorseGenesArray(function(err, result){
       if(err){reject(err)}

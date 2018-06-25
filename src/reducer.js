@@ -54,7 +54,8 @@ import {
   //horse owner
   GET_CURRENT_SEARCH_HORSE_OWNER,
   CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE,
-  CHANGE_MARKET_SORT
+  CHANGE_MARKET_SORT,
+  //Ranking Array
 } from "./actionTypes";
 
 const globalState = fromJS({

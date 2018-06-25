@@ -17,6 +17,7 @@ import Races from './containers/Races/'
 import RaceInfo from './containers/RaceInfo'
 import MyPage from './containers/MyPage'
 import Top from './containers/Top'
+import Ranking from './containers/Ranking'
 import {
   getWantedRaces,
   getBettingRaces,
@@ -25,21 +26,27 @@ import {
   getActivities,
   getUserBalance,
   getTicket,
-  getMyHorseArraySuccess
+  getMyHorseArraySuccess,
+  getTotalPrizeArray,
+  getHorseGeneArray,
+  getWinCountArray
 } from './actions'
 const address = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
+
 import {
   getWantedRaceArray,
   getBettingRaceArray,
   getCheckedRaceArray,
   getMyRaceArrray,
   getTicketNum,
-  getMyHorsesArray
+  getMyHorsesArray,
+  getHorseWinCountArray,
+  getGeneArray,
+  getHorseTotalPrizeArray
 } from './utils/eth-function'
 import {
   selectBalance
 } from "./selectors";
-import logger from './utils/logger';
 
 class App extends Component {
   constructor (props) {
@@ -60,6 +67,13 @@ class App extends Component {
     const checkedArray = await getCheckedRaceArray();
     const myRaceArray = await getMyRaceArrray();
     const myHorseArray = await getMyHorsesArray();
+    const totalPrizeArray = await getHorseTotalPrizeArray();
+    const winCountArray = await getHorseWinCountArray();
+    const geneArray = await getGeneArray();
+
+    this.props.getTotalPrizeArray(totalPrizeArray);
+    this.props.getWinCountArray(winCountArray);
+    this.props.getGeneArray(geneArray);
     this.props.getMyHorseArray(myHorseArray);
     this.props.getWantedArray(wantedArray);
     this.props.getBettingArray(bettingArray);
@@ -139,6 +153,7 @@ class App extends Component {
             <Route exact path='/market-place' component={Market}/>
             <Route exact path='/races' component={Races} />
             <Route exact path='/races/:id' component={RaceInfo}/>
+            <Route exact path='/ranking' component={Ranking}/>
           </div>
       )
     }else{
@@ -158,7 +173,10 @@ const mapDispatchToProps = (dispatch) => ({
   getActivity: (activity) => dispatch(getActivities(activity)),
   getBalance: (balance) => dispatch(getUserBalance(balance)),
   getTicket: (num) => dispatch(getTicket(num)),
-  getMyHorseArray: (array) => dispatch(getMyHorseArraySuccess(array))
+  getMyHorseArray: (array) => dispatch(getMyHorseArraySuccess(array)),
+  getTotalPrizeArray: (array) => dispatch(getTotalPrizeArray(array)),
+  getWinCountArray: array => dispatch(getWinCountArray(array)),
+  getGeneArray: array => dispatch(getHorseGeneArray(array))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);

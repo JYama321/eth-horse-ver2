@@ -152,7 +152,6 @@ class Market extends Component{
             return 0
           }
         }).slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
-        console.log(lowerOrderArray.toArray());
         return lowerOrderArray.map(function (elem,index) {
           const isLeft = index % 4 === 0;
           const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;

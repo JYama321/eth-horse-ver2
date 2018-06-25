@@ -1,27 +1,29 @@
 export const styles = (props) =>  ({
   horseStatusCard: {
-    width: '228px',
-    height: '515px',
+    width: '225px',
+    height: '270px',
     marginLeft: props.isLeft ? '0' : '56px',
-    position: 'relative'
+    marginBottom: '3%',
+    position: 'relative',
+    marginTop: '56px'
   },
   horseStatus: {
     width: '228px',
-    height: '225px',
+    height: '30px',
     textAlign: 'left',
     fontSize: '21px',
-    margin: '0',
-    marginTop: '21px',
+    display: 'flex'
   },
   powerTotal: {
-    height: '30px',
+    height: '20px',
     width: '100%',
-    marginTop: '30px',
-    position: 'relative',
-    fontSize: '15px'
+    position: 'absolute',
+    fontSize: '15px',
+    bottom: '14px',
+    textAlign: 'center'
   },
   powerTotalP: {
-    lineHeight: '30px'
+    lineHeight: '20px'
   },
   powerImg: {
     position: 'absolute',
@@ -29,7 +31,7 @@ export const styles = (props) =>  ({
     top: 0,
     height: '30px',
     width: 'auto'
-  }
+  },
 });
 
 export const STYLE = {
@@ -39,14 +41,13 @@ export const STYLE = {
     fontSize: '15px',
     lineHeight: '30px',
     top: 0,
-    color: 'white',
+    color: 'black',
     zIndex: 3,
   },
   horseStats: {
     height: '30px',
-    width: '100%',
+    width: '30%',
     position: 'relative',
-    marginTop: '21px'
   },
   horseStatsP: {
     fontSize: '15px',
@@ -56,7 +57,7 @@ export const STYLE = {
   },
   horseName: {
     fontSize: '21px',
-    marginTop: '27px'
+    width: '70%'
   },
   horsePowerDiagram: {
     height: '30px',
@@ -64,22 +65,21 @@ export const STYLE = {
     position: 'relative',
     marginTop: '14px'
   },
-  horseRankNum: {
-    position: 'absolute',
-    left: '0px',
-    top: '0px',
-    width: '60px',
-    height: '60px',
-    border: 'none',
-    zIndex:'5'
+  horseImageBack: {
+    width: '225px',
+    height: '225px',
+    backgroundSize: '225px 225px',
+    position: 'relative'
   },
-  rankNum: {
-    fontSize: '30px',
-    color: 'black',
-    fontWeight: '800',
+  horsePriceImg: {
+    width: '85px',
+    height: '20px',
     position: 'absolute',
-    top: ' 10px',
-    left: '10px'
+    left: '50%',
+    top: '20px',
+    transform: 'translateX(-50%)',
+    lineHeight: '20px',
+    textAlign: 'center'
   },
   strengthParam: function(width){
     return ({
@@ -120,5 +120,19 @@ export const STYLE = {
       float: 'left',
       backgroundColor: 'rgba(0,0,0,1)'
     })
-  }
+  },
+  iconImg: {
+    width: '25px',
+    height: '25px',
+    right: '35px',
+    bottom: '0px',
+    position: 'absolute'
+  },
+  rankImg: {
+    width: '25px',
+    height: '28px',
+    position: 'absolute',
+    right: '0px',
+    bottom: '0px'
+  },
 };

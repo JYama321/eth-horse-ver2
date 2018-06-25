@@ -1,28 +1,12 @@
 export const styles =  {
   outerContainer: {
-    position: 'relative',
-    top: 0,
+    position: 'absolute',
+    top: 'calc(256px + 4.5%)',
     bottom: 0,
     left: 0,
     right: 0,
     width: '100%',
-    height: '1070px'
-  },
-  horseContainer: {
-    display: 'flex',
-    overflowY: 'scroll',
-    position: 'relative',
-    top: 'calc(210px + 10.5%)',
-    width: '100%',
-    height: 'calc(1460px - 10.5%)',
-    flexWrap: 'wrap'
-  },
-  searchComponent: {
-    width: '100%',
-    height: '25px',
-    position: 'absolute',
-    top: 'calc(210px + 6%)',
-    background: 'black'
+    height: '1350px'
   },
   innerContainer: {
     position: 'relative',
@@ -31,5 +15,18 @@ export const styles =  {
     width: '1080px',
     height: '100%',
     margin: '100px auto 0'
+  },
+  rankingContainer: {
+    height: '360px',
+    width: '100%',
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  rankTitle: {
+    textAlign: 'left',
+    fontSize: '18px',
+    height: '30px',
+    width: '100%',
+    borderBottom: '2px solid #000'
   }
 };
