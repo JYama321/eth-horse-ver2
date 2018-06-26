@@ -32,7 +32,6 @@ import {
   getWinCountArray
 } from './actions'
 const address = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
-
 import {
   getWantedRaceArray,
   getBettingRaceArray,
@@ -47,6 +46,7 @@ import {
 import {
   selectBalance
 } from "./selectors";
+import { appStyles } from "./style";
 
 class App extends Component {
   constructor (props) {
@@ -98,6 +98,9 @@ class App extends Component {
       fromBlock: 0,
       toBlock: 'latest',
     });
+    const SellHorse = window.contract_instance.Transfer({
+      _from: window.web3.eth.coinbase
+    });
     const HorseOnSale = window.contract_instance.HorseOnSale({
       _from: window.web3.eth.coinbase
     },{
@@ -131,11 +134,15 @@ class App extends Component {
     GetHorse.get(function(err, logs) {
       self.props.getActivity(logs)
     });
+    SellHorse.get(function(err, logs) {
+      self.props.getActivity(logs)
+    })
   }
   render() {
     if(this.state.loaded){
+      const path = this.props.history.location.pathname;
       return(
-          <div>
+          <div style={appStyles.container(path)}>
             <Helmet
                 titleTemplate="%s - Eth Horse"
                 defaultTitle="Eth Horse"

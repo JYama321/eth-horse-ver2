@@ -130,3 +130,31 @@ code {
 .sale-horse-back{
   background-image: url("./assets/static_assets/buton-back-transparent.png");
 }
+
+.horse-rank-image{
+  background-image: url("./assets/static_assets/rank-triangle.png");
+}
+
+.activity-buy-horse{
+  background-image: url("./assets/static_assets/activity-buy-horse.png");
+}
+
+.activity-bet-race{
+  background-image: url("./assets/static_assets/activity-bet-race.png");
+}
+
+.activity-to-market{
+  background-image: url('./assets/static_assets/activity-horse-on-market.png');
+}
+
+.activity-apply-race{
+  background-image: url("./assets/static_assets/activity-apply-race.png");
+}
+
+.activity-host-race{
+  background-image: url("./assets/static_assets/activity-host-race.png");
+}
+
+.activity-sell-horse{
+  background-image: url("./assets/static_assets/activity-sell-horse.png");
+}

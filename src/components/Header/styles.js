@@ -68,7 +68,7 @@ export const headerStyles = {
   headerLeftMarket: {
     width: '100%',
     height: '25px',
-    display: 'flex'
+    display: 'flex',
   },
   headerLeftButtonMarket: function(isDisplayed) {
     if(isDisplayed){
@@ -80,7 +80,8 @@ export const headerStyles = {
         outline: 'none',
         border: 'none',
         textDecoration: 'underline',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        backgroundColor: 'transparent'
       }
     } else {
       return {
@@ -89,7 +90,8 @@ export const headerStyles = {
         width: '25%',
         textAlign: 'left',
         outline: 'none',
-        border: 'none'
+        border: 'none',
+        backgroundColor: 'transparent'
       }
     }
   }

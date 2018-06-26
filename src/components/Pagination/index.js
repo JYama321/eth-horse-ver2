@@ -45,7 +45,7 @@ export default class Pagination extends Component{
 
   render(){
     return(
-        <div style={{width: '100%', height: '50px'}}>
+        <div style={{width: '100%', height: '50px', marginTop: '56px'}}>
           {this.renderButton()}
         </div>
     )

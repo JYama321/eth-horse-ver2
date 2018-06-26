@@ -81,6 +81,19 @@ export const STYLE = {
     lineHeight: '20px',
     textAlign: 'center'
   },
+  rankImage: {
+    position: 'absolute',
+    width: '50px',
+    height: '50px',
+    top: 0,
+    bottom: 0,
+    color: 'white',
+    backgroundSize: '50px 50px',
+    backgroundRepeat: 'no-repeat',
+    fontSize: '18px',
+    paddingTop: '5px',
+    paddingLeft: '5px'
+  },
   strengthParam: function(width){
     return ({
       height: '100%',

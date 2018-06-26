@@ -8,10 +8,11 @@ import {horseStatus} from "../../utils/functions";
 import PropTypes from 'prop-types';
 const img = require('../../assets/static_assets/triangle.png');
 import icon from '../../assets/texture_icons/g.png'
+import rankImg from '../../assets/static_assets/rank-triangle.png'
 export default class HorseRankStatusCard extends Component{
   static propTypes = {
     isMyHorse: PropTypes.bool.isRequired,
-    info: PropTypes.object.isRequired,
+    info: PropTypes.array.isRequired,
     isLeft: PropTypes.bool.isRequired,
     rank: PropTypes.number.isRequired,
     number: PropTypes.number,
@@ -46,6 +47,9 @@ export default class HorseRankStatusCard extends Component{
                 className='horse-price-imgae'
                 style={STYLE.horsePriceImg}
             >{number}</div>
+            <div style={STYLE.rankImage} className={'horse-rank-image'}>
+              {this.props.rank}
+            </div>
             <Link to={"/horses/" + horseId}>
               <HorseImage
                   type="normal"

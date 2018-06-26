@@ -146,6 +146,7 @@ export const STYLE = {
     lineHeight: '30px',
     backgroundRepeat: 'no-repeat',
     outline: 'none',
-    border: 'none'
+    border: 'none',
+    backgroundColor: 'transparent'
   }
 };

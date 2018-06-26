@@ -17,6 +17,7 @@ import loadingGif from '../../assets/static_assets/umaloading.gif'
 import {getHorseData} from "../../utils/eth-function";
 import { horseStatus } from "../../utils/functions";
 
+
 class Ranking extends Component{
   renderGeneRankHorses(){
     const self = this;

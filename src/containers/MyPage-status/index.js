@@ -6,7 +6,6 @@ import TicketCard from '../../components/TicketCard'
 import HorseStatusCard from '../../components/HorseStatusCard'
 import loadingGif from '../../assets/static_assets/umaloading.gif'
 
-
 class MyPageStatus extends Component{
   static propTypes={
     balance: PropTypes.string.isRequired,
@@ -17,7 +16,15 @@ class MyPageStatus extends Component{
     horseIdToInfo: PropTypes.object.isRequired
   };
   renderActivityCard(){
-    return this.props.activities.slice(0,3).map((elem,index) => {
+    return this.props.activities.sort((a,b) => {
+      if(a.args._now < b.args._now){
+        return 1
+      } else if(a.args._now > b.args._now){
+        return -1
+      } else {
+        return 0
+      }
+    }).slice(0,3).map((elem,index) => {
       return <ActivityCardSmall
           event={elem.event}
           args={elem.args}
@@ -39,11 +46,12 @@ class MyPageStatus extends Component{
     return array.map(function (elem,index) {
       const horse = self.props.horseIdToInfo.get(String(elem.toNumber())) ? self.props.horseIdToInfo.get(String(elem.toNumber())) : null;
       if(horse){
+        const isLeft = index === 0 ? true : false
         return (
             <HorseStatusCard
                 info={horse}
                 isMyHorse={true}
-                isLeft={true}
+                isLeft={isLeft}
                 key={'myhorse-'+index}
             />
         )

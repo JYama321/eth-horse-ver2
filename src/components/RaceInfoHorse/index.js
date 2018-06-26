@@ -139,13 +139,13 @@ class RaceInfoHorse extends Component {
           <div style={raceInfoHorseStyle.bettingInfo}>
             <div style={raceInfoHorseStyle.bettingGage}><span style={{
               background: 'linear-gradient(90deg, blue, yellow)',
-              width: `${Math.ceil((this.state.betAmount / this.state.maxBet) * 100) + '%'}`,
+              width: `${Math.ceil((Number(this.state.betAmount) / (Number(this.state.maxBet) + Number(this.state.betAmount))) * 100) + '%'}`,
               height: '100%',
               position: 'absolute',
               zIndex: 2
             }}></span></div>
             <div style={raceInfoHorseStyle.currentTotalBet}>now {this.state.betAmount} ETH Bet
-              <span style={raceInfoHorseStyle.currentMaxBet}> {this.state.maxBet} ETH</span>
+              <span style={raceInfoHorseStyle.currentMaxBet}> {this.state.maxBet} ETH Remaining</span>
             </div>
           </div>
           <div style={raceInfoHorseStyle.betAction}>

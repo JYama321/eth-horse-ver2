@@ -30,6 +30,7 @@ export const racePageStyles = {
     border: 'none',
     right: 0,
     top: '56px',
+    backgroundColor: 'transparent'
   },
   modalContent: {
     top : '50%',

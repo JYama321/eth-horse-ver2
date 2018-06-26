@@ -6,7 +6,7 @@ export const myPageStyles = {
     left: 0,
     right: 0,
     width: '100%',
-    height: '1060px'
+    height: '1060px',
   },
   innerContainer: {
     position: 'relative',
@@ -133,6 +133,5 @@ export const myPageStyles = {
     height: '270px',
     display: 'flex',
     marginTop: '56px',
-    justifyContent: 'space-between'
   }
 };
