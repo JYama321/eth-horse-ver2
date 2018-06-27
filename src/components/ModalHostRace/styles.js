@@ -6,6 +6,7 @@ export const hostModalStyle = {
       position: 'absolute',
       top: '50%',
       left: '50%',
+      padding: 0,
       transform: 'translate(-50%,-50%)'
     }
   },

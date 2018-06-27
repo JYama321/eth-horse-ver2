@@ -18,6 +18,7 @@ import RaceInfo from './containers/RaceInfo'
 import MyPage from './containers/MyPage'
 import Top from './containers/Top'
 import Ranking from './containers/Ranking'
+import Event from './containers/Events'
 import {
   getWantedRaces,
   getBettingRaces,
@@ -55,7 +56,6 @@ class App extends Component {
       loaded: false,
     }
   }
-
   async componentWillMount() {
     const result = await getWeb3();
     window.web3 = result.web3;
@@ -161,6 +161,7 @@ class App extends Component {
             <Route exact path='/races' component={Races} />
             <Route exact path='/races/:id' component={RaceInfo}/>
             <Route exact path='/ranking' component={Ranking}/>
+            <Route exact path='/events' component={Event}/>
           </div>
       )
     }else{

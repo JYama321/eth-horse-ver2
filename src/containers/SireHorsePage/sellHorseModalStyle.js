@@ -176,6 +176,7 @@ export const sellHorseModalStyle = {
       transform : 'translate(-50%, -50%)',
       height: '100px',
       position: 'absolute',
+      padding: 0,
       zIndex: 8888
     }
   },

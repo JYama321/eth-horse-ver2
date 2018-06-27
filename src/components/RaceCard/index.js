@@ -43,8 +43,14 @@ class RaceCard extends Component{
     if(this.props.isBetting){
       getRaceStartTime(this.props.race[0].toNumber()).then((result) => {
         const date = new Date(result.toNumber() * 1000);
+        console.log(date,date.getMonth());
+        const month = '0' + (date.getMonth() + 1);
+        const day = '0'+date.getDate();
+        const hours = '0' + date.getHours();
+        const minutes = '0' + date.getMinutes();
         self.setState({
-          startTime: date.getFullYear() + '/' +  date.getMonth() + '/' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
+          startTime: date.getFullYear() + '/' + month.slice(month.length - 2,month.length) + '/' +
+          day.slice(day.length - 2,day.length) + '/' + hours.slice(hours.length-2,hours.length) + ':' + minutes.slice(minutes.length-2,minutes.length),
           dateNumber: result.toNumber()
          });
       })
@@ -91,7 +97,7 @@ class RaceCard extends Component{
                 horseInfo={this.props.horseInfo}
             />
             <div style={raceCardStyles.cartContainerTop}>
-              <p>{startTime}</p>
+              <p>Start from: {startTime}</p>
             </div>
             <div style={raceCardStyles.raceInfoContainer}>
               <Link to={'/races/' + this.props.race[0].toNumber()}><p style={raceCardStyles.raceNameP}>{this.props.race[5]}</p></Link>
@@ -118,7 +124,7 @@ class RaceCard extends Component{
       return(
           <div style={raceCardStyles.cardContainer}>
             <div style={raceCardStyles.cartContainerTop}>
-              <p>{startTime}</p>
+              <p>Start from: {startTime}</p>
             </div>
             <div style={raceCardStyles.raceInfoContainer}>
               <Link to={'/races/' + this.props.race[0].toNumber()}><p style={raceCardStyles.raceNameP}>{this.props.race[5]}</p></Link>

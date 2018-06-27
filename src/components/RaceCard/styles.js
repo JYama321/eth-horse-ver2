@@ -45,7 +45,8 @@ export const raceCardStyles = {
     lineHeight: '30px',
     backgroundRepeat: 'no-repeat',
     outline: 'none',
-    border: 'none'
+    border: 'none',
+    backgroundColor: 'transparent'
   },
   horseImgContainer: {
     height: '260px',

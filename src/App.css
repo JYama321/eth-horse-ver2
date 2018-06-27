@@ -162,3 +162,27 @@ code {
 .rank-modal-horse-back{
   background-image: url("./assets/static_assets/rank-modal-horse-back1.png");
 }
+
+.event-back-training{
+  background-image: url("./assets/static_assets/event-back-training.png");
+}
+
+.event-back-gift-horse{
+  background-image: url("./assets/static_assets/event-back-gift-horse.png");
+}
+
+.lottery-button{
+  background-image: url("./assets/static_assets/square3.png");
+}
+
+.event-training{
+  background-image: url("./assets/static_assets/event-training.png");
+}
+
+.event-gift-horse{
+  background-image: url("./assets/static_assets/event-gifthorse.png");
+}
+
+.event-buy-ticket-back{
+  background-image: url("./assets/static_assets/sq.png");
+}

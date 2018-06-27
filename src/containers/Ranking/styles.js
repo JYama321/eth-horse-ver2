@@ -56,7 +56,7 @@ export const styles =  {
     position: 'relative',
     margin: '56px auto 0'
   },
-  modalTopLabelContainer:{
+  modalTopLabelContainer: {
     height: '100%',
     position: 'absolute',
     left: '400px',
@@ -92,7 +92,6 @@ export const styles =  {
     height: 'calc(100% - 131px)',
     margin: '0 auto'
   },
-
 };
 
 export const modalStyle = {

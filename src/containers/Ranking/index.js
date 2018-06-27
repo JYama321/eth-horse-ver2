@@ -18,8 +18,9 @@ import {getHorseData} from "../../utils/eth-function";
 import { horseStatus } from "../../utils/functions";
 import RankingModalHorse from '../../components/RankingModalHorse'
 import Modal from 'react-modal'
-
 Modal.setAppElement('#root');
+
+
 class Ranking extends Component{
   constructor(props){
     super(props);
@@ -218,7 +219,6 @@ class Ranking extends Component{
           }
         }).slice(0,30) : [];
         return totalPrizeArray.map((elem,index) => {
-          console.log(this.props)
           const horse = this.props.horseIdToInfo.get(String(elem.id)) ? this.props.horseIdToInfo.get(String(elem.id)) : null;
           if(horse){
             return <RankingModalHorse horseInfo={horse} rank={index + 1} key={'modal-rank-horse' + index}/>
@@ -293,18 +293,18 @@ class Ranking extends Component{
                 </div>
               </div>
               <div style={styles.modalRankContents}>
-                {this.renderRanking()}
+                { this.renderRanking() }
               </div>
             </div>
           </Modal>
           <div style={styles.innerContainer}>
             <div style={styles.rankingContainer}>
               <div style={styles.rankTitle}>Strength<button style={styles.showMore} onClick={()=>this.openModal('strength')}>Show More ></button></div>
-              {this.renderGeneRankHorses()}
+              { this.renderGeneRankHorses() }
             </div>
             <div style={styles.rankingContainer}>
               <div style={styles.rankTitle}>Win Counts<button style={styles.showMore} onClick={()=>this.openModal('win-count')}>Show More ></button></div>
-              {this.renderWinCountRankHorses()}
+              { this.renderWinCountRankHorses() }
             </div>
             <div style={styles.rankingContainer}>
               <div style={styles.rankTitle}>TotalPrize<button style={styles.showMore} onClick={()=>this.openModal('total-prize')}>Show More ></button></div>
