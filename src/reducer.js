@@ -27,6 +27,7 @@ import {
   //sire horses
   SET_CURRENT_SIRE_HORSE_ID,
   CHANGE_SIRE_HORSE_PAGE,
+  GET_SIRE_PRICES_ARRAY,
 
   START_LOAD_ON_SALE_HORSES,
   FAIL_LOAD_ON_SALE_HORSE_ARRAY,
@@ -56,6 +57,7 @@ import {
   CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE,
   CHANGE_MARKET_SORT,
   //Ranking Array
+
 } from "./actionTypes";
 
 const globalState = fromJS({
@@ -127,7 +129,6 @@ const globalState = fromJS({
   balance: 0,
   //ticketNum
   ticketNum: 0,
-
 });
 
 function globalReducer(state = globalState ,action){
@@ -235,6 +236,8 @@ function globalReducer(state = globalState ,action){
       return state.set('applyRaceHorseCurrentPage', action.data);
     case CHANGE_SIRE_HORSE_PAGE:
       return state.set('sireHosePage', action.data);
+    case GET_SIRE_PRICES_ARRAY:
+      return state.set('horseSirePriceArray', List(action.data));
     default:
       return state;
   }

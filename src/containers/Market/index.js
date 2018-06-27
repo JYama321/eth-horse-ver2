@@ -28,7 +28,8 @@ class Market extends Component{
     this.state = {
       totalPage: 1,
       currentPage: 1,
-      buttonPerPage: 10
+      buttonPerPage: 10,
+      currentMarket: 'sell-horse'
     };
     this.onChangePage = this.onChangePage.bind(this)
   }
@@ -57,7 +58,6 @@ class Market extends Component{
 
   renderHorses(sort){
     const self = this;
-
     switch(sort){
       case 'default':
         const defaultArray = this.props.saleHorses ? this.props.saleHorses.slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
@@ -109,7 +109,6 @@ class Market extends Component{
         return higherOrderArray.map(function (elem,index) {
           const isLeft = index % 4 === 0;
           const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
-          console.log(higherOrderArray.toArray());
           if(horse){
             return (
                 <HorseStatusCard
@@ -179,7 +178,7 @@ class Market extends Component{
         });
       default:
         return null
-    };
+    }
   }
 
   render () {

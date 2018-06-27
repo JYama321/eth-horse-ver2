@@ -50,4 +50,5 @@ export const GET_CURRENT_SEARCH_HORSE_OWNER = 'getCurrentSearchHorseOwner';
 export const CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE = 'changeApplyRaceHorseCurrentPage';
 export const CHANGE_MARKET_SORT = 'changeMarketSort';
 export const CHANGE_SIRE_HORSE_PAGE = 'changeSireHorsePage';
+export const GET_SIRE_PRICES_ARRAY = 'getSirePricesArray';
 

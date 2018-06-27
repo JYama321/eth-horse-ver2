@@ -3,7 +3,7 @@ import {
   GET_WANTED_RACE_ARRAY, GET_MY_RACES, GET_ACTIVITIES,
   GET_USER_BALANCE, GET_TICKET_NUM, GET_MY_HORSES_ARRAY_SUCCESS,
   LOAD_WIN_COUNT_ARRAY_SUCCESS, LOAD_HORSE_GENE_ARRAY_SUCCESS,
-  LOAD_HORSE_TOTAL_PRIZE_ARRAY_SUCCESS
+  LOAD_HORSE_TOTAL_PRIZE_ARRAY_SUCCESS, GET_SIRE_PRICES_ARRAY
 } from "./actionTypes";
 
 export const getWantedRaces = (array) => ({
@@ -62,5 +62,10 @@ export const getWinCountArray = (array) => ({
 
 export const getHorseGeneArray = (array) => ({
   type: LOAD_HORSE_GENE_ARRAY_SUCCESS,
+  data: array
+});
+
+export const getSirePrices = (array) => ({
+  type: GET_SIRE_PRICES_ARRAY,
   data: array
 });

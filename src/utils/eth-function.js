@@ -21,6 +21,18 @@ export const getOnSaleHorses = () => {
   })
 };
 
+export const getSirePricesArray = () => {
+  return new Promise((resolve,reject) => {
+    window.contract_instance.getOnSirePricesArray(function(err, result) {
+      if(err){
+        reject(err)
+      }else{
+        resolve(result)
+      }
+    })
+  })
+};
+
 export const getHorsePrices = () => {
   return new Promise((resolve, reject) => {
     window.contract_instance.getOnSalePricesArray(function(err, result){
