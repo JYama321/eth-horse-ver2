@@ -79,7 +79,9 @@ export const STYLE = {
     top: '20px',
     transform: 'translateX(-50%)',
     lineHeight: '20px',
-    textAlign: 'center'
+    textAlign: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '85px 20px'
   },
   rankImage: {
     position: 'absolute',

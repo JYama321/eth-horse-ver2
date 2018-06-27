@@ -200,6 +200,16 @@ export const styles = {
           margin: '0 auto',
           top: '70px'
         };
+      case 'rank-modal':
+        return {
+          display: 'block',
+          width: '50px',
+          height: '41.5px',
+          borderRadius: '15px',
+          position: 'relative',
+          margin: '0 auto',
+          top: '9px'
+        };
       default:
         return {
           display: 'block',
