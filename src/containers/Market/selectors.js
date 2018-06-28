@@ -37,6 +37,21 @@ const selectMarketSort = () => createSelector(
     substate => substate.get('marketSorted')
 );
 
+const selectSireHorsesArray = () => createSelector(
+    selectGlobal,
+    substate => substate.get('sireHorseArray')
+);
+
+const selectSirePricesArray = () => createSelector(
+    selectGlobal,
+    substate => substate.get('horseSirePriceArray')
+);
+
+const selectMarketType = () => createSelector(
+    selectGlobal,
+    substate => substate.get('marketType')
+);
+
 export {
   selectOnSaleArrayLoaded,
   selectOnSaleHorseArray,
@@ -44,5 +59,8 @@ export {
   selectOnSalePriceArrayLoaded,
   selectHorseIdToHorseInfo,
   selectCurrentMarketPage,
-  selectMarketSort
+  selectMarketSort,
+  selectSireHorsesArray,
+  selectSirePricesArray,
+  selectMarketType
 }

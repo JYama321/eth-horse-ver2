@@ -11,12 +11,19 @@ import {
   selectOnSalePriceArray,
   selectOnSaleHorseArray,
   selectHorseIdToHorseInfo,
-  selectMarketSort
+  selectMarketSort,
+  selectSireHorsesArray,
+  selectSirePricesArray,
+  selectMarketType
 } from './selectors'
+import {
+  getHorseData
+} from "../../utils/eth-function";
 import {
   startLoadOnSaleHorses,
   startLoadOnSaleHorsePrices,
-  changePage
+  changePage,
+  getHorseInfoSuccess
 } from "./actions";
 import HorseStatusCard from '../../components/MarketHorseStatusCard'
 import loadingGif from '../../assets/static_assets/umaloading.gif'
@@ -29,15 +36,8 @@ class Market extends Component{
       totalPage: 1,
       currentPage: 1,
       buttonPerPage: 10,
-      currentMarket: 'sell-horse'
     };
     this.onChangePage = this.onChangePage.bind(this)
-  }
-
-  componentDidMount(){
-    if(!this.props.saleHorsesLoaded){
-      this.props.startLoadOnSaleHorses()
-    }
   }
 
   componentWillReceiveProps(props,state){
@@ -56,11 +56,20 @@ class Market extends Component{
     })
   }
 
+
   renderHorses(sort){
     const self = this;
+    const marketType = this.props.marketType;
+    const isSire = marketType === 'sire-horse' ? true : false;
+    const priceOriginArray = isSire ? this.props.sirePrices : this.props.saleHorsePrices
     switch(sort){
       case 'default':
-        const defaultArray = this.props.saleHorses ? this.props.saleHorses.slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
+        let defaultArray;
+        if(marketType === 'buy-horse') {
+          defaultArray = this.props.saleHorses ? this.props.saleHorses.slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
+        }else {
+          defaultArray = this.props.sireHorses ? this.props.sireHorses.slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
+        }
         return defaultArray.map(function (elem,index) {
           const isLeft = index % 4 === 0;
           const horse = self.props.horseIdToInfo.get(String(elem.toNumber())) ? self.props.horseIdToInfo.get(String(elem.toNumber())) : null;
@@ -70,10 +79,14 @@ class Market extends Component{
                     info={horse}
                     isMyHorse={false}
                     isLeft={isLeft}
+                    isSire={isSire}
                     key={'saleHorse-'+index}
                 />
             )
           }else{
+            getHorseData(String(elem.toNumber())).then((result) => {
+              self.props.getHorse(result);
+            });
             return(
                 <img
                     key={'loading-'+index}
@@ -87,7 +100,7 @@ class Market extends Component{
           }
         });
       case 'high-price':
-        const higherOrderArray = this.props.saleHorsePrices ? this.props.saleHorsePrices.map((elem,index) => {
+        const higherOrderArray = priceOriginArray ? priceOriginArray.map((elem,index) => {
           if(elem.toNumber() !== 0){
             return {id: index+1, price: window.web3.fromWei(elem).toFixed(3), isValid: true}
           } else {
@@ -115,6 +128,7 @@ class Market extends Component{
                     info={horse}
                     isMyHorse={false}
                     isLeft={isLeft}
+                    isSire={isSire}
                     key={'saleHorse-'+index}
                 />
             )
@@ -132,7 +146,8 @@ class Market extends Component{
           }
         });
       case 'low-price':
-        const lowerOrderArray = this.props.saleHorsePrices ? this.props.saleHorsePrices.map((elem,index) => {
+        let lowerOrderArray;
+        lowerOrderArray = priceOriginArray ? priceOriginArray.map((elem,index) => {
           if(elem.toNumber() !== 0){
             return {id: index+1, price: window.web3.fromWei(elem).toFixed(3), isValid: true}
           } else {
@@ -160,6 +175,7 @@ class Market extends Component{
                     info={horse}
                     isMyHorse={false}
                     isLeft={isLeft}
+                    isSire={isSire}
                     key={'saleHorse-' + index}
                 />
             )
@@ -179,6 +195,7 @@ class Market extends Component{
       default:
         return null
     }
+
   }
 
   render () {
@@ -205,12 +222,16 @@ const mapStateToProps = createStructuredSelector({
   saleHorsePrices: selectOnSalePriceArray(),
   saleHorsePricesLoaded: selectOnSalePriceArrayLoaded(),
   horseIdToInfo: selectHorseIdToHorseInfo(),
-  sortType: selectMarketSort()
+  sortType: selectMarketSort(),
+  marketType: selectMarketType(),
+  sireHorses: selectSireHorsesArray(),
+  sirePrices: selectSirePricesArray(),
 });
 
 const mapDispatchToProps = (dispatch)  => ({
   startLoadOnSaleHorses: () => dispatch(startLoadOnSaleHorses()),
   changePage: (page) => dispatch(changePage(page)),
+  getHorse: (horse) => dispatch(getHorseInfoSuccess(horse))
 });
 
 const withSaga = injectSaga({key: 'market-saga', saga});

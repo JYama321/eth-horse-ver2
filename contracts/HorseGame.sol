@@ -158,6 +158,11 @@ contract HorseGameBase is Ownable{
         return horsesOnSale;
     }
 
+
+    function onSireSaleHorses() external view returns(uint[]){
+        return horsesOnSireSale;
+    }
+
     function ownedTokensIds(address _owner) external view returns(uint[]){
         return ownedTokens[_owner];
     }
@@ -314,8 +319,8 @@ contract HorseGameBase is Ownable{
             winCount: 0,
             papaId:_papaId,
             momId:_momId,
-            mateIndex:newGene % (10 ** 30) / (10 ** 29),
-            raceIndex:newGene % (10 ** 31) / (10 ** 30),
+            mateIndex:(newGene % (10 ** 30) / (10 ** 29)) + (newGene % (10 ** 29) / (10 ** 28)),
+            raceIndex:(newGene % (10 ** 32) / (10 ** 31)) + (newGene % (10 ** 31) / (10 ** 30)),
             price: 0,
             saleDuration: 0,
             sirePrice: 0,

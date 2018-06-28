@@ -31,9 +31,10 @@ import {
   getTotalPrizeArray,
   getHorseGeneArray,
   getWinCountArray,
-  getSirePrices
+  getSirePrices,
+  getSireHorses
 } from './actions'
-const address = '0x8acee021a27779d8e98b9650722676b850b25e11';
+const address = '0x82d50ad3c1091866e258fd0f1a7cc9674609d254';
 import {
   getWantedRaceArray,
   getBettingRaceArray,
@@ -44,7 +45,8 @@ import {
   getHorseWinCountArray,
   getGeneArray,
   getHorseTotalPrizeArray,
-  getSirePricesArray
+  getSirePricesArray,
+  getSireHorsesArray
 } from './utils/eth-function'
 import {
   selectBalance
@@ -73,7 +75,9 @@ class App extends Component {
     const winCountArray = await getHorseWinCountArray();
     const geneArray = await getGeneArray();
     const sirePrices = await getSirePricesArray();
+    const sireArray = await getSireHorsesArray();
 
+    this.props.getSireHorses(sireArray);
     this.props.getSirePrices(sirePrices);
     this.props.getTotalPrizeArray(totalPrizeArray);
     this.props.getWinCountArray(winCountArray);
@@ -189,7 +193,8 @@ const mapDispatchToProps = (dispatch) => ({
   getTotalPrizeArray: (array) => dispatch(getTotalPrizeArray(array)),
   getWinCountArray: array => dispatch(getWinCountArray(array)),
   getGeneArray: array => dispatch(getHorseGeneArray(array)),
-  getSirePrices: array => dispatch(getSirePrices(array))
+  getSirePrices: array => dispatch(getSirePrices(array)),
+  getSireHorses: array => dispatch(getSireHorses(array))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);

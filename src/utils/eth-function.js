@@ -21,6 +21,18 @@ export const getOnSaleHorses = () => {
   })
 };
 
+export const getSireHorsesArray = () => {
+  return new Promise((resolve,reject) => {
+    window.contract_instance.onSireSaleHorses(function(err,result){
+      if(err){
+        reject(err)
+      }else{
+        resolve(result)
+      }
+    })
+  })
+};
+
 export const getSirePricesArray = () => {
   return new Promise((resolve,reject) => {
     window.contract_instance.getOnSirePricesArray(function(err, result) {
@@ -83,7 +95,7 @@ export const getHorseData = (horseId) => {
 
 export const horseToOnSale = (horseId,price) => {
   return new Promise((resolve,reject) => {
-    window.contract_instance.horseTokenToOnSale(horseId,window.web3.toWei(price,'ether'),{from:window.web3.eth.coinbase, gasPrice: 10 ** 10},function(err,result){
+    window.contract_instance.horseTokenToOnSale(horseId,window.web3.toWei(price,'ether'),{from:window.web3.eth.coinbase, gasPrice: 10 ** 10, gas: 3000000},function(err,result){
       if(err) {reject(err)}
       resolve(result)
     })
@@ -92,10 +104,8 @@ export const horseToOnSale = (horseId,price) => {
 
 export const horseToSireSale = (horseId,price) => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.horseTokenToOnSireSale(horseId, window.web3.toWei(price, 'ether'), {
-      from: window.web3.eth.coinbase,
-      gasPrice: 10 ** 10
-    }, function (err, result) {
+    window.contract_instance.horseTokenToOnSireSale(horseId,window.web3.toWei(price,'ether'),{from: window.web3.eth.coinbase, gasPrice: 10 ** 10, gas: 3000000},
+        function (err, result) {
       if (err) {
         reject(err)
       }

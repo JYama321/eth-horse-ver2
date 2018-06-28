@@ -13,6 +13,7 @@ export default class HorseStatusCard extends Component{
     info: PropTypes.array.isRequired,
     isMyHorse: PropTypes.bool,
     isLeft: PropTypes.bool,
+    isSire: PropTypes.bool
   };
   returnStatus(){
     const gene = this.props.info[1].c.join(',').replace(/,/g,'');
@@ -21,7 +22,7 @@ export default class HorseStatusCard extends Component{
   }
   render(){
     const horseId = this.props.info[0].toNumber();
-    const price = window.web3.fromWei(this.props.info[8],'ether');
+    const price = this.props.isSire ? window.web3.fromWei(this.props.info[9], 'ether') : window.web3.fromWei(this.props.info[8],'ether');
     return(
         <div style={styles(this.props).horseStatusCard}>
           <div style={STYLE.horseImageBack} className='horse-back'>

@@ -6,14 +6,16 @@ import {withRouter} from 'react-router-dom'
 import {
   changeCurrentDispRaces,
   changeMyPageCurrentDisplay,
-  changeMarketSort
+  changeMarketSort,
+  changeMarketType
 } from "./actions";
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {
   selectRaceCurrentDisp,
   selectMyPageCurrentDisp,
-  selectMarketSort
+  selectMarketSort,
+  selectMarketType
 } from './selectors'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles';
@@ -49,6 +51,10 @@ class Header extends Component {
   }
   onChangeSort(e){
     this.props.changeSort(e.target.value)
+  }
+  onChangeMarketType(e){
+    console.log(e.target.value);
+    this.props.changeMarket(e.target.value)
   }
   renderHeaderLeft(path){
     switch(path){
@@ -100,6 +106,20 @@ class Header extends Component {
                   <MenuItem value={'default'}>Default</MenuItem>
                   <MenuItem value={'high-price'}>High Price</MenuItem>
                   <MenuItem value={'low-price'}>Low Price</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="market-sort">Market Type</InputLabel>
+                <Select
+                    value={this.props.marketType}
+                    onChange={e=>this.onChangeMarketType(e)}
+                    inputProps={{
+                      name: 'market-type',
+                      id: 'market-type',
+                    }}
+                >
+                  <MenuItem value={'buy-horse'}>Buy Horse</MenuItem>
+                  <MenuItem value={'sire-horse'}>Sire Horse</MenuItem>
                 </Select>
               </FormControl>
             </div>
@@ -162,12 +182,14 @@ class Header extends Component {
 const matStateToProps = () => createStructuredSelector({
   currentDisplay: selectRaceCurrentDisp(),
   myPageCurrentDisplay: selectMyPageCurrentDisp(),
-  marketSort: selectMarketSort()
+  marketSort: selectMarketSort(),
+  marketType: selectMarketType()
 });
 const mapDispatchToProps = (dispatch) => ({
   changeRaceDisp: (raceType) => dispatch(changeCurrentDispRaces(raceType)),
   changeMyPageDisp: (page) => dispatch(changeMyPageCurrentDisplay(page)),
-  changeSort: sort => dispatch(changeMarketSort(sort))
+  changeSort: sort => dispatch(changeMarketSort(sort)),
+  changeMarket: type => dispatch(changeMarketType(type))
 });
 
 const withConnect = connect(matStateToProps,mapDispatchToProps)

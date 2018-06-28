@@ -17,9 +17,15 @@ const selectMarketSort = () => createSelector(
     substate => substate.get('marketSorted')
 );
 
+const selectMarketType = () => createSelector(
+    selectGlobal,
+    substate => substate.get('marketType')
+);
+
 export {
   selectGlobal,
   selectRaceCurrentDisp,
   selectMyPageCurrentDisp,
-  selectMarketSort
+  selectMarketSort,
+  selectMarketType
 }

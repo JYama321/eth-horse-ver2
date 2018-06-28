@@ -180,9 +180,9 @@ class HorseInfo extends Component{
   horseToMarket(){
     switch (this.state.sellType){
       case 'sell':
-        horseToOnSale(this.props.match.params.id,this.state.horsePrice)
+        horseToOnSale(this.props.match.params.id,this.state.horsePrice);
         break;
-      case '':
+      case 'sire':
         horseToSireSale(this.props.match.params.id,this.state.horsePrice);
         break;
       default:
@@ -237,7 +237,7 @@ class HorseInfo extends Component{
                   className={classes.button}
                   onClick={()=>this.horseToMarket()}
               >
-                SellHorse
+                Sell Horse
               </Button>
               </span>
             </Modal>

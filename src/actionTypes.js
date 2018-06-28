@@ -51,4 +51,6 @@ export const CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE = 'changeApplyRaceHorseCurrent
 export const CHANGE_MARKET_SORT = 'changeMarketSort';
 export const CHANGE_SIRE_HORSE_PAGE = 'changeSireHorsePage';
 export const GET_SIRE_PRICES_ARRAY = 'getSirePricesArray';
+export const GET_SIRE_HORSES = 'getSireHorsesArray';
+export const CHANGE_MARKET_TYPE = 'changeMarketType';
 

@@ -28,6 +28,7 @@ import {
   SET_CURRENT_SIRE_HORSE_ID,
   CHANGE_SIRE_HORSE_PAGE,
   GET_SIRE_PRICES_ARRAY,
+  GET_SIRE_HORSES,
 
   START_LOAD_ON_SALE_HORSES,
   FAIL_LOAD_ON_SALE_HORSE_ARRAY,
@@ -37,6 +38,7 @@ import {
   GET_SALE_HORSE_PRICES_SUCCESS,
   CHANGE_MARKET_PAGE,
   CHANGE_CURRENT_DISP_RACES,
+  CHANGE_MARKET_TYPE,
   //races
   CHANGE_RACE_PAGE,
   GET_RACES_ARRAY_SUCCESS,
@@ -73,6 +75,7 @@ const globalState = fromJS({
   horseSellPriceArray: [], // sell price sort,
   marketCurrentPage: 1,
   marketSorted: 'default',
+  marketType: 'buy-horse',
 
   bidHorseArrayLoading: false,
   bidHorseArray: [], // all bid horses
@@ -166,6 +169,8 @@ function globalReducer(state = globalState ,action){
       return state.set('marketCurrentPage', action.data);
     case CHANGE_MARKET_SORT:
       return state.set('marketSorted', action.data);
+    case CHANGE_MARKET_TYPE:
+      return state.set('marketType', action.data);
     case FAIL_LOAD_SALE_HORSE_PRICES:
       return state.set('isHorseSellPriceArrayLoaded', false);
     case GET_SALE_HORSE_PRICES_SUCCESS:
@@ -238,6 +243,8 @@ function globalReducer(state = globalState ,action){
       return state.set('sireHosePage', action.data);
     case GET_SIRE_PRICES_ARRAY:
       return state.set('horseSirePriceArray', List(action.data));
+    case GET_SIRE_HORSES:
+      return state.set('sireHorseArray',List(action.data));
     default:
       return state;
   }
