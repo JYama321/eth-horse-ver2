@@ -59,4 +59,13 @@ contract GeneFunction{
             return newGene;
         }
     }
+
+    function generateReplaceGene
+    (uint _nonce)
+    external view returns(uint)
+    {
+        uint _seed = uint(keccak256(_nonce,blockhash(block.number-1)));
+        return  _seed % geneModulus;
+    }
+
 }

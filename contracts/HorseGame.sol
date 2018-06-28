@@ -68,6 +68,7 @@ contract RaceFunctionInterface{
 
 contract GeneFunctionInterface{
     function generateGenes(uint,uint,string) external view returns(uint);
+    function generateReplaceGene(uint) external view returns(uint);
 }
 
 contract HorseGameBase is Ownable{
@@ -670,22 +671,70 @@ contract HorseBid is HorseBet{
 }
 
 contract HorseGame is HorseBid{
-    uint ticketPrice;
-    mapping(address => uint) public ticketNum; //ticket number
+    uint trainTicketPrice;
+    uint shuffleTicketPrice;
+    uint shuffleAllTicketPrice;
+
+
+    mapping(address => uint) public trainTicketNum; //ticket number
+    mapping(address => uint) public shuffleTicketNum; // ticket number
+    mapping(address => uint) public shuffleAllTicketNum; // all ticket number
 
     constructor(address _geneInterface, address _raceFunctionInterface) public {
         geneFunction = GeneFunctionInterface(_geneInterface);
         raceFunction = RaceFunctionInterface(_raceFunctionInterface);
     }
 
-    function setTicketPrice(uint _price) external onlyOwner{
-        ticketPrice = _price;
+    function setTrainTicketPrice(uint _price) external onlyOwner{
+        trainTicketPrice = _price;
+    }
+
+    function setShuffleTicketPrice(uint _price) external onlyOwner{
+        shuffleTicketPrice = _price;
+    }
+
+    function setShuffleAllTicketPrice(uint _price) external onlyOwner{
+        shuffleTicketPrice = _price;
     }
 
     function buyTrainTicket() external payable{
-        require(msg.value >= ticketPrice);
-        uint num = msg.value / ticketPrice;
-        ticketNum[msg.sender] = ticketNum[msg.sender].add(num);
+        require(msg.value >= trainTicketPrice);
+        uint num = msg.value / trainTicketPrice;
+        trainTicketNum[msg.sender] = trainTicketNum[msg.sender].add(num);
+    }
+
+    function buyShuffleAllTicket() external payable{
+        require(msg.value >= shuffleAllTicketPrice);
+        uint num = msg.value / shuffleTicketPrice;
+        shuffleAllTicketNum[msg.sender] = shuffleAllTicketNum[msg.sender].add(num);
+    }
+
+    function buyShuffleTicket() external payable{
+        require(msg.value >= shuffleTicketPrice);
+        uint num = msg.value / shuffleTicketPrice;
+        shuffleTicketNum[msg.sender] = shuffleTicketNum[msg.sender].add(num);
+    }
+
+    function shuffleAllTexture(uint _horseId, uint _nonce) external{
+        require(tokenOwner[_horseId] == msg.sender);
+        Horse storage horse = horses[_horseId.sub(1)];
+        uint gene = horse.genes;
+        uint geneEnd = gene % (10 ** 20);
+        uint geneMiddle = gene % (10 ** 38);
+        uint fakeGene = geneFunction.generateReplaceGene(_nonce);
+        uint replaceGeneEnd = replaceGene % (10 ** 20);
+        uint replaceGene = fakeGene % (10 ** 38) - replaceGeneEnd;
+        horse.genes = gene - geneMiddle + replaceGene + geneEnd;
+    }
+
+    function shuffleTexture(uint _horseId, uint _index, uint _num){
+        require(tokenOwner[_horseId] == msg.sender);
+        Horse storage horse = horses[_horseId.sub(1)];
+        uint gene = horse.genes;
+        uint geneEnd = gene % (10 ** _index);
+        uint geneMiddle = gene % (10 ** (_index + 3));
+        uint replaceGene = _num ** _index;
+        horse.genes = gene - geneMiddle + replaceGene + geneEnd;
     }
 
     function trainHorse(uint _horseId) external {
@@ -702,6 +751,6 @@ contract HorseGame is HorseBid{
     }
 
     function presentTicket(address _user) external onlyOwner{
-        ticketNum[_user]  = ticketNum[_user].add(1);
+        trainTicketNum[_user]  = trainTicketNum[_user].add(1);
     }
 }
