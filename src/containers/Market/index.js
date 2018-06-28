@@ -61,7 +61,7 @@ class Market extends Component{
     const self = this;
     const marketType = this.props.marketType;
     const isSire = marketType === 'sire-horse' ? true : false;
-    const priceOriginArray = isSire ? this.props.sirePrices : this.props.saleHorsePrices
+    const priceOriginArray = isSire ? this.props.sirePrices : this.props.saleHorsePrices;
     switch(sort){
       case 'default':
         let defaultArray;

@@ -16,9 +16,19 @@ const selectActivity = () => createSelector(
     substate => substate.get('activities')
 );
 
-const selectTicketNum = () => createSelector(
+const selectTrainTicketNum = () => createSelector(
     selectGlobal,
-    substate => substate.get('ticketNum')
+    substate => substate.get('trainTicketNum')
+);
+
+const selectShuffleTicketNum = () => createSelector(
+    selectGlobal,
+    substate => substate.get('shuffleTicketNum')
+);
+
+const selectShuffleAllTicketNum = () => createSelector(
+    selectGlobal,
+    substate => substate.get('shuffleAllTicketNum')
 );
 
 const selectHorseIdArray = () => createSelector(
@@ -43,7 +53,9 @@ export {
   selectMyPageCurrentDisp,
   selectBalance,
   selectActivity,
-  selectTicketNum,
+  selectTrainTicketNum,
+  selectShuffleTicketNum,
+  selectShuffleAllTicketNum,
   selectHorseIdArray,
   selectHorseArrayLoading,
   selectCurrentPage,

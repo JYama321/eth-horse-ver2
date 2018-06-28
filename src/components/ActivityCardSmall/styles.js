@@ -26,7 +26,7 @@ export const activityTwoLine = {
   display: 'inline-block',
   height: '35px',
   position: 'absolute',
-  left: '105px',
+  left: '90px',
   fontWeight: 'bold',
   lineHeight: '35px',
   fontSize: '14px'
@@ -35,7 +35,7 @@ export const activityOneLine = {
   display: 'inline-block',
   height: '70px',
   position: 'absolute',
-  left: '105px',
+  left: '90px',
   fontWeight: 'bold',
   lineHeight: '70px',
   fontSize: '14px',

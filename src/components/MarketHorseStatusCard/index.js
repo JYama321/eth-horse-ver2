@@ -23,6 +23,7 @@ export default class HorseStatusCard extends Component{
   render(){
     const horseId = this.props.info[0].toNumber();
     const price = this.props.isSire ? window.web3.fromWei(this.props.info[9], 'ether') : window.web3.fromWei(this.props.info[8],'ether');
+    const isSire = this.props.isSire;
     return(
         <div style={styles(this.props).horseStatusCard}>
           <div style={STYLE.horseImageBack} className='horse-back'>
@@ -54,7 +55,7 @@ export default class HorseStatusCard extends Component{
             </div>
           </div>
           <button style={STYLE.buyButton} className='market-buy-button' onClick={()=>buyHorse(horseId,price)}>
-            Buy
+            {isSire ? 'Sire' : 'Buy'}
           </button>
         </div>
     )

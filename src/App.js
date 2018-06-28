@@ -26,27 +26,33 @@ import {
   getMyRaces,
   getActivities,
   getUserBalance,
-  getTicket,
+  getTrainTicket,
+  getShuffleTicket,
+  getShuffleAllTicket,
   getMyHorseArraySuccess,
   getTotalPrizeArray,
   getHorseGeneArray,
   getWinCountArray,
   getSirePrices,
-  getSireHorses
+  getSireHorses,
+  getOnSaleHorsesArray
 } from './actions'
-const address = '0x82d50ad3c1091866e258fd0f1a7cc9674609d254';
+const address = '0xeec918d74c746167564401103096d45bbd494b74';
 import {
   getWantedRaceArray,
   getBettingRaceArray,
   getCheckedRaceArray,
   getMyRaceArrray,
-  getTicketNum,
+  getTrainTicketNum,
+  getShuffleTicketNum,
+  getShuffleAllTicketNum,
   getMyHorsesArray,
   getHorseWinCountArray,
   getGeneArray,
   getHorseTotalPrizeArray,
   getSirePricesArray,
-  getSireHorsesArray
+  getSireHorsesArray,
+  getOnSaleHorses
 } from './utils/eth-function'
 import {
   selectBalance
@@ -63,6 +69,7 @@ class App extends Component {
   async componentWillMount() {
     const result = await getWeb3();
     window.web3 = result.web3;
+    const coinbase = window.web3.eth.coinbase;
     const contract = window.web3.eth.contract(HorseGame.abi);
     window.contract_instance = contract.at(address);
     //raceArrays
@@ -76,7 +83,9 @@ class App extends Component {
     const geneArray = await getGeneArray();
     const sirePrices = await getSirePricesArray();
     const sireArray = await getSireHorsesArray();
+    const saleHorseArray = await getOnSaleHorses();
 
+    this.props.getSaleHorses(saleHorseArray);
     this.props.getSireHorses(sireArray);
     this.props.getSirePrices(sirePrices);
     this.props.getTotalPrizeArray(totalPrizeArray);
@@ -87,8 +96,12 @@ class App extends Component {
     this.props.getBettingArray(bettingArray);
     this.props.getCheckedArray(checkedArray);
     this.props.getMyRace(myRaceArray);
-    const ticketNum = await getTicketNum(window.web3.eth.coinbase);
-    this.props.getTicket(ticketNum);
+    const trainTicketNum = await getTrainTicketNum(coinbase);
+    const shuffleTicketNum = await getShuffleTicketNum(coinbase);
+    const shuffleAllTicketNum = await getShuffleAllTicketNum(coinbase);
+    this.props.getTicket(trainTicketNum);
+    this.props.getShuffleTicket(shuffleTicketNum);
+    this.props.getShuffleAllTicket(shuffleAllTicketNum);
     this.setState({ loaded: true});
     //get events
     const self = this;
@@ -188,13 +201,16 @@ const mapDispatchToProps = (dispatch) => ({
   getMyRace: (array) => dispatch(getMyRaces(array)),
   getActivity: (activity) => dispatch(getActivities(activity)),
   getBalance: (balance) => dispatch(getUserBalance(balance)),
-  getTicket: (num) => dispatch(getTicket(num)),
+  getTicket: (num) => dispatch(getTrainTicket(num)),
+  getShuffleTicket: (num) => dispatch(getShuffleTicket(num)),
+  getShuffleAllTicket: (num) => dispatch(getShuffleAllTicket(num)),
   getMyHorseArray: (array) => dispatch(getMyHorseArraySuccess(array)),
   getTotalPrizeArray: (array) => dispatch(getTotalPrizeArray(array)),
   getWinCountArray: array => dispatch(getWinCountArray(array)),
   getGeneArray: array => dispatch(getHorseGeneArray(array)),
   getSirePrices: array => dispatch(getSirePrices(array)),
-  getSireHorses: array => dispatch(getSireHorses(array))
+  getSireHorses: array => dispatch(getSireHorses(array)),
+  getSaleHorses: array => dispatch(getOnSaleHorsesArray(array))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);

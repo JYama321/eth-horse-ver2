@@ -3,7 +3,9 @@ import {
   selectMyPageCurrentDisp,
   selectBalance,
   selectActivity,
-  selectTicketNum,
+  selectTrainTicketNum,
+  selectShuffleTicketNum,
+  selectShuffleAllTicketNum,
   selectHorseArrayLoading,
   selectHorseIdArray,
   selectHorseIdToHorseInfo
@@ -33,7 +35,9 @@ class MyPage extends Component {
               balance={String(this.props.balance)}
               changeDisplay={this.props.changeDisplay}
               activities={this.props.activity.toArray()}
-              ticketNum={this.props.ticketNum.toNumber()}
+              trainTicketNum={this.props.trainTicketNum.toNumber()}
+              shuffleTicketNum={this.props.shuffleTicketNum.toNumber()}
+              shuffleAllTicketNum={this.props.shuffleAllTicketNum.toNumber()}
               ownedHorses={this.props.myHorseIds.toArray()}
               horseIdToInfo={this.props.horseIdToInfo}
           />;
@@ -54,7 +58,9 @@ const mapStateToProps = () => createStructuredSelector({
   currentDisplay: selectMyPageCurrentDisp(),
   balance: selectBalance(),
   activity: selectActivity(),
-  ticketNum: selectTicketNum(),
+  trainTicketNum: selectTrainTicketNum(),
+  shuffleTicketNum: selectShuffleTicketNum(),
+  shuffleAllTicketNum: selectShuffleAllTicketNum(),
   myHorseIdsLoaded: selectHorseArrayLoading(),
   myHorseIds: selectHorseIdArray(),
   horseIdToInfo: selectHorseIdToHorseInfo()

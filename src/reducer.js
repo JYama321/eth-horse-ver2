@@ -53,7 +53,9 @@ import {
   CHANGE_MY_PAGE_DISP,
   //Balance
   GET_USER_BALANCE,
-  GET_TICKET_NUM,
+  GET_TRAIN_TICKET_NUM,
+  GET_SHUFFLE_TICKET_NUM,
+  GET_SHUFFLE_ALL_TICKET_NUM,
   //horse owner
   GET_CURRENT_SEARCH_HORSE_OWNER,
   CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE,
@@ -131,7 +133,9 @@ const globalState = fromJS({
   //balance
   balance: 0,
   //ticketNum
-  ticketNum: 0,
+  trainTicketNum: 0,
+  shuffleTicketNum: 0,
+  shuffleAllTicketNum: 0
 });
 
 function globalReducer(state = globalState ,action){
@@ -235,8 +239,12 @@ function globalReducer(state = globalState ,action){
       return state.set('activities', state.get('activities').concat(action.data));
     case GET_USER_BALANCE:
       return state.set('balance', action.data);
-    case GET_TICKET_NUM:
-      return state.set('ticketNum', action.data);
+    case GET_TRAIN_TICKET_NUM:
+      return state.set('trainTicketNum', action.data);
+    case GET_SHUFFLE_TICKET_NUM:
+      return state.set('shuffleTicketNum', action.data);
+    case GET_SHUFFLE_ALL_TICKET_NUM:
+      return state.set('shuffleAllTicketNum', action.data);
     case CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE:
       return state.set('applyRaceHorseCurrentPage', action.data);
     case CHANGE_SIRE_HORSE_PAGE:

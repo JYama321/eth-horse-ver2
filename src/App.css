@@ -123,8 +123,16 @@ code {
   background-image: url("./assets/static_assets/square3.png");
 }
 
-.ticketBack{
+.trainTicket{
+  background-image: url("./assets/static_assets/event-training.png");
+}
+
+.dressUpTicket{
   background-image: url("./assets/static_assets/event-dressup.png");
+}
+
+.shuffleDressUpTicket{
+  background-image: url("./assets/static_assets/event-shuffle-dressup.png");
 }
 
 .sale-horse-back{

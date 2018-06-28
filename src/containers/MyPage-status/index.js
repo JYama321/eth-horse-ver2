@@ -11,7 +11,9 @@ class MyPageStatus extends Component{
     balance: PropTypes.string.isRequired,
     changeDisplay: PropTypes.func.isRequired,
     activities: PropTypes.array.isRequired,
-    ticketNum: PropTypes.number.isRequired,
+    trainTicketNum: PropTypes.number.isRequired,
+    shuffleTicketNum: PropTypes.number.isRequired,
+    shuffleAllTicketNum: PropTypes.number.isRequired,
     ownedHorses: PropTypes.array.isRequired,
     horseIdToInfo: PropTypes.object.isRequired
   };
@@ -32,13 +34,29 @@ class MyPageStatus extends Component{
       />
     })
   }
-  renderTickets(){
-    const ticketNum = this.props.ticketNum > 5 ? 5 : this.props.ticketNum;
-    let tickets = [];
-    for(let i=0;i<ticketNum;i++){
-      tickets.push(<TicketCard key={i}/>)
+  renderTrainTicket(){
+    const trainTicketNum = this.props.trainTicketNum > 2 ? 2 : this.props.trainTicketNum;
+    let ticketCard = [];
+    for(var i=0;i<trainTicketNum;i++){
+      ticketCard.push(<TicketCard className='trainTicket' key={i + '-train-ticket'}/>)
     }
-    return tickets
+    return ticketCard;
+  }
+  renderShuffleTicket(){
+    const shuffleTicketNum = this.props.shuffleTicketNum > 2 ? 2 : this.props.shuffleTicketNum;
+    let ticketCard = [];
+    for(var i = 0;shuffleTicketNum;i++){
+      ticketCard.push(<TicketCard className='shuffleDressUpTicket' key={i + '-shuffle-ticket'}/>)
+    }
+    return ticketCard;
+  }
+  renderShuffleAllTicket(){
+    const shuffleAllTicketNum = this.props.shuffleAllTicketNum > 2 ? 2 : this.props.shuffleAllTicketNum;
+    let ticketCard = [];
+    for(var i = 0;shuffleAllTicketNum;i++){
+      ticketCard.push(<TicketCard className='dressUpTicket' key={i + '-shuffle-ticket'} />)
+    }
+    return ticketCard;
   }
   renderHorses(){
     const self = this;
@@ -93,19 +111,21 @@ class MyPageStatus extends Component{
               </div>
               <div style={myPageStyles.statusPageTicket}>
                 <div style={myPageStyles.ticketTitle}>
-                  Owned Ticket:
+                  <b>Owned Ticket</b>
                   <button style={myPageStyles.activityMore}>
                     More >
                   </button>
                 </div>
                 <div style={myPageStyles.ticketCardContainer}>
-                  {this.renderTickets()}
+                  {this.renderTrainTicket()}
+                  {this.renderShuffleTicket()}
+                  {this.renderShuffleAllTicket()}
                 </div>
               </div>
             </div>
             <div style={myPageStyles.statusHorseList}>
               <div style={myPageStyles.statusHorseLisTitle}>
-                Owned Horses
+                <b>Owned Horses</b>
                 <button style={myPageStyles.activityMore} onClick={()=> this.props.changeDisplay('my-horses')}>
                   More >
                 </button>

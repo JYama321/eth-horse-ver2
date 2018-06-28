@@ -51,7 +51,7 @@ class ActivityCardSmall extends Component{
                   style={cardImg.wide}
                   src={hostRaceLog}
               />
-              <p style={activityOneLine}>HostRace
+              <p style={activityTwoLine}>HostRace
                 &nbsp;
                 <Link to={"/races/" + args._raceId}>The Race</Link>
                 &nbsp;
