@@ -63,7 +63,7 @@ class ActivityCard extends Component{
                 &nbsp;
                 Deposit: {deposit == '0' ? 0 : deposit.toFixed(2)} ETH
                 &nbsp;
-                Min WinnerPrize: {minWinnerPrize == '0' ? 0 : minWinnerPrize.toFixed(2)}
+                Min WinnerPrize: {minWinnerPrize == '0' ? 0 : minWinnerPrize.toFixed(2)} ETH
               </p>
             </div>
         );

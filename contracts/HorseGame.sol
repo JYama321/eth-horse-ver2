@@ -121,6 +121,7 @@ contract HorseGameBase is Ownable{
     event ApplyRace(address indexed _owner,uint _raceId,uint _horseId,uint _now);
     event BetRace(address indexed _voter,uint _betValue, uint _raceId, uint _horseId, uint _now);
     event HostRace(address indexed _host, uint _deposit, uint _minWinnerPrize, uint _raceId, uint _now);
+    event GiftHorseLottery(address indexed _from, uint _tokenId);
 
     function getWinCountsArray() external view returns(uint[]){
         return horseWinCounts;
@@ -679,6 +680,11 @@ contract HorseGame is HorseBid{
     mapping(address => uint) public trainTicketNum; //ticket number
     mapping(address => uint) public shuffleTicketNum; // ticket number
     mapping(address => uint) public shuffleAllTicketNum; // all ticket number
+    mapping(address => uint) public trainLottery; //address to the last time to do a lottery
+    mapping(address => uint) public shuffleLottery;
+    mapping(address => uint) public shuffleAllLottery;
+    mapping(address => uint) public giftHorseLottery;
+    uint public lotteryNum=0;
 
     constructor(address _geneInterface, address _raceFunctionInterface) public {
         geneFunction = GeneFunctionInterface(_geneInterface);
@@ -750,7 +756,49 @@ contract HorseGame is HorseBid{
         horseGenes[_horseId.sub(1)] = horse.genes;
     }
 
-    function presentTicket(address _user) external onlyOwner{
+    function doTrainLottery() external{
+        require((now - trainLottery[msg.sender]) > 24 hours);
+        lotteryNum += 1;
+        trainLottery[msg.sender] = now;
+        uint _seed = uint(keccak256(blockhash(block.number-1),lotteryNum));
+        if((_seed % 100) < 5){
+            trainTicketNum[msg.sender] += 1;
+        }
+    }
+
+    function doShuffleLottery() external{
+        require((now - shuffleLottery[msg.sender]) > 24 hours);
+        lotteryNum += 1;
+        shuffleLottery[msg.sender] = now;
+        uint _seed = uint(keccak256(blockhash(block.number-1),lotteryNum));
+        if((_seed % 50) <= 2){
+            shuffleTicketNum[msg.sender] += 1;
+        }
+    }
+
+    function doShuffleAllLottery() external{
+        require((now - shuffleAllLottery[msg.sender]) > 24 hours);
+        lotteryNum += 1;
+        shuffleAllLottery[msg.sender] = now;
+        uint _seed = uint(keccak256(blockhash(block.number-1),lotteryNum));
+        if((_seed % 100) <= 5){
+            shuffleAllTicketNum[msg.sender] += 1;
+        }
+    }
+
+    function doGiftHorseLottery() external{
+        require((now - giftHorseLottery[msg.sender]) > 24 hours);
+        lotteryNum += 1;
+        giftHorseLottery[msg.sender] = now;
+        emit GiftHorseLottery(msg.sender,0);
+    }
+
+    function presentTrainTicket(address _user) external onlyOwner{
         trainTicketNum[_user]  = trainTicketNum[_user].add(1);
+    }
+
+    function presentHorse(uint _tokenId, address _to) external onlyOwner{
+        transfer(msg.sender,_to,_tokenId);
+        emit GiftHorseLottery(msg.sender,_tokenId);
     }
 }
