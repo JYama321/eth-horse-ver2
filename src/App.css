@@ -179,8 +179,24 @@ code {
   background-image: url("./assets/static_assets/event-back-gift-horse.png");
 }
 
+.event-back-shuffle-dress-up{
+  background-image: url("./assets/static_assets/event-back-shuffle-dress-up.png");
+}
+
+.event-back-dress-up{
+  background-image: url('./assets/static_assets/event-back-dress-up.png');
+}
+
 .lottery-button{
   background-image: url("./assets/static_assets/square3.png");
+}
+
+.event-dress-up{
+  background-image: url("./assets/static_assets/event-dressup.png");
+}
+
+.event-shuffle-dress-up{
+  background-image: url("./assets/static_assets/event-shuffle-dressup.png");
 }
 
 .event-training{

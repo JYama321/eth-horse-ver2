@@ -207,7 +207,7 @@ class MyPageStatus extends Component{
               isOpen={this.state.isOpenTicketModal}
           >
             <div style={modalStyles.modalHeader}>Ticket</div>
-            <div style={modalStyles.modalHeaderBottom}>have ticket:  {totalTicketNum} ticket</div>
+            <div style={modalStyles.modalHeaderBottom}>You have {totalTicketNum} tickets now</div>
             <div style={modalStyles.modalContent}>
               <div style={modalStyles.modalContentTop}>step1. Choose a ticket, step2. Choose a horse</div>
               <div style={modalStyles.modalContentMain}>
