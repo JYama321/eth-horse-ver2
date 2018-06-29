@@ -153,6 +153,16 @@ export const styles = {
           margin: '0 auto',
           top: '37px'
         };
+      case 'ticket-modal':
+        return {
+          display: 'block',
+          width: '170px',
+          height: '140px',
+          backgroundColor: 'linear-gradient(-135deg, rgba(0, 0, 0, 1), rgba(255,35, 0, 1) 50%,rgba(255,219,0,1))',
+          position: 'relative',
+          margin: '0 auto',
+          top: '18px'
+        };
       case 'rank':
         return {
           display: 'block',

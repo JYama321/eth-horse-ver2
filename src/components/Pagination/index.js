@@ -14,7 +14,8 @@ export default class Pagination extends Component{
     this.state={
       currentPage: 1,
       totalPage: 1,
-      buttonPerPage: 10
+      buttonPerPage: 10,
+
     }
   }
   componentWillReceiveProps(nextProps){
@@ -29,7 +30,7 @@ export default class Pagination extends Component{
   }
   renderButton(){
     let buttons = [];
-    for(let i=0;i<this.state.totalPage;i++){
+    for(let i=0;i<this.props.totalPage;i++){
       let button = (<Button
           key={i}
           value={i+1}

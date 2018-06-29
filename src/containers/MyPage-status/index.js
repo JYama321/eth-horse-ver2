@@ -1,22 +1,50 @@
 import React, { Component } from 'react'
-import { myPageStyles } from "./styles"
+import { myPageStyles, modalStyles } from "./styles"
 import PropTypes from 'prop-types'
 import ActivityCardSmall from '../../components/ActivityCardSmall'
 import TicketCard from '../../components/TicketCard'
 import HorseStatusCard from '../../components/HorseStatusCard'
+import HorseStatusCardModal from '../../components/HorseStatusCardTicketModal'
 import loadingGif from '../../assets/static_assets/umaloading.gif'
+import Modal from 'react-modal'
+import Pagination from '../../components/Pagination'
+import { getHorseData } from "../../utils/eth-function";
 
+Modal.setAppElement('#root');
 class MyPageStatus extends Component{
   static propTypes={
     balance: PropTypes.string.isRequired,
     changeDisplay: PropTypes.func.isRequired,
+    getHorseInfo: PropTypes.func.isRequired,
     activities: PropTypes.array.isRequired,
     trainTicketNum: PropTypes.number.isRequired,
     shuffleTicketNum: PropTypes.number.isRequired,
     shuffleAllTicketNum: PropTypes.number.isRequired,
     ownedHorses: PropTypes.array.isRequired,
-    horseIdToInfo: PropTypes.object.isRequired
+    horseIdToInfo: PropTypes.object.isRequired,
   };
+  constructor(props){
+    super(props);
+    this.state={
+      isOpenTicketModal: false,
+      ticketName: '',
+      ticketHorseId: 0,
+      totalPage: 1,
+      currentPage: 1,
+      buttonPerPage: 5,
+      selectedHorseId: 0,
+    };
+    this.onChangePage = this.onChangePage.bind(this);
+    this.selectHorse = this.selectHorse.bind(this)
+  }
+
+  componentWillReceiveProps(props,state){
+    if(this.state.totalPage !== Math.ceil(props.ownedHorses.length / 6)){
+      this.setState({
+        totalPage: Math.ceil(props.ownedHorses.length / 6)
+      })
+    }
+  }
   renderActivityCard(){
     return this.props.activities.sort((a,b) => {
       if(a.args._now < b.args._now){
@@ -58,6 +86,7 @@ class MyPageStatus extends Component{
     }
     return ticketCard;
   }
+
   renderHorses(){
     const self = this;
     const array = this.props.ownedHorses ? this.props.ownedHorses.slice(0,4) : [];
@@ -87,9 +116,118 @@ class MyPageStatus extends Component{
       }
     })
   }
+  openTicketModal(){
+    this.setState({
+      isOpenTicketModal: true,
+      totalPage: Math.ceil(this.props.ownedHorses.length / 6)
+    })
+  }
+  closeTicketModal(){
+    this.setState({
+      isOpenTicketModal: false
+    })
+  }
+  selectTicket(ticketName){
+    this.setState({
+      ticketName: ticketName
+    })
+  }
+
+  renderModalTicket(className,ticketNum){
+    const {ticketName} = this.state;
+    return(
+        <div style={modalStyles.ticket}>
+          <button
+              style={modalStyles.ticketButton(className,ticketName)}
+              onClick={()=>this.selectTicket(className)}
+              className={className}
+          />
+          <div style={modalStyles.ticketUseButtonWrapper}>
+            <button  className={'eth-balance-back'} style={modalStyles.userButton}>use ></button>
+            <span style={modalStyles.ticketNum}>x {ticketNum}</span>
+          </div>
+        </div>
+    )
+  }
+
+  onChangePage(currentPage){
+    this.setState({
+      currentPage: currentPage
+    })
+  }
+
+  selectHorse(id){
+    this.setState({
+      selectedHorseId: id
+    })
+  }
+  renderModalHorses(){
+    const self = this;
+    const array = this.props.ownedHorses ? this.props.ownedHorses.slice(6*(this.state.currentPage-1),6*this.state.currentPage) : [];
+
+    return array.map(function (elem,index) {
+      const isLeft = index % 3 === 0;
+      const horse = self.props.horseIdToInfo.get(String(elem.toNumber())) ? self.props.horseIdToInfo.get(String(elem.toNumber())) : null;
+      if(horse){
+        return (
+            <HorseStatusCardModal
+                info={horse}
+                isMyHorse={true}
+                isLeft={isLeft}
+                key={'myhorse-'+index}
+                isSelected={self.state.selectedHorseId === horse[0].toNumber()}
+                selectHorse={self.selectHorse}
+            />
+        )
+      }else{
+        getHorseData(elem.toNumber()).then((result) => {
+          self.props.getHorseInfo(result)
+        });
+        return(
+            <img
+                key={'loading-'+index}
+                src={loadingGif}
+                style={{
+                  width: '200px',
+                  height: '200px'
+                }}
+            />
+        )
+      }
+    })
+  }
   render(){
+    const {trainTicketNum,shuffleTicketNum,shuffleAllTicketNum} = this.props;
+    const totalTicketNum = trainTicketNum + shuffleTicketNum + shuffleAllTicketNum;
     return(
         <div style={myPageStyles.outerContainer}>
+          <Modal
+              style={modalStyles.modalBase}
+              onRequestClose={()=>this.closeTicketModal()}
+              isOpen={this.state.isOpenTicketModal}
+          >
+            <div style={modalStyles.modalHeader}>Ticket</div>
+            <div style={modalStyles.modalHeaderBottom}>have ticket:  {totalTicketNum} ticket</div>
+            <div style={modalStyles.modalContent}>
+              <div style={modalStyles.modalContentTop}>step1. Choose a ticket, step2. Choose a horse</div>
+              <div style={modalStyles.modalContentMain}>
+                <div style={modalStyles.ticketContainer}>
+                  {this.renderModalTicket('trainTicket',trainTicketNum)}
+                  {this.renderModalTicket('dressUpTicket',shuffleTicketNum)}
+                  {this.renderModalTicket('shuffleDressUpTicket',shuffleAllTicketNum)}
+                </div>
+                <div style={modalStyles.horseContainer}>
+                  {this.renderModalHorses()}
+                  <Pagination
+                      totalPage={this.state.totalPage}
+                      currentPage={this.state.currentPage}
+                      buttonPerPage={this.state.buttonPerPage}
+                      onChangePage={this.onChangePage}
+                  />
+                </div>
+              </div>
+            </div>
+          </Modal>
           <div style={myPageStyles.innerContainer}>
             <div style={myPageStyles.statusBox}>
               <div style={myPageStyles.statusPic}>
@@ -112,7 +250,7 @@ class MyPageStatus extends Component{
               <div style={myPageStyles.statusPageTicket}>
                 <div style={myPageStyles.ticketTitle}>
                   <b>Owned Ticket</b>
-                  <button style={myPageStyles.activityMore}>
+                  <button style={myPageStyles.activityMore} onClick={()=>this.openTicketModal()}>
                     More >
                   </button>
                 </div>
@@ -140,4 +278,4 @@ class MyPageStatus extends Component{
   }
 }
 
-export default MyPageStatus
+export default MyPageStatus;

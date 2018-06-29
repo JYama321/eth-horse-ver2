@@ -135,3 +135,100 @@ export const myPageStyles = {
     marginTop: '56px',
   }
 };
+
+
+export const modalStyles = {
+  modalBase: {
+    content: {
+      top : '50%',
+      left  : '50%',
+      right : 'auto',
+      bottom : 'auto',
+      transform : 'translate(-50%, -50%)',
+      position: 'absolute',
+      width: '1080px',
+      height: '90%',
+      minHeight: '650px',
+      padding: 0,
+      zIndex: 8888
+    }
+  },
+  modalHeader: {
+    width: '100%',
+    height: '70px',
+    backgroundColor: 'black',
+    color: 'white',
+    lineHeight: '70px',
+    textAlign: 'center',
+    fontSize: '24px'
+  },
+  modalHeaderBottom: {
+    textAlign: 'left',
+    borderBottom: '1px solid #000',
+    width: '900px',
+    margin: '56px auto 0'
+  },
+  modalContent: {
+    width: '860px',
+    height: 'calc(100% - 160px)',
+    margin: '0 auto',
+    position: 'relative'
+  },
+  modalContentTop: {
+    width: '100%',
+    height: '120px',
+    lineHeight: '120px',
+    fontSize: '16px',
+    textAlign: 'left'
+  },
+  modalContentMain: {
+    width: '100%',
+    height: 'calc(100% - 120px)',
+    display: 'flex'
+  },
+  ticketContainer: {
+    width: '18.6%',
+    height: '100%',
+  },
+  horseContainer: {
+    width: '81.4%',
+    height: '100%',
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  ticket: {
+    width: '90px',
+    height: '120px',
+    marginBottom: '28px'
+  },
+  ticketButton: function(ticketName, currentSelected){
+    return {
+      width: '90px',
+      height: '90px',
+      borderRadius: '10px',
+      outline: 'none',
+      backgroundColor: ticketName === currentSelected ? 'rgba(0,0,0,0.3)' : 'transparent',
+      border: '1px solid #000',
+      backgroundSize: '90px 90px',
+    }
+  },
+  ticketUseButtonWrapper: {
+    height: '20px',
+    width: '100%',
+    textAlign: 'left',
+    lineHeight: '20px',
+  },
+  userButton: {
+    height: '20px',
+    width: '56px',
+    color: 'white',
+    backgroundSize: '56px 20px',
+    border: 'none',
+    outline: 'none'
+  },
+  ticketNum: {
+    float: 'right',
+  }
+
+};
+
