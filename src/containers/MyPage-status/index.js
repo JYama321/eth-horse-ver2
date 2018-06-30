@@ -8,7 +8,7 @@ import HorseStatusCardModal from '../../components/HorseStatusCardTicketModal'
 import loadingGif from '../../assets/static_assets/umaloading.gif'
 import Modal from 'react-modal'
 import Pagination from '../../components/Pagination'
-import { getHorseData } from "../../utils/eth-function";
+import { getHorseData, trainHorse, shuffleAll } from "../../utils/eth-function";
 
 Modal.setAppElement('#root');
 class MyPageStatus extends Component{
@@ -132,7 +132,19 @@ class MyPageStatus extends Component{
       ticketName: ticketName
     })
   }
-
+  useTicket(ticketName){
+    const { selectedHorseId } = this.state;
+    switch (ticketName){
+      case 'trainTicket':
+        trainHorse(selectedHorseId);
+        break;
+      case 'dressUpTicket':
+        break;
+      case 'shuffleDressUpTicket':
+        shuffleAll(selectedHorseId);
+        break;
+    }
+  }
   renderModalTicket(className,ticketNum){
     const {ticketName} = this.state;
     return(
@@ -143,7 +155,7 @@ class MyPageStatus extends Component{
               className={className}
           />
           <div style={modalStyles.ticketUseButtonWrapper}>
-            <button  className={'eth-balance-back'} style={modalStyles.userButton}>use ></button>
+            <button  className={'eth-balance-back'} style={modalStyles.userButton} onClick={()=>this.useTicket(ticketName)}>use ></button>
             <span style={modalStyles.ticketNum}>x {ticketNum}</span>
           </div>
         </div>

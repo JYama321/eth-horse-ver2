@@ -173,6 +173,7 @@ class Ranking extends Component{
     })
   }
   renderRanking(){
+    const self = this;
     switch (this.state.rankingType){
       case 'strength':
         const array = this.props.horseGeneArray ? this.props.horseGeneArray.map((elem,index) => {
@@ -196,7 +197,9 @@ class Ranking extends Component{
           if(horse){
             return <RankingModalHorse horseInfo={horse} rank={index + 1} key={'modal-rank-horse' + index}/>
           }else {
+            getHorseData(elem.id).then(horse => self.props.getHorse(horse));
             return <img
+                key={'loading-'+index}
                 width="60px"
                 height="60px"
                 src={loadingGif}

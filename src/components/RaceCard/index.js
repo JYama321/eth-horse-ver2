@@ -43,7 +43,6 @@ class RaceCard extends Component{
     if(this.props.isBetting){
       getRaceStartTime(this.props.race[0].toNumber()).then((result) => {
         const date = new Date(result.toNumber() * 1000);
-        console.log(date,date.getMonth());
         const month = '0' + (date.getMonth() + 1);
         const day = '0'+date.getDate();
         const hours = '0' + date.getHours();

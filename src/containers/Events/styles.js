@@ -48,13 +48,16 @@ export const eventStyles = {
     left: '87.5px',
     position: 'relative'
   },
-  eventText: {
-    position: 'relative',
-    width: '200px',
-    top: '60px',
-    left: '30px',
-    fontSize: '18px',
-    textAlign: 'center'
+  eventText: function(canLot){
+    return {
+      position: 'relative',
+      width: '200px',
+      top: '60px',
+      left: '30px',
+      fontSize: '18px',
+      textAlign: 'center',
+      color: canLot ? 'white' : 'rgba(230,50,50)'
+    }
   },
   lotteryButton: {
     position: 'relative',

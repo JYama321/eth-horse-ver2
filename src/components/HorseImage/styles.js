@@ -139,7 +139,49 @@ export const styles = {
       width: '30.8%',
       height: '60.8%',
       zIndex: 0
-    }
+    },
+  },
+  horseImageSleepy: {
+    face: {
+      position: 'absolute',
+      top: '10.0%',
+      left: '3.8%',
+      width: '28.5%',
+      height: '38.0%',
+      zIndex: 0
+    },
+    hair: {
+      position: 'absolute',
+      top: 0,
+      left: '8.8%',
+      width: '45.1%',
+      height: '45.0%',
+      zIndex: 2
+    },
+    body: {
+      position: 'absolute',
+      top: '36.4%',
+      left: '30.8%',
+      width: '33.3%',
+      height: '30.6%',
+      zIndex: 2
+    },
+    frontLeg:{
+      position: 'absolute',
+      top: '38.0%',
+      left: '19.6%',
+      width: '14.4%',
+      height: '55.5%',
+      zIndex: 0
+    },
+    backLeg: {
+      position: 'absolute',
+      top: '34.7%',
+      right: '14.8%',
+      width: '29.2%',
+      height: '60.8%',
+      zIndex: 0
+    },
   },
   horseImageContainer: function(type){
     switch(type){

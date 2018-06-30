@@ -106,11 +106,11 @@ export const horseToSireSale = (horseId,price) => {
   return new Promise((resolve, reject) => {
     window.contract_instance.horseTokenToOnSireSale(horseId,window.web3.toWei(price,'ether'),{from: window.web3.eth.coinbase, gasPrice: 10 ** 10, gas: 3000000},
         function (err, result) {
-      if (err) {
-        reject(err)
-      }
-      resolve(result)
-    })
+          if (err) {
+            reject(err)
+          }
+          resolve(result)
+        })
   })
 };
 
@@ -248,9 +248,9 @@ export const hostRace = (info) => {
   return new Promise((resolve, reject) => {
     window.contract_instance.hostRace(info.raceName,info.minWinnerPrize,info.winnerPrizeFromBet,
         {from: window.web3.eth.coinbase, gas: 5000000, gasPrice: 10 ** 10, value: info.deposit, nonce: 19},function(err, result){
-      if(err){reject(err)}
-      resolve(result)
-    })
+          if(err){reject(err)}
+          resolve(result)
+        })
   })
 };
 
@@ -322,10 +322,112 @@ export const betRace = (raceId,horseId,value) => {
   return new Promise((resolve, reject) => {
     let array = new Uint32Array(1);
     window.crypto.getRandomValues(array);
-    console.log(array[0]);
     window.contract_instance.betRace(raceId,horseId,array[0],
         {from: window.web3.eth.coinbase,gas: 3000000, gasPrice: 10 ** 10, value: window.web3.toWei(value,'ether')},function (err, result) {
-      console.log(result)
+          console.log(result)
+        })
+  })
+};
+
+//lottery
+
+export const doTrainLottery = () => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.doTrainLottery({from: window.web3.eth.coinbase, gas: 150000, gasPrice: 10 ** 10},function(err,result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const doShuffleLottery = () => {
+  return new  Promise((resolve, reject) => {
+    window.contract_instance.doShuffleLottery({
+      from: window.web3.eth.coinbase, gas: 150000, gasPrice: 10 ** 10},function(err, result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const doShuffleAllLottery = () => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.doShuffleAllLottery({from: window.web3.eth.coinbase,
+      gas: 150000, gasPrice: 10 ** 10},function(err, result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const doGiftHorseLottery = () => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.doGiftHorseLottery({from: window.web3.eth.coinbase,
+      gas: 150000, gasPrice: 10 ** 10}, function(err, result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+
+export const getTrainLottery = () => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.trainLottery(window.web3.eth.coinbase,function (err, result) {
+      if(err) {reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const getShuffleLottery = () => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.shuffleLottery(window.web3.eth.coinbase, function (err, result) {
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const getShuffleAllLottery = () => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.shuffleAllLottery(window.web3.eth.coinbase, function (err, result) {
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const getGiftHorseLottery = () => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.giftHorseLottery(window.web3.eth.coinbase, function(err, result) {
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+
+///use tickets
+
+export const trainHorse = (horseId) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.trainHorse(
+        horseId,{from: window.web3.eth.coinbase, gas: 1000000, gasPrice: 10 ** 10},function (err, result) {
+          if(err){reject(err)}
+          resolve(result)
+        })
+  })
+};
+
+export const shuffleAll = (horseId) => {
+  return new Promise((resolve, reject) => {
+    let array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    window.contract_instance.shuffleAllTexture(
+        horseId,array[0],{from: window.web3.eth.coinbase, gas: 1000000, gasPrice: 10 ** 10},function (err, result) {
+          if(err){reject(err)}
+          resolve(result)
         })
   })
 };

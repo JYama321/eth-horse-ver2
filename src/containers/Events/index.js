@@ -5,14 +5,57 @@ import trainingImage from '../../assets/static_assets/event-training.png'
 import giftHorseImage from '../../assets/static_assets/event-gifthorse.png'
 import dressUpImage from '../../assets/static_assets/event-dressup.png'
 import shuffleDressUpImage from '../../assets/static_assets/event-shuffle-dressup.png'
+import {
+  doTrainLottery,
+  doShuffleAllLottery,
+  doShuffleLottery,
+  doGiftHorseLottery,
+  getTrainLottery,
+  getShuffleLottery,
+  getShuffleAllLottery,
+  getGiftHorseLottery
+} from "../../utils/eth-function";
+
 class Events extends Component{
   constructor(props){
     super(props);
     this.state={
-      type: 'dress-up'
+      type: 'dress-up',
+      trainLotteryTime: 0,
+      shuffleLotteryTime: 0,
+      shuffleAllLotteryTime: 0,
+      giftHorseLotteryTime: 0
     }
   }
+  componentDidMount(){
+    const self = this;
+    getTrainLottery().then((result) => {
+      const date = new Date(result.toNumber() * 1000 + 60 * 60 * 24 * 1000);
+      self.setState({
+        trainLotteryTime: date
+      })
+    });
+    getShuffleLottery().then((result) => {
+      const date = new Date(result.toNumber() * 1000 + 60 * 60 * 24 * 1000);
+      self.setState({
+        shuffleLotteryTime: date
+      })
+    });
+    getShuffleAllLottery().then((result) => {
+      const date = new Date(result.toNumber() * 1000 + 60 * 60 * 24 * 1000);
+      self.setState({
+        shuffleAllLotteryTime: date
+      })
+    });
+    getGiftHorseLottery().then((result) => {
+      const date = new Date(result.toNumber() * 1000 + 60 * 60 * 24 * 1000);
+      self.setState({
+        giftHorseLotteryTime: date
+      })
+    })
+  }
   renderTicket(type){
+    const now = Date.now();
     switch(type){
       case 'training':
         return (
@@ -21,8 +64,10 @@ class Events extends Component{
                   src={trainingImage}
                   style={eventStyles.eventImage}
               />
-              <p style={eventStyles.eventText}>Do a lottery for free to get a ticket!</p>
-              <button style={eventStyles.lotteryButton} className='lottery-button'>
+              <p style={eventStyles.eventText(this.state.trainLotteryTime < now)}>
+                {this.state.trainLotteryTime < now ? 'Do a lottery for free to get a ticket!' : 'You can lot only once a day. Wait a moment! '}
+              </p>
+              <button style={eventStyles.lotteryButton} className='lottery-button' onClick={()=>doTrainLottery()}>
                 do a lottery
               </button>
             </div>
@@ -34,8 +79,10 @@ class Events extends Component{
                   src={giftHorseImage}
                   style={eventStyles.eventImage}
               />
-              <p style={eventStyles.eventText}>Do a lottery for free to get a horse!</p>
-              <button style={eventStyles.lotteryButton} className='lottery-button'>
+              <p style={eventStyles.eventText(this.state.giftHorseLotteryTime < now)}>
+                {this.state.giftHorseLotteryTime < now ? 'Do a lottery for free to get a horse!' : 'You can lot only once a day. Wait a moment! '}
+              </p>
+              <button style={eventStyles.lotteryButton} className='lottery-button' onClick={()=>doGiftHorseLottery()}>
                 do a lottery
               </button>
             </div>
@@ -47,8 +94,10 @@ class Events extends Component{
                   src={dressUpImage}
                   style={eventStyles.eventImage}
               />
-              <p style={eventStyles.eventText}>Do a lottery for free to get a ticket!</p>
-              <button style={eventStyles.lotteryButton} className='lottery-button'>
+              <p style={eventStyles.eventText(this.state.shuffleLotteryTime < now)}>
+                {this.state.shuffleLotteryTime < now ? 'Do a lottery for free to get a ticket!' : 'You can lot only once a day. Wait a moment! '}
+              </p>
+              <button style={eventStyles.lotteryButton} className='lottery-button' onClick={()=>doShuffleLottery()}>
                 do a lottery
               </button>
             </div>
@@ -60,8 +109,10 @@ class Events extends Component{
                   src={shuffleDressUpImage}
                   style={eventStyles.eventImage}
               />
-              <p style={eventStyles.eventText}>Do a lottery for free to get a ticket!</p>
-              <button style={eventStyles.lotteryButton} className='lottery-button'>
+              <p style={eventStyles.eventText(this.state.shuffleAllLotteryTime < now)}>
+                {this.state.shuffleAllLotteryTime < now ? 'Do a lottery for free to get a ticket!' : 'You can lot only once a day. Wait a moment! '}
+              </p>
+              <button style={eventStyles.lotteryButton} className='lottery-button' onClick={()=>doShuffleAllLottery()}>
                 do a lottery
               </button>
             </div>

@@ -14,6 +14,7 @@ class HorseImage extends Component{
     super(props);
     this.cryReg = /4.*/;
     this.angryReg = /3.*/;
+    this.sleepyReg = /5.*/;
   }
   returnTextureGene(){
     const gene = this.props.horseGene;
@@ -25,6 +26,8 @@ class HorseImage extends Component{
       return styles.horseImageCry;
     }else if(texStr.match(this.angryReg) !== null || texStr.match(this.angryReg)){
       return styles.horseImageAngry;
+    }else if(texStr.match(this.sleepyReg) !== null || texStr.match(this.sleepyReg)){
+      return styles.horseImageSleepy
     }else{
       return styles.horseImageBase;
     }
@@ -54,7 +57,7 @@ class HorseImage extends Component{
                 src={require(`../../assets/textures/${mapGeneToTexture(this.returnTextureGene())[3]}4.png`)}
             />
             <img
-                style={styles.horseImageBase.backLeg}
+                style={this.returnTextureType(String(mapGeneToTexture(this.returnTextureGene())[5])).backLeg}
                 src={require(`../../assets/textures/${mapGeneToTexture(this.returnTextureGene())[3]}5.png`)}
             />
             <img
