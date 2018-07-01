@@ -247,7 +247,7 @@ export const getTrainTicketNum = (address) => {
 
 export const getShuffleTicketNum = (address) => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.shuffleTicketNum(address, function(err, result) {
+    window.contract_instance.dressUpTicketNum(address, function(err, result) {
       if(err){reject(err)}
       resolve(result)
     })
@@ -256,7 +256,7 @@ export const getShuffleTicketNum = (address) => {
 
 export const getShuffleAllTicketNum = (address) => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.shuffleAllTicketNum(address, function(err, result) {
+    window.contract_instance.shuffleDressUpTicketNum(address, function(err, result) {
       if (err) {reject(err)}
       resolve(result)
     })
