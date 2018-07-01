@@ -28,12 +28,17 @@ import {
   horseTokenNotToOnSale,
   horseToSireSale
 } from "../../utils/eth-function";
+import {
+  returnRarity,
+  returnClassName
+} from "../../utils/mapHorseInfoToRarity";
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContentText from '@material-ui/core/DialogContentText'
+
 
 const styles = theme => ({
   button: {
@@ -192,6 +197,11 @@ class HorseInfo extends Component{
   render () {
     const { classes } = this.props;
     if(!this.props.isHorseInfoLoading){
+      const horseInfo = this.props.horseIdToInfo.get(this.props.match.params.id);
+      const gene = horseInfo[1].c.join(',').replace(/,/g,'');
+      const mateRaceIndex = Math.ceil((horseInfo[6].toNumber() + horseInfo[7].toNumber()) / 10);
+      const rarity = returnRarity(gene) + mateRaceIndex;
+      const horseBack = returnClassName(rarity);
       return (
           <div style={horseInfoStyles.outerContainer}>
             <Dialog
@@ -248,7 +258,7 @@ class HorseInfo extends Component{
                 />
               </div>
               <div style={horseInfoStyles.horseInfoRight}>
-                <div style={horseInfoStyles.horseImageBack} className='horse-back'>
+                <div style={horseInfoStyles.horseImageBack} className={horseBack}>
                   {this.renderTopButtons()}
                   <HorseImage type={'large'} horseGene={this.props.horseIdToInfo.get(this.props.match.params.id) ? this.props.horseIdToInfo.get(this.props.match.params.id)[1].c.join(',').replace(/,/g,'') : '000000000'}/>
                   {this.saleInfo()}

@@ -1,7 +1,7 @@
 const textureRateMapping = {
-  normal_rates: ["a","b","c","d","e","f","g","h","i","j"],
-  slightly_rare: ["k","l","m","n","o","p","q","s","t","u"],
-  rare: ["r",""]
+  normal_rates: ['a','b','c','d','f','g','h','i','j','r','s','t','u','w','y'],
+  slightly_rare: ['p','l','m','n','o'],
+  rare: ['q','k','v']
 };
 
 export const mapEnToTextureNames =  {
@@ -73,15 +73,15 @@ export function mapGeneToTexture(gene) {
   let textureInfo = [];
   for(let i=0; i<5; i++){
     let index;
-    if(Number(genePieces[i]) < 800){
-      index = Math.floor(Number(genePieces[i] / 80));
+    if(Number(genePieces[i]) < 870){
+      index = Math.floor(Number(genePieces[i] / 58));
       textureInfo.push(textureRateMapping.normal_rates[index])
-    }else if(Number(genePieces[i]) < 980 && Number(genePieces[i] >= 800)){
-      index = Math.floor((Number(genePieces[i] - 800) / 18));
+    }else if(Number(genePieces[i]) < 970 && Number(genePieces[i] >= 870)){
+      index = Math.floor((Number(genePieces[i] - 870) / 20));
       textureInfo.push(textureRateMapping.slightly_rare[index])
     }else{
-      index = Math.floor((Number(genePieces[i]) - 980) / 10);
-      textureInfo.push(textureRateMapping.rare[0])
+      index = Math.floor((Number(genePieces[i]) - 970) / 10);
+      textureInfo.push(textureRateMapping.rare[index])
     }
   }
   textureInfo.push(Math.floor(genePieces[5] / 125) + 1);

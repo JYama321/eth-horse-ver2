@@ -78,6 +78,7 @@ export const styles =  {
     width: '100px',
     height: '30px',
     lineHeight: '30px',
+    textAlign: 'center',
     marginLeft: '56px'
   },
   topLabelPowerTotal: {

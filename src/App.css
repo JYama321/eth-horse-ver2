@@ -1,4 +1,3 @@
-holdRaceButtonholdRaceButton/* PAGE */
 
 body,
 .pure-g [class*=pure-u] {
@@ -73,6 +72,30 @@ code {
 
 .horse-back{
   background-image: url("./assets/static_assets/horse-back2.png");
+}
+
+.horse-back1{
+  background-image: url("./assets/static_assets/horse-back.png");
+}
+
+.horse-back2{
+  background-image: url("./assets/static_assets/horse-back2.png");
+}
+
+.horse-back3{
+  background-image: url('assets/static_assets/horse-back3.png');
+}
+
+.horse-back4{
+  background-image: url("assets/static_assets/horse-back4.png");
+}
+
+.horse-back-silver{
+  background-image: url("./assets/static_assets/horse-back-silver.png");
+}
+
+.horse-back-gold{
+  background-image: url("./assets/static_assets/horse-back-gold.png");
 }
 
 .sellHorseButton{
@@ -169,6 +192,18 @@ code {
 
 .rank-modal-horse-back{
   background-image: url("./assets/static_assets/rank-modal-horse-back1.png");
+}
+
+.rank-modal-horse-back1{
+  background-image: url("./assets/static_assets/rank-modal-horse-back3.png");
+}
+
+.rank-modal-horse-back2{
+  background-image: url("./assets/static_assets/rank-modal-horse-back2.png");
+}
+
+.rank-modal-horse-back3{
+  background-image: url('./assets/static_assets/rank-modal-horse-back1.png');
 }
 
 .event-back-training{

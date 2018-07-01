@@ -38,13 +38,7 @@ export const rankStyles = {
     lineHeight: '70px',
     marginLeft: '28px'
   },
-  rarityContainer: {
-    width: '120px',
-    height: '100%',
-    textAlign: 'center',
-    lineHeight: '70px',
-    marginLeft: '56px'
-  },
+
   strengthContainer: {
     width: '120px',
     height: '100%',

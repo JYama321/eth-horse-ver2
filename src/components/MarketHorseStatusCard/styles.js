@@ -47,6 +47,7 @@ export const STYLE = {
     height: '30px',
     width: '30%',
     position: 'relative',
+    color: 'yellow'
   },
   horseStatsP: {
     fontSize: '15px',

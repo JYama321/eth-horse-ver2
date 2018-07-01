@@ -4,8 +4,8 @@ import { mapEnToTextureNames } from "../../utils/mapGeneToTextures";
 
 const textureAlphabets =
     ['a','b','c','d','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','y'];
-const texturesA = ['q','p','v'];
-const texturesB = ['k','l','m','n','o'];
+const texturesA = ['q','k','v'];
+const texturesB = ['p','l','m','n','o'];
 const texturesC = ['a','b','c','d','f','g','h','i','j','r','s','t','u','w','y'];
 
 class TopTutorialTextures extends Component{
@@ -34,6 +34,7 @@ class TopTutorialTextures extends Component{
                 height="60px"
                 style={tutorialTextureStyles.textureIconStyle}
                 src={require('../../assets/texture_icons/' + elem + '.png')}
+                key={'texture'+index}
             />
             <p>{mapEnToTextureNames.en[elem]}</p>
           </div>

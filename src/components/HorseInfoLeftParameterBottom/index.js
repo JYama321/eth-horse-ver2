@@ -3,6 +3,7 @@ import {horseInfoLeftBottom} from "./horseInfoLeftBottom";
 import PropTypes from 'prop-types'
 import HorseTextureParam from '../HorseTextureParam'
 
+
 class HorseInfoLeftBottom extends Component{
   static propTypes={
     gene: PropTypes.string.isRequired

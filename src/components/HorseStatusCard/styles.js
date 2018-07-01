@@ -42,11 +42,6 @@ export const STYLE = {
     color: 'black',
     zIndex: 3,
   },
-  horseStats: {
-    height: '30px',
-    width: '30%',
-    position: 'relative',
-  },
   horseStatsP: {
     fontSize: '15px',
     lineHeight: '30px',
@@ -55,7 +50,7 @@ export const STYLE = {
   },
   horseName: {
     fontSize: '21px',
-    width: '70%'
+    width: '65%'
   },
   horsePowerDiagram: {
     height: '30px',
