@@ -85,7 +85,7 @@ class RaceCard extends Component{
   }
   render(){
     const startTime = this.props.isBetting ? this.state.startTime : '？？？';
-    const currentState = new Date(this.state.dateNumber * 1000) < Date() && this.props.isBetting ? 'check result' : this.props.currentState
+    const currentState = new Date(this.state.dateNumber * 1000) < new Date(Date.now()) && this.props.isBetting ? 'check result' : this.props.currentState
     if(this.props.isMyRace){
       return(
           <div style={raceCardStyles.cardContainer}>
