@@ -20,9 +20,14 @@ import {
   changeSireHorsePage
 } from './actions'
 import {
-  getHorseData, horseToOnSale,
-  sireHorses
+  getHorseData,
+  sireHorses,
+  sireWithOnSaleHorse,
+  getTokenOwner
 } from "../../utils/eth-function";
+import {
+  returnRarity
+} from "../../utils/mapHorseInfoToRarity";
 import HorseStatusCard from '../../components/HorseStatusCard/'
 import { createStructuredSelector } from 'reselect';
 import loadingGif from '../../assets/static_assets/umaloading.gif'
@@ -32,6 +37,7 @@ import Modal from 'react-modal'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
+
 
 const styles = theme => ({
   button: {
@@ -49,7 +55,8 @@ class SireHorsePage extends Component{
       isNameModalOpen: false,
       horseName: '',
       papaId: 0,
-      mamaId: 0
+      mamaId: 0,
+      isMyHorse: false,
     }
   }
   async componentDidMount(){
@@ -78,6 +85,73 @@ class SireHorsePage extends Component{
     this.setState({
       currentPage: props.currentPage
     })
+  }
+  renderStars(rarityLevel,level){
+    let stars = [];
+    switch (rarityLevel) {
+      case 1:
+        for(var i=0;i<1;i++){
+          stars.push(<span key={i+'star'}>★</span>)
+        }
+        return <div style={{
+          height: '30px',
+          width: '35%',
+          lineHeight: '30px',
+          position: 'relative',
+          fontSize: '14px',
+          color: level === 2 ? 'rgb(104,134,184)' : 'rgb(156,229,225)'
+        }}>{stars} lev.{level}</div>;
+      case 2:
+        for(var i=0;i<2;i++){
+          stars.push(<span key={i+'star'}>★</span>)
+        }
+        return <div style={{
+          height: '30px',
+          width: '35%',
+          lineHeight: '30px',
+          position: 'relative',
+          fontSize: '14px',
+          color: level === 4 ? 'rgb(241,167,186)' : 'rgb(139,134,202)'
+        }}>{stars} lev.{level}</div>;
+      case 3:
+        for(var i=0;i<3;i++){
+          stars.push(<span key={i+'star'}>★</span>)
+        }
+        return <div style={{
+          height: '30px',
+          width: '35%',
+          position: 'relative',
+          lineHeight: '30px',
+          fontSize: '14px',
+          color: level === 6 ? 'rgb(239,139,106)' : 'rgb(233,94,190)'
+        }}>{stars} lev.{level}</div>;
+      case 4:
+        for(var i=0;i<4;i++){
+          stars.push(<span key={i+'star'}>★</span>)
+        }
+        return <div style={{
+          height: '30px',
+          width: '35%',
+          position: 'relative',
+          lineHeight: '30px',
+          fontSize: '14px',
+          color: level === 8 ? 'rgb(249,198,51)' : 'rgb(237,109,51)'
+        }}>{stars} lev.{level}</div>;
+      case 5:
+        for(var i=0;i<5;i++){
+          stars.push(<span key={i+'star'}>★</span>)
+        }
+        return <div style={{
+          height: '30px',
+          width: '35%',
+          position: 'relative',
+          lineHeight: '30px',
+          fontSize: '14px',
+          color: level === 10 ? 'rgb(0,28,113)' : 'rgb(234,63,51)'
+        }}>{stars} lev.{level}</div>;
+      default:
+        return null
+    }
   }
   renderHorses(){
     const self = this;
@@ -134,11 +208,24 @@ class SireHorsePage extends Component{
     this.props.changePage(this.state.currentPage-1)
   }
   openDecideNameModal(papaId,mamaId){
-    this.setState({
-      isNameModalOpen: true,
-      papaId: papaId,
-      mamaId: mamaId
-    })
+    const self = this;
+    getTokenOwner(papaId).then(function(result){
+      if(window.web3.eth.coinbase === result){
+        self.setState({
+          isNameModalOpen: true,
+          papaId: papaId,
+          mamaId: mamaId,
+          isMyHorse: true
+        })
+      }else{
+        this.setState({
+          isNameModalOpen: true,
+          papaId: papaId,
+          mamaId: mamaId,
+          isMyHorse: false
+        })
+      }
+    });
   }
   changeName(e){
     this.setState({
@@ -150,8 +237,17 @@ class SireHorsePage extends Component{
       isNameModalOpen: false,
       papaId: 0,
       mamaId: 0,
-      horseName: ''
+      horseName: '',
+      isMyHorse: false
     })
+  }
+  sireHorse(){
+    if(this.state.isMyHorse){
+      sireHorses(this.state.papaId,this.state.mamaId,this.state.horseName)
+    }else{
+      const horse = this.props.horseIdToInfo.get(this.props.match.params.id);
+      sireWithOnSaleHorse(this.state.papaId,this.state.mamaId,this.state.horseName,horse[9])
+    }
   }
   render () {
     const { classes } = this.props;
@@ -161,6 +257,8 @@ class SireHorsePage extends Component{
       const gene = horse[1].c.join(',').replace(/,/g,'');
       const powerGene = gene.slice(gene.length-15,gene.length);
       const texGene = gene.slice(gene.length-38,gene.length-20);
+      const mateRaceIndex = Math.ceil((horse[6].toNumber() + horse[7].toNumber()) / 10);
+      const rarity = returnRarity(gene) + mateRaceIndex;
       return (
           <div style={sellHorseModalStyle.modalContainer}>
             <Modal
@@ -183,7 +281,7 @@ class SireHorsePage extends Component{
                   color='primary'
                   style={sellHorseModalStyle.sireHorseModalButton}
                   className={classes.button}
-                  onClick={()=>sireHorses(this.state.papaId,this.state.mamaId,this.state.horseName)}
+                  onClick={()=>this.sireHorse()}
               >
                 Sire Horses
               </Button>
@@ -193,12 +291,17 @@ class SireHorsePage extends Component{
               <div style={sellHorseModalStyle.sireHorseTop}>
                 <div style={sellHorseModalStyle.sireHorseImgWrapper}>
                   <div style={sellHorseModalStyle.sireHorseImgBack} className='sire-horse-back'>
+                    {horse[13] ? <div
+                        className='horse-price-imgae'
+                        style={sellHorseModalStyle.sirePrice}
+                    >{window.web3.fromWei(horse[9],'ether').toFixed(3)} ETH</div> : ''}
                     <HorseImage type={'sire'} horseGene={gene}/>
                   </div>
                 </div>
                 <div style={sellHorseModalStyle.sireHorseStatus}>
                   <p style={sellHorseModalStyle.sireHorseName}>
                     {horse[2]}
+                    <span style={sellHorseModalStyle.isOnSireSale}> {horse[13] ? 'now on sire sale' : ''}</span>
                   </p>
                   <div style={sellHorseModalStyle.sireHorseStatus}>
                     <div style={sellHorseModalStyle.sireHorseStatusComponent}>
@@ -217,15 +320,10 @@ class SireHorsePage extends Component{
                           raceIndex={horse[7].toNumber()}
                       />
                     </div>
-                    <div style={sellHorseModalStyle.sireHorseStatusComponent}>
+                    <div style={sellHorseModalStyle.sireHorseStatusComponentRight}>
                       <div style={sellHorseModalStyle.sireHorseRightContainer}>
                         <p style={sellHorseModalStyle.rarity}>
-                          <img
-                              style={sellHorseModalStyle.rarityImg}
-                              src={require('../../assets/static_assets/rank-king.png')}
-                          />
-                          &nbsp;
-                          Rarity high / Type pair
+                          Rarity &nbsp; {this.renderStars(Math.ceil(rarity / 2), rarity)}
                         </p>
                         <div style={sellHorseModalStyle.textureStatsContainer}>
                           <HorseTextureParamSire style={sellHorseModalStyle.bottomTexContainer} gene={texGene} num={0}/>

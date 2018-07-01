@@ -8,6 +8,15 @@ export const getMyHorsesArray = () => {
   })
 };
 
+export const getTokenOwner = (tokenId) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.tokenOwner(tokenId,function(err, result) {
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
 export const getOnSaleHorses = () => {
   return new Promise((resolve, reject) => {
     window.contract_instance.onSaleHorses(function(err, result) {
@@ -141,6 +150,16 @@ export const buyHorse = (horseId,price) => {
           return(result)
         })
   });
+};
+
+export const sireWithOnSaleHorse = (myHorse,sireHorse,name,price) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.sireHorseWithOnSaleHorse(myHorse,sireHorses,name,
+        {from:window.web3.eth.coinbase,value: window.web3.toWei(price,'ether')},function(err, result){
+      if(err){reject(err)}
+      resolve(result)
+        })
+  })
 };
 
 

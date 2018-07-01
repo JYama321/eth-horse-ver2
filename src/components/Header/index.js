@@ -53,7 +53,6 @@ class Header extends Component {
     this.props.changeSort(e.target.value)
   }
   onChangeMarketType(e){
-    console.log(e.target.value);
     this.props.changeMarket(e.target.value)
   }
   renderHeaderLeft(path){
@@ -137,7 +136,7 @@ class Header extends Component {
   }
   renderHeaderBottom(){
     const path = this.props.pathname.split('/')[1];
-    if(path === '' || path ==='horses'){
+    if(path === '' || path === 'horses' || this.props.pathname.indexOf('/market-place/sire/') === 0){
       return null
     }else {
       return (

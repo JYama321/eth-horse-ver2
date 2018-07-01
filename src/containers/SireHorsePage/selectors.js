@@ -37,6 +37,8 @@ const selectCurrentSirePage = () => createSelector(
     substate => substate.get('sireHosePage')
 );
 
+
+
 export {
   selectGlobal,
   selectHorseArrayLoading,

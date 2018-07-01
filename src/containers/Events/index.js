@@ -55,7 +55,7 @@ class Events extends Component{
     })
   }
   renderTicket(type){
-    const now = Date.now();
+    const now = new Date(Date.now());
     switch(type){
       case 'training':
         return (

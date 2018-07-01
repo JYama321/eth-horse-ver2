@@ -179,6 +179,7 @@ class App extends Component {
             <Route exact path='/horses/:id' component={HorseInfo}/>
             <Route exact path='/horses/:id/sire' component={SireHorsePage}/>
             <Route exact path='/market-place' component={Market}/>
+            <Route exact path='/market-place/sire/:id' component={SireHorsePage}/>
             <Route exact path='/races' component={Races} />
             <Route exact path='/races/:id' component={RaceInfo}/>
             <Route exact path='/ranking' component={Ranking}/>

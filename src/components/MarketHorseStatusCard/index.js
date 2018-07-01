@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import HorseImage from '../HorseImage/'
-import {styles,STYLE} from './styles';
+import {styles,STYLE,modalStyle} from './styles';
 import { Link } from 'react-router-dom';
 import {horseStatus} from "../../utils/functions";
 import { returnRarity, returnClassName } from "../../utils/mapHorseInfoToRarity";
@@ -12,8 +12,14 @@ export default class HorseStatusCard extends Component{
     info: PropTypes.array.isRequired,
     isMyHorse: PropTypes.bool,
     isLeft: PropTypes.bool,
-    isSire: PropTypes.bool
+    isSire: PropTypes.bool,
   };
+  constructor(props){
+    super(props);
+    this.state={
+      isOpenSireModal: false
+    }
+  }
   returnStatus(){
     const gene = this.props.info[1].c.join(',').replace(/,/g,'');
     const status = gene.slice(gene.length-15,gene.length);
@@ -86,6 +92,15 @@ export default class HorseStatusCard extends Component{
         return null
     }
   }
+  buyHorse(horseId,price){
+    console.log(this.props.history)
+    if(this.props.isSire){
+      this.props.history.push('/market-place/sire/' + horseId)
+    }else{
+      buyHorse(horseId,price)
+    }
+  }
+
   render(){
     const horseId = this.props.info[0].toNumber();
     const mateRaceIndex = Math.ceil((this.props.info[6].toNumber() + this.props.info[7].toNumber()) / 10);
@@ -115,7 +130,7 @@ export default class HorseStatusCard extends Component{
             <div style={STYLE.horseName}><b>{this.props.info ? this.props.info[2] : ''}</b></div>
             {this.renderStars(Math.ceil(rarity/2),rarity)}
           </div>
-          <button style={STYLE.buyButton} className='market-buy-button' onClick={()=>buyHorse(horseId,price)}>
+          <button style={STYLE.buyButton} className='market-buy-button' onClick={()=>this.buyHorse(horseId,price)}>
             {isSire ? 'Sire' : 'Buy'}
           </button>
         </div>

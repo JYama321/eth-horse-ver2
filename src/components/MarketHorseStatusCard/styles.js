@@ -151,3 +151,19 @@ export const STYLE = {
     backgroundColor: 'transparent'
   }
 };
+
+export const modalStyle = {
+  content: {
+    top : '50%',
+    left  : '50%',
+    right : 'auto',
+    bottom : 'auto',
+    marginRight : '-50%',
+    transform : 'translate(-50%, -50%)',
+    height: '80%',
+    width: '1080px',
+    position: 'absolute',
+    padding: 0,
+    zIndex: 8888
+  }
+};

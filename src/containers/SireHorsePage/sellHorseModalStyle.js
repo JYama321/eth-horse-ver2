@@ -32,6 +32,16 @@ export const sellHorseModalStyle = {
     position: 'relative',
     backgroundSize: '330px 330px'
   },
+  sirePrice: {
+    width: '85px',
+    height: '20px',
+    position: 'absolute',
+    left: '50%',
+    top: '20px',
+    transform: 'translateX(-50%)',
+    lineHeight: '20px',
+    textAlign: 'center'
+  },
   sireHorseStatus: {
     width: '700px',
     height: '330px',
@@ -45,7 +55,16 @@ export const sellHorseModalStyle = {
     fontSize: '21px',
     lineHeight: '35px',
     textAlign: 'left',
-    borderBottom: '1px solid #000'
+    borderBottom: '1px solid #000',
+    position: 'relative'
+  },
+  isOnSireSale: {
+    width: '150',
+    position: 'absolute',
+    right: 0,
+    fontSize: '21px',
+    lineHeight: '35px',
+    color: 'red'
   },
   sireHorsePowerTotal: {
     fontSize: '21px',
@@ -60,11 +79,15 @@ export const sellHorseModalStyle = {
     display: 'flex'
   },
   sireHorseStatusComponent: {
-    width: '50%',
+    width: '45%',
+    height: '300px'
+  },
+  sireHorseStatusComponentRight: {
+    width: '55%',
     height: '300px'
   },
   sireHorseRightContainer: {
-    width: '320px',
+    width: '355px',
     height: '265px'
   },
   rarity: {
@@ -74,7 +97,8 @@ export const sellHorseModalStyle = {
     textAlign: 'left',
     fontSize: '21px',
     lineHeight: '30px',
-    marginTop: '18px'
+    marginTop: '18px',
+    display: 'flex'
   },
   rarityImg: {
     width: '25px',
@@ -132,18 +156,18 @@ export const sellHorseModalStyle = {
   },
   horseParamDiagram: {
     height: '30px',
-    width: '300px',
+    width: '270px',
     position: 'relative',
     marginTop: '35px'
   },
   statusParamDiagram: {
-    width: '300px',
+    width: '270px',
     height: '100px',
     marginTop: '17px',
     position: 'relative'
   },
   sireAndRaceNum: {
-    width: '300px',
+    width: '270px',
     height: '30px',
     marginTop: '35px',
     position: 'relative'
@@ -174,7 +198,8 @@ export const sellHorseModalStyle = {
       bottom : 'auto',
       marginRight : '-50%',
       transform : 'translate(-50%, -50%)',
-      height: '100px',
+      height: '150px',
+      width: '300px',
       position: 'absolute',
       padding: 0,
       zIndex: 8888

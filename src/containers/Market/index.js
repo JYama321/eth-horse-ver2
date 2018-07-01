@@ -80,6 +80,7 @@ class Market extends Component{
                     isMyHorse={false}
                     isLeft={isLeft}
                     isSire={isSire}
+                    history={self.props.history}
                     key={'saleHorse-'+index}
                 />
             )
@@ -129,6 +130,7 @@ class Market extends Component{
                     isMyHorse={false}
                     isLeft={isLeft}
                     isSire={isSire}
+                    history={self.props.history}
                     key={'saleHorse-'+index}
                 />
             )
@@ -176,6 +178,7 @@ class Market extends Component{
                     isMyHorse={false}
                     isLeft={isLeft}
                     isSire={isSire}
+                    history={self.props.history}
                     key={'saleHorse-' + index}
                 />
             )
