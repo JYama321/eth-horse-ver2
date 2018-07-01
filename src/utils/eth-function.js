@@ -132,6 +132,15 @@ export const horseTokenNotToOnSale = (horseId) => {
   })
 };
 
+export const horseTokenNotToOnSireSale = (horseId) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.horseTokenToNotOnSireSale(horseId,{from: window.web3.eth.coinbase, gas: 3000000, gasPrice: 10 ** 10}, function(err, result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
 export const buyHorse = (horseId,price) => {
   return new Promise((resolve,reject) => {
     window.contract_instance.ownerOf(horseId,function(err, result){
@@ -361,7 +370,7 @@ export const doTrainLottery = () => {
 
 export const doShuffleLottery = () => {
   return new  Promise((resolve, reject) => {
-    window.contract_instance.doShuffleLottery({
+    window.contract_instance.doDressUpLottery({
       from: window.web3.eth.coinbase, gas: 150000, gasPrice: 10 ** 10},function(err, result){
       if(err){reject(err)}
       resolve(result)
@@ -371,7 +380,7 @@ export const doShuffleLottery = () => {
 
 export const doShuffleAllLottery = () => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.doShuffleAllLottery({from: window.web3.eth.coinbase,
+    window.contract_instance.doShuffleDressUpLottery({from: window.web3.eth.coinbase,
       gas: 150000, gasPrice: 10 ** 10},function(err, result){
       if(err){reject(err)}
       resolve(result)
@@ -401,7 +410,7 @@ export const getTrainLottery = () => {
 
 export const getShuffleLottery = () => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.shuffleLottery(window.web3.eth.coinbase, function (err, result) {
+    window.contract_instance.dressUpLottery(window.web3.eth.coinbase, function (err, result) {
       if(err){reject(err)}
       resolve(result)
     })
@@ -410,7 +419,7 @@ export const getShuffleLottery = () => {
 
 export const getShuffleAllLottery = () => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.shuffleAllLottery(window.web3.eth.coinbase, function (err, result) {
+    window.contract_instance.shuffleDressUpLottery(window.web3.eth.coinbase, function (err, result) {
       if(err){reject(err)}
       resolve(result)
     })
@@ -443,7 +452,7 @@ export const shuffleAll = (horseId) => {
   return new Promise((resolve, reject) => {
     let array = new Uint32Array(1);
     window.crypto.getRandomValues(array);
-    window.contract_instance.shuffleAllTexture(
+    window.contract_instance.shuffleDressUpTexture(
         horseId,array[0],{from: window.web3.eth.coinbase, gas: 1000000, gasPrice: 10 ** 10},function (err, result) {
           if(err){reject(err)}
           resolve(result)

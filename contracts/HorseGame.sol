@@ -121,7 +121,7 @@ contract HorseGameBase is Ownable{
     event ApplyRace(address indexed _owner,uint _raceId,uint _horseId,uint _now);
     event BetRace(address indexed _voter,uint _betValue, uint _raceId, uint _horseId, uint _now);
     event HostRace(address indexed _host, uint _deposit, uint _minWinnerPrize, uint _raceId, uint _now);
-    event Lottery(address indexed _from, bool _success, string _type);
+    event Lottery(address indexed _from, bool _success, string _type, uint _now);
     event GiftHorseLottery(address indexed _from, uint _tokenId);
 
     function getWinCountsArray() external view returns(uint[]){
@@ -421,7 +421,7 @@ contract HorseBet is HorseGameBase{
         race.horseIdToBetRate[race.horseTwo] = _rate2;
         race.isBetting = true;
         bettingRaces[_raceId.sub(1)] = true;
-        raceStartTime[_raceId] = now + 5 hours;
+        raceStartTime[_raceId] = now + 30 minutes;
     }
 
     function withdrawPayback(uint _raceId) external{
@@ -711,7 +711,7 @@ contract HorseGame is HorseBid{
     }
 
     function buyShuffleDressUpTicket() external payable{
-        require(msg.value >= shuffleAllTicketPrice);
+        require(msg.value >= shuffleDressUpTicketPrice);
         uint num = msg.value / shuffleDressUpTicketPrice;
         shuffleDressUpTicketNum[msg.sender] = shuffleDressUpTicketNum[msg.sender].add(num);
     }
@@ -724,6 +724,7 @@ contract HorseGame is HorseBid{
 
     function shuffleDressUpTexture(uint _horseId, uint _nonce) external{
         require(tokenOwner[_horseId] == msg.sender);
+        require(shuffleDressUpTicketNum[msg.sender] > 0);
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint geneEnd = gene % (10 ** 20);
@@ -734,8 +735,9 @@ contract HorseGame is HorseBid{
         horse.genes = gene - geneMiddle + replaceGene + geneEnd;
     }
 
-    function dressUpTexture(uint _horseId, uint _index, uint _num){
+    function dressUpTexture(uint _horseId, uint _index, uint _num) external{
         require(tokenOwner[_horseId] == msg.sender);
+        require(dressUpTicketNum[msg.sender] > 0);
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint geneEnd = gene % (10 ** _index);
@@ -746,12 +748,13 @@ contract HorseGame is HorseBid{
 
     function trainHorse(uint _horseId) external {
         require(tokenOwner[_horseId] == msg.sender);
+        require(trainTicketNum[msg.sender] > 0);
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint up = 0;
         for(uint i=1; i<=5; i++){
-            uint info = gene % (100 ** i);
-            if(info < 9 * ((100 ** i) / 10)){ up = up.add(100 ** i / 10);}
+            uint info = gene % ((1000 ** i));
+            if(info < 9 * (1000 ** i / 10)){ up = up.add((1000 ** i / 100) * 5);}
         }
         horse.genes = horse.genes.add(up);
         horseGenes[_horseId.sub(1)] = horse.genes;
@@ -764,9 +767,9 @@ contract HorseGame is HorseBid{
         uint _seed = uint(keccak256(blockhash(block.number-1),lotteryNum));
         if((_seed % 100) < 5){
             trainTicketNum[msg.sender] += 1;
-            emit Lottery(msg.sender,true,'train');
+            emit Lottery(msg.sender,true,'train', now);
         }
-        emit Lottery(msg.sender,false,'train');
+        emit Lottery(msg.sender,false,'train', now);
     }
 
     function doDressUpLottery() external{
@@ -775,10 +778,10 @@ contract HorseGame is HorseBid{
         dressUpLottery[msg.sender] = now;
         uint _seed = uint(keccak256(blockhash(block.number-1),lotteryNum));
         if((_seed % 50) <= 2){
-            shuffleTicketNum[msg.sender] += 1;
-            emit Lottery(msg.sender,true,'dress-up');
+            dressUpTicketNum[msg.sender] += 1;
+            emit Lottery(msg.sender,true,'dress-up', now);
         }
-        emit Lottery(msg.sender,false,'dress-up');
+        emit Lottery(msg.sender,false,'dress-up', now);
     }
 
     function doShuffleDressUpLottery() external{
@@ -787,10 +790,10 @@ contract HorseGame is HorseBid{
         shuffleDressUpLottery[msg.sender] = now;
         uint _seed = uint(keccak256(blockhash(block.number-1),lotteryNum));
         if((_seed % 100) <= 5){
-            shuffleAllTicketNum[msg.sender] += 1;
-            emit Lottery(msg.sender,true,'s-dress-up');
+            shuffleDressUpTicketNum[msg.sender] += 1;
+            emit Lottery(msg.sender,true,'s-dress-up', now);
         }
-        emit Lottery(msg.sender,false,'s-dress-up');
+        emit Lottery(msg.sender,false,'s-dress-up', now);
     }
 
     function doGiftHorseLottery() external{

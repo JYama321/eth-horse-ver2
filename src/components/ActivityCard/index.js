@@ -5,6 +5,7 @@ import hostRaceLog from '../../assets/static_assets/activity-icon-host-race.png'
 import applyRaceLog from '../../assets/static_assets/activity-icon-apply-race.png'
 import toMarketLog from '../../assets/static_assets/activity-icon-to-market.png'
 import betRaceLog from '../../assets/static_assets/activity-icon-bet-race.png'
+
 import {betRace} from "../../utils/functions";
 import {
   activityCardContainer,
@@ -47,6 +48,25 @@ class ActivityCard extends Component{
                 <p style={eventDetail}>Get <Link to={'/horses/' + args._tokenId}>Horse</Link> from {args._from} </p>
               </div>);
         }
+      case 'Lottery':
+        return (
+            <div style={activityCardContainer.activityCardBase} className='activity-host-race'>
+              <img
+                  style={cardImg}
+                  src={betRaceLog}
+              />
+              <p style={activityCardP}>Lottery</p>
+              <p style={eventDetail}>{args._type} Lottery
+                &nbsp;
+                Did a {args._type} lottery.
+                &nbsp;
+                <span style={{
+                  color: args._success ? 'red' : 'blue'
+                }}>{args._success ? 'You win a prize! Congratulations!' : 'You couldn\'t win a prize.'}</span>
+                &nbsp;{args._success ? '' : 'Please do a lottery again!'}
+              </p>
+            </div>
+        )
       case 'HostRace':
         const deposit = window.web3.fromWei(args._deposit,'ether');
         const minWinnerPrize = window.web3.fromWei(args._minWinnerPrize,'ether');
@@ -86,7 +106,7 @@ class ActivityCard extends Component{
         );
       case 'HorseOnSale':
         [image,title,className] =
-            [saleLog,'Horse to Market','activity-to-market'];
+            [saleLog,`Horse to ${args._type} Market`,'activity-to-market'];
         return (
             <div style={activityCardContainer.activityCardBase} className={className}>
               <img
@@ -94,7 +114,7 @@ class ActivityCard extends Component{
                   src={toMarketLog}
               />
               <p style={activityCardP}>{title}</p>
-              <p style={eventDetail}>Sell <Link to={'/horses/' + args._tokenId.toNumber()}>Horse</Link> Price ~~ ETH from {args._from}</p>
+              <p style={eventDetail}>Sell <Link to={'/horses/' + args._tokenId.toNumber()}>Horse</Link> Price {window.web3.fromWei(args._price,'ether').toFixed(3)} ETH to {args._type} Market</p>
             </div>
         );
       case 'ApplyRace':

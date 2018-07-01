@@ -37,7 +37,7 @@ import {
   getSireHorses,
   getOnSaleHorsesArray
 } from './actions'
-const address = '0xaa588d3737b611bafd7bd713445b314bd453a5c8';
+const address = '0x9d075ae44d859191c121d7522da0cc3b104b8837';
 import {
   getWantedRaceArray,
   getBettingRaceArray,
@@ -140,6 +140,12 @@ class App extends Component {
       fromBlock: 0,
       toBlock: 'latest'
     });
+    const Lottery = window.contract_instance.Lottery({
+      _from: window.web3.eth.coinbase
+    },{
+      fromBlock: 0,
+      toBlock: 'latest'
+    });
     BetRace.get(function(err,logs){
       self.props.getActivity(logs)
     });
@@ -156,6 +162,9 @@ class App extends Component {
       self.props.getActivity(logs)
     });
     SellHorse.get(function(err, logs) {
+      self.props.getActivity(logs)
+    });
+    Lottery.get(function(err, logs){
       self.props.getActivity(logs)
     })
   }

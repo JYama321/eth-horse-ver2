@@ -26,7 +26,9 @@ import {
   buyHorse,
   ownerOf,
   horseTokenNotToOnSale,
-  horseToSireSale
+  horseToSireSale,
+  trainHorse,
+  horseTokenNotToOnSireSale
 } from "../../utils/eth-function";
 import {
   returnRarity,
@@ -140,19 +142,38 @@ class HorseInfo extends Component{
       return null
     }
   }
+  renderSireMarketButton(isSire,horseId) {
+    if (isSire) {
+      return (
+          <button
+              style={horseInfoStyles.sireMarketButton}
+              className='button-back-transparent'
+              onClick={()=>horseTokenNotToOnSireSale(horseId)}
+          >
+            Stop Siring
+          </button>
+      )
+    } else {
+      return(
+          <button
+              style={horseInfoStyles.sireMarketButton}
+              className='button-back-transparent'
+              onClick={()=>this.openSellHorseModal('sire')}
+          >
+            Sire Market
+          </button>
+      )
+    }
+  }
+
   renderTopButtons(){
     if(this.props.horseOwner === window.web3.eth.coinbase){
       const horseInfo = this.props.horseIdToInfo.get(this.props.match.params.id);
+      const isOnSire = horseInfo[13];
       const sireIndex = horseInfo[6].toNumber();
       return (
           <span>
-            <button
-                style={horseInfoStyles.sireMarketButton}
-                className='button-back-transparent'
-                onClick={()=>this.openSellHorseModal('sire')}
-            >
-              Sire Market
-            </button>
+            {this.renderSireMarketButton(isOnSire,horseInfo[0].toNumber())}
             <button
                 style={horseInfoStyles.sireHorseButton}
                 className='button-back-transparent'
@@ -163,12 +184,8 @@ class HorseInfo extends Component{
             <button
                 style={horseInfoStyles.trainHorseButton}
                 className='button-back-transparent'
+                onClick={()=>trainHorse(horseInfo[0].toNumber())}
             >training</button>
-            <button
-                style={horseInfoStyles.joinRaceButton}
-                className='button-back-transparent'
-            >join race+
-            </button>
           </span>
       )
     }

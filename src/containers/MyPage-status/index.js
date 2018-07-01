@@ -38,6 +38,10 @@ class MyPageStatus extends Component{
     this.selectHorse = this.selectHorse.bind(this)
   }
 
+  componentDidMount(){
+    console.log('componentDidMount')
+  }
+
   componentWillReceiveProps(props,state){
     if(this.state.totalPage !== Math.ceil(props.ownedHorses.length / 6)){
       this.setState({
@@ -73,7 +77,7 @@ class MyPageStatus extends Component{
   renderShuffleTicket(){
     const shuffleTicketNum = this.props.shuffleTicketNum > 2 ? 2 : this.props.shuffleTicketNum;
     let ticketCard = [];
-    for(var i = 0;shuffleTicketNum;i++){
+    for(var i = 0;i<shuffleTicketNum;i++){
       ticketCard.push(<TicketCard className='shuffleDressUpTicket' key={i + '-shuffle-ticket'}/>)
     }
     return ticketCard;
@@ -81,8 +85,8 @@ class MyPageStatus extends Component{
   renderShuffleAllTicket(){
     const shuffleAllTicketNum = this.props.shuffleAllTicketNum > 2 ? 2 : this.props.shuffleAllTicketNum;
     let ticketCard = [];
-    for(var i = 0;shuffleAllTicketNum;i++){
-      ticketCard.push(<TicketCard className='dressUpTicket' key={i + '-shuffle-ticket'} />)
+    for(var i = 0;i<shuffleAllTicketNum;i++){
+      ticketCard.push(<TicketCard className='dressUpTicket' key={i + '-shuffle-dress-up-ticket'} />)
     }
     return ticketCard;
   }
@@ -93,7 +97,7 @@ class MyPageStatus extends Component{
     return array.map(function (elem,index) {
       const horse = self.props.horseIdToInfo.get(String(elem.toNumber())) ? self.props.horseIdToInfo.get(String(elem.toNumber())) : null;
       if(horse){
-        const isLeft = index === 0 ? true : false
+        const isLeft = index === 0;
         return (
             <HorseStatusCard
                 info={horse}
@@ -143,6 +147,8 @@ class MyPageStatus extends Component{
       case 'shuffleDressUpTicket':
         shuffleAll(selectedHorseId);
         break;
+      default:
+        return
     }
   }
   renderModalTicket(className,ticketNum){

@@ -76,7 +76,7 @@ export const horseInfoStyles = {
     height: '20px',
     backgroundSize: '80px 20px',
     position: 'absolute',
-    right: '240px',
+    right: '140px',
     top: '30px',
     backgroundColor: 'transparent',
     border: 'none',
@@ -89,7 +89,7 @@ export const horseInfoStyles = {
     height: '20px',
     backgroundSize: '100px 20px',
     position: 'absolute',
-    right: '360px',
+    right: '260px',
     top: '30px',
     backgroundColor: 'transparent',
     border: 'none',
@@ -98,19 +98,6 @@ export const horseInfoStyles = {
     fontSize: '14px'
   },
   trainHorseButton: {
-    width: '80px',
-    height: '20px',
-    backgroundSize: '80px 20px',
-    position: 'absolute',
-    right: '140px',
-    top: '30px',
-    backgroundColor: 'transparent',
-    border: 'none',
-    outline: 'none',
-    lineHeight: '20px',
-    fontSize: '14px'
-  },
-  joinRaceButton: {
     width: '80px',
     height: '20px',
     backgroundSize: '80px 20px',

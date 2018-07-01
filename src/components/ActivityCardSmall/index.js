@@ -61,6 +61,20 @@ class ActivityCardSmall extends Component{
               </p>
             </div>
         );
+      case 'Lottery':
+        return (
+            <div style={activityCard.eventBase} className='activity-host-race'>
+              <img
+                  style={cardImg.wide}
+                  src={toMarketLog}
+              />
+              <p style={activityTwoLine}>
+                Did a Lottery
+                <br/>
+                {args._success ? 'You win a prize!' : 'You couldn\'t win a prize.'}
+              </p>
+            </div>
+        );
       case 'BetRace':
         return (
             <div style={activityCard.eventBase} className='activity-bet-race'>
@@ -79,7 +93,7 @@ class ActivityCardSmall extends Component{
                   style={cardImg.wide}
                   src={toMarketLog}
               />
-              <p style={activityOneLine}><Link to={'/horses/' + args._tokenId}>Horse</Link> to ${args._type} Market Price ETH </p>
+              <p style={activityOneLine}><Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._type} Market Price ETH </p>
             </div>
         );
       case 'ApplyRace':

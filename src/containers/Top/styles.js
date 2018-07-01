@@ -1,7 +1,7 @@
 export const topStyles = {
   outerContainer: {
     width: '100%',
-    height: '3500px',
+    height: '2000px',
     position: 'absolute',
     top: 0,
     zIndex: '-1'
@@ -17,7 +17,7 @@ export const topStyles = {
   innerContainer: {
     position: 'relative',
     width: '100%',
-    height: '3000px',
+    height: '100%',
     background: 'linear-gradient(0deg, rgb(255,255,255), rgb(255,255,255) 50%, rgba(30,30,255,0.3))',
     margin: '0 auto',
     top: Math.ceil((window.innerWidth / 1.77) * 0.80),
