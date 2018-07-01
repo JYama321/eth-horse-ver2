@@ -121,6 +121,7 @@ contract HorseGameBase is Ownable{
     event ApplyRace(address indexed _owner,uint _raceId,uint _horseId,uint _now);
     event BetRace(address indexed _voter,uint _betValue, uint _raceId, uint _horseId, uint _now);
     event HostRace(address indexed _host, uint _deposit, uint _minWinnerPrize, uint _raceId, uint _now);
+    event Lottery(address indexed _from, bool _success, string _type);
     event GiftHorseLottery(address indexed _from, uint _tokenId);
 
     function getWinCountsArray() external view returns(uint[]){
@@ -673,16 +674,16 @@ contract HorseBid is HorseBet{
 
 contract HorseGame is HorseBid{
     uint trainTicketPrice;
-    uint shuffleTicketPrice;
-    uint shuffleAllTicketPrice;
+    uint dressUpTicketPrice;
+    uint shuffleDressUpTicketPrice;
 
 
     mapping(address => uint) public trainTicketNum; //ticket number
-    mapping(address => uint) public shuffleTicketNum; // ticket number
-    mapping(address => uint) public shuffleAllTicketNum; // all ticket number
+    mapping(address => uint) public dressUpTicketNum; // ticket number
+    mapping(address => uint) public shuffleDressUpTicketNum; // all ticket number
     mapping(address => uint) public trainLottery; //address to the last time to do a lottery
-    mapping(address => uint) public shuffleLottery;
-    mapping(address => uint) public shuffleAllLottery;
+    mapping(address => uint) public dressUpLottery;
+    mapping(address => uint) public shuffleDressUpLottery;
     mapping(address => uint) public giftHorseLottery;
     uint public lotteryNum=0;
 
@@ -695,12 +696,12 @@ contract HorseGame is HorseBid{
         trainTicketPrice = _price;
     }
 
-    function setShuffleTicketPrice(uint _price) external onlyOwner{
-        shuffleTicketPrice = _price;
+    function setDressUpTicketPrice(uint _price) external onlyOwner{
+        dressUpTicketPrice = _price;
     }
 
-    function setShuffleAllTicketPrice(uint _price) external onlyOwner{
-        shuffleTicketPrice = _price;
+    function setShuffleDressUpTicketPrice(uint _price) external onlyOwner{
+        shuffleDressUpTicketPrice = _price;
     }
 
     function buyTrainTicket() external payable{
@@ -709,19 +710,19 @@ contract HorseGame is HorseBid{
         trainTicketNum[msg.sender] = trainTicketNum[msg.sender].add(num);
     }
 
-    function buyShuffleAllTicket() external payable{
+    function buyShuffleDressUpTicket() external payable{
         require(msg.value >= shuffleAllTicketPrice);
-        uint num = msg.value / shuffleTicketPrice;
-        shuffleAllTicketNum[msg.sender] = shuffleAllTicketNum[msg.sender].add(num);
+        uint num = msg.value / shuffleDressUpTicketPrice;
+        shuffleDressUpTicketNum[msg.sender] = shuffleDressUpTicketNum[msg.sender].add(num);
     }
 
-    function buyShuffleTicket() external payable{
-        require(msg.value >= shuffleTicketPrice);
-        uint num = msg.value / shuffleTicketPrice;
-        shuffleTicketNum[msg.sender] = shuffleTicketNum[msg.sender].add(num);
+    function buyDressUpTicket() external payable{
+        require(msg.value >= dressUpTicketPrice);
+        uint num = msg.value / dressUpTicketPrice;
+        dressUpTicketNum[msg.sender] = dressUpTicketNum[msg.sender].add(num);
     }
 
-    function shuffleAllTexture(uint _horseId, uint _nonce) external{
+    function shuffleDressUpTexture(uint _horseId, uint _nonce) external{
         require(tokenOwner[_horseId] == msg.sender);
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
@@ -733,7 +734,7 @@ contract HorseGame is HorseBid{
         horse.genes = gene - geneMiddle + replaceGene + geneEnd;
     }
 
-    function shuffleTexture(uint _horseId, uint _index, uint _num){
+    function dressUpTexture(uint _horseId, uint _index, uint _num){
         require(tokenOwner[_horseId] == msg.sender);
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
@@ -763,27 +764,33 @@ contract HorseGame is HorseBid{
         uint _seed = uint(keccak256(blockhash(block.number-1),lotteryNum));
         if((_seed % 100) < 5){
             trainTicketNum[msg.sender] += 1;
+            emit Lottery(msg.sender,true,'train');
         }
+        emit Lottery(msg.sender,false,'train');
     }
 
-    function doShuffleLottery() external{
-        require((now - shuffleLottery[msg.sender]) > 24 hours);
+    function doDressUpLottery() external{
+        require((now - dressUpLottery[msg.sender]) > 24 hours);
         lotteryNum += 1;
-        shuffleLottery[msg.sender] = now;
+        dressUpLottery[msg.sender] = now;
         uint _seed = uint(keccak256(blockhash(block.number-1),lotteryNum));
         if((_seed % 50) <= 2){
             shuffleTicketNum[msg.sender] += 1;
+            emit Lottery(msg.sender,true,'dress-up');
         }
+        emit Lottery(msg.sender,false,'dress-up');
     }
 
-    function doShuffleAllLottery() external{
-        require((now - shuffleAllLottery[msg.sender]) > 24 hours);
+    function doShuffleDressUpLottery() external{
+        require((now - shuffleDressUpLottery[msg.sender]) > 24 hours);
         lotteryNum += 1;
-        shuffleAllLottery[msg.sender] = now;
+        shuffleDressUpLottery[msg.sender] = now;
         uint _seed = uint(keccak256(blockhash(block.number-1),lotteryNum));
         if((_seed % 100) <= 5){
             shuffleAllTicketNum[msg.sender] += 1;
+            emit Lottery(msg.sender,true,'s-dress-up');
         }
+        emit Lottery(msg.sender,false,'s-dress-up');
     }
 
     function doGiftHorseLottery() external{
@@ -795,6 +802,14 @@ contract HorseGame is HorseBid{
 
     function presentTrainTicket(address _user) external onlyOwner{
         trainTicketNum[_user]  = trainTicketNum[_user].add(1);
+    }
+
+    function presentDressUpTicket(address _user) external onlyOwner{
+        dressUpTicketNum[_user] = dressUpTicketNum[_user].add(1);
+    }
+
+    function presentShuffleDressUpTicket(address _user) external onlyOwner{
+        shuffleDressUpTicketNum[_user] = shuffleDressUpTicketNum[_user].add(1);
     }
 
     function presentHorse(uint _tokenId, address _to) external onlyOwner{
