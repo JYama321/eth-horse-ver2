@@ -5,6 +5,22 @@ import PropTypes from 'prop-types'
 
 export default function HorseTextureParamSire(props){
   const textureName = mapGeneToTexture(props.gene)[props.num].slice(0,1);
+  const texRarity = mapTextureToRarity(textureName);
+  let rankImage;
+  switch (texRarity){
+    case 'normal':
+      rankImage = 'rarity-low';
+      break;
+    case 'Rare':
+      rankImage = 'rarity-normal';
+      break;
+    case 'Super Rare':
+      rankImage = 'rarity-high';
+      break;
+    default:
+      rankImage = 'rarity-low';
+      break;
+  }
   return (
       <div style={props.style}>
         <p style={styles.bottomTexText}>
@@ -12,8 +28,8 @@ export default function HorseTextureParamSire(props){
           <span style={styles.texRight}>
           <img src={require(`../../assets/texture_icons/${textureName}.png`)} style={styles.bottomIconImg}/>
             &nbsp;&nbsp;{mapGeneToTextureName(props.gene)[props.num]}
-            &nbsp;<img src={require('../../assets/static_assets/rank-king.png')} style={styles.bottomRankImg}/>
-            &nbsp;<span style={styles.rarityTex}>rarity {mapTextureToRarity(textureName)}</span>
+            &nbsp;<img src={require(`../../assets/static_assets/${rankImage}.png`)} style={styles.bottomRankImg}/>
+            &nbsp;<span style={styles.rarityTex}>rarity {texRarity}</span>
           </span>
         </p>
       </div>

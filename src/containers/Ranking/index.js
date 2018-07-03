@@ -174,6 +174,7 @@ class Ranking extends Component{
   }
   renderRanking(){
     const self = this;
+    const prize = this.props.totalPrizeArray;
     switch (this.state.rankingType){
       case 'strength':
         const array = this.props.horseGeneArray ? this.props.horseGeneArray.map((elem,index) => {
@@ -195,7 +196,7 @@ class Ranking extends Component{
         return array.map((elem,index) => {
           const horse = this.props.horseIdToInfo.get(String(elem.id)) ? this.props.horseIdToInfo.get(String(elem.id)) : null;
           if(horse){
-            return <RankingModalHorse horseInfo={horse} rank={index + 1} key={'modal-rank-horse' + index}/>
+            return <RankingModalHorse horseInfo={horse} totalPrize={prize.get(index).toNumber()} rank={index + 1} key={'modal-rank-horse' + index}/>
           }else {
             getHorseData(elem.id).then(horse => self.props.getHorse(horse));
             return <img
@@ -224,7 +225,7 @@ class Ranking extends Component{
         return totalPrizeArray.map((elem,index) => {
           const horse = this.props.horseIdToInfo.get(String(elem.id)) ? this.props.horseIdToInfo.get(String(elem.id)) : null;
           if(horse){
-            return <RankingModalHorse horseInfo={horse} rank={index + 1} key={'modal-rank-horse' + index}/>
+            return <RankingModalHorse horseInfo={horse} totalPrize={elem.prize} rank={index + 1} key={'modal-rank-horse' + index}/>
           }else {
             return <img
                 width="60px"
@@ -251,7 +252,7 @@ class Ranking extends Component{
         return winCountArray.map((elem,index) => {
           const horse = this.props.horseIdToInfo.get(String(elem.id)) ? this.props.horseIdToInfo.get(String(elem.id)) : null;
           if(horse){
-            return <RankingModalHorse horseInfo={horse} rank={index + 1} key={'modal-rank-horse' + index}/>
+            return <RankingModalHorse horseInfo={horse} totalPrize={prize.get(index).toNumber()} rank={index + 1} key={'modal-rank-horse' + index}/>
           }else{
             getHorseData(elem.id).then(horse => self.props.getHorse(horse));
             return(<img

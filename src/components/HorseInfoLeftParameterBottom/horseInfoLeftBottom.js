@@ -17,15 +17,6 @@ export const horseInfoLeftBottom = {
     width: '20px',
     height: '20px'
   },
-  rarity: {
-    position: 'absolute',
-    width: '100%',
-    height: '20px',
-    textAlign: 'left',
-    top: '220px',
-    fontSize: '15px',
-    lineHeight: '20px',
-  },
   bottomTextureName: {
     width: '100%',
     height: '305px',

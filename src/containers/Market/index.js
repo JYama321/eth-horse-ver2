@@ -135,6 +135,9 @@ class Market extends Component{
                 />
             )
           }else{
+            getHorseData(elem.id).then((result) => {
+              self.props.getHorse(result);
+            });
             return(
                 <img
                     key={'loading-'+index}
@@ -183,6 +186,9 @@ class Market extends Component{
                 />
             )
           } else {
+            getHorseData(elem.id).then((result) => {
+              self.props.getHorse(result);
+            });
             return (
                 <img
                     key={'loading-' + index}
@@ -203,6 +209,7 @@ class Market extends Component{
 
   render () {
     const { sortType } = this.props;
+    console.log(sortType)
     return (
         <div style={styles.outerContainer}>
           <div style={styles.innerContainer}>

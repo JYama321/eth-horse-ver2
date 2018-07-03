@@ -13,6 +13,7 @@ class HorseInfoLeft extends Component{
     const gene = this.props.horseInfo[1].c.join(',').replace(/,/g,'');
     const sireIndex = this.props.horseInfo[6].toNumber();
     const raceIndex = this.props.horseInfo[7].toNumber();
+    const mateRaceIndex = Math.ceil((this.props.horseInfo[6].toNumber() + this.props.horseInfo[7].toNumber()) / 10);
     return (
         <div style={horseInfoLeftStyle.outerContainer}>
           <div style={horseInfoLeftStyle.top}>
@@ -28,6 +29,7 @@ class HorseInfoLeft extends Component{
           <div style={horseInfoLeftStyle.bottom}>
             <HorseInfoLeftBottom
                 gene={gene}
+                mateRaceIndex={mateRaceIndex}
             />
           </div>
         </div>

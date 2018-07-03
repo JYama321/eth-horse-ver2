@@ -8,7 +8,8 @@ import {returnRarity} from "../../utils/mapHorseInfoToRarity";
 class RankingModalHorse extends Component{
   static propTypes = {
     horseInfo: PropTypes.array.isRequired,
-    rank: PropTypes.number.isRequired
+    rank: PropTypes.number.isRequired,
+    totalPrize: PropTypes.number.isRequired
   };
   rankHorseBack(rank){
     switch (rank){
@@ -99,6 +100,7 @@ class RankingModalHorse extends Component{
     const slicedGene = gene.slice(gene.length - 15, gene.length);
     const winCount = this.props.horseInfo[3].toNumber();
     const strength = horseStatus(slicedGene).powerTotal;
+    const totalPrize =this.props.totalPrize;
     const {rank} = this.props;
     const horseBack = this.rankHorseBack(rank);
     const mateRaceIndex = Math.ceil((this.props.horseInfo[6].toNumber() + this.props.horseInfo[7].toNumber()) / 10);
@@ -118,7 +120,7 @@ class RankingModalHorse extends Component{
             {winCount}
           </div>
           <div style={rankStyles.totalPrizeContainer}>
-            {strength}
+            {totalPrize}
           </div>
           <div style={rankStyles.rarityContainer}>
             {this.renderStars(Math.ceil(rarity / 2),rarity)}

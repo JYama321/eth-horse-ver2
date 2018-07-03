@@ -5,7 +5,7 @@ import {
   LOAD_WIN_COUNT_ARRAY_SUCCESS, LOAD_HORSE_GENE_ARRAY_SUCCESS,
   LOAD_HORSE_TOTAL_PRIZE_ARRAY_SUCCESS, GET_SIRE_PRICES_ARRAY,
   GET_SIRE_HORSES, GET_SHUFFLE_TICKET_NUM, GET_SHUFFLE_ALL_TICKET_NUM,
-  GET_ON_SALE_HORSE_SUCCESS
+  GET_ON_SALE_HORSE_SUCCESS, GET_SALE_HORSE_PRICES_SUCCESS
 } from "./actionTypes";
 
 export const getWantedRaces = (array) => ({
@@ -90,4 +90,9 @@ export const getSireHorses = (array) => ({
 export const getOnSaleHorsesArray = (horses) => ({
   type: GET_ON_SALE_HORSE_SUCCESS,
   data: horses
+});
+
+export const getSaleHorsePrices = (array) => ({
+  type: GET_SALE_HORSE_PRICES_SUCCESS,
+  data: array
 });

@@ -64,6 +64,7 @@ class MyPageStatus extends Component{
   }
   renderTrainTicket(){
     const trainTicketNum = this.props.trainTicketNum > 2 ? 2 : this.props.trainTicketNum;
+    console.log(trainTicketNum)
     let ticketCard = [];
     for(var i=0;i<trainTicketNum;i++){
       ticketCard.push(<TicketCard className='trainTicket' key={i + '-train-ticket'}/>)

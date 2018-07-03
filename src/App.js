@@ -35,9 +35,10 @@ import {
   getWinCountArray,
   getSirePrices,
   getSireHorses,
-  getOnSaleHorsesArray
+  getOnSaleHorsesArray,
+  getSaleHorsePrices
 } from './actions'
-const address = '0xf204a4ef082f5c04bb89f7d5e6568b796096735a';
+const address = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
 import {
   getWantedRaceArray,
   getBettingRaceArray,
@@ -52,7 +53,8 @@ import {
   getHorseTotalPrizeArray,
   getSirePricesArray,
   getSireHorsesArray,
-  getOnSaleHorses
+  getOnSaleHorses,
+  getHorsePrices
 } from './utils/eth-function'
 import {
   selectBalance
@@ -81,6 +83,7 @@ class App extends Component {
     const totalPrizeArray = await getHorseTotalPrizeArray();
     const winCountArray = await getHorseWinCountArray();
     const geneArray = await getGeneArray();
+    const priceArray = await getHorsePrices();
     const sirePrices = await getSirePricesArray();
     const sireArray = await getSireHorsesArray();
     const saleHorseArray = await getOnSaleHorses();
@@ -96,6 +99,7 @@ class App extends Component {
     this.props.getBettingArray(bettingArray);
     this.props.getCheckedArray(checkedArray);
     this.props.getMyRace(myRaceArray);
+    this.props.getHorsePrices(priceArray);
     const trainTicketNum = await getTrainTicketNum(coinbase);
     const shuffleTicketNum = await getShuffleTicketNum(coinbase);
     const shuffleAllTicketNum = await getShuffleAllTicketNum(coinbase);
@@ -220,7 +224,8 @@ const mapDispatchToProps = (dispatch) => ({
   getGeneArray: array => dispatch(getHorseGeneArray(array)),
   getSirePrices: array => dispatch(getSirePrices(array)),
   getSireHorses: array => dispatch(getSireHorses(array)),
-  getSaleHorses: array => dispatch(getOnSaleHorsesArray(array))
+  getSaleHorses: array => dispatch(getOnSaleHorsesArray(array)),
+  getHorsePrices: array => dispatch(getSaleHorsePrices(array))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
