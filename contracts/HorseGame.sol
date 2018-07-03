@@ -563,118 +563,118 @@ contract HorseBet is HorseGameBase{
 }
 
 
-contract HorseBid is HorseBet{
+//contract HorseBid is HorseBet{
+//
+//    struct Bid{
+//        uint horseId;
+//        uint closeTime;
+//        uint minPrice;
+//        uint currentMax;
+//        address currentMaxUser;
+//        address host;
+//        mapping(address => uint) participantsToBidPrice;
+//        bool isClosed;
+//    }
+//    uint[] horsesOnBid; //horsesOnSale
+//    mapping(uint => uint) public tokenIdToBidIndex; //token Id to BidIndex
+//
+//    mapping(uint => Bid) tokenIdToAuction;
+//    mapping(uint => address[]) tokenIdToAuctionParticipants;
+//
+//    function horseTokenNotToAuction(uint _tokenId) public{
+//        Horse storage horse = horses[_tokenId.sub(1)];
+//        require(horse.isOnAuction);
+//        require(tokenOwner[_tokenId] == msg.sender);
+//        delete tokenIdToAuction[_tokenId];
+//        uint onBidIndex = tokenIdToBidIndex[_tokenId];
+//        uint lastIndex = horsesOnBid.length.sub(1);
+//        uint lastToken = horsesOnBid[lastIndex];
+//
+//        horsesOnBid[onBidIndex] = horsesOnBid[lastIndex];
+//        horseOnMinBidPrices[_tokenId.sub(1)] = 0;
+//        tokenIdToBidIndex[lastToken] = onBidIndex;
+//        delete tokenIdToBidIndex[_tokenId];
+//        horsesOnBid.length--;
+//        horse.isOnAuction = false;
+//    }
+//
+//    function horseTokenToAuction(uint _tokenId, uint _minPrice, uint _duration) external{
+//        Horse storage horse = horses[_tokenId.sub(1)];
+//        Bid memory bid = Bid({
+//            horseId: _tokenId,
+//            closeTime: now + _duration,
+//            minPrice: _minPrice,
+//            currentMax: 0,
+//            currentMaxUser: msg.sender,
+//            host: msg.sender,
+//            isClosed: false
+//            });
+//        if(horse.isOnSale){
+//            horseTokenNotToAuction(_tokenId);
+//            horseOnSalePrices[_tokenId.sub(1)] = 0;
+//        }
+//        horse.isOnAuction = true;
+//        horseOnMinBidPrices[_tokenId.sub(1)] = _minPrice;
+//        tokenIdToAuction[_tokenId] = bid;
+//        tokenIdToBidIndex[_tokenId] = horsesOnBid.push(_tokenId).sub(1);
+//        emit HorseOnSale(msg.sender,_minPrice,_tokenId,"auction", now);
+//    }
+//
+//    function changeAuctionStatus(uint _addTime,uint _price, uint _tokenId) external{
+//        Horse storage horse = horses[_tokenId.sub(1)];
+//        require(horse.isOnAuction);
+//        Bid storage bid = tokenIdToAuction[_tokenId];
+//        require(!bid.isClosed);
+//        require(bid.horseId == _tokenId);
+//        require(tokenIdToAuctionParticipants[_tokenId].length == 0);
+//        bid.minPrice = _price;
+//        bid.closeTime += _addTime;
+//    }
+//
+//
+//    function applyBid(uint _tokenId) external payable{
+//        Horse storage horse = horses[_tokenId.sub(1)];
+//        require(horse.isOnAuction);
+//        Bid storage bid = tokenIdToAuction[_tokenId];
+//        require(!bid.isClosed);
+//        require(bid.minPrice <= msg.value);
+//        require(bid.host != msg.sender);
+//        tokenIdToAuctionParticipants[_tokenId].push(msg.sender);
+//        bid.participantsToBidPrice[msg.sender] += msg.value;
+//        if(bid.currentMax < bid.participantsToBidPrice[msg.sender]){
+//            bid.currentMax = bid.participantsToBidPrice[msg.sender];
+//            bid.currentMaxUser = msg.sender;
+//        }
+//    }
+//
+//    function withdrawBid(uint _tokenId) external {
+//        Horse storage horse = horses[_tokenId.sub(1)];
+//        horse.isOnAuction = false;
+//        Bid storage bid = tokenIdToAuction[_tokenId];
+//        require(bid.isClosed);
+//        address sender;
+//        uint payback;
+//        if(msg.sender == bid.currentMaxUser){
+//            transfer(bid.host,msg.sender,_tokenId);
+//            emit Transfer(bid.host,msg.sender,_tokenId, now);
+//        }else if(msg.sender == bid.host){
+//            payback = bid.currentMax;
+//            bid.currentMax = 0;
+//            bid.host.transfer(payback);
+//        }else{
+//            for(uint i=0;i<tokenIdToAuctionParticipants[_tokenId].length;i++){
+//                if(msg.sender == tokenIdToAuctionParticipants[_tokenId][i]){
+//                    sender = msg.sender;
+//                    payback = bid.participantsToBidPrice[sender];
+//                    bid.participantsToBidPrice[sender] = 0;
+//                }
+//            }
+//            sender.transfer(payback);
+//        }
+//    }
+//}
 
-    struct Bid{
-        uint horseId;
-        uint closeTime;
-        uint minPrice;
-        uint currentMax;
-        address currentMaxUser;
-        address host;
-        mapping(address => uint) participantsToBidPrice;
-        bool isClosed;
-    }
-    uint[] horsesOnBid; //horsesOnSale
-    mapping(uint => uint) public tokenIdToBidIndex; //token Id to BidIndex
-
-    mapping(uint => Bid) tokenIdToAuction;
-    mapping(uint => address[]) tokenIdToAuctionParticipants;
-
-    function horseTokenNotToAuction(uint _tokenId) public{
-        Horse storage horse = horses[_tokenId.sub(1)];
-        require(horse.isOnAuction);
-        require(tokenOwner[_tokenId] == msg.sender);
-        delete tokenIdToAuction[_tokenId];
-        uint onBidIndex = tokenIdToBidIndex[_tokenId];
-        uint lastIndex = horsesOnBid.length.sub(1);
-        uint lastToken = horsesOnBid[lastIndex];
-
-        horsesOnBid[onBidIndex] = horsesOnBid[lastIndex];
-        horseOnMinBidPrices[_tokenId.sub(1)] = 0;
-        tokenIdToBidIndex[lastToken] = onBidIndex;
-        delete tokenIdToBidIndex[_tokenId];
-        horsesOnBid.length--;
-        horse.isOnAuction = false;
-    }
-
-    function horseTokenToAuction(uint _tokenId, uint _minPrice, uint _duration) external{
-        Horse storage horse = horses[_tokenId.sub(1)];
-        Bid memory bid = Bid({
-            horseId: _tokenId,
-            closeTime: now + _duration,
-            minPrice: _minPrice,
-            currentMax: 0,
-            currentMaxUser: msg.sender,
-            host: msg.sender,
-            isClosed: false
-            });
-        if(horse.isOnSale){
-            horseTokenNotToAuction(_tokenId);
-            horseOnSalePrices[_tokenId.sub(1)] = 0;
-        }
-        horse.isOnAuction = true;
-        horseOnMinBidPrices[_tokenId.sub(1)] = _minPrice;
-        tokenIdToAuction[_tokenId] = bid;
-        tokenIdToBidIndex[_tokenId] = horsesOnBid.push(_tokenId).sub(1);
-        emit HorseOnSale(msg.sender,_minPrice,_tokenId,"auction", now);
-    }
-
-    function changeAuctionStatus(uint _addTime,uint _price, uint _tokenId) external{
-        Horse storage horse = horses[_tokenId.sub(1)];
-        require(horse.isOnAuction);
-        Bid storage bid = tokenIdToAuction[_tokenId];
-        require(!bid.isClosed);
-        require(bid.horseId == _tokenId);
-        require(tokenIdToAuctionParticipants[_tokenId].length == 0);
-        bid.minPrice = _price;
-        bid.closeTime += _addTime;
-    }
-
-
-    function applyBid(uint _tokenId) external payable{
-        Horse storage horse = horses[_tokenId.sub(1)];
-        require(horse.isOnAuction);
-        Bid storage bid = tokenIdToAuction[_tokenId];
-        require(!bid.isClosed);
-        require(bid.minPrice <= msg.value);
-        require(bid.host != msg.sender);
-        tokenIdToAuctionParticipants[_tokenId].push(msg.sender);
-        bid.participantsToBidPrice[msg.sender] += msg.value;
-        if(bid.currentMax < bid.participantsToBidPrice[msg.sender]){
-            bid.currentMax = bid.participantsToBidPrice[msg.sender];
-            bid.currentMaxUser = msg.sender;
-        }
-    }
-
-    function withdrawBid(uint _tokenId) external {
-        Horse storage horse = horses[_tokenId.sub(1)];
-        horse.isOnAuction = false;
-        Bid storage bid = tokenIdToAuction[_tokenId];
-        require(bid.isClosed);
-        address sender;
-        uint payback;
-        if(msg.sender == bid.currentMaxUser){
-            transfer(bid.host,msg.sender,_tokenId);
-            emit Transfer(bid.host,msg.sender,_tokenId, now);
-        }else if(msg.sender == bid.host){
-            payback = bid.currentMax;
-            bid.currentMax = 0;
-            bid.host.transfer(payback);
-        }else{
-            for(uint i=0;i<tokenIdToAuctionParticipants[_tokenId].length;i++){
-                if(msg.sender == tokenIdToAuctionParticipants[_tokenId][i]){
-                    sender = msg.sender;
-                    payback = bid.participantsToBidPrice[sender];
-                    bid.participantsToBidPrice[sender] = 0;
-                }
-            }
-            sender.transfer(payback);
-        }
-    }
-}
-
-contract HorseGame is HorseBid{
+contract HorseGame is HorseBet{
     uint public trainTicketPrice;
     uint public dressUpTicketPrice;
     uint public shuffleDressUpTicketPrice;
@@ -766,7 +766,7 @@ contract HorseGame is HorseBid{
         require((now - trainLottery[msg.sender]) > 24 hours);
         lotteryNum += 1;
         trainLottery[msg.sender] = now;
-        uint _seed = uint(keccak256(lottery,Numblockhash(block.number-1)));
+        uint _seed = uint(keccak256(lotteryNum,blockhash(block.number-1)));
         if((_seed % 100) < 5){
             trainTicketNum[msg.sender] += 1;
             emit Lottery(msg.sender,true,'train', now);
@@ -822,3 +822,4 @@ contract HorseGame is HorseBid{
         emit GiftHorseLottery(msg.sender,_tokenId);
     }
 }
+

@@ -87,7 +87,7 @@ class App extends Component {
     const sirePrices = await getSirePricesArray();
     const sireArray = await getSireHorsesArray();
     const saleHorseArray = await getOnSaleHorses();
-
+    console.log(myHorseArray);
     this.props.getSaleHorses(saleHorseArray);
     this.props.getSireHorses(sireArray);
     this.props.getSirePrices(sirePrices);
