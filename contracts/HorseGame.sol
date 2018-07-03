@@ -394,10 +394,12 @@ contract HorseBet is HorseGameBase{
 
     function checkRaceResult(uint _raceId) external {
         Race storage race = races[_raceId.sub(1)];
-        require(!race.isChecked && raceStartTime[_raceId] > now);
+        require(!race.isChecked && raceStartTime[_raceId] < now);
         Horse storage horse1 = horses[race.horseOne.sub(1)];
         Horse storage horse2 = horses[race.horseTwo.sub(1)];
-        uint winnerIndex = raceFunction.generateWinnerIndex(race.nonce,horse1.genes,horse2.genes);
+        uint winnerIndex = raceFunction.generateWinnerIndex(
+            race.nonce,horse1.genes,horse2.genes
+        );
         uint winnerId;
         if(winnerIndex == 0){
             race.winnerHorseId = race.horseOne;
@@ -410,7 +412,7 @@ contract HorseBet is HorseGameBase{
         checkedRaces[_raceId.sub(1)] = true;
         bettingRaces[_raceId.sub(1)] = false;
         uint hostPayback =
-        race.deposit + race.totalBet - race.minWinnerPrize - race.totalBet * race.winnerPrizeFromBet / 100 - race.horseIdToBetAmount[winnerId] * race.horseIdToBetRate[winnerId];
+        race.deposit + race.totalBet - race.minWinnerPrize - race.totalBet * race.winnerPrizeFromBet / 100 - race.horseIdToBetAmount[winnerId] * race.horseIdToBetRate[winnerId] / 100;
         race.host.transfer(hostPayback);
     }
 
@@ -421,7 +423,7 @@ contract HorseBet is HorseGameBase{
         race.horseIdToBetRate[race.horseTwo] = _rate2;
         race.isBetting = true;
         bettingRaces[_raceId.sub(1)] = true;
-        raceStartTime[_raceId] = now + 30 minutes;
+        raceStartTime[_raceId] = now + 5 minutes;
     }
 
     function withdrawPayback(uint _raceId) external{
@@ -472,7 +474,7 @@ contract HorseBet is HorseGameBase{
         RaceParticipant memory person = RaceParticipant({
             betHorseId: _horseId,
             betPrice: msg.value,
-            expectedReturn: race.horseIdToBetRate[_horseId] * msg.value
+            expectedReturn: (race.horseIdToBetRate[_horseId] * msg.value) / 100
             });
 
         race.participantInfo[msg.sender] = person;
@@ -673,9 +675,9 @@ contract HorseBid is HorseBet{
 }
 
 contract HorseGame is HorseBid{
-    uint trainTicketPrice;
-    uint dressUpTicketPrice;
-    uint shuffleDressUpTicketPrice;
+    uint public trainTicketPrice;
+    uint public dressUpTicketPrice;
+    uint public shuffleDressUpTicketPrice;
 
 
     mapping(address => uint) public trainTicketNum; //ticket number
@@ -764,7 +766,7 @@ contract HorseGame is HorseBid{
         require((now - trainLottery[msg.sender]) > 24 hours);
         lotteryNum += 1;
         trainLottery[msg.sender] = now;
-        uint _seed = uint(keccak256(blockhash(block.number-1),lotteryNum));
+        uint _seed = uint(keccak256(lottery,Numblockhash(block.number-1)));
         if((_seed % 100) < 5){
             trainTicketNum[msg.sender] += 1;
             emit Lottery(msg.sender,true,'train', now);
@@ -776,7 +778,7 @@ contract HorseGame is HorseBid{
         require((now - dressUpLottery[msg.sender]) > 24 hours);
         lotteryNum += 1;
         dressUpLottery[msg.sender] = now;
-        uint _seed = uint(keccak256(blockhash(block.number-1),lotteryNum));
+        uint _seed = uint(keccak256(lotteryNum,blockhash(block.number-1)));
         if((_seed % 50) <= 2){
             dressUpTicketNum[msg.sender] += 1;
             emit Lottery(msg.sender,true,'dress-up', now);
@@ -788,7 +790,7 @@ contract HorseGame is HorseBid{
         require((now - shuffleDressUpLottery[msg.sender]) > 24 hours);
         lotteryNum += 1;
         shuffleDressUpLottery[msg.sender] = now;
-        uint _seed = uint(keccak256(blockhash(block.number-1),lotteryNum));
+        uint _seed = uint(keccak256(lotteryNum,blockhash(block.number-1)));
         if((_seed % 100) <= 5){
             shuffleDressUpTicketNum[msg.sender] += 1;
             emit Lottery(msg.sender,true,'s-dress-up', now);

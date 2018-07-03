@@ -43,11 +43,11 @@ contract RaceFunction{
     }
 
     function _returnStrength(uint256 _gene) internal pure returns (uint256) {
-        uint info1 = _gene % 100;
-        uint info2 = _gene % 10000 / 100;
-        uint info3 = _gene % 1000000 / 10000;
-        uint info4 = _gene % 100000000 / 1000000;
-        uint info5 = _gene % 10000000000 / 100000000;
+        uint info1 = _gene % 1000;
+        uint info2 = _gene % 100000 / 100;
+        uint info3 = _gene % 10000000 / 10000;
+        uint info4 = _gene % 1000000000 / 1000000;
+        uint info5 = _gene % 100000000000 / 100000000;
         return info1 + info2 + info3 + info4 + info5;
     }
 
@@ -56,6 +56,5 @@ contract RaceFunction{
     {
         return(_returnStrength(_gene1),_returnStrength(_gene2));
     }
-
 
 }
