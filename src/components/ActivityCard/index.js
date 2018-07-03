@@ -34,7 +34,7 @@ class ActivityCard extends Component{
                     style={cardImg}
                     src={saleLog}
                 />
-                <p style={activityCardP}>get horse</p>
+                <p style={activityCardP}>Buy horse</p>
                 <p style={eventDetail}>Sell <Link to={'/horses/' + args._tokenId}>Horse</Link> from {args._from} </p>
               </div>);
         } else {
@@ -100,7 +100,9 @@ class ActivityCard extends Component{
               <p style={activityCardP}>{title}</p>
               <p style={eventDetail}>
                 Bet <Link to={'/races/' + args._raceId.toNumber()}>Race</Link>
-                {window.web3.fromWei(args._betValue, 'ether').toFixed(3)} ETH
+                {window.web3.fromWei(args._betValue, 'ether').toFixed(3)} ETH,
+                &nbsp;
+                to <Link to={'/horses/' + args._horseId.toNumber()}>Horse</Link>
                 </p>
             </div>
         );

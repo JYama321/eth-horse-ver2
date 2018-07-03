@@ -1,9 +1,7 @@
 import React,{Component} from 'react';
 import HorseImage from '../HorseImage/'
 import {styles,STYLE} from './styles';
-import rankKing from '../../assets/static_assets/rank-king.png'
 import {horseStatus} from "../../utils/functions";
-import icon from '../../assets/texture_icons/g.png'
 import PropTypes from 'prop-types'
 import {returnClassName, returnRarity} from "../../utils/mapHorseInfoToRarity";
 

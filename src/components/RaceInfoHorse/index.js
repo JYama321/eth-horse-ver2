@@ -6,10 +6,16 @@ import {
   getHorseData,
   getBetInfo,
   getOdds,
-  betRace
+  betRace,
+  getParticipantPantInfo,
+  withdrawPayback,
+  withdrawPrize,
+  getTokenOwner
 } from "../../utils/eth-function";
 import {horseStatus} from "../../utils/functions";
 const loadingGif = require('../../assets/static_assets/umaloading.gif');
+import Button from '@material-ui/core/Button'
+import winImage from '../../assets/static_assets/rarity-high.png'
 
 
 class RaceInfoHorse extends Component {
@@ -30,19 +36,25 @@ class RaceInfoHorse extends Component {
       odds: 0.00,
       isSomeoneBet: false,
       betAmount: 0,
-      maxBet: 0
+      maxBet: 0,
+      betHorseId: 0,
+      betPrice: 0,
+      expectedReturn: 0,
+      isOwner: false
     }
   }
   componentDidMount(){
     const self = this;
+    const raceId = this.props.race[0].toNumber();
     if(!this.props.horseInfo.get(String(this.props.horseId))){
       getHorseData(this.props.horseId).then(function(result){
         self.props.getHorseInfo(result)
       })
     }
     if(this.props.isBetting){
+      const raceId = this.props.race[0].toNumber();
       try {
-        getBetInfo(this.props.race[0].toNumber()).then((result) => {
+        getBetInfo(raceId).then((result) => {
           if(self.props.horseNum === 1){
             const max = window.web3.fromWei(result[0], 'ether').toFixed(3);
             const betAmount1 = window.web3.fromWei(result[1], 'ether').toFixed(3);
@@ -63,12 +75,28 @@ class RaceInfoHorse extends Component {
         });
       }catch(e){
         self.setState({
-           isSomeoneBet: false
+          isSomeoneBet: false
         })
       }
-      getOdds(this.props.race[0].toNumber()).then((result) => {
+      getOdds(raceId).then((result) => {
         self.setState({
           odds: result[self.props.horseNum-1].toNumber() / 100,
+        })
+      });
+    }
+    if(this.props.isBetting || this.props.race[12]){
+      getParticipantPantInfo(raceId).then(result =>{
+        self.setState({
+          betHorseId: result[0].toNumber(),
+          betPrice: window.web3.fromWei(result[1], 'ether').toFixed(3),
+          expectedReturn: window.web3.fromWei(result[2],'ether').toFixed(3)
+        })
+      })
+    }
+    if(this.props.race[12]){
+      getTokenOwner(this.props.horseId).then(result => {
+        self.setState({
+          isOwner: result
         })
       })
     }
@@ -81,13 +109,25 @@ class RaceInfoHorse extends Component {
 
   renderHorse(){
     const {odds} = this.state;
+    const isChecked = this.props.race[12];
+    const winnerId = this.props.race[8].toNumber();
+    const raceId = this.props.race[0].toNumber();
+    const minWinnerPrize = window.web3.fromWei(this.props.race[6],'ether').toFixed(3);
+    const betPrize = window.web3.fromWei(this.props.race[10],'ether').toFixed(3) * this.props.race[7].toNumber() / 100;
     if(this.props.horseInfo.get(String(this.props.horseId))){
       const horse = this.props.horseInfo.get(String(this.props.horseId));
       const gene = horse[1].c.join(',').replace(/,/g,'');
       return(
           <div style={raceInfoHorseStyle.horseImageContainer} className='race-info-horse-back'>
+            {isChecked && winnerId === horse[0].toNumber() ? <img src={winImage} style={raceInfoHorseStyle.winImage}/> : null}
             <p style={raceInfoHorseStyle.horseName}>{horse[2]}</p>
             <HorseImage type={'race-horse'} horseGene={gene}/>
+            {this.state.isOwner && (isChecked && winnerId === horse[0].toNumber()) ? <Button style={{
+              position: 'absolute',
+              bottom: '56px',
+              left: '50%',
+              transform: 'translateX(-50%)'
+            }} color='secondary' onClick={()=>withdrawPrize(raceId)}>Withdraw Prize {Number(minWinnerPrize) + Number(betPrize)} ETH</Button> : null}
             <p style={raceInfoHorseStyle.powerTotal} className='race-horse-info-back'>power total: {this.returnStatus(gene).powerTotal}</p>
             <p style={raceInfoHorseStyle.odds} className='race-horse-info-back'>odds: {odds !== 0 ? odds : '？？？'}</p>
           </div>
@@ -112,21 +152,48 @@ class RaceInfoHorse extends Component {
   }
   onChangeBetNum(e){
     this.setState({
-      betNum: e.target.value
+      betNum: e.target.value * 100
     })
   }
   upBetNum(){
     const betNum = this.state.betNum;
     this.setState({
-      betNum: (betNum*100 + 1) / 100
+      betNum: betNum + 1
     })
   }
   downBetNum(){
     if(this.state.betNum > 0.01){
       const betNum = this.state.betNum;
       this.setState({
-        betNum: (betNum*100 - 1) / 100
+        betNum: betNum - 1
       })
+    }
+  }
+  renderBettingInfo(){
+    const isChecked = this.props.race[12];
+    const raceId = this.props.race[0].toNumber();
+    const winnerId = this.props.race[8].toNumber();
+    if(this.state.betHorseId === this.props.horseId && !isChecked){
+      return(
+          <div style={raceInfoHorseStyle.participantInfo}>
+            <p>bet: {this.state.betPrice} ETH</p>
+            <p>expectedReturn: {this.state.expectedReturn} ETH</p>
+          </div>
+      )
+    }else if((isChecked && this.state.betHorseId === winnerId) && (this.state.betHorseId === this.props.horseId)){
+      return(
+          <div style={raceInfoHorseStyle.participantInfo}>
+            <p>bet: {this.state.betPrice} ETH</p>
+            <p style={raceInfoHorseStyle.winInfo}>You won: {this.state.expectedReturn} ETH <Button onClick={()=>withdrawPayback(raceId)} color='secondary'>Withdraw</Button></p>
+          </div>
+      )
+    }else if((isChecked && this.state.betHorseId === winnerId) && (this.state.betHorseId === this.props.horseId)){
+      return(
+          <div style={raceInfoHorseStyle.participantInfo}>
+            <p>bet: {this.state.betPrice} ETH</p>
+            <p style={raceInfoHorseStyle.loseInfo}>You Lose</p>
+          </div>
+      )
     }
   }
   render(){
@@ -148,6 +215,7 @@ class RaceInfoHorse extends Component {
               <span style={raceInfoHorseStyle.currentMaxBet}> {this.state.maxBet} ETH Remaining</span>
             </div>
           </div>
+          {this.renderBettingInfo()}
           <div style={raceInfoHorseStyle.betAction}>
             <button
                 style={raceInfoHorseStyle.changeBetNumButton}
@@ -157,7 +225,7 @@ class RaceInfoHorse extends Component {
             <input
                 type="number"
                 step="0.01"
-                value={this.state.betNum}
+                value={this.state.betNum / 100}
                 style={raceInfoHorseStyle.inputBetNum}
                 onChange={e => this.onChangeBetNum(e)}
                 min="0.01"
@@ -167,7 +235,7 @@ class RaceInfoHorse extends Component {
                 onClick={()=>this.upBetNum()}
             >▶︎</button>&nbsp;
             ETH
-            <button style={raceInfoHorseStyle.betButton} className='bet-button' onClick={()=>betRace(horseId,raceId,this.state.betNum)}>
+            <button style={raceInfoHorseStyle.betButton} className='bet-button' onClick={()=>betRace(raceId,horseId,this.state.betNum / 100)}>
               bet
             </button>
           </div>

@@ -32,6 +32,26 @@ class RaceInfo extends Component {
       })
     }
   }
+  renderWinnerPrize(isChecked,raceId){
+    const race = this.props.raceInfo.get(raceId);
+    if(isChecked){
+      const minWinnerPrize = window.web3.fromWei(race[6],'ether').toFixed(3);
+      const betPrize = window.web3.fromWei(race[10],'ether').toFixed(3) * race[7].toNumber() / 100;
+      return(
+          <div style={raceInfoStyle.winnerPrize}>
+            Winner Prize&nbsp;
+            {Number(minWinnerPrize) + Number(betPrize)} ETH
+          </div>
+      )
+    }else{
+      return(
+          <div style={raceInfoStyle.winnerPrize}>
+            Winner Prize&nbsp;
+            {window.web3.fromWei(race[6],'ether').toFixed(3)} ETH + {race[7].toNumber()} % of total bet
+          </div>
+      )
+    }
+  }
   render(){
     const raceId = this.props.match.params.id;
     const isWanted = this.props.wantedRaces[Number(raceId)-1];
@@ -39,16 +59,14 @@ class RaceInfo extends Component {
     const isChecked = this.props.checkedRaces[Number(raceId)-1];
     if(this.props.raceInfo.get(raceId)){
       const race = this.props.raceInfo.get(raceId);
+      const isChecked = race[12];
       return(
           <div style={raceInfoStyle.outerContainer}>
             <div style={raceInfoStyle.innerContainer}>
               <div style={raceInfoStyle.raceName}>
                 {race[5]}
               </div>
-              <div style={raceInfoStyle.winnerPrize}>
-                Winner Prize&nbsp;
-                {window.web3.fromWei(race[6],'ether').toNumber().toFixed(2)} ETH + {race[7].toNumber()} % of total bet
-              </div>
+              {this.renderWinnerPrize(isChecked,raceId)}
               <div style={raceInfoStyle.appliedHorseContainer}>
                 <RaceInfoHorse
                     horseInfo={this.props.horseInfo} horseId={race[2].toNumber()} horseNum={1} getHorseInfo={this.props.getHorseInfo}

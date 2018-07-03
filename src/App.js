@@ -37,12 +37,12 @@ import {
   getSireHorses,
   getOnSaleHorsesArray
 } from './actions'
-const address = '0x9d075ae44d859191c121d7522da0cc3b104b8837';
+const address = '0xf204a4ef082f5c04bb89f7d5e6568b796096735a';
 import {
   getWantedRaceArray,
   getBettingRaceArray,
   getCheckedRaceArray,
-  getMyRaceArrray,
+  getMyRaceArray,
   getTrainTicketNum,
   getShuffleTicketNum,
   getShuffleAllTicketNum,
@@ -76,7 +76,7 @@ class App extends Component {
     const wantedArray = await getWantedRaceArray();
     const bettingArray = await getBettingRaceArray();
     const checkedArray = await getCheckedRaceArray();
-    const myRaceArray = await getMyRaceArrray();
+    const myRaceArray = await getMyRaceArray();
     const myHorseArray = await getMyHorsesArray();
     const totalPrizeArray = await getHorseTotalPrizeArray();
     const winCountArray = await getHorseWinCountArray();

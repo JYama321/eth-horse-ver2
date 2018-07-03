@@ -84,8 +84,8 @@ class RaceCard extends Component{
     }
   }
   render(){
-    const startTime = this.props.isBetting ? this.state.startTime : '？？？';
-    const currentState = new Date(this.state.dateNumber * 1000) < new Date(Date.now()) && this.props.isBetting ? 'check result' : this.props.currentState
+    const startTime = this.props.currentState === 'now betting' ? this.state.startTime : '？？？';
+    const currentState = (new Date(this.state.dateNumber * 1000) < new Date(Date.now()) && this.props.currentState === 'now betting') ? 'check result' : this.props.currentState;
     if(this.props.isMyRace){
       return(
           <div style={raceCardStyles.cardContainer}>
@@ -128,7 +128,7 @@ class RaceCard extends Component{
             <div style={raceCardStyles.raceInfoContainer}>
               <Link to={'/races/' + this.props.race[0].toNumber()}><p style={raceCardStyles.raceNameP}>{this.props.race[5]}</p></Link>
               <p style={raceCardStyles.winnerPrizeP}>Winner Prize:&nbsp;<b>{window.web3.fromWei(this.props.race[6],'ether').toNumber().toFixed(2)}</b> ETH + <b>{this.props.race[7].toNumber()}</b> % of total bet</p>
-              {this.renderCurrentStateButton(this.props.currentState)}
+              {this.renderCurrentStateButton(currentState)}
             </div>
             <div style={raceCardStyles.horseImgContainer}>
               <div style={raceCardStyles.horseContainer}>

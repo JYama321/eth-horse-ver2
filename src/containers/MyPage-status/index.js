@@ -38,10 +38,6 @@ class MyPageStatus extends Component{
     this.selectHorse = this.selectHorse.bind(this)
   }
 
-  componentDidMount(){
-    console.log('componentDidMount')
-  }
-
   componentWillReceiveProps(props,state){
     if(this.state.totalPage !== Math.ceil(props.ownedHorses.length / 6)){
       this.setState({
@@ -78,7 +74,7 @@ class MyPageStatus extends Component{
     const shuffleTicketNum = this.props.shuffleTicketNum > 2 ? 2 : this.props.shuffleTicketNum;
     let ticketCard = [];
     for(var i = 0;i<shuffleTicketNum;i++){
-      ticketCard.push(<TicketCard className='shuffleDressUpTicket' key={i + '-shuffle-ticket'}/>)
+      ticketCard.push(<TicketCard className='dressUpTicket' key={i + '-shuffle-ticket'}/>)
     }
     return ticketCard;
   }
@@ -86,7 +82,7 @@ class MyPageStatus extends Component{
     const shuffleAllTicketNum = this.props.shuffleAllTicketNum > 2 ? 2 : this.props.shuffleAllTicketNum;
     let ticketCard = [];
     for(var i = 0;i<shuffleAllTicketNum;i++){
-      ticketCard.push(<TicketCard className='dressUpTicket' key={i + '-shuffle-dress-up-ticket'} />)
+      ticketCard.push(<TicketCard className='shuffleDressUpTicket' key={i + '-shuffle-dress-up-ticket'} />)
     }
     return ticketCard;
   }

@@ -84,6 +84,7 @@ class Races extends Component{
     const wantedArray = this.props.wantedRaceArray;
     const bettingArray = this.props.bettingRaceArray;
     const checkedArray = this.props.checkedRaceArray;
+    console.log(wantedArray[index],bettingArray[index])
     if(wantedArray[index]){
       return 'now wanted'
     }else if(bettingArray[index]){

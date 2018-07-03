@@ -13,8 +13,18 @@ import {
   getTrainLottery,
   getShuffleLottery,
   getShuffleAllLottery,
-  getGiftHorseLottery
+  getGiftHorseLottery,
+  buyTrainTicket,
+  buyDressUpTicket,
+  buyShuffleDressUpTicket,
+  getTrainTicketPrice,
+  getDressUpTicketPrice,
+  getShuffleDressUpTicketPrice
 } from "../../utils/eth-function";
+import Modal from 'react-modal'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+Modal.setAppElement('#root');
 
 class Events extends Component{
   constructor(props){
@@ -24,7 +34,12 @@ class Events extends Component{
       trainLotteryTime: 0,
       shuffleLotteryTime: 0,
       shuffleAllLotteryTime: 0,
-      giftHorseLotteryTime: 0
+      giftHorseLotteryTime: 0,
+      isTicketNumModalOpen: false,
+      buyTicketNumber: 0,
+      trainTicketPrice: 0,
+      dressUpTicketPrice: 0,
+      shuffleDressUpTicketPrice: 0
     }
   }
   componentDidMount(){
@@ -51,6 +66,22 @@ class Events extends Component{
       const date = new Date(result.toNumber() * 1000 + 60 * 60 * 24 * 1000);
       self.setState({
         giftHorseLotteryTime: date
+      })
+    });
+    getTrainTicketPrice().then((result) => {
+      console.log(result.toNumber());
+      self.setState({
+        trainTicketPrice: window.web3.fromWei(result,'ether').toFixed(3)
+      })
+    });
+    getDressUpTicketPrice().then((result) => {
+      self.setState({
+        dressUpTicketPrice: window.web3.fromWei(result,'ether').toFixed(3)
+      })
+    });
+    getShuffleDressUpTicketPrice().then((result) => {
+      self.setState({
+        shuffleDressUpTicketPrice: window.web3.fromWei(result,'ether').toFixed(3)
       })
     })
   }
@@ -126,10 +157,73 @@ class Events extends Component{
       type: type
     })
   }
+  openTicketNumberModal(){
+    this.setState({
+      isTicketNumModalOpen: true
+    })
+  }
+  closeTicketNumModal(){
+    this.setState({
+      isTicketNumModalOpen: false
+    })
+  }
+
+  buyTickets(ticketNum) {
+    switch (this.state.type){
+      case 'dress-up':
+        buyDressUpTicket(ticketNum*this.state.dressUpTicketPrice);
+        break;
+      case 'shuffle-dress-up':
+        buyShuffleDressUpTicket(ticketNum*this.state.shuffleDressUpTicketPrice);
+        break;
+      case 'training':
+        buyTrainTicket(ticketNum*this.state.trainTicketPrice);
+        break;
+      default:
+        return;
+    }
+  }
+
+  changeBuyTicketNum(e){
+    this.setState({
+      buyTicketNumber: e.target.value
+    })
+  }
+  returnPrice(type){
+    switch (type){
+      case 'training':
+        return this.state.trainTicketPrice;
+      case 'dress-up':
+        return this.state.dressUpTicketPrice;
+      case 'shuffle-dress-up':
+        return this.state.shuffleDressUpTicketPrice;
+      default:
+        return 0;
+    }
+  }
+
   render(){
     const { type } = this.state;
     return (
         <div style={eventStyles.outerContainer}>
+          <Modal
+              isOpen={this.state.isTicketNumModalOpen}
+              onRequestClose={()=>this.closeTicketNumModal()}
+              style={eventStyles.modalStyle}
+          >
+            <div style={eventStyles.modalTopText}>
+              Choose Ticket Number you buy.
+            </div>
+            <TextField
+                type='number'
+                inputProps={{step: 1, min: 1}}
+                value={this.state.buyTicketNumber}
+                onChange={e=>this.changeBuyTicketNum(e)}
+            /> tickets x {this.returnPrice(type)} ETH
+            <Button color='primary' onClick={()=>this.buyTickets(this.state.buyTicketNumber)} >
+              Buy
+            </Button>
+          </Modal>
           <div style={eventStyles.innerContainer}>
             <img
                 src={gif}
@@ -137,33 +231,45 @@ class Events extends Component{
                 height="608px"
             />
             {this.renderTicket(type)}
-            {this.state.type ===' gift-horse' ? null : <button style={eventStyles.buyTicket} className='event-buy-ticket-back'>buy ticket</button>}
+            {this.state.type ===' gift-horse' ? null : <button style={eventStyles.buyTicket} onClick={()=>this.openTicketNumberModal()}>buy ticket ></button>}
             <div style={eventStyles.ticketContainer}>
-              <button
-                  style={eventStyles.ticketButton(type,'dress-up')}
-                  className='event-dress-up'
-                  onClick={()=>this.changeTicketType('dress-up')}
-              />
-              <button
-                  style={eventStyles.ticketButton(type,'shuffle-dress-up')}
-                  className='event-shuffle-dress-up'
-                  onClick={()=>this.changeTicketType('shuffle-dress-up')}
-              />
-              <button
-                  style={eventStyles.ticketButton(type,'training')}
-                  className='event-training'
-                  onClick={()=>this.changeTicketType('training')}
-              />
-              <button
-                  style={eventStyles.ticketButton(type,'gift-horse')}
-                  className='event-gift-horse'
-                  onClick={()=>this.changeTicketType('gift-horse')}
-              />
+              <div style={eventStyles.buyTicketText}>choose a ticket</div>
+              <div style={eventStyles.buyTicketText}>▽</div>
+              <div style={eventStyles.ticketInnerContainer}>
+                <div style={eventStyles.tickerWrapper} className='event-back-dress-up'>
+                  <button
+                      style={eventStyles.ticketButton(type,'dress-up')}
+                      className='event-dress-up'
+                      onClick={()=>this.changeTicketType('dress-up')}
+                  />
+                </div>
+                <div style={eventStyles.tickerWrapper} className='event-back-shuffle-dress-up'>
+                  <button
+                      style={eventStyles.ticketButton(type,'shuffle-dress-up')}
+                      className='event-shuffle-dress-up'
+                      onClick={()=>this.changeTicketType('shuffle-dress-up')}
+                  />
+                </div>
+                <div style={eventStyles.tickerWrapper} className='event-back-training'>
+                  <button
+                      style={eventStyles.ticketButton(type,'training')}
+                      className='event-training'
+                      onClick={()=>this.changeTicketType('training')}
+                  />
+                </div>
+                <div style={eventStyles.tickerWrapper} className='event-back-gift-horse'>
+                  <button
+                      style={eventStyles.ticketButton(type,'gift-horse')}
+                      className='event-gift-horse'
+                      onClick={()=>this.changeTicketType('gift-horse')}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-    )
+  )
   }
-}
+  }
 
-export default Events
+  export default Events

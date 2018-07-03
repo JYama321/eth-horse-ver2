@@ -31,7 +31,7 @@ export const eventStyles = {
     width: '120px',
     height: '25px',
     position: 'absolute',
-    right: '30px',
+    right: '14px',
     top: '576px',
     backgroundSize: '120px 25px',
     border: 'none',
@@ -73,20 +73,62 @@ export const eventStyles = {
   },
   ticketContainer: {
     width: '100%',
-    height: '85px',
+    height: '160px',
     top: '28px',
-    textAlign: 'right'
+    textAlign: 'center',
+    position: 'relative'
+  },
+  buyTicketText: {
+    textAlign: 'center',
+    fontSize: '14px',
+    width: '100%',
+    height: '30px'
+  },
+  ticketInnerContainer:{
+    width: '450px',
+    height: '85px',
+    margin: '0 auto',
+    display: 'flex',
+    flexAlign: 'center',
+    justifyContent: 'space-between'
+  },
+  tickerWrapper: {
+    width: '85px',
+    height: '85px',
+    backgroundSize: '85px 85px',
   },
   ticketButton: function(currentType,type){
     return  {
-      width: '85px',
-      height: '85px',
-      backgroundSize: '85px 85px',
+      width: '75px',
+      height: '75px',
+      backgroundSize: '75px 75px',
+      backgroundRepeat: 'no-repeat',
+      backgroundColor: 'transparent',
       marginLeft: '14px',
       outline: 'none',
       border: 'none',
-      backgroundColor: type === currentType ? 'rgba(0,0,0,0.2)' : 'white',
-      borderRadius: '10px'
+      opacity: type === currentType ? '0.2' : '1',
+      borderRadius: '40px',
+      position: 'relative',
+      top: '5px',
+      right: '8px'
     }
+  },
+  modalStyle: {
+    content: {
+      width: '350px',
+      height: '150px',
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      padding: 0,
+      transform: 'translate(-50%,-50%)'
+    }
+  },
+  modalTopText: {
+    width: '100%',
+    height: '30px',
+    fontSize: '16px',
+    fontWeight: 'bold'
   }
 };

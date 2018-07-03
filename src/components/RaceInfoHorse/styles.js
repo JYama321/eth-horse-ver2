@@ -9,6 +9,14 @@ export const raceInfoHorseStyle = {
     height: '515px',
     backgroundSize: '515px 515px',
     backgroundRepeat: 'no-repeat',
+    position: 'relative'
+  },
+  winImage: {
+    width: '35px',
+    height: '35px',
+    position: 'absolute',
+    top: '21px',
+    left: '21px'
   },
   horseNum: {
     fontSize: '14px',
@@ -54,6 +62,25 @@ export const raceInfoHorseStyle = {
     position: 'relative',
     margin: '0 auto',
     top: '60px'
+  },
+  participantInfo: {
+    width: '460px',
+    height: '50px',
+    position: 'absolute',
+    margin: '0 auto',
+    bottom: '0px',
+    left: '27.5px',
+    fontSize: '16px',
+    lineHeight: '30px',
+    fontColor: 'red'
+  },
+  winInfo: {
+    color: 'red',
+    fontWeight: 'bold'
+  },
+  loseInfo: {
+    color: 'blue',
+    fontWeight: 'bold'
   },
   bettingGage: {
     width: '100%',

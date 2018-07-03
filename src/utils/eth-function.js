@@ -218,7 +218,7 @@ export const getCheckedRaceArray = () => {
   })
 };
 
-export const getMyRaceArrray = () => {
+export const getMyRaceArray = () => {
   return new Promise((resolve, reject) => {
     window.contract_instance.getMyRaces({from: window.web3.eth.coinbase},function(err, result){
       if(err){reject(err)}
@@ -227,6 +227,7 @@ export const getMyRaceArrray = () => {
   })
 };
 
+//betting
 export const getBetInfo = (raceId) => {
   return new Promise((resolve, reject) => {
     window.contract_instance.bettingInfo(raceId, function(err, result){
@@ -235,6 +236,16 @@ export const getBetInfo = (raceId) => {
     })
   })
 };
+
+export const getParticipantPantInfo = (raceId) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.showParticipantInfo(raceId,function(err,result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
 
 export const getOdds = (raceId) => {
   return new Promise((resolve,reject) => {
@@ -321,7 +332,25 @@ export const decideBetRate = (raceId,rates) => {
 
 export const checkResult = (raceId) => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.checkRaceResult(raceId,function(err,result) {
+    window.contract_instance.checkRaceResult(raceId,{from: window.web3.eth.coinbase,gasPrice: 10 ** 10, gas: 3000000},function(err,result) {
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const withdrawPayback = (raceId) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.withdrawPayback(raceId, {from: window.web3.eth.coinbase, gas: 100000, gasPrice: 10 ** 10},function(err, result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const withdrawPrize = (raceId) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.withdrawPrize(raceId,{from: window.web3.eth.coinbase, gas: 1000000, gasPrice: 10 ** 10},function(err,result){
       if(err){reject(err)}
       resolve(result)
     })
@@ -348,11 +377,14 @@ export const getRaceStartTime = (raceId) => {
 
 export const betRace = (raceId,horseId,value) => {
   return new Promise((resolve, reject) => {
+    console.log(raceId,horseId,value);
     let array = new Uint32Array(1);
     window.crypto.getRandomValues(array);
+    console.log(array[0])
     window.contract_instance.betRace(raceId,horseId,array[0],
         {from: window.web3.eth.coinbase,gas: 3000000, gasPrice: 10 ** 10, value: window.web3.toWei(value,'ether')},function (err, result) {
-          console.log(result)
+          if(err){console.log(result)}
+          resolve(result)
         })
   })
 };
@@ -435,6 +467,64 @@ export const getGiftHorseLottery = () => {
   })
 };
 
+//get ticket price
+export const getTrainTicketPrice = () => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.trainTicketPrice(function(err,result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const getDressUpTicketPrice = () => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.dressUpTicketPrice(function(err, result) {
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const getShuffleDressUpTicketPrice = () => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.shuffleDressUpTicketPrice(function(err, result) {
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+//buy tickets
+export const buyDressUpTicket = (value) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.buyDressUpTicket({from: window.web3.eth.coinbase, value: window.web3.toWei(value,'ether')},
+        function(err, result){
+      if(err){reject(err)}
+      resolve(result)
+    })
+  })
+};
+
+export const buyShuffleDressUpTicket = (value) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.buyShuffleDressUpTicket({from: window.web3.eth.coinbase, value: window.web3.toWei(value,'ether')},
+        function (err, result) {
+          if(err){reject(err)}
+          resolve(result)
+        })
+  })
+};
+
+export const buyTrainTicket = (value) => {
+  return new Promise((resolve, reject) => {
+    window.contract_instance.buyTrainTicket({from: window.web3.eth.coinbase, value: window.web3.toWei(value,'ether')},
+        function (err, result) {
+      if(err){reject(err)}
+      resolve(result)
+        })
+  })
+};
 
 ///use tickets
 
