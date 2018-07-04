@@ -63,6 +63,9 @@ contract Lottery{
 
     function setOwner(address _newOwner) onlyOwner{
         owner = _newOwner;
+    }
+
+    function trainHorse() onlyOwner{
 
     }
 
@@ -153,7 +156,14 @@ contract Lottery{
         shuffleDressUpTicketNum[_user] = shuffleDressUpTicketNum[_user].add(1);
     }
 
+    function trainHorse(address _user) onlyOwnerContract{
+        trainTicketNum[_user] = trainTicketNum[_user].sub(1);
+    }
 
-
+    function dressUpHorse(address _user) onlyOwnerContract{
+        dressUpTicketNum[_user].sub(1);
+    }
 
 }
+
+
