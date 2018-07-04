@@ -71,6 +71,35 @@ contract GeneFunctionInterface{
     function generateReplaceGene(uint) external view returns(uint);
 }
 
+
+contract LotteryInterface{
+    function trainTicketNum(address _user) public view returns(uint);
+    function dressUpTicketNum(address _user) public view returns(uint);
+    function shuffleDressUpTicketNum(address _user) public view returns(uint);
+    function trainLottery(address _user) public view returns(uint);
+    function dressUpLottery(address _user) public view returns(uint);
+    function shuffleDressUpLottery(address _user) public view returns(uint);
+    function giftHorseLottery(address _user) public view returns(uint);
+    function lotteryNum() public returns (uint);
+    function setTrainTicketPrice(uint) external;
+    function setDressUpTicketPrice(uint) external;
+    function trainTicketPrice() external view returns(uint);
+    function dressUpTicketPrice() public view returns(uint);
+    function shuffleDressUpTicketPrice() public view returns(uint);
+    function setShuffleDressUpTicketPrice(uint) external;
+    function buyTrainTicket(uint) external;
+    function buyShuffleDressUpTicket(uint) external;
+    function buyDressUpTicket(uint) external;
+    function doTrainLottery(address) external;
+    function doDressUpLottery(address) external;
+    function doShuffleDressUpLottery(address) external;
+    function doGiftHorseLottery(address) external;
+    function presentTrainTicket(address) external;
+    function presentDressUpTicket(address) external;
+    function presentShuffleDressUpTicket(address) external;
+}
+
+
 contract HorseGameBase is Ownable{
     using SafeMath for uint256;
 
@@ -81,6 +110,7 @@ contract HorseGameBase is Ownable{
 
     GeneFunctionInterface geneFunction;
     RaceFunctionInterface raceFunction;
+    LotteryInterface lotteryFunction;
     struct Horse{
         uint horseId;
         uint genes;
@@ -121,7 +151,6 @@ contract HorseGameBase is Ownable{
     event ApplyRace(address indexed _owner,uint _raceId,uint _horseId,uint _now);
     event BetRace(address indexed _voter,uint _betValue, uint _raceId, uint _horseId, uint _now);
     event HostRace(address indexed _host, uint _deposit, uint _minWinnerPrize, uint _raceId, uint _now);
-    event Lottery(address indexed _from, bool _success, string _type, uint _now);
     event GiftHorseLottery(address indexed _from, uint _tokenId);
 
     function getWinCountsArray() external view returns(uint[]){
@@ -675,58 +704,54 @@ contract HorseBet is HorseGameBase{
 //}
 
 contract HorseGame is HorseBet{
-    uint public trainTicketPrice;
-    uint public dressUpTicketPrice;
-    uint public shuffleDressUpTicketPrice;
 
-
-    mapping(address => uint) public trainTicketNum; //ticket number
-    mapping(address => uint) public dressUpTicketNum; // ticket number
-    mapping(address => uint) public shuffleDressUpTicketNum; // all ticket number
-    mapping(address => uint) public trainLottery; //address to the last time to do a lottery
-    mapping(address => uint) public dressUpLottery;
-    mapping(address => uint) public shuffleDressUpLottery;
-    mapping(address => uint) public giftHorseLottery;
-    uint public lotteryNum=0;
-
-    constructor(address _geneInterface, address _raceFunctionInterface) public {
+    constructor(address _geneInterface, address _raceFunctionInterface, address _lotteryFunctionInterface) public {
         geneFunction = GeneFunctionInterface(_geneInterface);
         raceFunction = RaceFunctionInterface(_raceFunctionInterface);
+        lotteryFunction = LotteryInterface(_lotteryFunctionInterface);
     }
 
     function setTrainTicketPrice(uint _price) external onlyOwner{
-        trainTicketPrice = _price;
+        lotteryFunction.setTrainTicketPrice(_price);
     }
 
     function setDressUpTicketPrice(uint _price) external onlyOwner{
-        dressUpTicketPrice = _price;
+        lotteryFunction.setDressUpTicketPrice(_price);
     }
 
     function setShuffleDressUpTicketPrice(uint _price) external onlyOwner{
-        shuffleDressUpTicketPrice = _price;
+        lotteryFunction.setShuffleDressUpTicketPrice(_price);
     }
 
     function buyTrainTicket() external payable{
-        require(msg.value >= trainTicketPrice);
-        uint num = msg.value / trainTicketPrice;
-        trainTicketNum[msg.sender] = trainTicketNum[msg.sender].add(num);
+        require(msg.value >= lotteryFunction.trainTicketPrice());
+        lotteryFunction.buyTrainTicket(msg.value);
     }
 
     function buyShuffleDressUpTicket() external payable{
-        require(msg.value >= shuffleDressUpTicketPrice);
-        uint num = msg.value / shuffleDressUpTicketPrice;
-        shuffleDressUpTicketNum[msg.sender] = shuffleDressUpTicketNum[msg.sender].add(num);
+        require(msg.value >= lotteryFunction.shuffleDressUpTicketPrice());
+        lotteryFunction.buyShuffleDressUpTicket(msg.value);
     }
 
     function buyDressUpTicket() external payable{
-        require(msg.value >= dressUpTicketPrice);
-        uint num = msg.value / dressUpTicketPrice;
-        dressUpTicketNum[msg.sender] = dressUpTicketNum[msg.sender].add(num);
+        require(msg.value >= lotteryFunction.dressUpTicketPrice());
+        lotteryFunction.buyDressUpTicket(msg.value);
+    }
+
+    function trainTicketNum() external view returns(uint){
+        return lotteryFunction.trainTicketNum(msg.sender);
+    }
+
+    function dressUpTicketNum() external view returns(uint){
+        return lotteryFunction.dressUpTicketNum(msg.sender);
+    }
+    function shuffleDressUpTicketNum() external view returns(uint){
+        return lotteryFunction.shuffleDressUpTicketNum(msg.sender);
     }
 
     function shuffleDressUpTexture(uint _horseId, uint _nonce) external{
         require(tokenOwner[_horseId] == msg.sender);
-        require(shuffleDressUpTicketNum[msg.sender] > 0);
+        require(lotteryFunction.shuffleDressUpTicketNum(msg.sender) > 0);
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint geneEnd = gene % (10 ** 20);
@@ -739,7 +764,7 @@ contract HorseGame is HorseBet{
 
     function dressUpTexture(uint _horseId, uint _index, uint _num) external{
         require(tokenOwner[_horseId] == msg.sender);
-        require(dressUpTicketNum[msg.sender] > 0);
+        require(lotteryFunction.dressUpTicketNum(msg.sender) > 0);
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint geneEnd = gene % (10 ** _index);
@@ -750,7 +775,7 @@ contract HorseGame is HorseBet{
 
     function trainHorse(uint _horseId) external {
         require(tokenOwner[_horseId] == msg.sender);
-        require(trainTicketNum[msg.sender] > 0);
+        require(lotteryFunction.trainTicketNum(msg.sender) > 0);
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint up = 0;
@@ -763,58 +788,31 @@ contract HorseGame is HorseBet{
     }
 
     function doTrainLottery() external{
-        require((now - trainLottery[msg.sender]) > 24 hours);
-        lotteryNum += 1;
-        trainLottery[msg.sender] = now;
-        uint _seed = uint(keccak256(lotteryNum,blockhash(block.number-1)));
-        if((_seed % 100) < 5){
-            trainTicketNum[msg.sender] += 1;
-            emit Lottery(msg.sender,true,'train', now);
-        }
-        emit Lottery(msg.sender,false,'train', now);
+        lotteryFunction.doTrainLottery(msg.sender);
     }
 
     function doDressUpLottery() external{
-        require((now - dressUpLottery[msg.sender]) > 24 hours);
-        lotteryNum += 1;
-        dressUpLottery[msg.sender] = now;
-        uint _seed = uint(keccak256(lotteryNum,blockhash(block.number-1)));
-        if((_seed % 50) <= 2){
-            dressUpTicketNum[msg.sender] += 1;
-            emit Lottery(msg.sender,true,'dress-up', now);
-        }
-        emit Lottery(msg.sender,false,'dress-up', now);
+        lotteryFunction.doDressUpLottery(msg.sender);
     }
 
     function doShuffleDressUpLottery() external{
-        require((now - shuffleDressUpLottery[msg.sender]) > 24 hours);
-        lotteryNum += 1;
-        shuffleDressUpLottery[msg.sender] = now;
-        uint _seed = uint(keccak256(lotteryNum,blockhash(block.number-1)));
-        if((_seed % 100) <= 5){
-            shuffleDressUpTicketNum[msg.sender] += 1;
-            emit Lottery(msg.sender,true,'s-dress-up', now);
-        }
-        emit Lottery(msg.sender,false,'s-dress-up', now);
+        lotteryFunction.doShuffleDressUpLottery(msg.sender);
     }
 
     function doGiftHorseLottery() external{
-        require((now - giftHorseLottery[msg.sender]) > 24 hours);
-        lotteryNum += 1;
-        giftHorseLottery[msg.sender] = now;
-        emit GiftHorseLottery(msg.sender,0);
+        lotteryFunction.doGiftHorseLottery(msg.sender);
     }
 
     function presentTrainTicket(address _user) external onlyOwner{
-        trainTicketNum[_user]  = trainTicketNum[_user].add(1);
+        lotteryFunction.presentTrainTicket(_user);
     }
 
     function presentDressUpTicket(address _user) external onlyOwner{
-        dressUpTicketNum[_user] = dressUpTicketNum[_user].add(1);
+        lotteryFunction.presentDressUpTicket(_user);
     }
 
     function presentShuffleDressUpTicket(address _user) external onlyOwner{
-        shuffleDressUpTicketNum[_user] = shuffleDressUpTicketNum[_user].add(1);
+        lotteryFunction.presentShuffleDressUpTicket(_user);
     }
 
     function presentHorse(uint _tokenId, address _to) external onlyOwner{
