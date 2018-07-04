@@ -38,7 +38,7 @@ import {
   getOnSaleHorsesArray,
   getSaleHorsePrices
 } from './actions'
-const address = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
+const address = '0x82d50ad3c1091866e258fd0f1a7cc9674609d254';
 import {
   getWantedRaceArray,
   getBettingRaceArray,
