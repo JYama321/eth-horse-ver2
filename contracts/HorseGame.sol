@@ -752,6 +752,7 @@ contract HorseGame is HorseBet{
     function shuffleDressUpTexture(uint _horseId, uint _nonce) external{
         require(tokenOwner[_horseId] == msg.sender);
         require(lotteryFunction.shuffleDressUpTicketNum(msg.sender) > 0);
+        lotteryFunction.shuffleDressUp();
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint geneEnd = gene % (10 ** 20);
@@ -765,6 +766,7 @@ contract HorseGame is HorseBet{
     function dressUpTexture(uint _horseId, uint _index, uint _num) external{
         require(tokenOwner[_horseId] == msg.sender);
         require(lotteryFunction.dressUpTicketNum(msg.sender) > 0);
+        lotteryFunction.dressUpHorse();
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint geneEnd = gene % (10 ** _index);
@@ -776,6 +778,7 @@ contract HorseGame is HorseBet{
     function trainHorse(uint _horseId) external {
         require(tokenOwner[_horseId] == msg.sender);
         require(lotteryFunction.trainTicketNum(msg.sender) > 0);
+        lotteryFunction.trainHorse();
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint up = 0;

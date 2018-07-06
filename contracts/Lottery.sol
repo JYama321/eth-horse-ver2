@@ -65,9 +65,6 @@ contract Lottery{
         owner = _newOwner;
     }
 
-    function trainHorse() onlyOwner{
-
-    }
 
     function setOwnerContract(address _ownerContract) external onlyOwner{
         ownerContract = _ownerContract;
@@ -162,6 +159,10 @@ contract Lottery{
 
     function dressUpHorse(address _user) onlyOwnerContract{
         dressUpTicketNum[_user].sub(1);
+    }
+    
+    function shuffleDressUp(address _user) onlyOwnerContract{
+      shuffleDressUpTicketNum[_user].sub(1);
     }
 
 }
