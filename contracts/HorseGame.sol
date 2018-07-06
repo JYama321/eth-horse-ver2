@@ -766,7 +766,7 @@ contract HorseGame is HorseBet{
         require((now - trainLottery[msg.sender]) > 24 hours);
         lotteryNum += 1;
         trainLottery[msg.sender] = now;
-        uint _seed = uint(keccak256(lotteryNum,blockhash(block.number-1)));
+        uint _seed = uint(keccak256(abi.encodePacked(lotteryNum,blockhash(block.number-1))));
         if((_seed % 100) < 5){
             trainTicketNum[msg.sender] += 1;
             emit Lottery(msg.sender,true,'train', now);
@@ -778,7 +778,7 @@ contract HorseGame is HorseBet{
         require((now - dressUpLottery[msg.sender]) > 24 hours);
         lotteryNum += 1;
         dressUpLottery[msg.sender] = now;
-        uint _seed = uint(keccak256(lotteryNum,blockhash(block.number-1)));
+        uint _seed = uint(keccak256(abi.encodePacked(lotteryNum,blockhash(block.number-1))));
         if((_seed % 50) <= 2){
             dressUpTicketNum[msg.sender] += 1;
             emit Lottery(msg.sender,true,'dress-up', now);
@@ -790,7 +790,7 @@ contract HorseGame is HorseBet{
         require((now - shuffleDressUpLottery[msg.sender]) > 24 hours);
         lotteryNum += 1;
         shuffleDressUpLottery[msg.sender] = now;
-        uint _seed = uint(keccak256(lotteryNum,blockhash(block.number-1)));
+        uint _seed = uint(keccak256(abi.encodePacked(lotteryNum,blockhash(block.number-1))));
         if((_seed % 100) <= 5){
             shuffleDressUpTicketNum[msg.sender] += 1;
             emit Lottery(msg.sender,true,'s-dress-up', now);
