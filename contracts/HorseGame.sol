@@ -97,6 +97,9 @@ contract LotteryInterface{
     function presentTrainTicket(address) external;
     function presentDressUpTicket(address) external;
     function presentShuffleDressUpTicket(address) external;
+    function trainHorse(address) external;
+    function dressUpHorse(address) external;
+    function shuffleDressUp(address) external;
 }
 
 
@@ -508,7 +511,7 @@ contract HorseBet is HorseGameBase{
 
         race.participantInfo[msg.sender] = person;
         uint _nonce = uint(race.nonce)^_secret;
-        race.nonce = keccak256(_nonce);
+        race.nonce = keccak256(abi.encodePacked(_nonce));
         race.horseIdToBetAmount[_horseId] += msg.value;
         emit BetRace(msg.sender,msg.value,_raceId,_horseId,now);
     }
@@ -752,7 +755,7 @@ contract HorseGame is HorseBet{
     function shuffleDressUpTexture(uint _horseId, uint _nonce) external{
         require(tokenOwner[_horseId] == msg.sender);
         require(lotteryFunction.shuffleDressUpTicketNum(msg.sender) > 0);
-        lotteryFunction.shuffleDressUp();
+        lotteryFunction.shuffleDressUp(msg.sender);
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint geneEnd = gene % (10 ** 20);
@@ -766,7 +769,7 @@ contract HorseGame is HorseBet{
     function dressUpTexture(uint _horseId, uint _index, uint _num) external{
         require(tokenOwner[_horseId] == msg.sender);
         require(lotteryFunction.dressUpTicketNum(msg.sender) > 0);
-        lotteryFunction.dressUpHorse();
+        lotteryFunction.dressUpHorse(msg.sender);
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint geneEnd = gene % (10 ** _index);
@@ -778,7 +781,7 @@ contract HorseGame is HorseBet{
     function trainHorse(uint _horseId) external {
         require(tokenOwner[_horseId] == msg.sender);
         require(lotteryFunction.trainTicketNum(msg.sender) > 0);
-        lotteryFunction.trainHorse();
+        lotteryFunction.trainHorse(msg.sender);
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint up = 0;

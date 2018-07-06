@@ -38,7 +38,7 @@ contract GeneFunction{
     )
     external view returns (uint)
     {
-        uint _seed = uint(keccak256(_name,blockhash(block.number-1)));
+        uint _seed = uint(keccak256(abi.encodePacked(_name,blockhash(block.number-1))));
         uint fakeGene = _seed % geneModulus;
         uint newGene;
         if(_femaleGene == 0 && _maleGene == 0){
@@ -64,7 +64,7 @@ contract GeneFunction{
     (uint _nonce)
     external view returns(uint)
     {
-        uint _seed = uint(keccak256(_nonce,blockhash(block.number-1)));
+        uint _seed = uint(keccak256(abi.encodePacked(_nonce,blockhash(block.number-1))));
         return  _seed % geneModulus;
     }
 

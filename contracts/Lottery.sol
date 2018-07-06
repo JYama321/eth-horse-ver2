@@ -61,7 +61,7 @@ contract Lottery{
         owner = msg.sender;
     }
 
-    function setOwner(address _newOwner) onlyOwner{
+    function setOwner(address _newOwner) external onlyOwner{
         owner = _newOwner;
     }
 
@@ -102,7 +102,7 @@ contract Lottery{
         require((now - trainLottery[_user]) > 24 hours);
         lotteryNum += 1;
         trainLottery[_user] = now;
-        uint _seed = uint(keccak256(lotteryNum,blockhash(block.number-1)));
+        uint _seed = uint(keccak256(abi.encodePacked(lotteryNum,blockhash(block.number-1))));
         if((_seed % 100) < 5){
             trainTicketNum[_user] += 1;
             emit LotteryLog(_user,true,'train', now);
@@ -114,7 +114,7 @@ contract Lottery{
         require((now - dressUpLottery[_user]) > 24 hours);
         lotteryNum += 1;
         dressUpLottery[_user] = now;
-        uint _seed = uint(keccak256(lotteryNum,blockhash(block.number-1)));
+        uint _seed = uint(keccak256(abi.encodePacked(lotteryNum,blockhash(block.number-1))));
         if((_seed % 50) <= 2){
             dressUpTicketNum[_user] += 1;
             emit LotteryLog(_user,true,'dress-up', now);
@@ -126,7 +126,7 @@ contract Lottery{
         require((now - shuffleDressUpLottery[_user]) > 24 hours);
         lotteryNum += 1;
         shuffleDressUpLottery[_user] = now;
-        uint _seed = uint(keccak256(lotteryNum,blockhash(block.number-1)));
+        uint _seed = uint(keccak256(abi.encodePacked(lotteryNum,blockhash(block.number-1))));
         if((_seed % 100) <= 5){
             shuffleDressUpTicketNum[_user] += 1;
             emit LotteryLog(_user,true,'s-dress-up', now);
@@ -153,16 +153,16 @@ contract Lottery{
         shuffleDressUpTicketNum[_user] = shuffleDressUpTicketNum[_user].add(1);
     }
 
-    function trainHorse(address _user) onlyOwnerContract{
+    function trainHorse(address _user) external onlyOwnerContract{
         trainTicketNum[_user] = trainTicketNum[_user].sub(1);
     }
 
-    function dressUpHorse(address _user) onlyOwnerContract{
-        dressUpTicketNum[_user].sub(1);
+    function dressUpHorse(address _user) external onlyOwnerContract{
+        dressUpTicketNum[_user] = dressUpTicketNum[_user].sub(1);
     }
     
-    function shuffleDressUp(address _user) onlyOwnerContract{
-      shuffleDressUpTicketNum[_user].sub(1);
+    function shuffleDressUp(address _user) external onlyOwnerContract{
+        shuffleDressUpTicketNum[_user] = shuffleDressUpTicketNum[_user].sub(1);
     }
 
 }
