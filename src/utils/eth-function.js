@@ -258,17 +258,19 @@ export const getOdds = (raceId) => {
 
 export const getTrainTicketNum = (address) => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.trainTicketNum(address, function (err, result) {
+    window.contract_instance.trainTicketNum( function (err, result) {
       if(err){reject(err)}
+      console.log('trainTicketNum',result)
       resolve(result)
     })
   })
 };
 
-export const getShuffleTicketNum = (address) => {
+export const getDressUpTicketNum = () => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.dressUpTicketNum(address, function(err, result) {
+    window.contract_instance.dressUpTicketNum( function(err, result) {
       if(err){reject(err)}
+      console.log(result);
       resolve(result)
     })
   })
@@ -276,8 +278,9 @@ export const getShuffleTicketNum = (address) => {
 
 export const getShuffleAllTicketNum = (address) => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.shuffleDressUpTicketNum(address, function(err, result) {
+    window.contract_instance.shuffleDressUpTicketNum( function(err, result) {
       if (err) {reject(err)}
+      console.log(result);
       resolve(result)
     })
   })

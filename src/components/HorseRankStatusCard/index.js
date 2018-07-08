@@ -99,6 +99,7 @@ export default class HorseRankStatusCard extends Component{
         number = this.props.number;
         break;
       case 'win-count':
+        console.log('win-count',this.props.number)
         number = this.props.number + ' win';
         break;
       case 'total-prize':

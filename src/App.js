@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import getWeb3 from './utils/getWeb3'
+import Lottery from '../build/contracts/Lottery.json'
 import HorseGame from '../build/contracts/HorseGame.json'
 import { Helmet } from 'react-helmet'
 import './css/oswald.css'
@@ -27,7 +28,7 @@ import {
   getActivities,
   getUserBalance,
   getTrainTicket,
-  getShuffleTicket,
+  getDressUpTicket,
   getShuffleAllTicket,
   getMyHorseArraySuccess,
   getTotalPrizeArray,
@@ -38,14 +39,19 @@ import {
   getOnSaleHorsesArray,
   getSaleHorsePrices
 } from './actions'
+<<<<<<< HEAD
 const address = '0x82d50ad3c1091866e258fd0f1a7cc9674609d254';
+=======
+const address = '0x4325245d315fc5e4674f3db2be2b2c39606d115d';
+const lotteryAddress = '0xd7352fedd55ff2821a2f2a0e6d12098101a80735';
+>>>>>>> lottery-contract
 import {
   getWantedRaceArray,
   getBettingRaceArray,
   getCheckedRaceArray,
   getMyRaceArray,
   getTrainTicketNum,
-  getShuffleTicketNum,
+  getDressUpTicketNum,
   getShuffleAllTicketNum,
   getMyHorsesArray,
   getHorseWinCountArray,
@@ -73,7 +79,9 @@ class App extends Component {
     window.web3 = result.web3;
     const coinbase = window.web3.eth.coinbase;
     const contract = window.web3.eth.contract(HorseGame.abi);
+    const lottery = window.web3.eth.contract(Lottery.abi);
     window.contract_instance = contract.at(address);
+    window.lottery_contract = lottery.at(lotteryAddress);
     //raceArrays
     const wantedArray = await getWantedRaceArray();
     const bettingArray = await getBettingRaceArray();
@@ -87,7 +95,7 @@ class App extends Component {
     const sirePrices = await getSirePricesArray();
     const sireArray = await getSireHorsesArray();
     const saleHorseArray = await getOnSaleHorses();
-    console.log(myHorseArray);
+   
     this.props.getSaleHorses(saleHorseArray);
     this.props.getSireHorses(sireArray);
     this.props.getSirePrices(sirePrices);
@@ -100,12 +108,13 @@ class App extends Component {
     this.props.getCheckedArray(checkedArray);
     this.props.getMyRace(myRaceArray);
     this.props.getHorsePrices(priceArray);
-    const trainTicketNum = await getTrainTicketNum(coinbase);
-    const shuffleTicketNum = await getShuffleTicketNum(coinbase);
-    const shuffleAllTicketNum = await getShuffleAllTicketNum(coinbase);
+    const trainTicketNum = await getTrainTicketNum();
+    const dressUpTicketNum= await getDressUpTicketNum();
+    const shuffleAllTicketNum = await getShuffleAllTicketNum();
     this.props.getTicket(trainTicketNum);
-    this.props.getShuffleTicket(shuffleTicketNum);
+    this.props.getDressUpTicket(dressUpTicketNum);
     this.props.getShuffleAllTicket(shuffleAllTicketNum);
+    console.log(this.state);
     this.setState({ loaded: true});
     //get events
     const self = this;
@@ -144,7 +153,7 @@ class App extends Component {
       fromBlock: 0,
       toBlock: 'latest'
     });
-    const Lottery = window.contract_instance.Lottery({
+    const LotteryLog = window.lottery_contract.LotteryLog({
       _from: window.web3.eth.coinbase
     },{
       fromBlock: 0,
@@ -168,7 +177,7 @@ class App extends Component {
     SellHorse.get(function(err, logs) {
       self.props.getActivity(logs)
     });
-    Lottery.get(function(err, logs){
+    LotteryLog.get(function(err, logs){
       self.props.getActivity(logs)
     })
   }
@@ -216,7 +225,7 @@ const mapDispatchToProps = (dispatch) => ({
   getActivity: (activity) => dispatch(getActivities(activity)),
   getBalance: (balance) => dispatch(getUserBalance(balance)),
   getTicket: (num) => dispatch(getTrainTicket(num)),
-  getShuffleTicket: (num) => dispatch(getShuffleTicket(num)),
+  getDressUpTicket: (num) => dispatch(getDressUpTicket(num)),
   getShuffleAllTicket: (num) => dispatch(getShuffleAllTicket(num)),
   getMyHorseArray: (array) => dispatch(getMyHorseArraySuccess(array)),
   getTotalPrizeArray: (array) => dispatch(getTotalPrizeArray(array)),

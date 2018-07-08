@@ -5,7 +5,14 @@ let Lottery = artifacts.require("./Lottery.sol");
 module.exports = function(deployer) {
   deployer.deploy(GeneFunction).then(function () {
     return deployer.deploy(RaceFunction)
+<<<<<<< HEAD
   }).then(function () {
     return deployer.deploy(HorseGameNew,GeneFunction.address,RaceFunction.address,{gas: 5400000})
+=======
+  }).then(function(){
+    return deployer.deploy(Lottery)
+  }).then(function () {
+    return deployer.deploy(HorseGameNew,GeneFunction.address,RaceFunction.address,Lottery.address,{gas: 5400000})
+>>>>>>> lottery-contract
   });
 };

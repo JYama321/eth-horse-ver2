@@ -75,7 +75,7 @@ class Ranking extends Component{
     const self = this;
     const array = this.props.totalPrizeArray ? this.props.totalPrizeArray.map((elem,index) => {
       return {
-        price: elem.toNumber(),
+        price: Number(window.web3.fromWei(elem,"ether").toFixed(3)),
         id: index + 1
       }
     }).sort((a,b) => {
@@ -196,7 +196,7 @@ class Ranking extends Component{
         return array.map((elem,index) => {
           const horse = this.props.horseIdToInfo.get(String(elem.id)) ? this.props.horseIdToInfo.get(String(elem.id)) : null;
           if(horse){
-            return <RankingModalHorse horseInfo={horse} totalPrize={prize.get(index).toNumber()} rank={index + 1} key={'modal-rank-horse' + index}/>
+            return <RankingModalHorse horseInfo={horse} totalPrize={Number(window.web3.fromWei(prize.get(String(elem.id - 1)),"ether"))} rank={index + 1} key={'modal-rank-horse' + index}/>
           }else {
             getHorseData(elem.id).then(horse => self.props.getHorse(horse));
             return <img
@@ -225,7 +225,7 @@ class Ranking extends Component{
         return totalPrizeArray.map((elem,index) => {
           const horse = this.props.horseIdToInfo.get(String(elem.id)) ? this.props.horseIdToInfo.get(String(elem.id)) : null;
           if(horse){
-            return <RankingModalHorse horseInfo={horse} totalPrize={elem.prize} rank={index + 1} key={'modal-rank-horse' + index}/>
+            return <RankingModalHorse horseInfo={horse} totalPrize={Number(window.web3.fromWei(prize.get(String(elem.id-1)),"ether"))} rank={index + 1} key={'modal-rank-horse' + index}/>
           }else {
             return <img
                 width="60px"
@@ -252,7 +252,7 @@ class Ranking extends Component{
         return winCountArray.map((elem,index) => {
           const horse = this.props.horseIdToInfo.get(String(elem.id)) ? this.props.horseIdToInfo.get(String(elem.id)) : null;
           if(horse){
-            return <RankingModalHorse horseInfo={horse} totalPrize={prize.get(index).toNumber()} rank={index + 1} key={'modal-rank-horse' + index}/>
+            return <RankingModalHorse horseInfo={horse} totalPrize={Number(window.web3.fromWei(prize.get(String(elem.id-1)),"ether"))} rank={index + 1} key={'modal-rank-horse' + index}/>
           }else{
             getHorseData(elem.id).then(horse => self.props.getHorse(horse));
             return(<img

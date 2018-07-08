@@ -212,6 +212,7 @@ class MyPageStatus extends Component{
     })
   }
   render(){
+    console.log(trainTicketNum);
     const {trainTicketNum,shuffleTicketNum,shuffleAllTicketNum} = this.props;
     const totalTicketNum = trainTicketNum + shuffleTicketNum + shuffleAllTicketNum;
     return(
