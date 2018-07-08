@@ -87,7 +87,7 @@ contract LotteryInterface{
     function dressUpTicketPrice() public view returns(uint);
     function shuffleDressUpTicketPrice() public view returns(uint);
     function setShuffleDressUpTicketPrice(uint) external;
-    function buyTrainTicket(uint) external;
+    function buyTrainTicket(uint,address) external;
     function buyShuffleDressUpTicket(uint) external;
     function buyDressUpTicket(uint) external;
     function doTrainLottery(address) external;
@@ -471,10 +471,13 @@ contract HorseBet is HorseGameBase{
         Race storage race = races[_raceId.sub(1)];
         require(race.isChecked);
         require(msg.sender == tokenOwner[race.winnerHorseId]);
+        Horse storage horse = horses[race.winnerHorseId.sub(1)];
         uint prize = race.minWinnerPrize + race.totalBet * race.winnerPrizeFromBet / 100;
         race.minWinnerPrize = 0;
         race.winnerPrizeFromBet = 0;
-        horseTotalPrize[race.winnerHorseId.sub(1)].add(prize);
+        horseTotalPrize[race.winnerHorseId.sub(1)] = horseTotalPrize[race.winnerHorseId.sub(1)].add(prize);
+        horseWinCounts[race.winnerHorseId.sub(1)] = horseWinCounts[race.winnerHorseId.sub(1)].add(1);
+        horse.winCount = horse.winCount.add(1);
         msg.sender.transfer(prize);
     }
 
@@ -728,7 +731,7 @@ contract HorseGame is HorseBet{
 
     function buyTrainTicket() external payable{
         require(msg.value >= lotteryFunction.trainTicketPrice());
-        lotteryFunction.buyTrainTicket(msg.value);
+        return lotteryFunction.buyTrainTicket(msg.value,msg.sender);
     }
 
     function buyShuffleDressUpTicket() external payable{
@@ -746,10 +749,11 @@ contract HorseGame is HorseBet{
     }
 
     function dressUpTicketNum() external view returns(uint){
-        return lotteryFunction.dressUpTicketNum(msg.sender);
+      return lotteryFunction.dressUpTicketNum(msg.sender);
     }
+
     function shuffleDressUpTicketNum() external view returns(uint){
-        return lotteryFunction.shuffleDressUpTicketNum(msg.sender);
+      return lotteryFunction.shuffleDressUpTicketNum(msg.sender);
     }
 
     function shuffleDressUpTexture(uint _horseId, uint _nonce) external{
@@ -825,5 +829,34 @@ contract HorseGame is HorseBet{
         transfer(msg.sender,_to,_tokenId);
         emit GiftHorseLottery(msg.sender,_tokenId);
     }
+
+    function trainTicketPrice() external view returns(uint){
+      return lotteryFunction.trainTicketPrice();
+    }
+
+    function dressUpTicketPrice() external view returns(uint){
+      return lotteryFunction.dressUpTicketPrice();
+    }
+
+    function shuffleDressUpTicketPrice() external view returns(uint){
+      return lotteryFunction.shuffleDressUpTicketPrice();
+    }
+
+    function dressUpLottery() external view returns(uint){
+      return lotteryFunction.dressUpLottery(msg.sender);
+    }
+
+    function trainLottery() external view returns(uint){
+      return lotteryFunction.trainLottery(msg.sender);
+    }
+    
+    function shuffleDressUpLottery() external view returns(uint){
+      return lotteryFunction.shuffleDressUpLottery(msg.sender);
+    }
+
+    function giftHorseLottery() external view returns(uint){
+      return lotteryFunction.giftHorseLottery(msg.sender);
+    }
+    
 }
 

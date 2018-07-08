@@ -242,6 +242,7 @@ function globalReducer(state = globalState ,action){
     case GET_TRAIN_TICKET_NUM:
       return state.set('trainTicketNum', action.data);
     case GET_SHUFFLE_TICKET_NUM:
+      console.log(action.data,'shuffleTicketNum');
       return state.set('shuffleTicketNum', action.data);
     case GET_SHUFFLE_ALL_TICKET_NUM:
       return state.set('shuffleAllTicketNum', action.data);

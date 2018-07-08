@@ -44,7 +44,7 @@ class ActivityCard extends Component{
                     style={cardImg}
                     src={boughtLog}
                 />
-                <p style={activityCardP}>get horse</p>
+                <p style={activityCardP}>Buy horse</p>
                 <p style={eventDetail}>Get <Link to={'/horses/' + args._tokenId}>Horse</Link> from {args._from} </p>
               </div>);
         }

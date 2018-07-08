@@ -52,7 +52,7 @@ export const getTrainTicket = (num) => ({
   data: num
 });
 
-export const getShuffleTicket = (num) => ({
+export const getDressUpTicket = (num) => ({
   type: GET_SHUFFLE_TICKET_NUM,
   data: num
 });

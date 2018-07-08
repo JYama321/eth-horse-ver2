@@ -82,9 +82,9 @@ contract Lottery{
         shuffleDressUpTicketPrice = _price;
     }
 
-    function buyTrainTicket(uint _price) external onlyOwnerContract{
+    function buyTrainTicket(uint _price,address _user) external onlyOwnerContract{
         uint num = _price / trainTicketPrice;
-        trainTicketNum[msg.sender] = trainTicketNum[msg.sender].add(num);
+        trainTicketNum[_user] = trainTicketNum[_user].add(num);
     }
 
     function buyShuffleDressUpTicket(uint _price) external onlyOwnerContract{
