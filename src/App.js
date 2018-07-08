@@ -39,12 +39,8 @@ import {
   getOnSaleHorsesArray,
   getSaleHorsePrices
 } from './actions'
-<<<<<<< HEAD
-const address = '0x82d50ad3c1091866e258fd0f1a7cc9674609d254';
-=======
 const address = '0x4325245d315fc5e4674f3db2be2b2c39606d115d';
 const lotteryAddress = '0xd7352fedd55ff2821a2f2a0e6d12098101a80735';
->>>>>>> lottery-contract
 import {
   getWantedRaceArray,
   getBettingRaceArray,
