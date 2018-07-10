@@ -69,7 +69,6 @@ class Events extends Component{
       })
     });
     getTrainTicketPrice().then((result) => {
-      console.log(result.toNumber());
       self.setState({
         trainTicketPrice: window.web3.fromWei(result,'ether').toFixed(3)
       })

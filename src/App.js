@@ -39,7 +39,7 @@ import {
   getOnSaleHorsesArray,
   getSaleHorsePrices
 } from './actions'
-const address = '0x4325245d315fc5e4674f3db2be2b2c39606d115d';
+const address = '0x924b127dcfb23b5e517a834eb7a79ce324e94f9b';
 const lotteryAddress = '0xd7352fedd55ff2821a2f2a0e6d12098101a80735';
 import {
   getWantedRaceArray,
@@ -62,7 +62,7 @@ import {
   selectBalance
 } from "./selectors";
 import { appStyles } from "./style";
-
+import loadGif from './assets/umaLoading.gif'
 class App extends Component {
   constructor (props) {
     super(props);
@@ -110,7 +110,6 @@ class App extends Component {
     this.props.getTicket(trainTicketNum);
     this.props.getDressUpTicket(dressUpTicketNum);
     this.props.getShuffleAllTicket(shuffleAllTicketNum);
-    console.log(this.state);
     this.setState({ loaded: true});
     //get events
     const self = this;
@@ -158,24 +157,45 @@ class App extends Component {
     BetRace.get(function(err,logs){
       self.props.getActivity(logs)
     });
+    BetRace.watch(function(err,result){
+      self.props.getActivity(result);
+    })
     HorseOnSale.get(function(err,logs){
       self.props.getActivity(logs)
+    });
+    HorseOnSale.watch(function(err,result){
+      self.props.getActivity(result)
     });
     hostRace.get(function(error, logs){
       self.props.getActivity(logs)
     });
+    hostRace.watch(function(err,result){
+      self.props.getActivity(result);
+    })
     ApplyRace.get(function(err,logs){
       self.props.getActivity(logs)
     });
+    ApplyRace.watch(function(err,result){
+      self.props.getActivity(result);
+    })
     GetHorse.get(function(err, logs) {
       self.props.getActivity(logs)
+    });
+    GetHorse.watch(function(err,result){
+      self.props.getActivity(result);
     });
     SellHorse.get(function(err, logs) {
       self.props.getActivity(logs)
     });
+    SellHorse.watch(function(err,result){
+      self.props.getActivity(result)
+    });
     LotteryLog.get(function(err, logs){
       self.props.getActivity(logs)
-    })
+    });
+    LotteryLog.watch(function(err, result){
+      self.props.getActivity(result)
+    });
   }
   render() {
     if(this.state.loaded){
@@ -205,7 +225,10 @@ class App extends Component {
           </div>
       )
     }else{
-      return null
+      return <img
+      src={loadGif}
+      style={appStyles.loadGif}
+        />
     }
   }
 }

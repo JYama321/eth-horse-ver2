@@ -61,7 +61,7 @@ class ActivityCardSmall extends Component{
               </p>
             </div>
         );
-      case 'Lottery':
+      case 'LotteryLog':
         return (
             <div style={activityCard.eventBase} className='activity-host-race'>
               <img

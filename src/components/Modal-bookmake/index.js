@@ -30,7 +30,6 @@ class BookMakeModal extends Component{
   componentDidMount(){
     const self = this;
     getHorseStrengthBalance(this.props.race[0].toNumber()).then(function(result){
-      console.log(result);
       const sum = result[0].toNumber() + result[1].toNumber();
       self.setState({
         expectedBetRate: [(sum / result[0].toNumber()).toFixed(2), (sum / result[1]).toFixed(2)],
@@ -52,7 +51,6 @@ class BookMakeModal extends Component{
     })
   }
   renderHorse(horse,num){
-    console.log(this.state.expectedBetRate[num]);
     return (
         <div style={bookMakeModalStyle.horseCardContainer}>
           <HorseStatusCard
