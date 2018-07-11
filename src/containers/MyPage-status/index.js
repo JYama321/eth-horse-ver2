@@ -211,7 +211,6 @@ class MyPageStatus extends Component{
     })
   }
   render(){
-    console.log(this.renderActivityCard())
     const {trainTicketNum,shuffleTicketNum,shuffleAllTicketNum} = this.props;
     const totalTicketNum = trainTicketNum + shuffleTicketNum + shuffleAllTicketNum;
     return(

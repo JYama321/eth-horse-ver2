@@ -41,7 +41,7 @@ import {
   getRaceInfo,
   getHorseInfo
 } from './actions'
-const address = '0x924b127dcfb23b5e517a834eb7a79ce324e94f9b';
+const address = '0x04b37ab9a0916f0bed035011d0dd925d5c36c451';
 const lotteryAddress = '0xd7352fedd55ff2821a2f2a0e6d12098101a80735';
 import {
   getWantedRaceArray,

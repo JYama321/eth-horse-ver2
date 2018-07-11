@@ -16,4 +16,5 @@ tags
 # Persistent undo
 [._]*.un~
 node_modules
+build_webpack
 .DS_STORE
