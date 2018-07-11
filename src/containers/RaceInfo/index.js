@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { raceInfoStyle } from "./styles";
 import { connect } from 'react-redux'
-import { compose } from 'redux'
 import { createStructuredSelector } from 'reselect'
 import {
   selectRaceInfo,

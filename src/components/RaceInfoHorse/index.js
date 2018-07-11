@@ -96,7 +96,7 @@ class RaceInfoHorse extends Component {
     if(this.props.race[12]){
       getTokenOwner(this.props.horseId).then(result => {
         self.setState({
-          isOwner: result
+          isOwner: result === window.web3.eth.coinbase
         })
       })
     }

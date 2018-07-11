@@ -68,12 +68,10 @@ class HorseInfoParents extends Component{
   }
   renderMamaInfo(){
     if(this.state.isMamaLoading || this.props.mamaId === 0){
-      console.log('now loading')
       return (
           <Parent gene={'000'} sireIndex={0} raceIndex={0} name={'none'} horseId={0}/>
       )
     } else {
-      console.log('finish loading')
       const mama = this.props.horseIdToInfo.get(String(this.props.mamaId));
       const name = mama[2];
       const gene = mama[1].c.join(',').replace(/,/g,'');

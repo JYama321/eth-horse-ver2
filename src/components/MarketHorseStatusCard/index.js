@@ -93,7 +93,6 @@ export default class HorseStatusCard extends Component{
     }
   }
   buyHorse(horseId,price){
-    console.log(this.props.history)
     if(this.props.isSire){
       this.props.history.push('/market-place/sire/' + horseId)
     }else{

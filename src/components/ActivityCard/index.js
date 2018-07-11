@@ -90,7 +90,6 @@ class ActivityCard extends Component{
       case 'BetRace':
         [image, title, className] =
             [betRaceLog,'Bet Race', 'activity-bet-race'];
-        console.log(args._raceId.toNumber(),window.web3.fromWei(args._betValue, 'ether'))
         return (
             <div style={activityCardContainer.activityCardBase} className={className}>
               <img

@@ -85,7 +85,6 @@ class Races extends Component{
     this.setState({
       totalPage: totalPage
     })
-    console.log(totalPage)
   }
 
   onChangePage(currentPage){
@@ -185,7 +184,6 @@ class Races extends Component{
           }
         });
       case 'ended':
-          console.log(this.props.checkedRaceArray)
         const checkedArray = this.props.checkedRaceArray ? this.props.checkedRaceArray.slice(4*(this.state.currentPage-1),4*this.state.currentPage) : [];
         return checkedArray.map((elem,index) => {
           const race = self.props.raceIdToRaceInfo.get(String(index + 1 + (self.state.currentPage-1) * 4)) ? self.props.raceIdToRaceInfo.get(String(index+1)) : null;
