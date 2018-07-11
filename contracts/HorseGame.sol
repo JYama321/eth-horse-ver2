@@ -710,11 +710,16 @@ contract HorseBet is HorseGameBase{
 //}
 
 contract HorseGame is HorseBet{
+    function setLotteryFunction(address _lotteryAddress) external onlyOwner{
+      lotteryFunction = LotteryInterface(_lotteryAddress);
+    }
 
-    constructor(address _geneInterface, address _raceFunctionInterface, address _lotteryFunctionInterface) public {
-        geneFunction = GeneFunctionInterface(_geneInterface);
-        raceFunction = RaceFunctionInterface(_raceFunctionInterface);
-        lotteryFunction = LotteryInterface(_lotteryFunctionInterface);
+    function setGeneFunction(address _geneAddress) external onlyOwner{
+      geneFunction = GeneFunctionInterface(_geneAddress);
+    }
+
+    function setRaceFunction(address _raceAddress) external onlyOwner{ 
+      raceFunction = RaceFunctionInterface(_raceAddress);
     }
 
     function setTrainTicketPrice(uint _price) external onlyOwner{

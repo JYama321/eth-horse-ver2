@@ -14,7 +14,8 @@ import {
   selectMarketSort,
   selectSireHorsesArray,
   selectSirePricesArray,
-  selectMarketType
+  selectMarketType,
+  selectActivity
 } from './selectors'
 import {
   getHorseData
@@ -45,6 +46,9 @@ class Market extends Component{
       this.setState({
         totalPage: Math.ceil(props.saleHorses.toArray().length / 8)
       })
+    }
+    if(props.activity.toArray().length > 0 && props.activity.toArray().pop().event === 'HorseOnSale' && !props.horseIdToInfo.get(String(props.activity.toArray().pop().args._tokenId.toNumber()))){
+      getHorseData(props.activity.pop.args._tokenId.toNumber()).then(horse => this.props.getHorse(horse))
     }
   }
 
@@ -209,7 +213,6 @@ class Market extends Component{
 
   render () {
     const { sortType } = this.props;
-    console.log(sortType)
     return (
         <div style={styles.outerContainer}>
           <div style={styles.innerContainer}>
@@ -234,6 +237,7 @@ const mapStateToProps = createStructuredSelector({
   horseIdToInfo: selectHorseIdToHorseInfo(),
   sortType: selectMarketSort(),
   marketType: selectMarketType(),
+  activity: selectActivity(),
   sireHorses: selectSireHorsesArray(),
   sirePrices: selectSirePricesArray(),
 });

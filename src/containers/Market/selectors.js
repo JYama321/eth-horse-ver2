@@ -52,6 +52,10 @@ const selectMarketType = () => createSelector(
     substate => substate.get('marketType')
 );
 
+const selectActivity = () => createSelector(
+  selectGlobal,
+  substate => substate.get('activities')
+)
 export {
   selectOnSaleArrayLoaded,
   selectOnSaleHorseArray,
@@ -62,5 +66,6 @@ export {
   selectMarketSort,
   selectSireHorsesArray,
   selectSirePricesArray,
-  selectMarketType
+  selectMarketType,
+  selectActivity
 }

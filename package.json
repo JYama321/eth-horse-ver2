@@ -70,6 +70,7 @@
   },
   "dependencies": {
     "dotenv": "^2.0.0",
+    "pushstate-server": "^3.0.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "redux-immutable": "^4.0.0"
@@ -79,8 +80,7 @@
     "start:prod": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "aws s3 sync build_webpack/ s3://eth-horse-test-bucket"
   },
   "jest": {
     "collectCoverageFrom": [

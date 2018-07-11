@@ -67,9 +67,25 @@ class Races extends Component{
     })
   }
   componentWillReceiveProps(props,state){
+    let totalPage;
+    switch (props.currentDisplay){
+      case 'now-wanted':
+        totalPage = Math.ceil(this.props.wantedRaceArray.filter(race=>race).length / 4);
+        break;
+      case 'now-betting':
+        totalPage = Math.ceil(this.props.bettingRaceArray.filter(race => race).length / 4);
+        break;
+      case 'my-races':
+        totalPage = Math.ceil(this.props.myRaceArray.filter(race => race).length / 4);
+        break;
+      case 'ended':
+        totalPage = Math.ceil(this.props.checkedRaceArray.filter(race => race).length / 4 );
+        break;
+    }
     this.setState({
-      totalPage: Math.ceil(props.raceNum / 4)
+      totalPage: totalPage
     })
+    console.log(totalPage)
   }
 
   onChangePage(currentPage){
@@ -84,7 +100,6 @@ class Races extends Component{
     const wantedArray = this.props.wantedRaceArray;
     const bettingArray = this.props.bettingRaceArray;
     const checkedArray = this.props.checkedRaceArray;
-    console.log(wantedArray[index],bettingArray[index])
     if(wantedArray[index]){
       return 'now wanted'
     }else if(bettingArray[index]){
@@ -99,9 +114,14 @@ class Races extends Component{
     const self = this;
     switch(this.props.currentDisplay){
       case 'now-wanted':
-        const wantedArray = this.props.wantedRaceArray ? this.props.wantedRaceArray.slice(4*(this.state.currentPage-1),4*this.state.currentPage) : [];
+        const wantedArray = this.props.wantedRaceArray ? this.props.wantedRaceArray.map((elem,index) => {
+          return {
+            id: index + 1,
+            wanted: elem
+          }
+        }).filter(race => race.wanted).slice(4*(this.state.currentPage-1),4*this.state.currentPage) : [];
         return wantedArray.map((elem,index) => {
-          const race = self.props.raceIdToRaceInfo.get(String(index+1 + (self.state.currentPage-1) * 4)) ? self.props.raceIdToRaceInfo.get(String(index+1)) : null;
+          const race = self.props.raceIdToRaceInfo.get(String(elem.id)) ? self.props.raceIdToRaceInfo.get(String(elem.id)) : null;
           if(race && elem){
             return (
                 <RaceCard
@@ -130,9 +150,14 @@ class Races extends Component{
           }
         });
       case 'now-betting':
-        const bettingArray = this.props.bettingRaceArray ? this.props.bettingRaceArray.slice(4*(this.state.currentPage-1),4*this.state.currentPage) : [];
+        const bettingArray = this.props.bettingRaceArray ? this.props.bettingRaceArray.map((elem,index) => { 
+          return {                                                                     
+             id: index + 1,                                                             
+            betting: elem                                                               
+           }                                                                            
+         }).filter(race => race.betting).slice(4*(this.state.currentPage-1),4*this.state.currentPage) : [];
         return bettingArray.map((elem,index) => {
-          const race = self.props.raceIdToRaceInfo.get(String(index + 1 + (self.state.currentPage-1) * 4)) ? self.props.raceIdToRaceInfo.get(String(index+1)) : null;
+          const race = self.props.raceIdToRaceInfo.get(String(elem.id)) ? self.props.raceIdToRaceInfo.get(String(index+1)) : null;
           if(race && elem){
             return (
                 <RaceCard
@@ -160,6 +185,7 @@ class Races extends Component{
           }
         });
       case 'ended':
+          console.log(this.props.checkedRaceArray)
         const checkedArray = this.props.checkedRaceArray ? this.props.checkedRaceArray.slice(4*(this.state.currentPage-1),4*this.state.currentPage) : [];
         return checkedArray.map((elem,index) => {
           const race = self.props.raceIdToRaceInfo.get(String(index + 1 + (self.state.currentPage-1) * 4)) ? self.props.raceIdToRaceInfo.get(String(index+1)) : null;

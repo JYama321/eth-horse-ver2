@@ -319,6 +319,7 @@ export const getHorseStrengthBalance = (raceId) => {
   return new Promise((resolve,reject) => {
     window.contract_instance.getRaceStrengthInfo(raceId,function(err,result){
       if(err){reject(err)}
+      console.log('strength',result)
       resolve(result)
     })
   })
@@ -436,8 +437,9 @@ export const doGiftHorseLottery = () => {
 
 export const getTrainLottery = () => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.trainLottery(window.web3.eth.coinbase,function (err, result) {
+    window.lottery_contract.trainLottery(window.web3.eth.coinbase,function (err, result) {
       if(err) {reject(err)}
+      console.log(result)
       resolve(result)
     })
   })
@@ -445,7 +447,7 @@ export const getTrainLottery = () => {
 
 export const getShuffleLottery = () => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.dressUpLottery(window.web3.eth.coinbase, function (err, result) {
+    window.lottery_contract.dressUpLottery(function (err, result) {
       if(err){reject(err)}
       resolve(result)
     })
@@ -454,7 +456,7 @@ export const getShuffleLottery = () => {
 
 export const getShuffleAllLottery = () => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.shuffleDressUpLottery(window.web3.eth.coinbase, function (err, result) {
+    window.lottery_contract.shuffleDressUpLottery(window.web3.eth.coinbase, function (err, result) {
       if(err){reject(err)}
       resolve(result)
     })
@@ -463,7 +465,7 @@ export const getShuffleAllLottery = () => {
 
 export const getGiftHorseLottery = () => {
   return new Promise((resolve, reject) => {
-    window.contract_instance.giftHorseLottery(window.web3.eth.coinbase, function(err, result) {
+    window.lottery_contract.giftHorseLottery(window.web3.eth.coinbase,function(err, result) {
       if(err){reject(err)}
       resolve(result)
     })
@@ -475,6 +477,7 @@ export const getTrainTicketPrice = () => {
   return new Promise((resolve, reject) => {
     window.contract_instance.trainTicketPrice(function(err,result){
       if(err){reject(err)}
+      console.log(result.toNumber())
       resolve(result)
     })
   })
@@ -552,3 +555,5 @@ export const shuffleAll = (horseId) => {
         })
   })
 };
+
+

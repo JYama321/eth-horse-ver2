@@ -47,14 +47,14 @@ class MyPageStatus extends Component{
   }
   renderActivityCard(){
     return this.props.activities.sort((a,b) => {
-      if(a.args._now < b.args._now){
+      if(a.args._now.toNumber() < b.args._now.toNumber()){
         return 1
-      } else if(a.args._now > b.args._now){
+      } else if(a.args._now.toNumber() > b.args._now.toNumber()){
         return -1
       } else {
         return 0
       }
-    }).slice(0,3).map((elem,index) => {
+    }).slice(0,3).map((elem,index,self) => {
       return <ActivityCardSmall
           event={elem.event}
           args={elem.args}
@@ -64,7 +64,6 @@ class MyPageStatus extends Component{
   }
   renderTrainTicket(){
     const trainTicketNum = this.props.trainTicketNum > 2 ? 2 : this.props.trainTicketNum;
-    console.log(trainTicketNum)
     let ticketCard = [];
     for(var i=0;i<trainTicketNum;i++){
       ticketCard.push(<TicketCard className='trainTicket' key={i + '-train-ticket'}/>)
@@ -212,7 +211,6 @@ class MyPageStatus extends Component{
     })
   }
   render(){
-    console.log(trainTicketNum);
     const {trainTicketNum,shuffleTicketNum,shuffleAllTicketNum} = this.props;
     const totalTicketNum = trainTicketNum + shuffleTicketNum + shuffleAllTicketNum;
     return(

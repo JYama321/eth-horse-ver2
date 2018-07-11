@@ -37,9 +37,11 @@ import {
   getSirePrices,
   getSireHorses,
   getOnSaleHorsesArray,
-  getSaleHorsePrices
+  getSaleHorsePrices,
+  getRaceInfo,
+  getHorseInfo
 } from './actions'
-const address = '0x4325245d315fc5e4674f3db2be2b2c39606d115d';
+const address = '0x04b37ab9a0916f0bed035011d0dd925d5c36c451';
 const lotteryAddress = '0xd7352fedd55ff2821a2f2a0e6d12098101a80735';
 import {
   getWantedRaceArray,
@@ -56,13 +58,15 @@ import {
   getSirePricesArray,
   getSireHorsesArray,
   getOnSaleHorses,
-  getHorsePrices
+  getHorsePrices,
+  getHorseData,
+  getRace
 } from './utils/eth-function'
 import {
   selectBalance
 } from "./selectors";
 import { appStyles } from "./style";
-
+import loadGif from './assets/umaLoading.gif'
 class App extends Component {
   constructor (props) {
     super(props);
@@ -110,7 +114,6 @@ class App extends Component {
     this.props.getTicket(trainTicketNum);
     this.props.getDressUpTicket(dressUpTicketNum);
     this.props.getShuffleAllTicket(shuffleAllTicketNum);
-    console.log(this.state);
     this.setState({ loaded: true});
     //get events
     const self = this;
@@ -158,24 +161,42 @@ class App extends Component {
     BetRace.get(function(err,logs){
       self.props.getActivity(logs)
     });
-    HorseOnSale.get(function(err,logs){
-      self.props.getActivity(logs)
+    BetRace.watch(function(err,result){
+      self.props.getActivity(result);
+    })
+    HorseOnSale.watch(function(err,result){
+      self.props.getActivity(result)
     });
-    hostRace.get(function(error, logs){
-      self.props.getActivity(logs)
-    });
+    hostRace.watch(function(err,result){
+      self.props.getActivity(result);
+      getRace(result.args._raceId.toNumber()-1).then(race => {
+        self.props.getRaceInfo(race);
+      })
+    })
     ApplyRace.get(function(err,logs){
       self.props.getActivity(logs)
     });
-    GetHorse.get(function(err, logs) {
-      self.props.getActivity(logs)
+    ApplyRace.watch(function(err,result){
+      self.props.getActivity(result);
+    })
+    GetHorse.watch(function(err,result){
+      self.props.getActivity(result);
+      getHorseData(result.args._tokenId.toNumber()).then(horse => {
+        self.props.getHorseInfo(horse);
+      })
     });
     SellHorse.get(function(err, logs) {
       self.props.getActivity(logs)
     });
+    SellHorse.watch(function(err,result){
+      self.props.getActivity(result)
+    });
     LotteryLog.get(function(err, logs){
       self.props.getActivity(logs)
-    })
+    });
+    LotteryLog.watch(function(err, result){
+      self.props.getActivity(result)
+    });
   }
   render() {
     if(this.state.loaded){
@@ -205,7 +226,10 @@ class App extends Component {
           </div>
       )
     }else{
-      return null
+      return <img
+      src={loadGif}
+      style={appStyles.loadGif}
+        />
     }
   }
 }
@@ -230,7 +254,9 @@ const mapDispatchToProps = (dispatch) => ({
   getSirePrices: array => dispatch(getSirePrices(array)),
   getSireHorses: array => dispatch(getSireHorses(array)),
   getSaleHorses: array => dispatch(getOnSaleHorsesArray(array)),
-  getHorsePrices: array => dispatch(getSaleHorsePrices(array))
+  getHorsePrices: array => dispatch(getSaleHorsePrices(array)),
+  getRaceInfo: race => dispatch(getRaceInfo(race)),
+  getHorseInfo: horse => dispatch(getHorseInfo(horse))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
