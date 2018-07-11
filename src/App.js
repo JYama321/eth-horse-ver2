@@ -37,7 +37,9 @@ import {
   getSirePrices,
   getSireHorses,
   getOnSaleHorsesArray,
-  getSaleHorsePrices
+  getSaleHorsePrices,
+  getRaceInfo,
+  getHorseInfo
 } from './actions'
 const address = '0x924b127dcfb23b5e517a834eb7a79ce324e94f9b';
 const lotteryAddress = '0xd7352fedd55ff2821a2f2a0e6d12098101a80735';
@@ -56,7 +58,9 @@ import {
   getSirePricesArray,
   getSireHorsesArray,
   getOnSaleHorses,
-  getHorsePrices
+  getHorsePrices,
+  getHorseData,
+  getRace
 } from './utils/eth-function'
 import {
   selectBalance
@@ -166,11 +170,11 @@ class App extends Component {
     HorseOnSale.watch(function(err,result){
       self.props.getActivity(result)
     });
-    hostRace.get(function(error, logs){
-      self.props.getActivity(logs)
-    });
     hostRace.watch(function(err,result){
       self.props.getActivity(result);
+      getRace(result.args._raceId.toNumber()-1).then(race => {
+        self.props.getRaceInfo(race);
+      })
     })
     ApplyRace.get(function(err,logs){
       self.props.getActivity(logs)
@@ -178,11 +182,11 @@ class App extends Component {
     ApplyRace.watch(function(err,result){
       self.props.getActivity(result);
     })
-    GetHorse.get(function(err, logs) {
-      self.props.getActivity(logs)
-    });
     GetHorse.watch(function(err,result){
       self.props.getActivity(result);
+      getHorseData(result.args._tokenId.toNumber()).then(horse => {
+        self.props.getHorseInfo(horse);
+      })
     });
     SellHorse.get(function(err, logs) {
       self.props.getActivity(logs)
@@ -253,7 +257,9 @@ const mapDispatchToProps = (dispatch) => ({
   getSirePrices: array => dispatch(getSirePrices(array)),
   getSireHorses: array => dispatch(getSireHorses(array)),
   getSaleHorses: array => dispatch(getOnSaleHorsesArray(array)),
-  getHorsePrices: array => dispatch(getSaleHorsePrices(array))
+  getHorsePrices: array => dispatch(getSaleHorsePrices(array)),
+  getRaceInfo: race => dispatch(getRaceInfo(race)),
+  getHorseInfo: horse => dispatch(getHorseInfo(horse))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
