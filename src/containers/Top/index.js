@@ -42,8 +42,8 @@ class Top extends Component{
               <h2 style={topStyles.topTitle}>What is Eth Horse?</h2>
               <p style={topStyles.ethHorseExplainShort}>Everyone can be an owner of race-horse using blockchin technology</p>
               <p style={topStyles.ethHorseExplain}>
-                Ether Horse is an game is a game where you can train, race, and breed your own horses. When your horse wins a race, you can get a prize! You can also vote
-                on horses in races and host your own horse races. Furthermore, there are more than seven million kinds of horse appearances and various types of status that
+                Ether Horse is a game where you can train, race, and breed your own horses. When your horse wins a race, you can get a prize! You can also vote
+                on horses in races and hold your own horse races. Furthermore, there are more than seven million kinds of horse appearances and various types of status that
                 represent strength! You can also buy and sell rare and strong horses with other users.
               </p>
               <h3 style={topStyles.topSubTitle}>How to Play Game</h3>
