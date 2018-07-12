@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import getWeb3 from './utils/getWeb3'
 import Lottery from '../build/contracts/Lottery.json'
 import HorseGame from '../build/contracts/HorseGame.json'
+import RaceFunction from '../build/contracts/RaceFunction'
 import { Helmet } from 'react-helmet'
 import './css/oswald.css'
 import './css/open-sans.css'
@@ -43,6 +44,7 @@ import {
 } from './actions'
 const address = '0x04b37ab9a0916f0bed035011d0dd925d5c36c451';
 const lotteryAddress = '0xd7352fedd55ff2821a2f2a0e6d12098101a80735';
+const raceAddress = '0xaEF4661f0E632F1a2CD6c9D355164F7114697c60';
 import {
   getWantedRaceArray,
   getBettingRaceArray,
@@ -80,8 +82,10 @@ class App extends Component {
     const coinbase = window.web3.eth.coinbase;
     const contract = window.web3.eth.contract(HorseGame.abi);
     const lottery = window.web3.eth.contract(Lottery.abi);
+    const Race = window.web3.eth.contract(RaceFunction.abi);
     window.contract_instance = contract.at(address);
     window.lottery_contract = lottery.at(lotteryAddress);
+    window.race_contract = Race.at(raceAddress);
     //raceArrays
     const wantedArray = await getWantedRaceArray();
     const bettingArray = await getBettingRaceArray();
