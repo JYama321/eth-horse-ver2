@@ -158,9 +158,6 @@ class App extends Component {
       fromBlock: 0,
       toBlock: 'latest'
     });
-    BetRace.get(function(err,logs){
-      self.props.getActivity(logs)
-    });
     BetRace.watch(function(err,result){
       self.props.getActivity(result);
     })
@@ -173,9 +170,6 @@ class App extends Component {
         self.props.getRaceInfo(race);
       })
     })
-    ApplyRace.get(function(err,logs){
-      self.props.getActivity(logs)
-    });
     ApplyRace.watch(function(err,result){
       self.props.getActivity(result);
     })
@@ -185,14 +179,8 @@ class App extends Component {
         self.props.getHorseInfo(horse);
       })
     });
-    SellHorse.get(function(err, logs) {
-      self.props.getActivity(logs)
-    });
     SellHorse.watch(function(err,result){
       self.props.getActivity(result)
-    });
-    LotteryLog.get(function(err, logs){
-      self.props.getActivity(logs)
     });
     LotteryLog.watch(function(err, result){
       self.props.getActivity(result)

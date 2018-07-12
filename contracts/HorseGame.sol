@@ -850,18 +850,6 @@ contract HorseGame is HorseBet{
     function dressUpLottery() external view returns(uint){
       return lotteryFunction.dressUpLottery(msg.sender);
     }
-
-    function trainLottery() external view returns(uint){
-      return lotteryFunction.trainLottery(msg.sender);
-    }
-    
-    function shuffleDressUpLottery() external view returns(uint){
-      return lotteryFunction.shuffleDressUpLottery(msg.sender);
-    }
-
-    function giftHorseLottery() external view returns(uint){
-      return lotteryFunction.giftHorseLottery(msg.sender);
-    }
     
 }
 
