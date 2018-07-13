@@ -1,4 +1,5 @@
 process.env.NODE_ENV = 'development';
+process.env.CONTRACT_ADDRESS = '0x04b37ab9a0916f0bed035011d0dd925d5c36c451';
 
 // Load environment variables from .env file. Suppress warnings using silent
 // if this file is missing. dotenv will never modify any environment variables

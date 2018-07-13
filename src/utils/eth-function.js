@@ -256,11 +256,11 @@ export const getOdds = (raceId) => {
     })
 };
 
-export const getTrainTicketNum = (address) => {
+export const getTrainTicketNum = () => {
     return new Promise((resolve, reject) => {
-        window.contract_instance.trainTicketNum( function (err, result) {
+        window.contract_instance.trainTicketNum({from: window.web3.eth.coinbase},function (err, result) {
             if(err){reject(err)}
-            console.log('trainTicketNum',result)
+            console.log('trainTicketNum',result.toNumber());
             resolve(result)
         })
     })
@@ -268,9 +268,9 @@ export const getTrainTicketNum = (address) => {
 
 export const getDressUpTicketNum = () => {
     return new Promise((resolve, reject) => {
-        window.contract_instance.dressUpTicketNum( function(err, result) {
+        window.contract_instance.dressUpTicketNum({from: window.web3.eth.coinbase},function(err, result) {
             if(err){reject(err)}
-            console.log(result);
+            console.log(result.toNumber());
             resolve(result)
         })
     })
@@ -278,7 +278,7 @@ export const getDressUpTicketNum = () => {
 
 export const getShuffleAllTicketNum = (address) => {
     return new Promise((resolve, reject) => {
-        window.contract_instance.shuffleDressUpTicketNum( function(err, result) {
+        window.contract_instance.shuffleDressUpTicketNum({from: window.web3.eth.coinbase},function(err, result) {
             if (err) {reject(err)}
             console.log(result);
             resolve(result)
