@@ -42,9 +42,9 @@ import {
     getRaceInfo,
     getHorseInfo
 } from './actions'
-const address = '0x04b37ab9a0916f0bed035011d0dd925d5c36c451';
-const lotteryAddress = '0xd7352fedd55ff2821a2f2a0e6d12098101a80735';
-const raceAddress = '0xaEF4661f0E632F1a2CD6c9D355164F7114697c60';
+const address = '0xcbf66f4fa94c60addb7cb5026acd48cc04f1dd9d';
+const lotteryAddress = '0x38423f9FF375c14a2243ea286B3839c9E1d9fCB6';
+const raceAddress = '0xEb64D8d2072843C6B07EE4a9eF1B77d0f203EbC4';
 import {
   getWantedRaceArray,
   getBettingRaceArray,
@@ -173,10 +173,10 @@ class App extends Component {
             getRace(result.args._raceId.toNumber()-1).then(race => {
                 self.props.getRaceInfo(race);
             })
-        })
+        });
         ApplyRace.watch(function(err,result){
             self.props.getActivity(result);
-        })
+        });
         GetHorse.watch(function(err,result){
             self.props.getActivity(result);
             getHorseData(result.args._tokenId.toNumber()).then(horse => {

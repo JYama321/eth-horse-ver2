@@ -30,7 +30,7 @@ library SafeMath{
 contract RaceFunction{
 
     function generateWinnerIndex(bytes32 _nonce,uint _gene1, uint _gene2) external view returns (uint){
-        uint seed = uint256(keccak256(abi.encodePacked(_nonce,blockhash(block.number-1))));
+        uint seed = uint256(keccak256(abi.encodePacked(_nonce^blockhash(block.number-1))));
         uint info1 = _returnStrength(_gene1);
         uint info2 = _returnStrength(_gene2);
         uint rangeMax = info1 + info2;
@@ -42,7 +42,7 @@ contract RaceFunction{
         }
     }
 
-    function _returnStrength(uint256 _gene) internal pure returns (uint256) {
+    function _returnStrength(uint256 _gene) internal view returns (uint256){
         uint info1 = _gene % 1000;
         uint info2 = _gene % 100000 / 100;
         uint info3 = _gene % 10000000 / 10000;
@@ -51,7 +51,7 @@ contract RaceFunction{
         return info1 + info2 + info3 + info4 + info5;
     }
 
-    function horseStrengthBalance(uint _gene1,uint _gene2) external pure returns
+    function horseStrengthBalance(uint _gene1,uint _gene2) external view returns
     (uint,uint)
     {
         return(_returnStrength(_gene1),_returnStrength(_gene2));

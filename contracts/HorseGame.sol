@@ -63,7 +63,7 @@ contract Ownable{
 
 contract RaceFunctionInterface{
     function generateWinnerIndex(bytes32 _nonce, uint _gene1, uint _gene2) external view returns(uint);
-    function horseStrengthBalance(uint _gene1,uint _gene2) external pure returns(uint,uint);
+    function horseStrengthBalance(uint _gene1,uint _gene2) external view returns(uint,uint);
 }
 
 contract GeneFunctionInterface{
@@ -73,23 +73,22 @@ contract GeneFunctionInterface{
 
 
 contract LotteryInterface{
-    function trainTicketNum(address _user) public view returns(uint);
-    function dressUpTicketNum(address _user) public view returns(uint);
-    function shuffleDressUpTicketNum(address _user) public view returns(uint);
-    function trainLottery(address _user) public view returns(uint);
-    function dressUpLottery(address _user) public view returns(uint);
-    function shuffleDressUpLottery(address _user) public view returns(uint);
-    function giftHorseLottery(address _user) public view returns(uint);
-    function lotteryNum() public returns (uint);
+    function trainTicketNum(address _user) external view returns(uint);
+    function dressUpTicketNum(address _user) external view returns(uint);
+    function shuffleDressUpTicketNum(address _user) external view returns(uint);
+    function trainLottery(address _user) external view returns(uint);
+    function dressUpLottery(address _user) external view returns(uint);
+    function shuffleDressUpLottery(address _user) external view returns(uint);
+    function giftHorseLottery(address _user) external view returns(uint);
     function setTrainTicketPrice(uint) external;
     function setDressUpTicketPrice(uint) external;
-    function trainTicketPrice() external view returns(uint);
-    function dressUpTicketPrice() public view returns(uint);
-    function shuffleDressUpTicketPrice() public view returns(uint);
     function setShuffleDressUpTicketPrice(uint) external;
+    function trainTicketPrice() external view returns(uint);
+    function dressUpTicketPrice() external view returns(uint);
+    function shuffleDressUpTicketPrice() external view returns(uint);
     function buyTrainTicket(uint,address) external;
-    function buyShuffleDressUpTicket(uint) external;
-    function buyDressUpTicket(uint) external;
+    function buyShuffleDressUpTicket(uint, address) external;
+    function buyDressUpTicket(uint, address) external;
     function doTrainLottery(address) external;
     function doDressUpLottery(address) external;
     function doShuffleDressUpLottery(address) external;
@@ -455,7 +454,7 @@ contract HorseBet is HorseGameBase{
         race.horseIdToBetRate[race.horseTwo] = _rate2;
         race.isBetting = true;
         bettingRaces[_raceId.sub(1)] = true;
-        raceStartTime[_raceId] = now + 5 minutes;
+        raceStartTime[_raceId] = now + 24 hours;
     }
 
     function withdrawPayback(uint _raceId) external{
@@ -595,6 +594,7 @@ contract HorseBet is HorseGameBase{
     function getMyRaces() external view returns(uint[]){
         return mapUserToRaceIds[msg.sender];
     }
+
 }
 
 
@@ -736,17 +736,17 @@ contract HorseGame is HorseBet{
 
     function buyTrainTicket() external payable{
         require(msg.value >= lotteryFunction.trainTicketPrice());
-        return lotteryFunction.buyTrainTicket(msg.value,msg.sender);
+        lotteryFunction.buyTrainTicket(msg.value,msg.sender);
     }
 
     function buyShuffleDressUpTicket() external payable{
         require(msg.value >= lotteryFunction.shuffleDressUpTicketPrice());
-        lotteryFunction.buyShuffleDressUpTicket(msg.value);
+        lotteryFunction.buyShuffleDressUpTicket(msg.value,msg.sender);
     }
 
     function buyDressUpTicket() external payable{
         require(msg.value >= lotteryFunction.dressUpTicketPrice());
-        lotteryFunction.buyDressUpTicket(msg.value);
+        lotteryFunction.buyDressUpTicket(msg.value,msg.sender);
     }
 
     function trainTicketNum() external view returns(uint){
@@ -850,6 +850,17 @@ contract HorseGame is HorseBet{
     function dressUpLottery() external view returns(uint){
       return lotteryFunction.dressUpLottery(msg.sender);
     }
-    
+
+    function trainLottery() external view returns(uint){
+        return lotteryFunction.trainLottery(msg.sender);
+    }
+
+    function shuffleDressUpLottery() external view returns(uint){
+        return lotteryFunction.shuffleDressUpLottery(msg.sender);
+    }
+
+    function giftHorseLottery() external view returns(uint){
+        return lotteryFunction.giftHorseLottery(msg.sender);
+    }
 }
 

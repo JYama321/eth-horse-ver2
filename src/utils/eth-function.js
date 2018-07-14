@@ -260,7 +260,6 @@ export const getTrainTicketNum = () => {
     return new Promise((resolve, reject) => {
         window.contract_instance.trainTicketNum({from: window.web3.eth.coinbase},function (err, result) {
             if(err){reject(err)}
-            console.log('trainTicketNum',result.toNumber());
             resolve(result)
         })
     })
@@ -445,7 +444,7 @@ export const doGiftHorseLottery = () => {
 
 export const getTrainLottery = () => {
     return new Promise((resolve, reject) => {
-        window.lottery_contract.trainLottery(window.web3.eth.coinbase,function (err, result) {
+        window.contract_instance.trainLottery({from:window.web3.eth.coinbase},function (err, result) {
             if(err) {reject(err)}
             resolve(result)
         })
@@ -454,7 +453,7 @@ export const getTrainLottery = () => {
 
 export const getShuffleLottery = () => {
     return new Promise((resolve, reject) => {
-        window.lottery_contract.dressUpLottery(function (err, result) {
+        window.contract_instance.dressUpLottery({from:window.web3.eth.coinbase},function (err, result) {
             if(err){reject(err)}
             resolve(result)
         })
@@ -463,7 +462,7 @@ export const getShuffleLottery = () => {
 
 export const getShuffleAllLottery = () => {
     return new Promise((resolve, reject) => {
-        window.lottery_contract.shuffleDressUpLottery(window.web3.eth.coinbase, function (err, result) {
+        window.contract_instance.shuffleDressUpLottery({from:window.web3.eth.coinbase}, function (err, result) {
             if(err){reject(err)}
             resolve(result)
         })
@@ -472,7 +471,7 @@ export const getShuffleAllLottery = () => {
 
 export const getGiftHorseLottery = () => {
     return new Promise((resolve, reject) => {
-        window.lottery_contract.giftHorseLottery(window.web3.eth.coinbase,function(err, result) {
+        window.lottery_contract.giftHorseLottery({from:window.web3.eth.coinbase},function(err, result) {
             if(err){reject(err)}
             resolve(result)
         })
@@ -482,7 +481,7 @@ export const getGiftHorseLottery = () => {
 //get ticket price
 export const getTrainTicketPrice = () => {
     return new Promise((resolve, reject) => {
-        window.contract_instance.trainTicketPrice(function(err,result){
+        window.contract_instance.trainTicketPrice({from: window.web3.eth.coinbase},function(err,result){
             if(err){reject(err)}
             resolve(result)
         })

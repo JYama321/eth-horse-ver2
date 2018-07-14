@@ -47,7 +47,7 @@ class Events extends Component{
         const account = window.web3.eth.accounts[0];
         getTrainLottery().then((result) => {
             const date = new Date(result.toNumber() * 1000 + 60 * 60 * 24 * 1000);
-            console.log(date);
+            console.log(date,'trainLotteryTime');
             self.setState({
                 trainLotteryTime: date
             })
@@ -252,7 +252,7 @@ class Events extends Component{
                     style={eventStyles.modalStyle}
                 >
                     <div style={eventStyles.modalTopText}>
-                        Choose Ticket Number you buy.
+                        Choose a number of tickets you buy.
                     </div>
                     <TextField
                         type='number'
