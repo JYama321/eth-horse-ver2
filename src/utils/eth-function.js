@@ -239,7 +239,7 @@ export const getBetInfo = (raceId) => {
 
 export const getParticipantPantInfo = (raceId) => {
     return new Promise((resolve, reject) => {
-        window.contract_instance.showParticipantInfo(raceId,function(err,result){
+        window.contract_instance.showParticipantInfo(raceId,{from: window.web3.eth.coinbase},function(err,result){
             if(err){reject(err)}
             resolve(result)
         })

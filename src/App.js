@@ -137,6 +137,9 @@ class App extends Component {
         });
         const SellHorse = window.contract_instance.Transfer({
             _from: window.web3.eth.coinbase
+        },{
+            fromBlock: 0,
+            toBlock: 'latest',
         });
         const HorseOnSale = window.contract_instance.HorseOnSale({
             _from: window.web3.eth.coinbase

@@ -30,7 +30,7 @@ class ActivityCardSmall extends Component{
                     style={cardImg.wide}
                     src={saleLog}
                 />
-                <p style={activityTwoLine}>Sell <Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._to} </p>
+                <p style={activityOneLine}>Sell <Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._to} </p>
               </div>);
         } else {
           return (

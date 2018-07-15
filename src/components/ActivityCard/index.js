@@ -34,8 +34,8 @@ class ActivityCard extends Component{
                                 style={cardImg}
                                 src={saleLog}
                             />
-                            <p style={activityCardP}>Buy horse</p>
-                            <p style={eventDetail}>Sell <Link to={'/horses/' + args._tokenId}>Horse</Link> from {args._from} </p>
+                            <p style={activityCardP}>Horse Sold</p>
+                            <p style={eventDetail}><Link to={'/horses/' + args._tokenId}>Horse</Link> was sold to {args._to} </p>
                         </div>);
                 } else {
                     return (

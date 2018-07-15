@@ -66,6 +66,7 @@ class Market extends Component{
         const marketType = this.props.marketType;
         const isSire = marketType === 'sire-horse' ? true : false;
         const priceOriginArray = isSire ? this.props.sirePrices : this.props.saleHorsePrices;
+        let num = 0;
         switch(sort){
             case 'default':
                 let defaultArray;
@@ -120,16 +121,15 @@ class Market extends Component{
                         return 0
                     }
                 }).slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
-                return higherOrderArray.map(function (elem,index,array) {
-                    console.log(array,elem.id,elem.price)
-                    const isLeft = index % 4 === 0;
+                return higherOrderArray.map(function (elem,index) {
                     const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
                     if(horse && horse[11]){
+                        num+=1;
                         return (
                             <HorseStatusCard
                                 info={horse}
                                 isMyHorse={false}
-                                isLeft={isLeft}
+                                isLeft={(num - 1) % 4 === 0}
                                 isSire={isSire}
                                 history={self.props.history}
                                 key={'saleHorse-'+index}
@@ -169,14 +169,14 @@ class Market extends Component{
                     }
                 }).slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
                 return lowerOrderArray.map(function (elem,index) {
-                    const isLeft = index % 4 === 0;
                     const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
                     if (horse && horse[11]) {
+                        num+=1;
                         return (
                             <HorseStatusCard
                                 info={horse}
                                 isMyHorse={false}
-                                isLeft={isLeft}
+                                isLeft={(num - 1) % 4 === 0}
                                 isSire={isSire}
                                 history={self.props.history}
                                 key={'saleHorse-' + index}

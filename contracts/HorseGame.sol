@@ -770,9 +770,10 @@ contract HorseGame is HorseBet{
         uint geneEnd = gene % (10 ** 20);
         uint geneMiddle = gene % (10 ** 38);
         uint fakeGene = geneFunction.generateReplaceGene(_nonce);
-        uint replaceGeneEnd = replaceGene % (10 ** 20);
+        uint replaceGeneEnd = fakeGene % (10 ** 20);
         uint replaceGene = fakeGene % (10 ** 38) - replaceGeneEnd;
         horse.genes = gene - geneMiddle + replaceGene + geneEnd;
+        horseGenes[_horseId.sub(1)] = horse.genes;
     }
 
     function dressUpTexture(uint _horseId, uint _index, uint _num) external{
@@ -785,6 +786,7 @@ contract HorseGame is HorseBet{
         uint geneMiddle = gene % (10 ** (_index + 3));
         uint replaceGene = _num ** _index;
         horse.genes = gene - geneMiddle + replaceGene + geneEnd;
+        horseGenes[_horseId.sub(1)] = horse.genes;
     }
 
     function trainHorse(uint _horseId) external {
