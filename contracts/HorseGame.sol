@@ -386,6 +386,8 @@ contract HorseBet is HorseGameBase{
         uint betHorseId;
         uint betPrice;
         uint expectedReturn;
+        bytes32 nonce;
+        bool committed;
     }
 
     struct Race{
@@ -413,7 +415,9 @@ contract HorseBet is HorseGameBase{
     bool[] public bettingRaces;
     bool[] public checkedRaces;
     mapping (address => uint[]) public mapUserToRaceIds;
-    mapping (uint => uint) public raceStartTime;
+    mapping (uint => uint) public raceBetEnd;
+    mapping (uint => uint) public raceCommitEnd;
+    mapping (uint => uint) raceParticipantNum;
 
 
     modifier hostOnly(uint _raceId,address _sender){
@@ -425,7 +429,7 @@ contract HorseBet is HorseGameBase{
 
     function checkRaceResult(uint _raceId) external {
         Race storage race = races[_raceId.sub(1)];
-        require(!race.isChecked && raceStartTime[_raceId] < now);
+        require(!race.isChecked && raceCommitEnd[_raceId] < now);
         Horse storage horse1 = horses[race.horseOne.sub(1)];
         Horse storage horse2 = horses[race.horseTwo.sub(1)];
         uint winnerIndex = raceFunction.generateWinnerIndex(
@@ -454,7 +458,8 @@ contract HorseBet is HorseGameBase{
         race.horseIdToBetRate[race.horseTwo] = _rate2;
         race.isBetting = true;
         bettingRaces[_raceId.sub(1)] = true;
-        raceStartTime[_raceId] = now + 24 hours;
+        raceBetEnd[_raceId] = now + 12 hours;
+        raceCommitEnd[_raceId] = now + 24 hours;
     }
 
     function withdrawPayback(uint _raceId) external{
@@ -502,20 +507,37 @@ contract HorseBet is HorseGameBase{
     }
 
     function betRace(uint _raceId, uint _horseId, uint _secret) external payable{
-        require(race.participantInfo[msg.sender].betPrice == 0);
         Race storage race = races[_raceId.sub(1)];
+        require(race.participantInfo[msg.sender].betPrice == 0);
         require(race.isBetting && !race.isChecked);
         RaceParticipant memory person = RaceParticipant({
             betHorseId: _horseId,
             betPrice: msg.value,
-            expectedReturn: (race.horseIdToBetRate[_horseId] * msg.value) / 100
+            expectedReturn: (race.horseIdToBetRate[_horseId] * msg.value) / 100,
+            nonce: keccak256(abi.encodePacked(bytes32(_secret))),
+            committed: false
             });
-
         race.participantInfo[msg.sender] = person;
-        uint _nonce = uint(race.nonce)^_secret;
-        race.nonce = keccak256(abi.encodePacked(_nonce));
+        raceParticipantNum[_raceId] = raceParticipantNum[_raceId].add(1);
         race.horseIdToBetAmount[_horseId] += msg.value;
         emit BetRace(msg.sender,msg.value,_raceId,_horseId,now);
+    }
+
+    function commitRace(uint _raceId, uint _secret) external {
+        Race storage race = races[_raceId.sub(1)];
+        require(race.participantInfo[msg.sender].betPrice != 0);
+        require(raceBetEnd[_raceId] < now && raceCommitEnd[_raceId] > now);
+        RaceParticipant storage person = race.participantInfo[msg.sender];
+        require(person.nonce == keccak256(abi.encodePacked(bytes32(_secret))) && person.committed == false);
+        race.nonce = race.nonce^bytes32(_secret);
+        person.committed = true;
+        msg.sender.transfer((race.deposit / 50) /  raceParticipantNum[_raceId]);
+    }
+
+    function racePersonInfo(uint _raceId, uint _secret) external view returns(bytes32,bytes32){
+        Race storage race = races[_raceId.sub(1)];
+        RaceParticipant storage person = race.participantInfo[msg.sender];
+        return (person.nonce,keccak256(abi.encodePacked(bytes32(_secret))));
     }
 
     function getOdds(uint _raceId) external view returns(uint,uint){
@@ -523,24 +545,25 @@ contract HorseBet is HorseGameBase{
         return(race.horseIdToBetRate[race.horseOne],race.horseIdToBetRate[race.horseTwo]);
     }
 
-    function showParticipantInfo(uint _raceId) external view returns(uint,uint,uint) {
+    function showParticipantInfo(uint _raceId) external view returns(uint,uint,uint,bool) {
         Race storage race = races[_raceId.sub(1)];
         RaceParticipant storage participantInfo = race.participantInfo[msg.sender];
         return(
         participantInfo.betHorseId,
         participantInfo.betPrice,
-        participantInfo.expectedReturn
+        participantInfo.expectedReturn,
+        participantInfo.committed
         );
     }
 
     function hostRace(string _raceName,uint _minWinnerPrize, uint _winnerPrizeFromBet) external payable{
-        require(msg.value > _minWinnerPrize);
+        require((msg.value * 98 / 100) > _minWinnerPrize);
         Race memory race =  Race({
             raceId: races.length.add(1),
             host: msg.sender,
             horseOne: 0,
             horseTwo: 0,
-            nonce: bytes32(0),
+            nonce: bytes32(blockhash(block.number-1)),
             raceName: _raceName,
             minWinnerPrize: _minWinnerPrize,
             winnerHorseId: 0,
@@ -552,6 +575,7 @@ contract HorseBet is HorseGameBase{
             isBetting: false
             });
         mapUserToRaceIds[msg.sender].push(races.length.add(1));
+        raceParticipantNum[race.raceId] = 0;
         races.push(race);
         wantedRaces.push(true);
         bettingRaces.push(false);
@@ -779,12 +803,13 @@ contract HorseGame is HorseBet{
     function dressUpTexture(uint _horseId, uint _index, uint _num) external{
         require(tokenOwner[_horseId] == msg.sender);
         require(lotteryFunction.dressUpTicketNum(msg.sender) > 0);
+        require(_index >= 20 && _index <= 35);
         lotteryFunction.dressUpHorse(msg.sender);
         Horse storage horse = horses[_horseId.sub(1)];
         uint gene = horse.genes;
         uint geneEnd = gene % (10 ** _index);
         uint geneMiddle = gene % (10 ** (_index + 3));
-        uint replaceGene = _num ** _index;
+        uint replaceGene = _num * (10 ** _index);
         horse.genes = gene - geneMiddle + replaceGene + geneEnd;
         horseGenes[_horseId.sub(1)] = horse.genes;
     }

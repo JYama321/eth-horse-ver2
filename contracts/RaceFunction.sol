@@ -30,7 +30,7 @@ library SafeMath{
 contract RaceFunction{
 
     function generateWinnerIndex(bytes32 _nonce,uint _gene1, uint _gene2) external view returns (uint){
-        uint seed = uint256(keccak256(abi.encodePacked(_nonce^blockhash(block.number-1))));
+        uint seed = uint256(keccak256(abi.encodePacked(_nonce)));
         uint info1 = _returnStrength(_gene1);
         uint info2 = _returnStrength(_gene2);
         uint rangeMax = info1 + info2;
