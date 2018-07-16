@@ -50,6 +50,7 @@
     "prop-types": "^15.6.1",
     "react-dev-utils": "^0.4.2",
     "react-helmet": "^5.2.0",
+    "react-hot-loader": "^4.3.3",
     "react-modal": "^3.4.5",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
@@ -117,7 +118,8 @@
   "babel": {
     "presets": [
       "react-app"
-    ]
+    ],
+    "plugins": ["react-hot-loader/babel"]
   },
   "eslintConfig": {
     "extends": "react-app"

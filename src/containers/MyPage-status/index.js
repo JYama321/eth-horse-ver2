@@ -8,7 +8,10 @@ import HorseStatusCardModal from '../../components/HorseStatusCardTicketModal'
 import loadingGif from '../../assets/static_assets/umaloading.gif'
 import Modal from 'react-modal'
 import Pagination from '../../components/Pagination'
-import { getHorseData, trainHorse, shuffleAll } from "../../utils/eth-function";
+import trainHorseGif from '../../assets/static_assets/ticket_training.gif'
+import shuffleDressUpGif from '../../assets/static_assets/ticket-s-dress-up.gif'
+import dressUpGif from '../../assets/static_assets/ticket_change_texture.gif'
+import { getHorseData, trainHorse, shuffleAll } from "../../utils/eth-function"
 
 Modal.setAppElement('#root');
 class MyPageStatus extends Component{
@@ -33,6 +36,7 @@ class MyPageStatus extends Component{
             currentPage: 1,
             buttonPerPage: 5,
             selectedHorseId: 0,
+            isTicketUsing: false
         };
         this.onChangePage = this.onChangePage.bind(this);
         this.selectHorse = this.selectHorse.bind(this)
@@ -134,6 +138,7 @@ class MyPageStatus extends Component{
     }
     useTicket(ticketName){
         const { selectedHorseId } = this.state;
+        const self = this;
         switch (ticketName){
             case 'trainTicket':
                 trainHorse(selectedHorseId);
@@ -146,6 +151,15 @@ class MyPageStatus extends Component{
             default:
                 return
         }
+        this.setState({
+            isTicketUsing: true
+        },function(){
+            setTimeout(function(){
+                self.setState({
+                    isTicketUsing: false
+                })
+            },12000)
+        })
     }
     renderModalTicket(className,ticketNum){
         const {ticketName} = this.state;
@@ -218,11 +232,31 @@ class MyPageStatus extends Component{
             }
         })
     }
+    returnGifType(ticketType){
+        switch (ticketType){
+            case 'trainTicket':
+                return trainHorseGif;
+            case 'dressUpTicket':
+                return dressUpGif;
+            case 'shuffleDressUpTicket':
+                return shuffleDressUpGif;
+            default:
+                return null
+        }
+    }
     render(){
         const {trainTicketNum,shuffleTicketNum,shuffleAllTicketNum} = this.props;
         const totalTicketNum = trainTicketNum + shuffleTicketNum + shuffleAllTicketNum;
+        const { ticketName } = this.state;
         return(
             <div style={myPageStyles.outerContainer}>
+                <img
+                    src={this.returnGifType(ticketName)}
+                    className={this.state.isTicketUsing ? 'ticket-animation-after' : 'ticket-animation-before'}
+                />
+                <span className={this.state.isTicketUsing ? 'message-base message-after' : 'message-base message-before'}>
+                    Please submit a transaction
+                </span>
                 <Modal
                     style={modalStyles.modalBase}
                     onRequestClose={()=>this.closeTicketModal()}

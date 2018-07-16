@@ -251,18 +251,25 @@ class Events extends Component{
                     onRequestClose={()=>this.closeTicketNumModal()}
                     style={eventStyles.modalStyle}
                 >
+                    <div style={eventStyles.modalHeader}>
+                        Buy Tickets
+                    </div>
                     <div style={eventStyles.modalTopText}>
                         Choose a number of tickets you buy.
                     </div>
-                    <TextField
-                        type='number'
-                        inputProps={{step: 1, min: 1}}
-                        value={this.state.buyTicketNumber}
-                        onChange={e=>this.changeBuyTicketNum(e)}
-                    /> tickets x {this.returnPrice(type)} ETH
-                    <Button color='primary' onClick={()=>this.buyTickets(this.state.buyTicketNumber)} >
-                        Buy
-                    </Button>
+                    <div style={eventStyles.modalTextContainer}>
+                        <TextField
+                            type='number'
+                            inputProps={{step: 1, min: 1}}
+                            value={this.state.buyTicketNumber}
+                            onChange={e=>this.changeBuyTicketNum(e)}
+                        /> tickets x {this.returnPrice(type)} ETH
+                    </div>
+                    <div style={eventStyles.modalButton}>
+                        <Button color='secondary' onClick={()=>this.buyTickets(this.state.buyTicketNumber)} style={eventStyles.buyButton}>
+                            Buy
+                        </Button>
+                    </div>
                 </Modal>
                 <div style={eventStyles.innerContainer}>
                     <img

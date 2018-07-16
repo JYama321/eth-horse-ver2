@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import HorseImage from '../HorseImage'
-import { raceInfoHorseStyle } from "./styles";
+import { raceInfoHorseStyle } from "./styles"
+import Modal from 'react-modal'
 import {
     getHorseData,
     getBetInfo,
@@ -15,8 +16,9 @@ import {
 import {horseStatus} from "../../utils/functions";
 const loadingGif = require('../../assets/static_assets/umaloading.gif');
 import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
 import winImage from '../../assets/static_assets/rarity-high.png'
-
+Modal.setAppElement('#root');
 
 class RaceInfoHorse extends Component {
     static propTypes = {
@@ -40,7 +42,9 @@ class RaceInfoHorse extends Component {
             betHorseId: 0,
             betPrice: 0,
             expectedReturn: 0,
-            isOwner: false
+            isOwner: false,
+            isOpenModal: false,
+            secretNumber: 0
         }
     }
     componentDidMount(){
@@ -109,6 +113,18 @@ class RaceInfoHorse extends Component {
         return horseStatus(status)
     }
 
+    openModal(){
+        this.setState({
+            isOpenModal: true
+        })
+    }
+
+    closeModal(){
+        this.setState({
+            isOpenModal: false
+        })
+    }
+
     renderHorse(){
         const {odds} = this.state;
         const isChecked = this.props.race[12];
@@ -157,6 +173,11 @@ class RaceInfoHorse extends Component {
             betNum: e.target.value * 100
         })
     }
+    onChangeSecretNum(e){
+        this.setState({
+            secretNumber: e.target.value
+        })
+    }
     upBetNum(){
         const betNum = this.state.betNum;
         this.setState({
@@ -198,11 +219,42 @@ class RaceInfoHorse extends Component {
             )
         }
     }
+
     render(){
         const horseId = this.props.horseId;
         const raceId = this.props.race[0].toNumber();
+        const horse = this.props.horseInfo.get(String(horseId));
         return(
             <div style={raceInfoHorseStyle.container}>
+                <Modal
+                    isOpen={this.state.isOpenModal}
+                    style={raceInfoHorseStyle.modal}
+                    onRequestClose={()=>this.closeModal()}
+                >
+                    <div style={raceInfoHorseStyle.modalTitle}>
+                        You have to choose your secret number you like as a password. Please note race Id <b style={{color: 'red'}}>{raceId}</b> and a number you chose.
+                    </div>
+                    <div style={raceInfoHorseStyle.modalTextField}>
+                        Bet {this.state.betNum / 100} ETH to {horse ? horse[2] : ''}
+                    </div>
+                    <div style={raceInfoHorseStyle.modalTextField}>
+                        Secret Number
+                        <TextField
+                            value={this.state.secretNumber}
+                            type='number'
+                            inputProps={{step: 1, min: 0}}
+                            onChange={e=>this.onChangeSecretNum(e)}
+                            style={{marginLeft: '14px'}}
+                        />
+                    </div>
+                    <div style={raceInfoHorseStyle.modalTextField}>
+                        <Button
+                            onClick={()=>betRace(raceId,horseId,this.state.betNum / 100,this.state.secretNumber)}
+                            color='secondary'
+                            style={{backgroundColor: 'black'}}
+                        >Bet Race</Button>
+                    </div>
+                </Modal>
                 <div style={raceInfoHorseStyle.horseNum}>horse No.{this.props.horseNum}</div>
                 {this.renderHorse()}
                 <div style={raceInfoHorseStyle.bettingInfo}>
@@ -240,7 +292,7 @@ class RaceInfoHorse extends Component {
                     <button style={raceInfoHorseStyle.betButton}
                             className='bet-button'
                             disabled={this.state.betHorseId !== 0}
-                            onClick={()=>betRace(raceId,horseId,this.state.betNum / 100)}>
+                            onClick={()=>this.openModal()}>
                         bet
                     </button>
                 </div>

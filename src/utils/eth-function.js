@@ -269,7 +269,6 @@ export const getDressUpTicketNum = () => {
     return new Promise((resolve, reject) => {
         window.contract_instance.dressUpTicketNum({from: window.web3.eth.coinbase},function(err, result) {
             if(err){reject(err)}
-            console.log(result.toNumber());
             resolve(result)
         })
     })
@@ -279,7 +278,6 @@ export const getShuffleAllTicketNum = (address) => {
     return new Promise((resolve, reject) => {
         window.contract_instance.shuffleDressUpTicketNum({from: window.web3.eth.coinbase},function(err, result) {
             if (err) {reject(err)}
-            console.log(result);
             resolve(result)
         })
     })
@@ -288,7 +286,7 @@ export const getShuffleAllTicketNum = (address) => {
 export const hostRace = (info) => {
     return new Promise((resolve, reject) => {
         window.contract_instance.hostRace(info.raceName,info.minWinnerPrize,info.winnerPrizeFromBet,
-            {from: window.web3.eth.coinbase, gas: 5000000, gasPrice: 10 ** 10, value: info.deposit, nonce: 19},function(err, result){
+            {from: window.web3.eth.coinbase, gasPrice: 10 ** 10, value: info.deposit, nonce: 19},function(err, result){
                 if(err){reject(err)}
                 resolve(result)
             })
@@ -307,7 +305,7 @@ export const ownerOf = (horseId) => {
 
 export const applyRace = (raceId,horseId) => {
     return new Promise((resolve, reject) => {
-        window.contract_instance.applyRace(raceId,horseId,{from: window.web3.eth.coinbase, gas: 3000000, gasPrice: 10 ** 10},function(err, result){
+        window.contract_instance.applyRace(raceId,horseId,{from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2},function(err, result){
             if(err){reject(err)}
             resolve(result)
         })
@@ -335,7 +333,7 @@ export const getStrengthBalance = (genes) => {
 
 export const decideBetRate = (raceId,rates) => {
     return new Promise((resolve,reject) => {
-        window.contract_instance.decideBetRate(raceId,rates[0]*100,rates[1]*100,{from: window.web3.eth.coinbase, gasPrice: 10 ** 10, gas: 5000000},function(err,result){
+        window.contract_instance.decideBetRate(raceId,rates[0]*100,rates[1]*100,{from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2},function(err,result){
             if(err){reject(err)}
             resolve(result)
         })
@@ -344,7 +342,7 @@ export const decideBetRate = (raceId,rates) => {
 
 export const checkResult = (raceId) => {
     return new Promise((resolve, reject) => {
-        window.contract_instance.checkRaceResult(raceId,{from: window.web3.eth.coinbase,gasPrice: 10 ** 10, gas: 3000000},function(err,result) {
+        window.contract_instance.checkRaceResult(raceId,{from: window.web3.eth.coinbase,gasPrice: 10 ** 10 * 2},function(err,result) {
             if(err){reject(err)}
             resolve(result)
         })
@@ -353,7 +351,7 @@ export const checkResult = (raceId) => {
 
 export const withdrawPayback = (raceId) => {
     return new Promise((resolve, reject) => {
-        window.contract_instance.withdrawPayback(raceId, {from: window.web3.eth.coinbase, gas: 100000, gasPrice: 10 ** 10},function(err, result){
+        window.contract_instance.withdrawPayback(raceId, {from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2},function(err, result){
             if(err){reject(err)}
             resolve(result)
         })
@@ -362,7 +360,7 @@ export const withdrawPayback = (raceId) => {
 
 export const withdrawPrize = (raceId) => {
     return new Promise((resolve, reject) => {
-        window.contract_instance.withdrawPrize(raceId,{from: window.web3.eth.coinbase, gas: 1000000, gasPrice: 10 ** 10},function(err,result){
+        window.contract_instance.withdrawPrize(raceId,{from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2},function(err,result){
             if(err){reject(err)}
             resolve(result)
         })
@@ -371,32 +369,49 @@ export const withdrawPrize = (raceId) => {
 
 export const sireHorses = (papaId,mamaId,name) => {
     return new Promise((resolve,reject) => {
-        window.contract_instance.mateHorses(papaId,mamaId,name,{from: window.web3.eth.coinbase, gas: 5000000, gasPrice: 10 ** 10},function(err,result) {
+        window.contract_instance.mateHorses(papaId,mamaId,name,{from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2},function(err,result) {
             if(err){reject(err)}
             resolve(result)
         })
     })
 };
 
-export const getRaceStartTime = (raceId) => {
+export const getRaceBetEndTime = (raceId) => {
     return new Promise((resolve,reject) => {
-        window.contract_instance.raceStartTime(raceId,function(err,result){
+        window.contract_instance.raceBetEnd(raceId,function(err,result){
             if(err){reject(err)}
             resolve(result)
         })
     })
 };
 
-export const betRace = (raceId,horseId,value) => {
+export const getRaceCommitEndTime = (raceId) => {
     return new Promise((resolve, reject) => {
-        console.log(raceId,horseId,value);
-        let array = new Uint32Array(1);
-        window.crypto.getRandomValues(array);
-        window.contract_instance.betRace(raceId,horseId,array[0],
-            {from: window.web3.eth.coinbase,gas: 3000000, gasPrice: 10 ** 10, value: window.web3.toWei(value,'ether')},function (err, result) {
+        window.contract_instance.raceCommitEnd(raceId,function(err, result){
+            if(err){reject(err)}
+            resolve(result)
+        })
+    })
+};
+
+
+export const betRace = (raceId,horseId,value,secret) => {
+    return new Promise((resolve, reject) => {
+        window.contract_instance.betRace(raceId,horseId,secret,
+            {from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2, value: window.web3.toWei(value,'ether')},function (err, result) {
                 if(err){console.log(err)}
                 resolve(result)
             })
+    })
+};
+
+export const commitRace = (raceId,secret) => {
+    return new Promise((resolve, reject) => {
+        window.contract_instance.commitRace(raceId,secret,{from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2},
+            function(err, result){
+            if(err){reject(err)}
+            resolve(result)
+        })
     })
 };
 
@@ -404,7 +419,7 @@ export const betRace = (raceId,horseId,value) => {
 
 export const doTrainLottery = () => {
     return new Promise((resolve, reject) => {
-        window.contract_instance.doTrainLottery({from: window.web3.eth.coinbase, gas: 150000, gasPrice: 10 ** 10},function(err,result){
+        window.contract_instance.doTrainLottery({from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2},function(err,result){
             if(err){reject(err)}
             resolve(result)
         })
@@ -414,7 +429,7 @@ export const doTrainLottery = () => {
 export const doShuffleLottery = () => {
     return new  Promise((resolve, reject) => {
         window.contract_instance.doDressUpLottery({
-            from: window.web3.eth.coinbase, gas: 150000, gasPrice: 10 ** 10},function(err, result){
+            from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2},function(err, result){
             if(err){reject(err)}
             resolve(result)
         })
@@ -424,7 +439,7 @@ export const doShuffleLottery = () => {
 export const doShuffleAllLottery = () => {
     return new Promise((resolve, reject) => {
         window.contract_instance.doShuffleDressUpLottery({from: window.web3.eth.coinbase,
-            gas: 150000, gasPrice: 10 ** 10},function(err, result){
+            gasPrice: 10 ** 10 * 2},function(err, result){
             if(err){reject(err)}
             resolve(result)
         })
@@ -434,7 +449,7 @@ export const doShuffleAllLottery = () => {
 export const doGiftHorseLottery = () => {
     return new Promise((resolve, reject) => {
         window.contract_instance.doGiftHorseLottery({from: window.web3.eth.coinbase,
-            gas: 150000, gasPrice: 10 ** 10}, function(err, result){
+            gasPrice: 10 ** 10 * 2}, function(err, result){
             if(err){reject(err)}
             resolve(result)
         })
@@ -542,7 +557,7 @@ export const buyTrainTicket = (value) => {
 export const trainHorse = (horseId) => {
     return new Promise((resolve, reject) => {
         window.contract_instance.trainHorse(
-            horseId,{from: window.web3.eth.coinbase, gas: 1000000, gasPrice: 10 ** 10},function (err, result) {
+            horseId,{from: window.web3.eth.coinbase,gasPrice: 10 ** 10 * 2},function (err, result) {
                 if(err){reject(err)}
                 resolve(result)
             })
@@ -554,7 +569,7 @@ export const shuffleAll = (horseId) => {
         let array = new Uint32Array(1);
         window.crypto.getRandomValues(array);
         window.contract_instance.shuffleDressUpTexture(
-            horseId,array[0],{from: window.web3.eth.coinbase, gas: 1000000, gasPrice: 10 ** 10},function (err, result) {
+            horseId,array[0],{from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2},function (err, result) {
                 if(err){reject(err)}
                 resolve(result)
             })

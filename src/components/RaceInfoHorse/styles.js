@@ -131,5 +131,43 @@ export const raceInfoHorseStyle = {
         color: 'white',
         textAlign: 'left',
         paddingLeft: '30px'
+    },
+    modal: {
+        content: {
+            top : '50%',
+            left  : '50%',
+            right : 'auto',
+            bottom : 'auto',
+            marginRight : '-50%',
+            transform : 'translate(-50%, -50%)',
+            height: '250px',
+            width: '450px',
+            position: 'absolute',
+            padding: 0,
+            zIndex: 8888
+        }
+    },
+    modalTitle: {
+        height: '80px',
+        width: '100%',
+        lineHeight: '40px',
+        textAlign: 'center',
+        fontSize: '16px',
+        backgroundColor: 'black',
+        color: 'white',
+    },
+    modalTextField: {
+        height: '30px',
+        width: '100%',
+        lineHeight: '30px',
+        marginTop: '14px',
+        textAlign: 'left'
+    },
+    currentBetInfo: {
+        height: '30px',
+        width: '100%',
+        lineHeight: '30px',
+        marginTop: '14px',
+        textAlign: 'left'
     }
 };

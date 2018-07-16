@@ -1,14 +1,18 @@
 export const bookMakeModalStyle = {
     modalContent: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        position: 'absolute',
-        padding: 0,
-        zIndex: 8888
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            position: 'absolute',
+            padding: '0',
+            width: '80%',
+            height: '600px',
+            zIndex: 8888
+        }
     },
     horseCardContainer: {
         width: '225px',
