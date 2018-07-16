@@ -458,8 +458,8 @@ contract HorseBet is HorseGameBase{
         race.horseIdToBetRate[race.horseTwo] = _rate2;
         race.isBetting = true;
         bettingRaces[_raceId.sub(1)] = true;
-        raceBetEnd[_raceId] = now + 12 hours;
-        raceCommitEnd[_raceId] = now + 24 hours;
+        raceBetEnd[_raceId] = now + 2 minutes;
+        raceCommitEnd[_raceId] = now + 4 minutes;
     }
 
     function withdrawPayback(uint _raceId) external{
@@ -497,10 +497,11 @@ contract HorseBet is HorseGameBase{
         return raceFunction.horseStrengthBalance(horses[race.horseOne.sub(1)].genes,horses[race.horseTwo.sub(1)].genes);
     }
 
+
     function bettingInfo(uint _raceId) external view returns(uint,uint,uint,uint,uint,uint){
         Race storage race = races[_raceId.sub(1)];
         require(race.horseOne != 0 && race.horseTwo != 0);
-        uint paybackMax = race.totalBet * (100 - race.winnerPrizeFromBet) / 100 + (race.deposit - race.minWinnerPrize);
+        uint paybackMax = race.totalBet * (100 - race.winnerPrizeFromBet) / 100 + (race.deposit * 98 / 100 - race.minWinnerPrize);
         uint max1 = ((paybackMax - (race.horseIdToBetAmount[race.horseOne] * race.horseIdToBetRate[race.horseOne] / 100)) / race.horseIdToBetRate[race.horseOne]) * 100;
         uint max2 = ((paybackMax - (race.horseIdToBetAmount[race.horseTwo] * race.horseIdToBetRate[race.horseTwo] / 100)) / race.horseIdToBetRate[race.horseTwo]) * 100;
         return (max1,race.horseIdToBetAmount[race.horseOne],race.horseIdToBetRate[race.horseOne],max2,race.horseIdToBetAmount[race.horseTwo],race.horseIdToBetRate[race.horseTwo]);
@@ -519,7 +520,8 @@ contract HorseBet is HorseGameBase{
             });
         race.participantInfo[msg.sender] = person;
         raceParticipantNum[_raceId] = raceParticipantNum[_raceId].add(1);
-        race.horseIdToBetAmount[_horseId] += msg.value;
+        race.horseIdToBetAmount[_horseId] = race.horseIdToBetAmount[_horseId].add(msg.value);
+        race.totalBet = race.totalBet.add(msg.value);
         emit BetRace(msg.sender,msg.value,_raceId,_horseId,now);
     }
 
@@ -531,13 +533,9 @@ contract HorseBet is HorseGameBase{
         require(person.nonce == keccak256(abi.encodePacked(bytes32(_secret))) && person.committed == false);
         race.nonce = race.nonce^bytes32(_secret);
         person.committed = true;
-        msg.sender.transfer((race.deposit / 50) /  raceParticipantNum[_raceId]);
-    }
-
-    function racePersonInfo(uint _raceId, uint _secret) external view returns(bytes32,bytes32){
-        Race storage race = races[_raceId.sub(1)];
-        RaceParticipant storage person = race.participantInfo[msg.sender];
-        return (person.nonce,keccak256(abi.encodePacked(bytes32(_secret))));
+        uint payback = race.deposit / 50 / raceParticipantNum[_raceId];
+        race.deposit = race.deposit.sub(payback);
+        msg.sender.transfer(payback);
     }
 
     function getOdds(uint _raceId) external view returns(uint,uint){

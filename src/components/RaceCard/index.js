@@ -26,7 +26,6 @@ class RaceCard extends Component{
         isMyRace: PropTypes.bool,
         openApplyRaceModal: PropTypes.func,
         isBetting: PropTypes.bool,
-        secretNum: 0
     };
     constructor(props){
         super(props);
@@ -38,7 +37,8 @@ class RaceCard extends Component{
             betEndRowDate: '',
             commitEndLoaded: false,
             commitEndRowDate: '',
-            isOpenCommitModal: false
+            isOpenCommitModal: false,
+            secretNum: 0
         };
         this.closeBookMakeModal = this.closeBookMakeModal.bind(this)
     }
