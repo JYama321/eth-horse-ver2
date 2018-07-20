@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4644d453-fb36-4e8d-b49b-da8c15d8e225" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/RaceCard/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RaceCard/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RaceCard/styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RaceCard/styles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RankingModalHorse/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RankingModalHorse/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RankingModalHorse/styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RankingModalHorse/styles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Ranking/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Ranking/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Ranking/styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Ranking/styles.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,44 +22,43 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/HorseImage/index.js">
+        <entry file="file://$PROJECT_DIR$/src/containers/Market/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="60" column="39" lean-forward="true" selection-start-line="60" selection-start-column="39" selection-end-line="60" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/containers/Races/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="194" column="31" selection-start-line="194" selection-start-column="29" selection-end-line="194" selection-end-column="37" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/RaceCard/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="219" selection-start-line="219" selection-end-line="219" />
+            <state relative-caret-position="139">
+              <caret line="71" column="33" lean-forward="true" selection-start-line="71" selection-start-column="33" selection-end-line="71" selection-end-column="33" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
-                <element signature="n#!!block;n#closeCommitModal#0;n#RaceCard#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/App.css">
+      <file leaf-file-name="actions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/actions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="299" column="14" lean-forward="true" selection-start-line="299" selection-start-column="14" selection-end-line="299" selection-end-column="14" />
+            <state relative-caret-position="185">
+              <caret line="90" column="33" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="65" column="17" selection-start-line="61" selection-start-column="2" selection-end-line="61" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="eth-function.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/eth-function.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="37" lean-forward="true" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -65,35 +66,38 @@
       <file leaf-file-name="HorseGame.sol" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/contracts/HorseGame.sol">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="396" column="22" lean-forward="true" selection-start-line="396" selection-start-column="22" selection-end-line="396" selection-end-column="22" />
+            <state relative-caret-position="297">
+              <caret line="285" column="5" selection-start-line="285" selection-start-column="5" selection-end-line="285" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/HorseInfoParents/index.js">
+        <entry file="file://$PROJECT_DIR$/src/containers/Ranking/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="102" column="20" lean-forward="true" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="20" />
+            <state relative-caret-position="152">
+              <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/RaceCard/styles.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/RankingModalHorse/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="125" column="23" selection-start-line="125" selection-start-column="23" selection-end-line="125" selection-end-column="23" />
+            <state relative-caret-position="348">
+              <caret line="125" column="26" lean-forward="true" selection-start-line="125" selection-start-column="26" selection-end-line="125" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
+      <file leaf-file-name="styles.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/RankingModalHorse/styles.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="86" column="28" selection-start-line="86" selection-start-column="27" selection-end-line="86" selection-end-column="28" />
+            <state relative-caret-position="105">
+              <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -102,25 +106,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>betRace</find>
-      <find>bettingINfo</find>
-      <find>checkRaceResult</find>
-      <find>secretNum</find>
-      <find>commitRace</find>
-      <find>mapGEne</find>
-      <find>mapGeneF</find>
-      <find>mapFaceAndHairs</find>
-      <find>mapGeneToTexture</find>
-      <find>scripts</find>
-      <find>renderCurrentStateButton</find>
-      <find>Modal</find>
-      <find>&lt;Modal</find>
-      <find>&lt;Link</find>
-      <find>horseGene1</find>
-      <find>winnerI</find>
-      <find>isShowRaceModalOpen</find>
-      <find>renderLink</find>
-      <find>{this.renderLink(currentState)}</find>
       <find>renderCurrentState</find>
       <find>currentState</find>
       <find>render</find>
@@ -129,9 +114,28 @@
       <find>struct Race</find>
       <find>slice</find>
       <find>modal</find>
-      <find>ended</find>
       <find>justifyContent</find>
       <find>check race result</find>
+      <find>ended</find>
+      <find>winnerHorseName</find>
+      <find>struct Horse</find>
+      <find>high-price</find>
+      <find>takeOwnership</find>
+      <find>default</find>
+      <find>renderHorses</find>
+      <find>horseOnSalePrices</find>
+      <find>GET_ON_SALE_HORSE_SUCCESS</find>
+      <find>sellHorseArray</find>
+      <find>getOnSaleHorsesArray</find>
+      <find>getSaleHorses</find>
+      <find>getOnSaleHorses</find>
+      <find>selectOnSaleHorseArray</find>
+      <find>horsesOnSale</find>
+      <find>this.props.type</find>
+      <find>rankingType</find>
+      <find>marginLEft</find>
+      <find>tokenOwner</find>
+      <find>isRankingModalOpen</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/containers</dir>
@@ -157,7 +161,6 @@
         <option value="$PROJECT_DIR$/src/components/Header/index.js" />
         <option value="$PROJECT_DIR$/src/components/ActivityCard/index.js" />
         <option value="$PROJECT_DIR$/src/components/ActivityCardSmall/index.js" />
-        <option value="$PROJECT_DIR$/src/containers/Market/index.js" />
         <option value="$PROJECT_DIR$/src/containers/MyPage-status/styles.js" />
         <option value="$PROJECT_DIR$/src/utils/mapHorseInfoToRarity.js" />
         <option value="$PROJECT_DIR$/migrations/2_deploy_contracts.js" />
@@ -174,11 +177,17 @@
         <option value="$PROJECT_DIR$/src/components/RaceInfoHorse/index.js" />
         <option value="$PROJECT_DIR$/src/utils/eth-function.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
-        <option value="$PROJECT_DIR$/contracts/HorseGame.sol" />
         <option value="$PROJECT_DIR$/src/utils/mapGeneToTextures.js" />
         <option value="$PROJECT_DIR$/src/components/RaceCard/styles.js" />
         <option value="$PROJECT_DIR$/src/App.css" />
+        <option value="$PROJECT_DIR$/src/components/HorseImage/index.js" />
         <option value="$PROJECT_DIR$/src/components/RaceCard/index.js" />
+        <option value="$PROJECT_DIR$/src/containers/Market/index.js" />
+        <option value="$PROJECT_DIR$/contracts/HorseGame.sol" />
+        <option value="$PROJECT_DIR$/src/containers/Ranking/styles.js" />
+        <option value="$PROJECT_DIR$/src/containers/Ranking/index.js" />
+        <option value="$PROJECT_DIR$/src/components/RankingModalHorse/index.js" />
+        <option value="$PROJECT_DIR$/src/components/RankingModalHorse/styles.js" />
       </list>
     </option>
   </component>
@@ -197,9 +206,9 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="597" />
+    <option name="x" value="324" />
     <option name="y" value="23" />
-    <option name="width" value="843" />
+    <option name="width" value="1116" />
     <option name="height" value="817" />
   </component>
   <component name="ProjectView">
@@ -207,6 +216,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -217,43 +227,18 @@
             <path>
               <item name="horseGame-ver2" type="b2602c69:ProjectViewProjectNode" />
               <item name="horseGame-ver2" type="462c0819:PsiDirectoryNode" />
-              <item name="contracts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="horseGame-ver2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="horseGame-ver2" type="462c0819:PsiDirectoryNode" />
-              <item name="scripts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="horseGame-ver2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="horseGame-ver2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="horseGame-ver2" type="b2602c69:ProjectViewProjectNode" />
               <item name="horseGame-ver2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="horseGame-ver2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="horseGame-ver2" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-              <item name="Info-horse" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="horseGame-ver2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="horseGame-ver2" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-              <item name="Races" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -306,17 +291,19 @@
       <workItem from="1531732457134" duration="666000" />
       <workItem from="1531733723678" duration="7207000" />
       <workItem from="1531839437295" duration="4120000" />
-      <workItem from="1531956685986" duration="8764000" />
+      <workItem from="1531956685986" duration="10413000" />
+      <workItem from="1532059465541" duration="4308000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106189000" />
+    <option name="totallyTimeSpent" value="112146000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="597" y="23" width="843" height="817" extended-state="0" />
+    <frame x="324" y="23" width="1116" height="817" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49663526" weight="0.2241993" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49663526" weight="0.2311828" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50043213" side_tool="true" weight="0.3810179" />
@@ -324,7 +311,7 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info id="Structure" order="1" sideWeight="0.50336474" side_tool="true" weight="0.22511211" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49956784" visible="true" weight="0.38088828" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49956784" weight="0.37964237" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" sideWeight="0.50067294" side_tool="true" weight="0.22511211" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
@@ -335,26 +322,6 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
     </layout>
-    <layout-to-restore>
-      <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22584148" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="TypeScript" order="8" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49956784" weight="0.38088828" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50043213" side_tool="true" weight="0.3810179" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -375,36 +342,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/assets/texture_icons/b.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/texture_icons/c.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/texture_icons/d.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/texture_icons/e.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/texture_icons/f.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/texture_icons/g.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/texture_icons/h.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/texture_icons/i.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/texture_icons/j.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/texture_icons/k.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/assets/texture_icons/l.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -485,9 +422,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="5" column="38" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -508,15 +442,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
+        <state relative-caret-position="1290">
           <caret line="86" column="28" selection-start-line="86" selection-start-column="27" selection-end-line="86" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/HorseImage/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="60" column="39" lean-forward="true" selection-start-line="60" selection-start-column="39" selection-end-line="60" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -527,13 +454,6 @@
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contracts/HorseGame.sol">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="396" column="22" lean-forward="true" selection-start-line="396" selection-start-column="22" selection-end-line="396" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -551,6 +471,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/RaceCard/styles.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1875">
+          <caret line="125" column="23" selection-start-line="125" selection-start-column="23" selection-end-line="125" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/HorseInfoParents/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1395">
+          <caret line="102" column="20" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4485">
+          <caret line="299" column="14" selection-start-line="299" selection-start-column="14" selection-end-line="299" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/Races/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -561,35 +502,108 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/RaceCard/styles.js">
+    <entry file="file://$PROJECT_DIR$/src/components/HorseImage/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="125" column="23" selection-start-line="125" selection-start-column="23" selection-end-line="125" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/HorseInfoParents/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="102" column="20" lean-forward="true" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="299" column="14" lean-forward="true" selection-start-line="299" selection-start-column="14" selection-end-line="299" selection-end-column="14" />
+        <state relative-caret-position="480">
+          <caret line="57" column="14" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
+          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/RaceCard/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="219" selection-start-line="219" selection-end-line="219" />
+        <state relative-caret-position="268">
+          <caret line="295" column="63" lean-forward="true" selection-start-line="295" selection-start-column="63" selection-end-line="295" selection-end-column="63" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
             <element signature="n#!!block;n#closeCommitModal#0;n#RaceCard#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/Market/selectors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="42" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/actions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="90" column="33" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="65" column="17" selection-start-line="61" selection-start-column="2" selection-end-line="61" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/Market/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="71" column="33" lean-forward="true" selection-start-line="71" selection-start-column="33" selection-end-line="71" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contracts/HorseGame.sol">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="285" column="5" selection-start-line="285" selection-start-column="5" selection-end-line="285" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/HorseRankStatusCard/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="123" column="107" lean-forward="true" selection-start-line="123" selection-start-column="107" selection-end-line="123" selection-end-column="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/Ranking/styles.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="83" column="21" lean-forward="true" selection-start-line="83" selection-start-column="21" selection-end-line="83" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/eth-function.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="37" lean-forward="true" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/Ranking/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/RankingModalHorse/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="125" column="26" lean-forward="true" selection-start-line="125" selection-start-column="26" selection-end-line="125" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/RankingModalHorse/styles.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
         </state>
       </provider>
     </entry>

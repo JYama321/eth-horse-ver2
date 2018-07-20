@@ -306,7 +306,7 @@ class RaceCard extends Component{
                                 'tex1=' + horseGene1.slice(horseGene1.length-38,horseGene1.length-20) +
                                 '&tex2=' + horseGene2.slice(horseGene1.length-38,horseGene1.length-20) +
                                 '&winnerIndex=' + winnerHorseIndex +
-                                '&winnerHorseName=' + winnerHorseName} target="_blank">See Race Movie
+                                '&winnerName=' + winnerHorseName} target="_blank">See Race Movie
                                 </a>
                             </div>
                             or
