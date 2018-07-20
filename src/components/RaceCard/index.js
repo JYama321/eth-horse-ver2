@@ -132,7 +132,7 @@ class RaceCard extends Component{
                 case 'now betting':
                     return <button style={raceCardStyles.currentState} className='race-current-state-betting'/>;
                 case 'commit race':
-                    return <button style={raceCardStyles.currentState} className='race-current-state'>confirm your password</button>
+                    return <button style={raceCardStyles.currentState} className='race-current-state' onClick={()=>this.openCommitModal()}>confirm password</button>
                 case 'ended':
                     return <button style={raceCardStyles.currentState} className='race-current-state-ended'/>;
                 case 'calculate odds':
