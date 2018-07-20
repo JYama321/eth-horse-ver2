@@ -85,7 +85,7 @@ class Header extends Component {
                             Status
                         </button>
                         <button style={headerStyles.headerLeftButtonMarket(this.props.myPageCurrentDisplay === 'my-horses')} onClick={() => this.props.changeMyPageDisp('my-horses')}>
-                            My Horses
+                            Your Horses
                         </button>
                         <button style={headerStyles.headerLeftButtonMarket(this.props.myPageCurrentDisplay === 'activity')} onClick={() => this.props.changeMyPageDisp('activity')}>
                             Activity

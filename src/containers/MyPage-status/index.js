@@ -305,7 +305,7 @@ class MyPageStatus extends Component{
                         </div>
                         <div style={myPageStyles.statusPageTicket}>
                             <div style={myPageStyles.ticketTitle}>
-                                <b>Owned Ticket</b>
+                                <b>Your Ticket</b>
                                 <button style={myPageStyles.activityMore} onClick={()=>this.openTicketModal()}>
                                     More >
                                 </button>
@@ -319,7 +319,7 @@ class MyPageStatus extends Component{
                     </div>
                     <div style={myPageStyles.statusHorseList}>
                         <div style={myPageStyles.statusHorseLisTitle}>
-                            <b>Owned Horses</b>
+                            <b>Your Horses</b>
                             <button style={myPageStyles.activityMore} onClick={()=> this.props.changeDisplay('my-horses')}>
                                 More >
                             </button>
