@@ -89,7 +89,6 @@ class RaceInfoHorse extends Component {
             });
         }
         if(this.props.isBetting || this.props.race[12]){
-            console.log(raceId,'RaceID')
             getParticipantPantInfo(raceId).then(result =>{
                 console.log('getParticipantinfo',result);
                 self.setState({
@@ -196,7 +195,7 @@ class RaceInfoHorse extends Component {
         const isChecked = this.props.race[12];
         const raceId = this.props.race[0].toNumber();
         const winnerId = this.props.race[8].toNumber();
-        if(this.state.betHorseId === this.props.horseId && !isChecked){
+        if(this.state.betHorseId === this.props.horseId && !this.props.isWanted){
             return(
                 <div style={raceInfoHorseStyle.participantInfo}>
                     <p>bet: {this.state.betPrice} ETH</p>
@@ -270,7 +269,7 @@ class RaceInfoHorse extends Component {
                     </div>
                 </div>
                 {this.renderBettingInfo()}
-                <div style={raceInfoHorseStyle.betAction(this.state.betHorseId === 0)}>
+                <div style={raceInfoHorseStyle.betAction(this.state.betHorseId === 0 && !this.props.isWanted)}>
                     <button
                         style={raceInfoHorseStyle.changeBetNumButton}
                         onClick={()=>this.downBetNum()}
@@ -291,7 +290,7 @@ class RaceInfoHorse extends Component {
                     ETH
                     <button style={raceInfoHorseStyle.betButton}
                             className='bet-button'
-                            disabled={this.state.betHorseId !== 0}
+                            disabled={this.state.betHorseId !== 0 || this.props.isWanted}
                             onClick={()=>this.openModal()}>
                         bet
                     </button>

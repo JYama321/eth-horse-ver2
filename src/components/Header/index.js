@@ -160,7 +160,7 @@ class Header extends Component {
     }
     render() {
         return (
-            <div style={headerStyles.container}>
+            <div style={headerStyles.container} className='header-container'>
                 <div style={headerStyles.headerTopContainer}>
                     <div style={headerStyles.headerMenuContainer}>
                         <div style={headerStyles.headerTitle}>

@@ -167,7 +167,7 @@ class App extends Component {
         });
         BetRace.watch(function(err,result){
             self.props.getActivity(result);
-        })
+        });
         HorseOnSale.watch(function(err,result){
             self.props.getActivity(result)
         });

@@ -3,18 +3,18 @@ import {createSelector} from 'reselect'
 const selectGlobal = state => state.global;
 
 const selectRaceInfo = () => createSelector(
-  selectGlobal,
-  substate => substate.get('raceIdToRaceInfo')
+    selectGlobal,
+    substate => substate.get('raceIdToRaceInfo')
 );
 
 const selectHorseInfo = () => createSelector(
-  selectGlobal,
-  substate => substate.get('horseIdToHorseInfo')
+    selectGlobal,
+    substate => substate.get('horseIdToHorseInfo')
 );
 
 const selectAllRaceArray = () => createSelector(
-  selectGlobal,
-  substate => substate.get('allRaceArray')
+    selectGlobal,
+    substate => substate.get('allRaceArray')
 );
 
 const selectCurrentPage = () => createSelector(
@@ -58,15 +58,15 @@ const selectMyHorseIdArray = () => createSelector(
 );
 
 export {
-  selectRaceInfo,
-  selectAllRaceArray,
-  selectAllRaceArrayLoaded,
-  selectBettingRaceArray,
-  selectWantedRaceArray,
-  selectCheckedRaceArray,
-  selectHorseInfo,
-  selectCurrentPage,
-  selectRaceCurrentDisp,
-  selectMyRaeArray,
-  selectMyHorseIdArray
+    selectRaceInfo,
+    selectAllRaceArray,
+    selectAllRaceArrayLoaded,
+    selectBettingRaceArray,
+    selectWantedRaceArray,
+    selectCheckedRaceArray,
+    selectHorseInfo,
+    selectCurrentPage,
+    selectRaceCurrentDisp,
+    selectMyRaeArray,
+    selectMyHorseIdArray
 }

@@ -309,7 +309,7 @@ const mapStateToProps = (state) => createStructuredSelector({
     horseIdToInfo: selectHorseInfo(),
     currentDisplay: selectRaceCurrentDisp(),
     myRaceArray: selectMyRaeArray(),
-    ownedHorses: selectMyHorseIdArray()
+    ownedHorses: selectMyHorseIdArray(),
 });
 const mapDispatchToProps = (dispatch) => ({
     startLoadRaces: () => dispatch(startLoadRaceArray()),
