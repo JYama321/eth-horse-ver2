@@ -207,7 +207,7 @@ class RaceCard extends Component{
         const horseGene1 = horse1 ? horse1[1].c.join(',').replace(/,/g,'') : '0000000';
         const horseGene2 = horse2 ? horse2[1].c.join(',').replace(/,/g,'') : '000000';
         const winnerHorseIndex = this.props.race[2].toNumber() === this.props.race[8].toNumber() ? '0' : '1';
-        const winnerHorseName = this.props.horseInfo.get(String(this.props.race[8].toNumber())) ? this.props.horseInfo.get(String(this.props.race[8].toNumber()))[0] : '';
+        const winnerHorseName = this.props.horseInfo.get(String(this.props.race[8].toNumber())) ? this.props.horseInfo.get(String(this.props.race[8].toNumber()))[2] : '';
         if(this.props.isMyRace){
             return(
                 <div style={raceCardStyles.cardContainer}>
