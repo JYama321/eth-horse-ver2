@@ -229,9 +229,9 @@ class RaceCard extends Component{
                             <div style={raceCardStyles}>
                                 <a href={'http://ehth-horse-scenes.s3-website-ap-northeast-1.amazonaws.com/StartScenes/StartScene.html?' +
                                 'tex1=' + horseGene1.slice(horseGene1.length-38,horseGene1.length-20) +
-                                '&tex2=' + horseGene2.slice(horseGene1.length-38,horseGene1.length-20) +
+                                '&tex2=' + horseGene2.slice(horseGene2.length-38,horseGene1.length-20) +
                                 '&winnerIndex=' + winnerHorseIndex +
-                                '&winnerHorseName=' + winnerHorseName} target="_blank">See Race Movie</a>
+                                '&winnerName=' + winnerHorseName} target="_blank">See Race Movie</a>
                             </div>
                             or
                             <div>
@@ -304,7 +304,7 @@ class RaceCard extends Component{
                             <div style={raceCardStyles.raceResultModalButton}>
                                 <a style={{color: 'white'}} href={'http://ehth-horse-scenes.s3-website-ap-northeast-1.amazonaws.com/StartScenes/StartScene.html?' +
                                 'tex1=' + horseGene1.slice(horseGene1.length-38,horseGene1.length-20) +
-                                '&tex2=' + horseGene2.slice(horseGene1.length-38,horseGene1.length-20) +
+                                '&tex2=' + horseGene2.slice(horseGene2.length-38,horseGene1.length-20) +
                                 '&winnerIndex=' + winnerHorseIndex +
                                 '&winnerName=' + winnerHorseName} target="_blank">See Race Movie
                                 </a>
