@@ -37,15 +37,19 @@ const selectCurrentSirePage = () => createSelector(
     substate => substate.get('sireHosePage')
 );
 
-
+const selectMatePrice = () => createSelector(
+    selectGlobal,
+    substate => substate.get('matePrice')
+);
 
 export {
-  selectGlobal,
-  selectHorseArrayLoading,
-  selectHorseArray,
-  selectHorseIdArray,
-  selectHorseIdToHorseInfo,
-  selectCurrentPage,
-  selectCurrentSireHorseId,
-  selectCurrentSirePage
+    selectGlobal,
+    selectHorseArrayLoading,
+    selectHorseArray,
+    selectHorseIdArray,
+    selectHorseIdToHorseInfo,
+    selectCurrentPage,
+    selectCurrentSireHorseId,
+    selectCurrentSirePage,
+    selectMatePrice
 }

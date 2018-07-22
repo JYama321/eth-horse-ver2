@@ -367,9 +367,19 @@ export const withdrawPrize = (raceId) => {
     })
 };
 
-export const sireHorses = (papaId,mamaId,name) => {
+export const sireHorses = (papaId,mamaId,name,price) => {
     return new Promise((resolve,reject) => {
-        window.contract_instance.mateHorses(papaId,mamaId,name,{from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2},function(err,result) {
+        window.contract_instance.mateHorses(papaId,mamaId,name,
+            {from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2, value: price},function(err,result) {
+            if(err){reject(err)}
+            resolve(result)
+        })
+    })
+};
+
+export const getMatePrice = () => {
+    return new Promise((resolve, reject) => {
+        window.contract_instance.matePrice(function(err, result){
             if(err){reject(err)}
             resolve(result)
         })

@@ -109,7 +109,7 @@ contract HorseGameBase is Ownable{
     uint geneModulus = 10 ** 64; // length of genes
     uint[] horsesOnSale; //horsesOnSale
     uint[] horsesOnSireSale; //horsesOnSireSale
-    uint matePrice;
+    uint public matePrice;
 
     GeneFunctionInterface geneFunction;
     RaceFunctionInterface raceFunction;
@@ -275,7 +275,7 @@ contract HorseGameBase is Ownable{
         delete tokenIdToOnSaleIndex[_tokenId];
         horsesOnSale.length--;
         transfer(_from,_to,_tokenId);
-        emit Transfer(_from,_to,_tokenId,'Buy',now);
+        emit Transfer(_from,_to,_tokenId,'buy',now);
         _from.transfer(price);
     }
 

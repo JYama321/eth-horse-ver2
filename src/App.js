@@ -39,8 +39,8 @@ import {
     getSireHorses,
     getOnSaleHorsesArray,
     getSaleHorsePrices,
-    getRaceInfo,
-    getHorseInfo
+    getHorseInfo,
+    getMatePrice
 } from './actions'
 const address = '0x672561acff90a599c551ab0f7a19faefa17ccafa';
 const lotteryAddress = '0x041398c56bf035dda98b760740c03314466324e6';
@@ -61,7 +61,7 @@ import {
     getSireHorsesArray,
     getOnSaleHorses,
     getHorsePrices,
-    getHorseData,
+    getMatePrice,
 } from './utils/eth-function'
 import {
     selectBalance
@@ -98,7 +98,9 @@ class App extends Component {
         const sirePrices = await getSirePricesArray();
         const sireArray = await getSireHorsesArray();
         const saleHorseArray = await getOnSaleHorses();
+        const matePrice = await getMatePrice();
 
+        this.props.matePrice(matePrice.toNumber());
         this.props.getSaleHorses(saleHorseArray);
         this.props.getSireHorses(sireArray);
         this.props.getSirePrices(sirePrices);
@@ -250,7 +252,8 @@ const mapDispatchToProps = (dispatch) => ({
     getSireHorses: array => dispatch(getSireHorses(array)),
     getSaleHorses: array => dispatch(getOnSaleHorsesArray(array)),
     getHorsePrices: array => dispatch(getSaleHorsePrices(array)),
-    getHorseInfo: horse => dispatch(getHorseInfo(horse))
+    getHorseInfo: horse => dispatch(getHorseInfo(horse)),
+    getMatePrice: price => dispatch(getMatePrice(price))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
