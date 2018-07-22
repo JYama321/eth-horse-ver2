@@ -109,6 +109,7 @@ contract HorseGameBase is Ownable{
     uint geneModulus = 10 ** 64; // length of genes
     uint[] horsesOnSale; //horsesOnSale
     uint[] horsesOnSireSale; //horsesOnSireSale
+    uint matePrice;
 
     GeneFunctionInterface geneFunction;
     RaceFunctionInterface raceFunction;
@@ -149,7 +150,7 @@ contract HorseGameBase is Ownable{
     mapping(uint => uint) public raceIdToDeposit; //レースにデポジットされたETHの値
 
     event HorseOnSale(address indexed _from,uint _price, uint _tokenId, string _type, uint _now);
-    event Transfer(address indexed _from,address indexed _to,uint256 _tokenId, uint _now);
+    event Transfer(address indexed _from,address indexed _to,uint256 _tokenId, string _type, uint _now);
     event ApplyRace(address indexed _owner,uint _raceId,uint _horseId,uint _now);
     event BetRace(address indexed _voter,uint _betValue, uint _raceId, uint _horseId, uint _now);
     event HostRace(address indexed _host, uint _deposit, uint _minWinnerPrize, uint _raceId, uint _now);
@@ -201,6 +202,10 @@ contract HorseGameBase is Ownable{
         return ownedTokens[_owner];
     }
 
+    function setMatePrices(uint _price) external onlyOwner{
+        matePrice = _price;
+    }
+
     function transfer(address _from,address _to,uint256 _tokenId) internal {
         //remove and add
         _removeToken(_from,_tokenId);
@@ -230,8 +235,8 @@ contract HorseGameBase is Ownable{
         ownedTokensIndex[_tokenId] = ownedTokens[_to].push(_tokenId) - 1;
     }
 
-    function mateHorses(uint _papaId, uint _mamaId, string _name) external {
-        require(_papaId != _mamaId);
+    function mateHorses(uint _papaId, uint _mamaId, string _name) external payable {
+        require(_papaId != _mamaId && msg.value >= matePrice);
         require(tokenOwner[_papaId] == msg.sender && tokenOwner[_mamaId] == msg.sender);
         Horse storage papa = horses[_papaId.sub(1)];
         Horse storage mama = horses[_mamaId.sub(1)];
@@ -270,7 +275,7 @@ contract HorseGameBase is Ownable{
         delete tokenIdToOnSaleIndex[_tokenId];
         horsesOnSale.length--;
         transfer(_from,_to,_tokenId);
-        emit Transfer(_from,_to,_tokenId, now);
+        emit Transfer(_from,_to,_tokenId,'Buy',now);
         _from.transfer(price);
     }
 
@@ -370,7 +375,7 @@ contract HorseGameBase is Ownable{
         horseOnMinBidPrices.push(0);
         horseTotalPrize.push(0);
         //from が 0x0だったら誕生
-        emit Transfer(0x0,_to,_tokenId, now);
+        emit Transfer(0x0,_to,_tokenId,'sire',now);
     }
 
     function createHorseToken(string _name) external onlyOwner{
@@ -616,120 +621,7 @@ contract HorseBet is HorseGameBase{
     function getMyRaces() external view returns(uint[]){
         return mapUserToRaceIds[msg.sender];
     }
-
 }
-
-
-//contract HorseBid is HorseBet{
-//
-//    struct Bid{
-//        uint horseId;
-//        uint closeTime;
-//        uint minPrice;
-//        uint currentMax;
-//        address currentMaxUser;
-//        address host;
-//        mapping(address => uint) participantsToBidPrice;
-//        bool isClosed;
-//    }
-//    uint[] horsesOnBid; //horsesOnSale
-//    mapping(uint => uint) public tokenIdToBidIndex; //token Id to BidIndex
-//
-//    mapping(uint => Bid) tokenIdToAuction;
-//    mapping(uint => address[]) tokenIdToAuctionParticipants;
-//
-//    function horseTokenNotToAuction(uint _tokenId) public{
-//        Horse storage horse = horses[_tokenId.sub(1)];
-//        require(horse.isOnAuction);
-//        require(tokenOwner[_tokenId] == msg.sender);
-//        delete tokenIdToAuction[_tokenId];
-//        uint onBidIndex = tokenIdToBidIndex[_tokenId];
-//        uint lastIndex = horsesOnBid.length.sub(1);
-//        uint lastToken = horsesOnBid[lastIndex];
-//
-//        horsesOnBid[onBidIndex] = horsesOnBid[lastIndex];
-//        horseOnMinBidPrices[_tokenId.sub(1)] = 0;
-//        tokenIdToBidIndex[lastToken] = onBidIndex;
-//        delete tokenIdToBidIndex[_tokenId];
-//        horsesOnBid.length--;
-//        horse.isOnAuction = false;
-//    }
-//
-//    function horseTokenToAuction(uint _tokenId, uint _minPrice, uint _duration) external{
-//        Horse storage horse = horses[_tokenId.sub(1)];
-//        Bid memory bid = Bid({
-//            horseId: _tokenId,
-//            closeTime: now + _duration,
-//            minPrice: _minPrice,
-//            currentMax: 0,
-//            currentMaxUser: msg.sender,
-//            host: msg.sender,
-//            isClosed: false
-//            });
-//        if(horse.isOnSale){
-//            horseTokenNotToAuction(_tokenId);
-//            horseOnSalePrices[_tokenId.sub(1)] = 0;
-//        }
-//        horse.isOnAuction = true;
-//        horseOnMinBidPrices[_tokenId.sub(1)] = _minPrice;
-//        tokenIdToAuction[_tokenId] = bid;
-//        tokenIdToBidIndex[_tokenId] = horsesOnBid.push(_tokenId).sub(1);
-//        emit HorseOnSale(msg.sender,_minPrice,_tokenId,"auction", now);
-//    }
-//
-//    function changeAuctionStatus(uint _addTime,uint _price, uint _tokenId) external{
-//        Horse storage horse = horses[_tokenId.sub(1)];
-//        require(horse.isOnAuction);
-//        Bid storage bid = tokenIdToAuction[_tokenId];
-//        require(!bid.isClosed);
-//        require(bid.horseId == _tokenId);
-//        require(tokenIdToAuctionParticipants[_tokenId].length == 0);
-//        bid.minPrice = _price;
-//        bid.closeTime += _addTime;
-//    }
-//
-//
-//    function applyBid(uint _tokenId) external payable{
-//        Horse storage horse = horses[_tokenId.sub(1)];
-//        require(horse.isOnAuction);
-//        Bid storage bid = tokenIdToAuction[_tokenId];
-//        require(!bid.isClosed);
-//        require(bid.minPrice <= msg.value);
-//        require(bid.host != msg.sender);
-//        tokenIdToAuctionParticipants[_tokenId].push(msg.sender);
-//        bid.participantsToBidPrice[msg.sender] += msg.value;
-//        if(bid.currentMax < bid.participantsToBidPrice[msg.sender]){
-//            bid.currentMax = bid.participantsToBidPrice[msg.sender];
-//            bid.currentMaxUser = msg.sender;
-//        }
-//    }
-//
-//    function withdrawBid(uint _tokenId) external {
-//        Horse storage horse = horses[_tokenId.sub(1)];
-//        horse.isOnAuction = false;
-//        Bid storage bid = tokenIdToAuction[_tokenId];
-//        require(bid.isClosed);
-//        address sender;
-//        uint payback;
-//        if(msg.sender == bid.currentMaxUser){
-//            transfer(bid.host,msg.sender,_tokenId);
-//            emit Transfer(bid.host,msg.sender,_tokenId, now);
-//        }else if(msg.sender == bid.host){
-//            payback = bid.currentMax;
-//            bid.currentMax = 0;
-//            bid.host.transfer(payback);
-//        }else{
-//            for(uint i=0;i<tokenIdToAuctionParticipants[_tokenId].length;i++){
-//                if(msg.sender == tokenIdToAuctionParticipants[_tokenId][i]){
-//                    sender = msg.sender;
-//                    payback = bid.participantsToBidPrice[sender];
-//                    bid.participantsToBidPrice[sender] = 0;
-//                }
-//            }
-//            sender.transfer(payback);
-//        }
-//    }
-//}
 
 contract HorseGame is HorseBet{
     function setLotteryFunction(address _lotteryAddress) external onlyOwner{

@@ -104,7 +104,7 @@ export const getHorseData = (horseId) => {
 
 export const horseToOnSale = (horseId,price) => {
     return new Promise((resolve,reject) => {
-        window.contract_instance.horseTokenToOnSale(horseId,window.web3.toWei(price,'ether'),{from:window.web3.eth.coinbase, gasPrice: 10 ** 10, gas: 3000000},function(err,result){
+        window.contract_instance.horseTokenToOnSale(horseId,window.web3.toWei(price,'ether'),{from:window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2, gas: 3000000},function(err,result){
             if(err) {reject(err)}
             resolve(result)
         })
@@ -113,7 +113,7 @@ export const horseToOnSale = (horseId,price) => {
 
 export const horseToSireSale = (horseId,price) => {
     return new Promise((resolve, reject) => {
-        window.contract_instance.horseTokenToOnSireSale(horseId,window.web3.toWei(price,'ether'),{from: window.web3.eth.coinbase, gasPrice: 10 ** 10, gas: 3000000},
+        window.contract_instance.horseTokenToOnSireSale(horseId,window.web3.toWei(price,'ether'),{from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2, gas: 3000000},
             function (err, result) {
                 if (err) {
                     reject(err)
@@ -125,7 +125,7 @@ export const horseToSireSale = (horseId,price) => {
 
 export const horseTokenNotToOnSale = (horseId) => {
     return new Promise((resolve,reject) => {
-        window.contract_instance.horseTokenToNotOnSale(horseId,{from: window.web3.eth.coinbase, gas: 3000000, gasPrice: 10 ** 10}, function (err, result) {
+        window.contract_instance.horseTokenToNotOnSale(horseId,{from: window.web3.eth.coinbase, gas: 3000000, gasPrice: 10 ** 10 * 2}, function (err, result) {
             if(err){reject(err)}
             resolve(result)
         })
@@ -134,7 +134,7 @@ export const horseTokenNotToOnSale = (horseId) => {
 
 export const horseTokenNotToOnSireSale = (horseId) => {
     return new Promise((resolve, reject) => {
-        window.contract_instance.horseTokenToNotOnSireSale(horseId,{from: window.web3.eth.coinbase, gas: 3000000, gasPrice: 10 ** 10}, function(err, result){
+        window.contract_instance.horseTokenToNotOnSireSale(horseId,{from: window.web3.eth.coinbase, gas: 3000000, gasPrice: 10 ** 10 * 2}, function(err, result){
             if(err){reject(err)}
             resolve(result)
         })
@@ -286,7 +286,7 @@ export const getShuffleAllTicketNum = (address) => {
 export const hostRace = (info) => {
     return new Promise((resolve, reject) => {
         window.contract_instance.hostRace(info.raceName,info.minWinnerPrize,info.winnerPrizeFromBet,
-            {from: window.web3.eth.coinbase, gasPrice: 10 ** 10, value: info.deposit, nonce: 19},function(err, result){
+            {from: window.web3.eth.coinbase, gasPrice: 10 ** 10 * 2, value: info.deposit, nonce: 19},function(err, result){
                 if(err){reject(err)}
                 resolve(result)
             })

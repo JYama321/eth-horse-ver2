@@ -9,6 +9,9 @@ import {
     getRaceCommitEndTime,
     commitRace
 } from "../../utils/eth-function";
+import {
+    calculateDate
+} from "../../utils/functions";
 import { Link } from 'react-router-dom'
 import BookMakeModal from '../Modal-bookmake'
 import Modal from 'react-modal'
@@ -55,28 +58,18 @@ class RaceCard extends Component{
             await this.props.getHorse(horseTwo);
         }
         getRaceBetEndTime(raceId).then((result) => {
-            const date = new Date(result.toNumber() * 1000);
-            const month = '0' + (date.getMonth() + 1);
-            const day = '0'+date.getDate();
-            const hours = '0' + date.getHours();
-            const minutes = '0' + date.getMinutes();
+            const date = calculateDate(result);
             self.setState({
-                betEndTime: date.getFullYear() + '/' + month.slice(month.length - 2,month.length) + '/' +
-                day.slice(day.length - 2,day.length) + '/' + hours.slice(hours.length-2,hours.length) + ':' + minutes.slice(minutes.length-2,minutes.length),
-                betEndRowDate: date,
+                betEndTime: date[0],
+                betEndRowDate: date[1],
                 betEndLoaded: true
             });
         });
         getRaceCommitEndTime(raceId).then((result) => {
-            const date = new Date(result.toNumber() * 1000);
-            const month = ('0' + (date.getMonth() + 1));
-            const day = ('0'+date.getDate());
-            const hours = ('0' + date.getHours());
-            const minutes = '0' + date.getMinutes();
+            const date = calculateDate(result);
             self.setState({
-                commitEndTime: date.getFullYear() + '/' + month.slice(month.length - 2,month.length) + '/' +
-                day.slice(day.length - 2,day.length) + '/' + hours.slice(hours.length-2,hours.length) + ':' + minutes.slice(minutes.length-2,minutes.length),
-                commitEndRowDate: date,
+                commitEndTime: date[0],
+                commitEndRowDate: date[1],
                 commitEndLoaded: true
             })
         })
@@ -85,28 +78,18 @@ class RaceCard extends Component{
         const self = this;
         if(!this.state.betEndRowDate || !this.state.commitEndRowDate){
             getRaceBetEndTime(props.raceId).then((result) => {
-                const date = new Date(result.toNumber() * 1000);
-                const month = '0' + (date.getMonth() + 1);
-                const day = '0'+date.getDate();
-                const hours = '0' + date.getHours();
-                const minutes = '0' + date.getMinutes();
+                const date = calculateDate(result);
                 self.setState({
-                    betEndTime: date.getFullYear() + '/' + month.slice(month.length - 2,month.length) + '/' +
-                    day.slice(day.length - 2,day.length) + '/' + hours.slice(hours.length-2,hours.length) + ':' + minutes.slice(minutes.length-2,minutes.length),
-                    betEndRowDate: date,
+                    betEndTime: date[0],
+                    betEndRowDate: date[1],
                     betEndLoaded: true
                 });
             });
             getRaceCommitEndTime(props.raceId).then((result) => {
-                const date = new Date(result.toNumber() * 1000);
-                const month = ('0' + (date.getMonth() + 1));
-                const day = ('0'+date.getDate());
-                const hours = ('0' + date.getHours());
-                const minutes = '0' + date.getMinutes();
+                const date = calculateDate(result.toNumber());
                 self.setState({
-                    commitEndTime: date.getFullYear() + '/' + month.slice(month.length - 2,month.length) + '/' +
-                    day.slice(day.length - 2,day.length) + '/' + hours.slice(hours.length-2,hours.length) + ':' + minutes.slice(minutes.length-2,minutes.length),
-                    commitEndRowDate: date,
+                    commitEndTime: date[0],
+                    commitEndRowDate: date[1],
                     commitEndLoaded: true
                 })
             })
@@ -123,22 +106,22 @@ class RaceCard extends Component{
         })
     }
 
-    renderCurrentStateButton(state){
+    renderCurrentStateButton(state,isLoaded){
         const raceId = this.props.race[0].toNumber();
-        if(this.state.betEndLoaded && this.state.commitEndLoaded){
+        if(isLoaded){
             switch(state){
                 case 'now wanted':
                     return <button style={raceCardStyles.currentState} className='race-current-state-wanted' onClick={()=>this.props.openApplyRaceModal(raceId)}/>;
                 case 'now betting':
                     return <button style={raceCardStyles.currentState} className='race-current-state-betting'/>;
                 case 'commit race':
-                    return <button style={raceCardStyles.currentState} className='race-current-state' onClick={()=>this.openCommitModal()}>confirm password</button>
+                    return <button style={raceCardStyles.currentState} className='race-current-state' onClick={()=>this.openCommitModal()}>confirm</button>;
                 case 'ended':
                     return <button style={raceCardStyles.currentState} className='race-current-state-ended'/>;
                 case 'calculate odds':
                     return <button style={raceCardStyles.currentState} className='race-current-state' onClick={()=>this.openBookMakeModal()}>decide odds</button>;
                 case 'check result':
-                    return <button style={raceCardStyles.currentState} className='race-current-state-check-result' onClick={() => checkResult(raceId)}/>
+                    return <button style={raceCardStyles.currentState} className='race-current-state-check-result' onClick={() => checkResult(raceId)}/>;
                 default:
                     return <button style={raceCardStyles.currentState} className={'race-current-state'}>Now Loading...</button>;
             }
@@ -208,6 +191,7 @@ class RaceCard extends Component{
         const horseGene2 = horse2 ? horse2[1].c.join(',').replace(/,/g,'') : '000000';
         const winnerHorseIndex = this.props.race[2].toNumber() === this.props.race[8].toNumber() ? '0' : '1';
         const winnerHorseName = this.props.horseInfo.get(String(this.props.race[8].toNumber())) ? this.props.horseInfo.get(String(this.props.race[8].toNumber()))[2] : '';
+        const isLoaded = this.state.betEndLoaded && this.state.commitEndLoaded;
         if(this.props.isMyRace){
             return(
                 <div style={raceCardStyles.cardContainer}>
@@ -240,12 +224,12 @@ class RaceCard extends Component{
                         </div>
                     </Modal>
                     <div style={raceCardStyles.cartContainerTop}>
-                        <p>{this.renderTimeInfo(betEndTime)}</p>
+                        <p>{currentState === 'now wanted' ? 'now you can apply race' : this.renderTimeInfo(betEndTime)}</p>
                     </div>
                     <div style={raceCardStyles.raceInfoContainer}>
                         {this.renderLink(currentState)}
                         <p style={raceCardStyles.winnerPrizeP}>Winner Prize:&nbsp; <b>{window.web3.fromWei(this.props.race[6],'ether').toNumber().toFixed(2)}</b> ETH + <b>{this.props.race[7].toNumber()}</b> % of total bet</p>
-                        {this.renderCurrentStateButton(currentState)}
+                        {this.renderCurrentStateButton(currentState,isLoaded)}
                     </div>
                     <div style={raceCardStyles.horseImgContainer}>
                         <div style={raceCardStyles.horseContainer}>
@@ -318,12 +302,12 @@ class RaceCard extends Component{
                         </div>
                     </Modal>
                     <div style={raceCardStyles.cartContainerTop}>
-                        <p>{this.renderTimeInfo(betEndTime)}</p>
+                        <p>{currentState === 'now wanted' ? 'now you can apply race' : this.renderTimeInfo(betEndTime)}</p>
                     </div>
                     <div style={raceCardStyles.raceInfoContainer}>
                         {this.renderLink(currentState)}
                         <p style={raceCardStyles.winnerPrizeP}>Winner Prize:&nbsp;<b>{window.web3.fromWei(this.props.race[6],'ether').toNumber().toFixed(2)}</b> ETH + <b>{this.props.race[7].toNumber()}</b> % of total bet</p>
-                        {this.renderCurrentStateButton(currentState)}
+                        {this.renderCurrentStateButton(currentState,isLoaded)}
                     </div>
                     <div style={raceCardStyles.horseImgContainer}>
                         <div style={raceCardStyles.horseContainer}>

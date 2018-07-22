@@ -46,23 +46,22 @@ const address = '0x672561acff90a599c551ab0f7a19faefa17ccafa';
 const lotteryAddress = '0x041398c56bf035dda98b760740c03314466324e6';
 const raceAddress = '0xbb62abad03e83c1b2abe608b62d6da26dd6a0920';
 import {
-  getWantedRaceArray,
-  getBettingRaceArray,
-  getCheckedRaceArray,
-  getMyRaceArray,
-  getTrainTicketNum,
-  getDressUpTicketNum,
-  getShuffleAllTicketNum,
-  getMyHorsesArray,
-  getHorseWinCountArray,
-  getGeneArray,
-  getHorseTotalPrizeArray,
-  getSirePricesArray,
-  getSireHorsesArray,
-  getOnSaleHorses,
-  getHorsePrices,
-  getHorseData,
-  getRace
+    getWantedRaceArray,
+    getBettingRaceArray,
+    getCheckedRaceArray,
+    getMyRaceArray,
+    getTrainTicketNum,
+    getDressUpTicketNum,
+    getShuffleAllTicketNum,
+    getMyHorsesArray,
+    getHorseWinCountArray,
+    getGeneArray,
+    getHorseTotalPrizeArray,
+    getSirePricesArray,
+    getSireHorsesArray,
+    getOnSaleHorses,
+    getHorsePrices,
+    getHorseData,
 } from './utils/eth-function'
 import {
     selectBalance
@@ -173,18 +172,19 @@ class App extends Component {
         });
         hostRace.watch(function(err,result){
             self.props.getActivity(result);
-            getRace(result.args._raceId.toNumber()-1).then(race => {
-                self.props.getRaceInfo(race);
-            })
+            getWantedRaceArray().then(wantedArray => {
+                self.props.getWantedArray(wantedArray);
+            });
+
         });
         ApplyRace.watch(function(err,result){
             self.props.getActivity(result);
         });
         GetHorse.watch(function(err,result){
             self.props.getActivity(result);
-            getHorseData(result.args._tokenId.toNumber()).then(horse => {
-                self.props.getHorseInfo(horse);
-            })
+            getMyHorsesArray().then(myRaces => {
+                self.props.getMyHorseArray(myRaces);
+            });
         });
         SellHorse.watch(function(err,result){
             self.props.getActivity(result)
@@ -250,7 +250,6 @@ const mapDispatchToProps = (dispatch) => ({
     getSireHorses: array => dispatch(getSireHorses(array)),
     getSaleHorses: array => dispatch(getOnSaleHorsesArray(array)),
     getHorsePrices: array => dispatch(getSaleHorsePrices(array)),
-    getRaceInfo: race => dispatch(getRaceInfo(race)),
     getHorseInfo: horse => dispatch(getHorseInfo(horse))
 });
 

@@ -11,7 +11,8 @@ import saga from './saga'
 import {
     startLoadRaceArray,
     getHorseInfo,
-    changeRacePage
+    changeRacePage,
+    getRaceInfo
 } from "./actions";
 import {
     selectRaceInfo,
@@ -23,9 +24,10 @@ import {
     selectHorseInfo,
     selectRaceCurrentDisp,
     selectMyRaeArray,
-    selectMyHorseIdArray
+    selectMyHorseIdArray,
+
 } from "./selectors";
-import {hostRace, getHorseData} from "../../utils/eth-function";
+import {getRace, getHorseData} from "../../utils/eth-function";
 import ApplyRaceModal from '../../components/ModalApplyRace'
 import HostRaceModal from '../../components/ModalHostRace'
 import Modal from 'react-modal'
@@ -46,7 +48,7 @@ class Races extends Component{
             deposit: 0,
             isApplyRaceModalOpen: false,
             currentSelectedRaceId: 0,
-
+            currentDisplay: ''
         };
         this.onChangePage = this.onChangePage.bind(this);
         this.openApplyRaceModal = this.openApplyRaceModal.bind(this);
@@ -84,7 +86,12 @@ class Races extends Component{
         }
         this.setState({
             totalPage: totalPage
-        })
+        });
+        if(props.currentDisplay !== state.currentDisplay){
+            this.setState({
+                currentPage: 1
+            })
+        }
     }
 
     onChangePage(currentPage){
@@ -135,6 +142,9 @@ class Races extends Component{
                             />
                         )
                     }else if(elem){
+                        getRace(elem.id-1).then(result => {
+                            self.props.getRaceInfo(result)
+                        });
                         return(
                             <img
                                 key={'loading-'+index}
@@ -150,7 +160,6 @@ class Races extends Component{
                     }
                 });
             case 'now-betting':
-                console.log('now-betting');
                 const bettingArray = this.props.bettingRaceArray ? this.props.bettingRaceArray.map((elem,index) => {
                     return {
                         id: index + 1,
@@ -172,6 +181,9 @@ class Races extends Component{
                             />
                         )
                     }else if (elem){
+                        getRace(elem.id-1).then(result => {
+                            self.props.getRaceInfo(result)
+                        });
                         return(
                             <img
                                 key={'loading-'+index}
@@ -202,6 +214,9 @@ class Races extends Component{
                             />
                         )
                     }else if (elem) {
+                        getRace(elem.id-1).then(result => {
+                            self.props.getRaceInfo(result)
+                        });
                         return(
                             <img
                                 key={'loading-'+index}
@@ -221,7 +236,6 @@ class Races extends Component{
                 return myRaceArray.map((elem,index) => {
                     const race = self.props.raceIdToRaceInfo.get(String(elem)) ? self.props.raceIdToRaceInfo.get(String(elem)) : null;
                     if(race && elem){
-                        console.log('my-races',elem.toNumber());
                         return (
                             <RaceCard
                                 getHorse={self.props.getHorse}
@@ -235,6 +249,9 @@ class Races extends Component{
                             />
                         )
                     }else if (elem) {
+                        getRace(elem.id-1).then(result => {
+                            self.props.getRaceInfo(result)
+                        });
                         return(
                             <img
                                 key={'loading-'+index}
@@ -314,7 +331,8 @@ const mapStateToProps = (state) => createStructuredSelector({
 const mapDispatchToProps = (dispatch) => ({
     startLoadRaces: () => dispatch(startLoadRaceArray()),
     getHorse: (horse) => dispatch(getHorseInfo(horse)),
-    movePage: (page) => dispatch(changeRacePage(page))
+    movePage: page => dispatch(changeRacePage(page)),
+    getRaceInfo: race => dispatch(getRaceInfo(race))
 });
 const withConnect = connect(mapStateToProps,mapDispatchToProps);
 const withSaga = injectSaga({ key: 'races-saga',saga});
