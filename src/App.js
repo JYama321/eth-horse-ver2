@@ -40,11 +40,11 @@ import {
     getOnSaleHorsesArray,
     getSaleHorsePrices,
     getHorseInfo,
-    getMatePrice
+    dispatchGetMatePrice
 } from './actions'
-const address = '0x672561acff90a599c551ab0f7a19faefa17ccafa';
-const lotteryAddress = '0x041398c56bf035dda98b760740c03314466324e6';
-const raceAddress = '0xbb62abad03e83c1b2abe608b62d6da26dd6a0920';
+const address = '0xf00bf4f35cb59605c22b986cd90dbd9b990cd4f2';
+const lotteryAddress = '0x9f21f93372061a74cd169815fb752cdd77958098';
+const raceAddress = '0xf247ffdc15ccdfac41ceb820d228e149dd459a8b';
 import {
     getWantedRaceArray,
     getBettingRaceArray,
@@ -100,7 +100,7 @@ class App extends Component {
         const saleHorseArray = await getOnSaleHorses();
         const matePrice = await getMatePrice();
 
-        this.props.matePrice(matePrice.toNumber());
+        this.props.getMatePrice(matePrice.toNumber());
         this.props.getSaleHorses(saleHorseArray);
         this.props.getSireHorses(sireArray);
         this.props.getSirePrices(sirePrices);
@@ -253,7 +253,7 @@ const mapDispatchToProps = (dispatch) => ({
     getSaleHorses: array => dispatch(getOnSaleHorsesArray(array)),
     getHorsePrices: array => dispatch(getSaleHorsePrices(array)),
     getHorseInfo: horse => dispatch(getHorseInfo(horse)),
-    getMatePrice: price => dispatch(getMatePrice(price))
+    getMatePrice: price => dispatch(dispatchGetMatePrice(price))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);

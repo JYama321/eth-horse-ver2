@@ -28,7 +28,7 @@ class TopTutorialTextures extends Component{
   renderRareTextures(){
     return texturesB.map((elem,index) => {
       return (
-          <div style={tutorialTextureStyles.textureIconContainer}>
+          <div style={tutorialTextureStyles.textureIconContainer} key={'rare-' + index}>
             <img
                 width="60px"
                 height="60px"
@@ -45,7 +45,7 @@ class TopTutorialTextures extends Component{
   renderNormalTexture(){
     return texturesC.map((elem,index) => {
       return (
-          <div style={tutorialTextureStyles.textureIconContainer}>
+          <div style={tutorialTextureStyles.textureIconContainer} key={'normal-' + index}>
             <img
                 width="60px"
                 height="60px"

@@ -115,7 +115,7 @@ export const getHorseInfo = (horse) => ({
     }
 });
 
-export const getMatePrice = (price) => ({
+export const dispatchGetMatePrice = (price) => ({
     type: GET_MATE_PRICE,
     data: price
 });
