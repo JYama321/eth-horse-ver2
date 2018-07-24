@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4644d453-fb36-4e8d-b49b-da8c15d8e225" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/textures/r_4_1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/contracts/GeneFunctionInterface.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/contracts/GeneFunctionInterface.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/contracts/HorseBet.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/contracts/HorseBet.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/contracts/HorseGame.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/contracts/HorseGame.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/contracts/HorseGameBase.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/contracts/HorseGameBase.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/contracts/LotteryInterface.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/contracts/LotteryInterface.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/contracts/Ownable.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/contracts/Ownable.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/contracts/RaceFunctionInterface.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/contracts/RaceFunctionInterface.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/contracts/SafeMath.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/contracts/SafeMath.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TopTutorialTexture/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TopTutorialTexture/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RaceInfoHorse/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RaceInfoHorse/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,10 +21,40 @@
       <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="48" column="23" lean-forward="true" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
+            <state relative-caret-position="587">
+              <caret line="249" column="63" selection-start-line="249" selection-start-column="63" selection-end-line="249" selection-end-column="63" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HorseGame.sol" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/contracts/HorseGame.sol">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="333">
+              <caret line="469" column="28" selection-start-line="469" selection-start-column="13" selection-end-line="469" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="eth-function.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/eth-function.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="351" column="28" selection-start-line="351" selection-start-column="13" selection-end-line="351" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/RaceInfoHorse/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-63">
+              <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+              <folding>
+                <element signature="e#507#552#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -44,13 +63,13 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/TopTutorialTexture/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-194">
+            <state relative-caret-position="420">
               <caret line="30" column="86" selection-start-line="30" selection-start-column="86" selection-end-line="30" selection-end-column="86" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="r_4_1.png" pinned="false" current-in-tab="true">
+      <file leaf-file-name="r_4_1.png" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/assets/textures/r_4_1.png">
           <provider selected="true" editor-type-id="images" />
         </entry>
@@ -69,11 +88,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>renderTimeInfo</find>
-      <find>console.lo</find>
-      <find>commit until</find>
-      <find>currentPage</find>
-      <find>this.props.current</find>
       <find>wantedRaces</find>
       <find>Now loading</find>
       <find>renderCurrentStateButton</find>
@@ -99,6 +113,11 @@
       <find>getMatePrice</find>
       <find>TopTutorialTextures</find>
       <find>matePrice</find>
+      <find>HorseOnSale</find>
+      <find>saleHorseArray</find>
+      <find>sirePrices</find>
+      <find>checkRaceResult</find>
+      <find>withdrawPayback</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/containers</dir>
@@ -139,7 +158,6 @@
         <option value="$PROJECT_DIR$/src/containers/MyPage-status/index.js" />
         <option value="$PROJECT_DIR$/src/utils/mapGeneToTextures.js" />
         <option value="$PROJECT_DIR$/src/components/HorseImage/index.js" />
-        <option value="$PROJECT_DIR$/src/components/RaceInfoHorse/index.js" />
         <option value="$PROJECT_DIR$/src/containers/Races/selectors.js" />
         <option value="$PROJECT_DIR$/src/containers/Info-horse/index.js" />
         <option value="$PROJECT_DIR$/src/components/Header/index.js" />
@@ -158,8 +176,9 @@
         <option value="$PROJECT_DIR$/src/containers/SireHorsePage/index.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/actions.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/TopTutorialTexture/index.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/components/RaceInfoHorse/index.js" />
       </list>
     </option>
   </component>
@@ -178,7 +197,7 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="261" />
+    <option name="x" value="374" />
     <option name="y" value="23" />
     <option name="width" value="1024" />
     <option name="height" value="815" />
@@ -188,6 +207,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -228,7 +248,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -239,6 +258,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/assets/textures" />
       <recent name="$PROJECT_DIR$/src/fonts" />
       <recent name="$PROJECT_DIR$/src/assets/static_assets" />
     </key>
@@ -288,17 +308,19 @@
       <workItem from="1532079675757" duration="7529000" />
       <workItem from="1532165864969" duration="4463000" />
       <workItem from="1532223029581" duration="1666000" />
-      <workItem from="1532276517931" duration="8200000" />
+      <workItem from="1532276517931" duration="8979000" />
+      <workItem from="1532414143058" duration="1361000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135795000" />
+    <option name="totallyTimeSpent" value="137935000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="261" y="23" width="1024" height="815" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49663526" visible="true" weight="0.35839844" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49663526" weight="0.35839844" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50043213" side_tool="true" weight="0.3810179" />
@@ -306,7 +328,7 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info id="Structure" order="1" sideWeight="0.50336474" side_tool="true" weight="0.22511211" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49956784" visible="true" weight="0.38068965" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49956784" weight="0.38068965" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" sideWeight="0.50067294" side_tool="true" weight="0.22511211" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
@@ -340,7 +362,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/containers/SireHorsePage/index.js</url>
           <line>296</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
@@ -395,13 +416,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/RaceInfoHorse/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="262" column="33" lean-forward="true" selection-start-line="262" selection-start-column="33" selection-end-line="262" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/RaceInfoHorse/styles.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
@@ -448,9 +462,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2040">
           <caret line="162" column="75" selection-start-line="162" selection-start-column="59" selection-end-line="162" selection-end-column="75" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -500,9 +511,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
           <caret line="25" column="27" lean-forward="true" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#245#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -547,13 +555,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/contracts/HorseGame.sol">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="111" column="25" selection-start-line="111" selection-start-column="16" selection-end-line="111" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/actionTypes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -565,16 +566,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="130" column="14" selection-start-line="130" selection-start-column="14" selection-end-line="130" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/eth-function.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="369" column="23" selection-start-line="369" selection-start-column="13" selection-end-line="369" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -606,9 +597,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="117" column="33" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#519#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -633,16 +621,6 @@
     <entry file="file://$PROJECT_DIR$/src/assets/textures/r_5_1.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="48" column="23" lean-forward="true" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/assets/textures/r_3_2.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -651,13 +629,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/TopTutorialTexture/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-194">
+        <state relative-caret-position="420">
           <caret line="30" column="86" selection-start-line="30" selection-start-column="86" selection-end-line="30" selection-end-column="86" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/assets/textures/r_4_1.png">
       <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="587">
+          <caret line="249" column="63" selection-start-line="249" selection-start-column="63" selection-end-line="249" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contracts/HorseGame.sol">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="469" column="28" selection-start-line="469" selection-start-column="13" selection-end-line="469" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/eth-function.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="351" column="28" selection-start-line="351" selection-start-column="13" selection-end-line="351" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/RaceInfoHorse/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-63">
+          <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+          <folding>
+            <element signature="e#507#552#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

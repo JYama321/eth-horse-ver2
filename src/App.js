@@ -170,14 +170,19 @@ class App extends Component {
             self.props.getActivity(result);
         });
         HorseOnSale.watch(function(err,result){
-            self.props.getActivity(result)
+            self.props.getActivity(result);
+            getOnSaleHorses().then(array => {
+                self.props.getSaleHorses(array);
+            });
+            getSirePricesArray().then(array => {
+                self.props.getSirePrices(array);
+            })
         });
         hostRace.watch(function(err,result){
             self.props.getActivity(result);
             getWantedRaceArray().then(wantedArray => {
                 self.props.getWantedArray(wantedArray);
             });
-
         });
         ApplyRace.watch(function(err,result){
             self.props.getActivity(result);

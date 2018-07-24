@@ -195,7 +195,8 @@ class RaceInfoHorse extends Component {
         const isChecked = this.props.race[12];
         const raceId = this.props.race[0].toNumber();
         const winnerId = this.props.race[8].toNumber();
-        if(this.state.betHorseId === this.props.horseId && !this.props.isWanted){
+        console.log(isChecked,winnerId,raceId,this.state.betHorseId)
+        if(this.state.betHorseId === this.props.horseId && (!this.props.isWanted && !isChecked)){
             return(
                 <div style={raceInfoHorseStyle.participantInfo}>
                     <p>bet: {this.state.betPrice} ETH</p>
@@ -209,7 +210,7 @@ class RaceInfoHorse extends Component {
                     <p style={raceInfoHorseStyle.winInfo}>You won: {this.state.expectedReturn} ETH <Button onClick={()=>withdrawPayback(raceId)} color='secondary'>Withdraw</Button></p>
                 </div>
             )
-        }else if((isChecked && this.state.betHorseId === winnerId) && (this.state.betHorseId === this.props.horseId)){
+        }else if((isChecked && this.state.betHorseId !== winnerId) && (this.state.betHorseId === this.props.horseId)){
             return(
                 <div style={raceInfoHorseStyle.participantInfo}>
                     <p>bet: {this.state.betPrice} ETH</p>
