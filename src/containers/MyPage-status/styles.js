@@ -77,6 +77,7 @@ export const myPageStyles = {
         width: '510px',
         height: '480px',
         position: 'relative',
+        marginTop: '115px'              
     },
     activityTitle: {
         width: '100%',
