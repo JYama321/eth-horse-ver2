@@ -30,7 +30,7 @@ class ActivityCardSmall extends Component{
                     style={cardImg.wide}
                     src={saleLog}
                 />
-                <p style={activityOneLine}>Sell <Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._to} </p>
+                <p style={activityTwoLine}>Sell <Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._to} </p>
               </div>);
         } else {
           return (
@@ -79,7 +79,7 @@ class ActivityCardSmall extends Component{
         return (
             <div style={activityCard.eventBase} className='activity-bet-race'>
               <img
-                  style={cardImg.default}
+                  style={cardImg.small}
                   src={betRaceLog}
               />
               <p style={activityOneLine}>Bet Race Price {window.web3.fromWei(args._betValue,'ether').toFixed(3)} ETH to &nbsp;

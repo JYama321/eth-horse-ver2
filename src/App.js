@@ -42,9 +42,9 @@ import {
     getHorseInfo,
     dispatchGetMatePrice
 } from './actions'
-const address = '0xf00bf4f35cb59605c22b986cd90dbd9b990cd4f2';
-const lotteryAddress = '0x9f21f93372061a74cd169815fb752cdd77958098';
-const raceAddress = '0xf247ffdc15ccdfac41ceb820d228e149dd459a8b';
+const address = '0xf8164a53ae4cba95ac88369a4d094ecf097f8ebd';
+const lotteryAddress = '0xde888008e7f63ee6084b27349aac0a6d41f0afc5';
+const raceAddress = '0x237d6dde5b6fc5ba19dda45f4226648791dc62a3';
 import {
     getWantedRaceArray,
     getBettingRaceArray,

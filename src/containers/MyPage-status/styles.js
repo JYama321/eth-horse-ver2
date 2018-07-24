@@ -26,7 +26,7 @@ export const myPageStyles = {
     statusPic: {
         width: '230px',
         height: '230px',
-        background: 'linear-gradient(45deg, blue, red)',
+        background: 'linear-gradient(45deg, rgba(0,0,0,1), rgba(255,255,255,1))',
         position: 'absolute',
         borderRadius: '115px',
         top: '0',
@@ -77,6 +77,7 @@ export const myPageStyles = {
         width: '510px',
         height: '480px',
         position: 'relative',
+        marginTop: '112px'
     },
     activityTitle: {
         width: '100%',
@@ -87,8 +88,8 @@ export const myPageStyles = {
     },
     activityHistory: {
         width: '100%',
-        height: '300px',
-        paddingTop:'78px',
+        height: '280px',
+        paddingTop:'0',
         position: 'relative'
     },
     activityMore: {
@@ -100,7 +101,7 @@ export const myPageStyles = {
     },
     statusPageTicket: {
         width: '100%',
-        height: '130px'
+        height: '130px',
     },
     ticketTitle: {
         width: '100%',
