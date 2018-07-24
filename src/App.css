@@ -292,6 +292,16 @@ code {
     background-image: url("./assets/static_assets/sq.png");
 }
 
+.horse-star-base{
+    height: 30px;
+    width: 36%;
+    line-height: 30px;
+    position: relative;
+    font-size: 12px;
+    text-align: right;
+    padding-right: 1px;
+}
+
 .ticket-animation-before{
     opacity: 0;
     display: block;

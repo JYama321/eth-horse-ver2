@@ -76,7 +76,7 @@ class HorseInfoLeftBottom extends Component{
           top: '220px',
           lineHeight: '30px',
           fontSize: '16px',
-          color: level === 10 ? 'rgb(0,28,113)' : 'rgb(234,63,51)'
+          color: level === 10 ? 'rgb(0,s28,113)' : 'rgb(234,63,51)'
         }}>Rarity / {stars} lev.{level}</div>;
       default:
         return null

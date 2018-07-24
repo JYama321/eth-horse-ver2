@@ -6,12 +6,12 @@ export const horseInfoLeftStyle = {
   },
   top: {
     width: '100%',
-    height: '360px',
+    height: '304px',
     position: 'relative'
   },
   middle :{
     width: '100%',
-    height: '330px',
+    height: '390px',
     position: 'relative'
   },
   bottom: {
