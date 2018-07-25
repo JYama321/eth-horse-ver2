@@ -244,6 +244,7 @@ contract HorseGameBase is Ownable{
         papa.mateIndex -= 1;
         mama.mateIndex -= 1;
         _mint(_papaId,_mamaId,papa.genes,mama.genes,msg.sender, horses.length.add(1),_name);
+        owner.transfer(msg.value);
     }
 
     function sireHorseWithOnSaleHorse(uint _myTokenId,uint _saleTokenId,string _name) external payable{
@@ -463,8 +464,8 @@ contract HorseBet is HorseGameBase{
         race.horseIdToBetRate[race.horseTwo] = _rate2;
         race.isBetting = true;
         bettingRaces[_raceId.sub(1)] = true;
-        raceBetEnd[_raceId] = now + 2 minutes;
-        raceCommitEnd[_raceId] = now + 4 minutes;
+        raceBetEnd[_raceId] = now + 12 hours;
+        raceCommitEnd[_raceId] = now + 24 hours;
     }
 
     function withdrawPayback(uint _raceId) external{
@@ -516,6 +517,7 @@ contract HorseBet is HorseGameBase{
         Race storage race = races[_raceId.sub(1)];
         require(race.participantInfo[msg.sender].betPrice == 0);
         require(race.isBetting && !race.isChecked);
+        require(raceBetEnd[_raceId] < now);
         RaceParticipant memory person = RaceParticipant({
             betHorseId: _horseId,
             betPrice: msg.value,
