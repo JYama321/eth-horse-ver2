@@ -22,9 +22,12 @@ export const horseInfoPageStyles={
         bottom: '56px',
         right: '56px',
         color: 'white',
-        height: '30px',
-        width: '110px',
-        textAlign: 'center'
+        height: '20px',
+        lineHeight: '20px',
+        width: '90px',
+        fontSize: '14px',
+        textAlign: 'left',
+        paddingLeft: '10px'
     },
     ethText: {
         position: 'absolute',

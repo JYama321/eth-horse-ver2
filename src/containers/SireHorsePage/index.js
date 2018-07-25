@@ -64,7 +64,7 @@ class SireHorsePage extends Component{
         if(Number(this.props.match.params.id) !== this.props.currentSireHorseId){
             this.props.setCurrentSireHorseId(Number(this.props.match.params.id))
         }
-        this.props.horseArrayLoadStart()
+        this.props.horseArrayLoadStart();
         const sireHorse = this.props.horseIdToInfo.get(this.props.match.params.id);
         if(sireHorse){
             this.setState({

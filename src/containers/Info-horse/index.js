@@ -292,7 +292,7 @@ class HorseInfo extends Component{
                             </div>
                             <div style={horseInfoStyles.horseParentsContainer}>
                                 <div style={horseInfoStyles.horseParentsTop}>
-                                    <p style={horseInfoStyles.parentsPlaceText}>parents /</p>
+                                    <p style={horseInfoStyles.parentsPlaceText}>parents/</p>
                                 </div>
                                 <HorseInfoParents
                                     papaId={this.props.horseIdToInfo.get(this.props.match.params.id)[5].toNumber()}

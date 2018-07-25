@@ -327,7 +327,7 @@ contract HorseGameBase is Ownable{
     }
 
     function horseTokenToOnSireSale(uint _tokenId, uint _price) external{
-        require(tokenOwner[_tokenId.sub(1)] == msg.sender);
+        require(tokenOwner[_tokenId] == msg.sender);
         Horse storage horse = horses[_tokenId.sub(1)];
         horse.sirePrice = _price;
         horse.isOnSireSale = true;

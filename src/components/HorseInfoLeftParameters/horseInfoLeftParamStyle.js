@@ -37,13 +37,14 @@ export const hILeftParamStyle = {
         width: '300px',
         height: '100px',
         marginTop: '30px',
-        paddingBottom: '56px',
+        paddingBottom: '35px',
         borderBottom: '2px solid rgba(0,0,0,0.5)',
         position: 'relative'
     },
     sireAndRaceNum: {
         width: '300px',
         height: '30px',
+        marginTop: '35px',
         position: 'relative'
     },
     sireRaceNumP: {

@@ -54,8 +54,10 @@ export const horseInfoStyles = {
         right: '30px',
         bottom: '30px',
         color: 'white',
-        fontSize: '15px',
+        fontSize: '14px',
         lineHeight: '20px',
+        textAlign: 'left',
+        paddingLeft: '10px',
         backgroundColor: 'transparent',
         border: 'none',
         outline: 'none'

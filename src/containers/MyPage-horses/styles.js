@@ -1,7 +1,7 @@
 export const styles =  {
   outerContainer: {
     position: 'absolute',
-    top: 'calc(256px + 4.5%)',
+    top: '341px',
     bottom: 0,
     left: 0,
     right: 0,

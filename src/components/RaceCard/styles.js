@@ -41,14 +41,14 @@ export const raceCardStyles = {
         height: '30px',
         backgroundSize: '150px 30px',
         marginTop: '30px',
-        fontSize: '16px',
+        fontSize: '14px',
         color: 'white',
         lineHeight: '30px',
         backgroundRepeat: 'no-repeat',
         outline: 'none',
         border: 'none',
         textAlign: 'left',
-        paddingLeft: '21px',
+        paddingLeft: '10px',
         backgroundColor: 'transparent'
     },
     nowStateLoading: {

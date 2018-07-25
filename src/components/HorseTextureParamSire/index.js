@@ -24,7 +24,7 @@ export default function HorseTextureParamSire(props){
   return (
       <div style={props.style}>
         <p style={styles.bottomTexText}>
-          {types[props.num]}&nbsp;/
+          {types[props.num]}/
           <span style={styles.texRight}>
           <img src={require(`../../assets/texture_icons/${textureName}.png`)} style={styles.bottomIconImg}/>
             &nbsp;&nbsp;{mapGeneToTextureName(props.gene)[props.num]}
