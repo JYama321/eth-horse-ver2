@@ -42,7 +42,7 @@ import {
     getHorseInfo,
     dispatchGetMatePrice
 } from './actions'
-const address = '0xf8164a53ae4cba95ac88369a4d094ecf097f8ebd';
+const address = '0xb1d7a61dc66c815e6a5264b62bc0d97d8ecb9f61';
 const lotteryAddress = '0xde888008e7f63ee6084b27349aac0a6d41f0afc5';
 const raceAddress = '0x237d6dde5b6fc5ba19dda45f4226648791dc62a3';
 import {
