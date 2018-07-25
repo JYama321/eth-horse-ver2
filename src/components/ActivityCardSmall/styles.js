@@ -4,7 +4,8 @@ export const activityCard = {
         height: '70px',
         position: 'relative',
         margin: '7px 0',
-        backgroundSize: '100% 70px'
+        backgroundSize: '100% 70px',
+        fontFamily: 'yrsa-regular'
     },
 };
 export const cardImg = {
@@ -27,15 +28,7 @@ export const cardImg = {
         display: 'inline-block',
     }
 };
-export const activityTwoLine = {
-    display: 'inline-block',
-    height: '35px',
-    position: 'absolute',
-    left: '90px',
-    fontWeight: 'bold',
-    lineHeight: '35px',
-    fontSize: '14px'
-};
+
 export const activityOneLine = {
     display: 'inline-block',
     height: '70px',

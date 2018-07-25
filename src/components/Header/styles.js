@@ -16,13 +16,13 @@ export const headerStyles = {
         margin: '0 auto',
         display: 'flex',
     },
-    headerBottomContainer: {
+    headerBottomContainer: (path) =>  ({
         width: '1080px',
         height: '160px',
         position: 'relative',
         margin: '0 auto',
-        borderBottom: '2px solid #000'
-    },
+        borderBottom: (path === 'events' || path === 'ranking') ? 'none' : '2px solid #000'
+    }),
     headerBottomContents: {
         position: 'absolute',
         width: '100%',
@@ -51,7 +51,7 @@ export const headerStyles = {
         textAlign: 'center'
     },
     headerTitle: {
-        fontFamily: '"GoudyOldstyle-Regular", "Arial Narrow"',
+        fontFamily: 'GoudyOldstyle-Regular',
         width: '57.5%',
         height: '100%',
         textAlign: 'left'

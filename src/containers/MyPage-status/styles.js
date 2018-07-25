@@ -89,7 +89,7 @@ export const myPageStyles = {
     activityHistory: {
         width: '100%',
         height: '280px',
-        paddingTop:'0',
+        paddingTop:'7px',
         position: 'relative'
     },
     activityMore: {
@@ -133,6 +133,7 @@ export const myPageStyles = {
         width: '100%',
         height: '270px',
         display: 'flex',
+        justifyContent: 'space-around',
         marginTop: '56px',
     }
 };

@@ -1,7 +1,7 @@
 export const activityPageStyle = {
   outerContainer: {
     position: 'absolute',
-    top: 'calc(256px + 85px)',
+    top: '341px',
     bottom: 0,
     left: 0,
     right: 0,

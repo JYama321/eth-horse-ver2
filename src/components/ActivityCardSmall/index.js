@@ -7,7 +7,6 @@ import toMarketLog from '../../assets/static_assets/activity-icon-to-market.png'
 import betRaceLog from '../../assets/static_assets/activity-icon-bet-race.png'
 import {
   activityCard,
-  activityTwoLine,
   activityOneLine,
   cardImg
 } from "./styles";
@@ -30,7 +29,7 @@ class ActivityCardSmall extends Component{
                     style={cardImg.wide}
                     src={saleLog}
                 />
-                <p style={activityTwoLine}>Sell <Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._to} </p>
+                <p style={activityOneLine}>Sell <Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._to} </p>
               </div>);
         } else {
           return (
@@ -39,7 +38,7 @@ class ActivityCardSmall extends Component{
                     style={cardImg.wide}
                     src={boughtLog}
                 />
-                <p style={activityTwoLine}>Buy <Link to={'/horses/' + args._tokenId}>Horse</Link> from {args._from} </p>
+                <p style={activityOneLine}>Buy <Link to={'/horses/' + args._tokenId}>Horse</Link> from {args._from} </p>
               </div>);
         }
       case 'HostRace':
@@ -51,7 +50,7 @@ class ActivityCardSmall extends Component{
                   style={cardImg.wide}
                   src={hostRaceLog}
               />
-              <p style={activityTwoLine}>HostRace
+              <p style={activityOneLine}>HostRace
                 &nbsp;
                 <Link to={"/races/" + args._raceId}>The Race</Link>
                 &nbsp;
@@ -68,10 +67,8 @@ class ActivityCardSmall extends Component{
                   style={cardImg.wide}
                   src={toMarketLog}
               />
-              <p style={activityTwoLine}>
-                Did a Lottery
-                <br/>
-                {args._success ? 'You win a prize!' : 'You couldn\'t win a prize.'}
+              <p style={activityOneLine}>
+                Did a Lottery{args._success ? 'You win a prize!' : 'You couldn\'t win a prize.'}
               </p>
             </div>
         );

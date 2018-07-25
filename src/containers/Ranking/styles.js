@@ -1,7 +1,7 @@
 export const styles =  {
     outerContainer: {
         position: 'absolute',
-        top: 'calc(256px + 4.5%)',
+        top: '258px',
         bottom: 0,
         left: 0,
         right: 0,
@@ -14,7 +14,7 @@ export const styles =  {
         flexWrap: 'wrap',
         width: '1080px',
         height: '100%',
-        margin: '100px auto 0'
+        margin: '0 auto'
     },
     rankingContainer: {
         height: '360px',

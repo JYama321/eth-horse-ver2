@@ -149,7 +149,7 @@ class Header extends Component {
             return null
         }else {
             return (
-                <div style={headerStyles.headerBottomContainer}>
+                <div style={headerStyles.headerBottomContainer(path)}>
                     <div style={headerStyles.headerBottomContents}>
                         <div style={headerStyles.headerBottomLeft}>
                             {this.renderHeaderLeft(path,num)}

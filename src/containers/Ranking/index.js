@@ -289,7 +289,7 @@ class Ranking extends Component{
                                 <div style={styles.topLabelTotalPrize(type)}>
                                     total prize
                                 </div>
-                                <div style={styles.topLabelRarity}>
+                                f<div style={styles.topLabelRarity}>
                                     rarity
                                 </div>
                                 <div style={styles.topLabelPowerTotal(type)}>

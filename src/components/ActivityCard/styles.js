@@ -15,10 +15,9 @@ export const activityCardP = {
   display: 'inline-block',
   position: 'absolute',
   left: '123px',
-  fontWeight: 'bold',
   lineHeight: '70px',
   paddingTop: '5px',
-  fontSize: '16px'
+  fontSize: '14px'
 };
 export const eventDetail = {
   display: 'inline-block',
@@ -28,7 +27,7 @@ export const eventDetail = {
   fontWeight: 'bold',
   lineHeight: '70px',
   paddingTop: '5px',
-  fontSize: '16px',
+  fontSize: '14px',
   a: {
     color: 'rgba(0,0,200,0.5)',
     fontSize: '20px'

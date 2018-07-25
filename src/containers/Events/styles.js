@@ -1,7 +1,7 @@
 export const eventStyles = {
     outerContainer: {
         position: 'absolute',
-        top: 'calc(256px + 4.5%)',
+        top: '258px',
         bottom: 0,
         left: 0,
         right: 0,
@@ -14,7 +14,7 @@ export const eventStyles = {
         flexWrap: 'wrap',
         width: '1080px',
         height: '100%',
-        margin: '100px auto 0'
+        margin: '0 auto'
     },
     eventTicket: {
         width: '260px',
@@ -116,8 +116,8 @@ export const eventStyles = {
     },
     modalStyle: {
         content: {
-            width: '350px',
-            height: '200px',
+            width: '380px',
+            height: '242px',
             position: 'absolute',
             top: '50%',
             left: '50%',
@@ -126,12 +126,12 @@ export const eventStyles = {
         }
     },
     modalTopText: {
-        width: 'calc(100% - 7px)',
+        width: 'calc(100% - 56px)',
         height: '30px',
-        marginTop: '14px',
+        marginTop: '28px',
         fontSize: '14px',
         fontWeight: 'bold',
-        marginLeft: '7px'
+        marginLeft: '28px'
     },
     modalHeader: {
         width: '100%',
@@ -143,17 +143,17 @@ export const eventStyles = {
         fontSize: '14px',
     },
     modalTextContainer: {
-        width: 'calc(100% - 7px)',
+        width: 'calc(100% - 56px)',
         height: '30px',
         marginTop: '14px',
-        marginLeft: '7px'
+        marginLeft: '28px'
     },
     modalButton: {
-        width: 'calc(100% - 7px)',
+        width: 'calc(100% - 56px)',
         height: '30px',
-        marginTop: '14px',
+        marginTop: '28px',
         textAlign: 'left',
         position: 'absolute',
-        left: '7px'
+        left: '28px'
     }
 };

@@ -17,28 +17,28 @@
 
 @font-face{
     font-family: 'yrsa-bold';
-    src: url("./fonts/yrsa/yrsa-bold.ttf") format('ttf');
+    src: url("./fonts/yrsa/yrsa-bold.ttf") format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: yrsa-regular;
-    src: url("./fonts/yrsa/yrsa-regular.ttf") format('ttf');
+    font-family: 'yrsa-regular';
+    src: url("./fonts/yrsa/yrsa-regular.ttf") format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 body,
 .pure-g [class*=pure-u] {
-    font-family: yrsa-regular, sans-serif, sans-serif;
+    font-family: yrsa-regular;
 }
 *{
     margin:0;
     padding: 0;
 }
 h1, h2, h3 {
-    font-family: yrsa-regular, 'Arial Narrow', sans-serif;
+    font-family: yrsa-regular;
 }
 
 code {
@@ -72,7 +72,7 @@ code {
     position: fixed;
     padding: 5px;
     background: #0c1a2b;
-    font-family: 'GoudyOldstyle-Regular', 'Arial Narrow', sans-serif;
+    font-family: 'GoudyOldstyle-Regular';
 }
 
 
