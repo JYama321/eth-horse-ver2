@@ -48,14 +48,14 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x60806040527a184f03e93ff9f4daa797ed6e38ed64bf6a1f01000000000000000060005534801561002f57600080fd5b506103178061003f6000396000f30060806040526004361061004b5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416631ab53bcc81146100505780638c38e9e71461007a575b600080fd5b34801561005c57600080fd5b506100686004356100a2565b60408051918252519081900360200190f35b34801561008657600080fd5b5061006860048035906024803591604435918201910135610144565b604080516020808201849052600019430140828401528251808303840181526060909201928390528151600093849392909182918401908083835b602083106100fc5780518252601f1990920191602091820191016100dd565b6001836020036101000a03801982511681845116808217855250505050505090500191505060405180910390206001900490506000548181151561013c57fe5b069392505050565b600080600080600080600088886001430340604051602001808484808284379091019283525050604080518083038152602092830191829052805190945090925082918401908083835b602083106101ad5780518252601f19909201916020918201910161018e565b6001836020036101000a0380198251168184511680821785525050505050509050019150506040518091039020600190049550600054868115156101ed57fe5b069450891580156101fc57508a155b1561020c578493508396506102ca565b600192505b602083116102c657505060028102600a0a6064810460328102828681151561023557fe5b06111561026e57610267818c81151561024a57fe5b06838d81151561025657fe5b0603856102d890919063ffffffff16565b93506102bb565b600a8102828681151561027d57fe5b06111561029e57610267818b81151561029257fe5b06838c81151561025657fe5b6102b881868115156102ac57fe5b06838781151561025657fe5b93505b600190920191610211565b8396505b505050505050949350505050565b818101828110156102e557fe5b929150505600a165627a7a72305820843c1da98ee5e6a3d752a9f031a78644fc22762c6eaa7876440c9e74ea7ea3ae0029",
-  "deployedBytecode": "0x60806040526004361061004b5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416631ab53bcc81146100505780638c38e9e71461007a575b600080fd5b34801561005c57600080fd5b506100686004356100a2565b60408051918252519081900360200190f35b34801561008657600080fd5b5061006860048035906024803591604435918201910135610144565b604080516020808201849052600019430140828401528251808303840181526060909201928390528151600093849392909182918401908083835b602083106100fc5780518252601f1990920191602091820191016100dd565b6001836020036101000a03801982511681845116808217855250505050505090500191505060405180910390206001900490506000548181151561013c57fe5b069392505050565b600080600080600080600088886001430340604051602001808484808284379091019283525050604080518083038152602092830191829052805190945090925082918401908083835b602083106101ad5780518252601f19909201916020918201910161018e565b6001836020036101000a0380198251168184511680821785525050505050509050019150506040518091039020600190049550600054868115156101ed57fe5b069450891580156101fc57508a155b1561020c578493508396506102ca565b600192505b602083116102c657505060028102600a0a6064810460328102828681151561023557fe5b06111561026e57610267818c81151561024a57fe5b06838d81151561025657fe5b0603856102d890919063ffffffff16565b93506102bb565b600a8102828681151561027d57fe5b06111561029e57610267818b81151561029257fe5b06838c81151561025657fe5b6102b881868115156102ac57fe5b06838781151561025657fe5b93505b600190920191610211565b8396505b505050505050949350505050565b818101828110156102e557fe5b929150505600a165627a7a72305820843c1da98ee5e6a3d752a9f031a78644fc22762c6eaa7876440c9e74ea7ea3ae0029",
+  "bytecode": "0x60806040527a184f03e93ff9f4daa797ed6e38ed64bf6a1f01000000000000000060005534801561002f57600080fd5b506103178061003f6000396000f30060806040526004361061004b5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416631ab53bcc81146100505780638c38e9e71461007a575b600080fd5b34801561005c57600080fd5b506100686004356100a2565b60408051918252519081900360200190f35b34801561008657600080fd5b5061006860048035906024803591604435918201910135610144565b604080516020808201849052600019430140828401528251808303840181526060909201928390528151600093849392909182918401908083835b602083106100fc5780518252601f1990920191602091820191016100dd565b6001836020036101000a03801982511681845116808217855250505050505090500191505060405180910390206001900490506000548181151561013c57fe5b069392505050565b600080600080600080600088886001430340604051602001808484808284379091019283525050604080518083038152602092830191829052805190945090925082918401908083835b602083106101ad5780518252601f19909201916020918201910161018e565b6001836020036101000a0380198251168184511680821785525050505050509050019150506040518091039020600190049550600054868115156101ed57fe5b069450891580156101fc57508a155b1561020c578493508396506102ca565b600192505b602083116102c657505060028102600a0a6064810460328102828681151561023557fe5b06111561026e57610267818c81151561024a57fe5b06838d81151561025657fe5b0603856102d890919063ffffffff16565b93506102bb565b600a8102828681151561027d57fe5b06111561029e57610267818b81151561029257fe5b06838c81151561025657fe5b6102b881868115156102ac57fe5b06838781151561025657fe5b93505b600190920191610211565b8396505b505050505050949350505050565b818101828110156102e557fe5b929150505600a165627a7a7230582001977d19dbd26b47c34da51ac1733e859c97605ae65e9cd97ff3b68495fe2a670029",
+  "deployedBytecode": "0x60806040526004361061004b5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416631ab53bcc81146100505780638c38e9e71461007a575b600080fd5b34801561005c57600080fd5b506100686004356100a2565b60408051918252519081900360200190f35b34801561008657600080fd5b5061006860048035906024803591604435918201910135610144565b604080516020808201849052600019430140828401528251808303840181526060909201928390528151600093849392909182918401908083835b602083106100fc5780518252601f1990920191602091820191016100dd565b6001836020036101000a03801982511681845116808217855250505050505090500191505060405180910390206001900490506000548181151561013c57fe5b069392505050565b600080600080600080600088886001430340604051602001808484808284379091019283525050604080518083038152602092830191829052805190945090925082918401908083835b602083106101ad5780518252601f19909201916020918201910161018e565b6001836020036101000a0380198251168184511680821785525050505050509050019150506040518091039020600190049550600054868115156101ed57fe5b069450891580156101fc57508a155b1561020c578493508396506102ca565b600192505b602083116102c657505060028102600a0a6064810460328102828681151561023557fe5b06111561026e57610267818c81151561024a57fe5b06838d81151561025657fe5b0603856102d890919063ffffffff16565b93506102bb565b600a8102828681151561027d57fe5b06111561029e57610267818b81151561029257fe5b06838c81151561025657fe5b6102b881868115156102ac57fe5b06838781151561025657fe5b93505b600190920191610211565b8396505b505050505050949350505050565b818101828110156102e557fe5b929150505600a165627a7a7230582001977d19dbd26b47c34da51ac1733e859c97605ae65e9cd97ff3b68495fe2a670029",
   "sourceMap": "578:1330:0:-;;;653:8;634:27;;578:1330;8:9:-1;5:2;;;30:1;27;20:12;5:2;578:1330:0;;;;;;;",
   "deployedSourceMap": "578:1330:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;1688:217;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1688:217:0;;;;;;;;;;;;;;;;;;;;;686:996;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;686:996:0;;;;;;;;;;;;;;;;;;;1688:217;1809:50;;;;;;;;;;-1:-1:-1;;1843:12:0;:14;1833:25;1809:50;;;;;;26:21:-1;;;22:32;;6:49;;1809:50:0;;;;;;;;1799:61;;1761:4;;;;1809:50;;;;;1799:61;;;;1809:50;1799:61;36:153:-1;66:2;58:11;;36:153;;176:10;;164:23;;-1:-1;;139:12;;;;98:2;89:12;;;;114;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;1799:61:0;;;;;;;;;;;;;;;;1794:67;;;1781:80;;1887:11;;1879:5;:19;;;;;;;;;1688:217;-1:-1:-1;;;1688:217:0:o;686:996::-;825:4;845:10;934:13;979:12;1132:6;1169:9;1212:8;890:5;;919:1;906:12;:14;896:25;873:49;;;;;;;;;;;;;;;;;-1:-1:-1;;873:49:0;;;26:21:-1;;;6:49;;873::0;;;;;;;;863:60;;873:49;;-1:-1:-1;873:49:0;;-1:-1:-1;873:49:0;;863:60;;;;873:49;863:60;36:153:-1;66:2;58:11;;36:153;;176:10;;164:23;;-1:-1;;139:12;;;;98:2;89:12;;;;114;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;863:60:0;;;;;;;;;;;;;;;;858:66;;;845:79;;958:11;;950:5;:19;;;;;;;;;-1:-1:-1;1004:16:0;;:34;;;;-1:-1:-1;1024:14:0;;1004:34;1001:675;;;1063:8;1053:18;;1092:7;1085:14;;;;1001:675;1139:1;1132:8;;1128:510;1144:2;1141:5;;1128:510;;-1:-1:-1;;1192:1:0;1188:5;;1181:2;:13;1230:3;1223:10;;1272:12;;;1181:13;1254:8;:15;;;;;;;;:30;1251:373;;;1317:47;1360:3;1348:9;:15;;;;;;;;1341:4;1329:9;:16;;;;;;;;:34;1317:7;:11;;:47;;;;:::i;:::-;1307:57;;1251:373;;;1419:2;1409:12;;1402:4;1391:8;:15;;;;;;;;:30;1388:236;;;1454:51;1501:3;1487:11;:17;;;;;;;;1480:4;1466:11;:18;;;;;;1388:236;1560:45;1601:3;1590:8;:14;;;;;;;;1583:4;1572:8;:15;;;;;;1560:45;1550:55;;1388:236;1147:3;;;;;1128:510;;;1658:7;1651:14;;1001:675;686:996;;;;;;;;;;;;:::o;446:128::-;520:5;;;542:6;;;;535:14;;;;446:128;;;;:::o",
   "source": "pragma solidity ^0.4.23;\n\nlibrary SafeMath{\n\n    function mul(uint a, uint b) internal pure returns(uint c){\n        if (a == 0){\n            return 0;\n        }\n        c = a * b;\n        assert(c / a == b);\n        return c;\n    }\n\n    function div(uint a, uint b) internal pure returns(uint){\n        return a / b;\n    }\n\n    function sub(uint a, uint b) internal pure returns (uint) {\n        assert(b <= a);\n        return a - b;\n    }\n\n    function add(uint a, uint b) internal pure returns (uint c) {\n        c = a + b;\n        assert(c >= a);\n        return c;\n    }\n}\n\ncontract GeneFunction{\n    using SafeMath for uint;\n    uint geneModulus = 10 ** 64; // length of genes\n    function generateGenes\n    (\n        uint256 _maleGene,\n        uint256 _femaleGene,\n        string _name\n    )\n    external view returns (uint)\n    {\n        uint _seed = uint(keccak256(abi.encodePacked(_name,blockhash(block.number-1))));\n        uint fakeGene = _seed % geneModulus;\n        uint newGene;\n        if(_femaleGene == 0 && _maleGene == 0){\n            newGene = fakeGene;\n            return newGene;\n        }else{\n            for(uint i=1;i<=32;i++){\n                uint quot = 10 ** (i * 2);\n                uint con = quot / 100;\n                if(fakeGene % quot > 5 * con * 10){\n                    newGene = newGene.add(_maleGene % quot - _maleGene % con);\n                }else if(fakeGene % quot > 1 * con * 10){\n                    newGene = newGene.add(_femaleGene % quot - _femaleGene % con);\n                }else{\n                    newGene = newGene.add(fakeGene % quot - fakeGene % con);\n                }\n            }\n            return newGene;\n        }\n    }\n\n    function generateReplaceGene\n    (uint _nonce)\n    external view returns(uint)\n    {\n        uint _seed = uint(keccak256(abi.encodePacked(_nonce,blockhash(block.number-1))));\n        return  _seed % geneModulus;\n    }\n\n}\n",
-  "sourcePath": "/Users/yamamotojirou/Desktop/horse-game-ver2/contracts/GeneFunction.sol",
+  "sourcePath": "/Users/yamamotojirou/Desktop/EthHorse関連/horseGame-ver2/contracts/GeneFunction.sol",
   "ast": {
-    "absolutePath": "/Users/yamamotojirou/Desktop/horse-game-ver2/contracts/GeneFunction.sol",
+    "absolutePath": "/Users/yamamotojirou/Desktop/EthHorse関連/horseGame-ver2/contracts/GeneFunction.sol",
     "exportedSymbols": {
       "GeneFunction": [
         276
@@ -355,7 +355,7 @@
                       "name": "assert",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5109,
+                      "referencedDeclaration": 5106,
                       "src": "189:6:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_assert_pure$_t_bool_$returns$__$",
@@ -741,7 +741,7 @@
                       "name": "assert",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5109,
+                      "referencedDeclaration": 5106,
                       "src": "397:6:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_assert_pure$_t_bool_$returns$__$",
@@ -1071,7 +1071,7 @@
                       "name": "assert",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5109,
+                      "referencedDeclaration": 5106,
                       "src": "535:6:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_assert_pure$_t_bool_$returns$__$",
@@ -1431,7 +1431,7 @@
                                         "name": "block",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 5110,
+                                        "referencedDeclaration": 5107,
                                         "src": "906:5:0",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_magic_block",
@@ -1490,7 +1490,7 @@
                                   "name": "blockhash",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 5111,
+                                  "referencedDeclaration": 5108,
                                   "src": "896:9:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_function_blockhash_view$_t_uint256_$returns$_t_bytes32_$",
@@ -1529,7 +1529,7 @@
                                 "name": "abi",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 5107,
+                                "referencedDeclaration": 5104,
                                 "src": "873:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_abi",
@@ -1576,7 +1576,7 @@
                           "name": "keccak256",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 5114,
+                          "referencedDeclaration": 5111,
                           "src": "863:9:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -3482,7 +3482,7 @@
                                         "name": "block",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 5110,
+                                        "referencedDeclaration": 5107,
                                         "src": "1843:5:0",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_magic_block",
@@ -3541,7 +3541,7 @@
                                   "name": "blockhash",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 5111,
+                                  "referencedDeclaration": 5108,
                                   "src": "1833:9:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_function_blockhash_view$_t_uint256_$returns$_t_bytes32_$",
@@ -3580,7 +3580,7 @@
                                 "name": "abi",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 5107,
+                                "referencedDeclaration": 5104,
                                 "src": "1809:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_abi",
@@ -3627,7 +3627,7 @@
                           "name": "keccak256",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 5114,
+                          "referencedDeclaration": 5111,
                           "src": "1799:9:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -3828,7 +3828,7 @@
     "src": "0:1909:0"
   },
   "legacyAST": {
-    "absolutePath": "/Users/yamamotojirou/Desktop/horse-game-ver2/contracts/GeneFunction.sol",
+    "absolutePath": "/Users/yamamotojirou/Desktop/EthHorse関連/horseGame-ver2/contracts/GeneFunction.sol",
     "exportedSymbols": {
       "GeneFunction": [
         276
@@ -4128,7 +4128,7 @@
                       "name": "assert",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5109,
+                      "referencedDeclaration": 5106,
                       "src": "189:6:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_assert_pure$_t_bool_$returns$__$",
@@ -4514,7 +4514,7 @@
                       "name": "assert",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5109,
+                      "referencedDeclaration": 5106,
                       "src": "397:6:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_assert_pure$_t_bool_$returns$__$",
@@ -4844,7 +4844,7 @@
                       "name": "assert",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5109,
+                      "referencedDeclaration": 5106,
                       "src": "535:6:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_assert_pure$_t_bool_$returns$__$",
@@ -5204,7 +5204,7 @@
                                         "name": "block",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 5110,
+                                        "referencedDeclaration": 5107,
                                         "src": "906:5:0",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_magic_block",
@@ -5263,7 +5263,7 @@
                                   "name": "blockhash",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 5111,
+                                  "referencedDeclaration": 5108,
                                   "src": "896:9:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_function_blockhash_view$_t_uint256_$returns$_t_bytes32_$",
@@ -5302,7 +5302,7 @@
                                 "name": "abi",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 5107,
+                                "referencedDeclaration": 5104,
                                 "src": "873:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_abi",
@@ -5349,7 +5349,7 @@
                           "name": "keccak256",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 5114,
+                          "referencedDeclaration": 5111,
                           "src": "863:9:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -7255,7 +7255,7 @@
                                         "name": "block",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 5110,
+                                        "referencedDeclaration": 5107,
                                         "src": "1843:5:0",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_magic_block",
@@ -7314,7 +7314,7 @@
                                   "name": "blockhash",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 5111,
+                                  "referencedDeclaration": 5108,
                                   "src": "1833:9:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_function_blockhash_view$_t_uint256_$returns$_t_bytes32_$",
@@ -7353,7 +7353,7 @@
                                 "name": "abi",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 5107,
+                                "referencedDeclaration": 5104,
                                 "src": "1809:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_abi",
@@ -7400,7 +7400,7 @@
                           "name": "keccak256",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 5114,
+                          "referencedDeclaration": 5111,
                           "src": "1799:9:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -7608,10 +7608,10 @@
     "4447": {
       "events": {},
       "links": {},
-      "address": "0x3d49d1ef2ade060a33c6e6aa213513a7ee9a6241",
-      "transactionHash": "0xde55135557c05cc1954b8f0eeadd178f22c49b9bae920d03ac48bf427cd0d6a0"
+      "address": "0x345ca3e014aaf5dca488057592ee47305d9b3e10",
+      "transactionHash": "0x8e11ec7551152fe7f43fbba720e5300728f4d5bd800ba2f14bc617e6dd4e4f7a"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-07-25T14:33:41.335Z"
+  "updatedAt": "2018-07-25T16:13:34.560Z"
 }

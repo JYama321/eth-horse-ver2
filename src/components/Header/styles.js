@@ -82,7 +82,6 @@ export const headerStyles = {
                 outline: 'none',
                 border: 'none',
                 textDecoration: 'underline',
-                fontWeight: 'bold',
                 backgroundColor: 'transparent'
             }
         } else {

@@ -22,10 +22,10 @@ export default function HorseTextureParam(props){
   }
   return (
       <div style={props.style}>
-        <p style={styles.bottomTexTop}>{types[props.num]} /</p>
+        <p style={styles.bottomTexTop}>{types[props.num]}/</p>
         <p style={styles.bottomTexText}>
           <img src={require(`../../assets/texture_icons/${textureName}.png`)} style={styles.bottomIconImg}/>
-          &nbsp;{mapGeneToTextureName(props.gene)[props.num]} /
+          &nbsp;{mapGeneToTextureName(props.gene)[props.num]}/
           &nbsp;<img src={require(`../../assets/static_assets/${rankImage}.png`)} style={styles.bottomRankImg}/>
           &nbsp;rarity {texRarity}
         </p>

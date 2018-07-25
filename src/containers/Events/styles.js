@@ -129,7 +129,7 @@ export const eventStyles = {
         width: 'calc(100% - 7px)',
         height: '30px',
         marginTop: '14px',
-        fontSize: '16px',
+        fontSize: '14px',
         fontWeight: 'bold',
         marginLeft: '7px'
     },
@@ -140,7 +140,7 @@ export const eventStyles = {
         color: 'white',
         textAlign: 'center',
         lineHeight: '50px',
-        fontSize: '20px',
+        fontSize: '14px',
     },
     modalTextContainer: {
         width: 'calc(100% - 7px)',
@@ -155,8 +155,5 @@ export const eventStyles = {
         textAlign: 'left',
         position: 'absolute',
         left: '7px'
-    },
-    buyButton: {
-        backgroundColor: 'black'
     }
 };

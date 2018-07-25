@@ -5,7 +5,6 @@ export const rankStyles = {
         display: 'flex',
         borderBottom: '1px solid #000',
         backgroundColor: isOwner ? 'rgba(30,30,30,0.3)' : 'white',
-        borderRadius: '30px'
     }),
     rankNumber: {
         textAlign: 'center',

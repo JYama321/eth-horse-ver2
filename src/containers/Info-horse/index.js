@@ -187,11 +187,6 @@ class HorseInfo extends Component{
                     >
               Sire Horse
             </button>
-            <button
-                style={horseInfoStyles.trainHorseButton}
-                className='button-back-transparent'
-                onClick={()=>trainHorse(horseInfo[0].toNumber())}
-            >training</button>
           </span>
             )
         }
@@ -218,6 +213,7 @@ class HorseInfo extends Component{
         }
     }
     render () {
+        console.log(this.props.history);
         if(!this.props.isHorseInfoLoading){
             const horseInfo = this.props.horseIdToInfo.get(this.props.match.params.id);
             const gene = horseInfo[1] ? horseInfo[0].c.join(',').replace(/,/g,'') : '0000000000';

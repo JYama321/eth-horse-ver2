@@ -24,6 +24,17 @@ import {
 import Modal from 'react-modal'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import { withStyles } from '@material-ui/core/styles'
+const styles = theme => ({
+    buyTicketButton: {
+        fontSize: '12px',
+        color: 'white',
+        backgroundColor: 'black'
+    },
+    fontFamily: {
+        fontFamily: 'yrsa-bold'
+    }
+});
 Modal.setAppElement('#root');
 
 class Events extends Component{
@@ -244,6 +255,7 @@ class Events extends Component{
 
     render(){
         const { type } = this.state;
+        const { classes } = this.props;
         return (
             <div style={eventStyles.outerContainer}>
                 <Modal
@@ -266,7 +278,7 @@ class Events extends Component{
                         /> tickets x {this.returnPrice(type)} ETH
                     </div>
                     <div style={eventStyles.modalButton}>
-                        <Button color='secondary' onClick={()=>this.buyTickets(this.state.buyTicketNumber)} style={eventStyles.buyButton}>
+                        <Button onClick={()=>this.buyTickets(this.state.buyTicketNumber)} className={classes.fontFamily + ' ' + classes.buyTicketButton}>
                             Buy
                         </Button>
                     </div>
@@ -278,7 +290,7 @@ class Events extends Component{
                         height="608px"
                     />
                     {this.renderTicket(type)}
-                    {this.state.type ===' gift-horse' ? null : <button style={eventStyles.buyTicket} onClick={()=>this.openTicketNumberModal()}>buy ticket ></button>}
+                    {this.state.type === 'gift-horse' ? null : <button style={eventStyles.buyTicket} onClick={()=>this.openTicketNumberModal()}>buy ticket ></button>}
                     <div style={eventStyles.ticketContainer}>
                         <div style={eventStyles.buyTicketText}>choose a ticket</div>
                         <div style={eventStyles.buyTicketText}>▽</div>
@@ -319,4 +331,4 @@ class Events extends Component{
     }
 }
 
-export default Events
+export default withStyles(styles)(Events);

@@ -19,10 +19,8 @@ import {
 } from './selectors'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -30,11 +28,15 @@ const styles = theme => ({
     formControl: {
         margin: theme.spacing.unit,
         minWidth: 120,
-        bottom: '25px'
+        bottom: '25px',
     },
     selectEmpty: {
         marginTop: theme.spacing.unit * 2,
     },
+    fontStyle: {
+        fontSize: '12px',
+        fontFamily: 'GoudyOldstyle-Regular'
+    }
 });
 
 class Header extends Component {
@@ -97,7 +99,7 @@ class Header extends Component {
                 return(
                     <div style={headerStyles.headerLeftMarket}>
                         <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="market-sort">Sort</InputLabel>
+                            <InputLabel htmlFor="market-sort" className={classes.fontStyle}>Sort</InputLabel>
                             <Select
                                 value={this.props.marketSort}
                                 onChange={e=>this.onChangeSort(e)}
@@ -105,14 +107,15 @@ class Header extends Component {
                                     name: 'sort',
                                     id: 'market-sort',
                                 }}
+                                className={classes.fontStyle}
                             >
-                                <MenuItem value={'default'}>Default</MenuItem>
-                                <MenuItem value={'high-price'}>High Price</MenuItem>
-                                <MenuItem value={'low-price'}>Low Price</MenuItem>
+                                <MenuItem value={'default'} className={classes.fontStyle}>Default</MenuItem>
+                                <MenuItem value={'high-price'} className={classes.fontStyle}>High Price</MenuItem>
+                                <MenuItem value={'low-price'} className={classes.fontStyle}>Low Price</MenuItem>
                             </Select>
                         </FormControl>
                         <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="market-sort">Market Type</InputLabel>
+                            <InputLabel htmlFor="market-sort" className={classes.fontStyle}>Market Type</InputLabel>
                             <Select
                                 value={this.props.marketType}
                                 onChange={e=>this.onChangeMarketType(e)}
@@ -120,9 +123,10 @@ class Header extends Component {
                                     name: 'market-type',
                                     id: 'market-type',
                                 }}
+                                className={classes.fontStyle}
                             >
-                                <MenuItem value={'buy-horse'}>Buy Horse</MenuItem>
-                                <MenuItem value={'sire-horse'}>Sire Horse</MenuItem>
+                                <MenuItem value={'buy-horse'} className={classes.fontStyle}>Buy Horse</MenuItem>
+                                <MenuItem value={'sire-horse'} className={classes.fontStyle}>Sire Horse</MenuItem>
                             </Select>
                         </FormControl>
                     </div>
@@ -165,7 +169,7 @@ class Header extends Component {
                     <div style={headerStyles.headerMenuContainer}>
                         <div style={headerStyles.headerTitle}>
                             <h1 style={headerStyles.headerTitleH1} >
-                                <button onClick={()=>this.props.history.push('/')} style={{background:'transparent',outline:'none',border: 'none'}}>Eth Horse</button>
+                                <button onClick={()=>this.props.history.push('/')} style={{background:'transparent',outline:'none',border: 'none', fontWeight: '600'}}>Eth Horse</button>
                             </h1>
                         </div>
                         <div style={headerStyles.headerRightMenu}>

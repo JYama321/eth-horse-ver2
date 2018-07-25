@@ -12,12 +12,22 @@ import {
 import {
     calculateDate
 } from "../../utils/functions";
+import { withStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import BookMakeModal from '../Modal-bookmake'
 import Modal from 'react-modal'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-
+const styles = theme => ({
+    commitRaceButton: {
+        fontSize: '12px',
+        color: 'white',
+        backgroundColor: 'black'
+    },
+    fontFamily: {
+        fontFamily: 'yrsa-bold'
+    }
+});
 
 class RaceCard extends Component{
     static propTypes = {
@@ -181,6 +191,7 @@ class RaceCard extends Component{
     }
 
     render(){
+        const { classes } = this.props;
         const betEndTime = this.state.betEndRowDate;
         const commitEndTime = this.state.commitEndRowDate;
         const currentState = this.props.currentState === 'now betting' ? this.renderCurrentState(betEndTime,commitEndTime) : this.props.currentState;
@@ -271,8 +282,7 @@ class RaceCard extends Component{
                         <div  style={raceCardStyles.modalContentField}>
                             <Button
                                 onClick={()=>commitRace(raceId,this.state.secretNum)}
-                                color='secondary'
-                                style={{backgroundColor: 'black'}}
+                                className={classes.commitRaceButton}
                             >Confirm</Button>
                         </div>
                     </Modal>
@@ -330,5 +340,5 @@ class RaceCard extends Component{
 }
 
 
-export default RaceCard
+export default withStyles(styles)(RaceCard)
 

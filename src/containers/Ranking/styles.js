@@ -101,7 +101,7 @@ export const styles =  {
     modalRankContents: {
         width: '900px',
         height: 'calc(100% - 131px)',
-        margin: '0 auto'
+        margin: '10px auto 0'
     },
 };
 

@@ -81,38 +81,25 @@ export const horseInfoStyles = {
         height: '20px',
         backgroundSize: '80px 20px',
         position: 'absolute',
-        right: '140px',
-        top: '30px',
-        backgroundColor: 'transparent',
-        border: 'none',
-        outline: 'none',
-        lineHeight: '20px',
-        fontSize: '14px'
-    },
-    sireMarketButton: {
-        width: '100px',
-        height: '20px',
-        backgroundSize: '100px 20px',
-        position: 'absolute',
-        right: '260px',
-        top: '30px',
-        backgroundColor: 'transparent',
-        border: 'none',
-        outline: 'none',
-        lineHeight: '20px',
-        fontSize: '14px'
-    },
-    trainHorseButton: {
-        width: '80px',
-        height: '20px',
-        backgroundSize: '80px 20px',
-        position: 'absolute',
         right: '40px',
         top: '30px',
         backgroundColor: 'transparent',
         border: 'none',
         outline: 'none',
         lineHeight: '20px',
-        fontSize: '14px'
+        fontSize: '12px'
+    },
+    sireMarketButton: {
+        width: '100px',
+        height: '20px',
+        backgroundSize: '100px 20px',
+        position: 'absolute',
+        right: '140px',
+        top: '30px',
+        backgroundColor: 'transparent',
+        border: 'none',
+        outline: 'none',
+        lineHeight: '20px',
+        fontSize: '12px'
     },
 };
