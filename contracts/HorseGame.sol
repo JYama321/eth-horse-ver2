@@ -651,16 +651,19 @@ contract HorseGame is HorseBet{
     function buyTrainTicket() external payable{
         require(msg.value >= lotteryFunction.trainTicketPrice());
         lotteryFunction.buyTrainTicket(msg.value,msg.sender);
+        owner.transfer(msg.value);
     }
 
     function buyShuffleDressUpTicket() external payable{
         require(msg.value >= lotteryFunction.shuffleDressUpTicketPrice());
         lotteryFunction.buyShuffleDressUpTicket(msg.value,msg.sender);
+        owner.transfer(msg.value);
     }
 
     function buyDressUpTicket() external payable{
         require(msg.value >= lotteryFunction.dressUpTicketPrice());
         lotteryFunction.buyDressUpTicket(msg.value,msg.sender);
+        owner.transfer(msg.value);
     }
 
     function trainTicketNum() external view returns(uint){
