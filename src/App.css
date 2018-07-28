@@ -185,7 +185,7 @@ code {
 }
 
 .bet-button{
-    background-image: url("https://image.eth-horse.com/assets/static_assets/sq.png");
+    background-image: url("https://image.eth-horse.com/static_assets/sq.png");
 }
 
 .eth-balance-back{
@@ -362,7 +362,7 @@ code {
 }
 
 
-.just-check-result a{
+.check-result a{
     color: white;
 }
 

@@ -517,7 +517,7 @@ contract HorseBet is HorseGameBase{
         Race storage race = races[_raceId.sub(1)];
         require(race.participantInfo[msg.sender].betPrice == 0);
         require(race.isBetting && !race.isChecked);
-        require(raceBetEnd[_raceId] < now);
+        require(raceBetEnd[_raceId] > now);
         RaceParticipant memory person = RaceParticipant({
             betHorseId: _horseId,
             betPrice: msg.value,

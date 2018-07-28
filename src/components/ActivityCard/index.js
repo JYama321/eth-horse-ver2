@@ -8,7 +8,7 @@ import {
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 const saleLog = 'https://image.eth-horse.com/static_assets/activity-icon-sell-horse.png';
-const boughtLog = 'https://image.eth-horse.com/assets/static_assets/activity-icon-buy-horse.png';
+const boughtLog = 'https://image.eth-horse.com/static_assets/activity-icon-buy-horse.png';
 const hostRaceLog = 'https://image.eth-horse.com/static_assets/activity-icon-host-race.png';
 const applyRaceLog = 'https://image.eth-horse.com/static_assets/activity-icon-apply-race.png';
 const toMarketLog = 'https://image.eth-horse.com/static_assets/activity-icon-to-market.png';
@@ -22,37 +22,43 @@ class ActivityCard extends Component{
 
     renderCardWhite(event,args){
         var image, title, className;
+        const imageWrapper = activityCardContainer.activityImageWrapper;
         switch (event){
             case 'Transfer':
                 if(args._from === window.web3.eth.coinbase){
                     return (
                         <div style={activityCardContainer.activityCardBase} className='activity-sell-horse'>
-                            <img
-                                style={cardImg}
-                                src={saleLog}
-                            />
+                            <div style={imageWrapper}>
+                                <img
+                                    style={cardImg}
+                                    src={saleLog}
+                                />
+                            </div>
                             <p style={activityCardP}>Horse Sold</p>
                             <p style={eventDetail}><Link to={'/horses/' + args._tokenId}>Horse</Link> was sold to {args._to} </p>
                         </div>);
                 } else {
                     return (
                         <div style={activityCardContainer.activityCardBase} className='activity-buy-horse'>
-                            <img
-                                style={cardImg}
-                                src={boughtLog}
-                            />
+                            <div style={imageWrapper}>
+                                <img
+                                    style={cardImg}
+                                    src={boughtLog}
+                                />
+                            </div>
                             <p style={activityCardP}>Buy horse</p>
                             <p style={eventDetail}>Get <Link to={'/horses/' + args._tokenId}>Horse</Link> from {args._from} </p>
                         </div>);
                 }
             case 'LotteryLog':
-                console.log(args,'lotteryLog');
                 return (
                     <div style={activityCardContainer.activityCardBase} className='activity-host-race'>
-                        <img
-                            style={cardImg}
-                            src={betRaceLog}
-                        />
+                        <div style={imageWrapper}>
+                            <img
+                                style={cardImg}
+                                src={betRaceLog}
+                            />
+                        </div>
                         <p style={activityCardP}>Lottery</p>
                         <p style={eventDetail}>{args._type} Lottery
                             &nbsp;
@@ -70,10 +76,12 @@ class ActivityCard extends Component{
                 const minWinnerPrize = window.web3.fromWei(args._minWinnerPrize,'ether');
                 return (
                     <div style={activityCardContainer.activityCardBase} className='activity-host-race'>
-                        <img
-                            style={cardImg}
-                            src={hostRaceLog}
-                        />
+                        <div style={imageWrapper}>
+                            <img
+                                style={cardImg}
+                                src={hostRaceLog}
+                            />
+                        </div>
                         <p style={activityCardP}>Host Race</p>
                         <p style={eventDetail}>HostRace
                             &nbsp;
@@ -90,10 +98,12 @@ class ActivityCard extends Component{
                     [betRaceLog,'Bet Race', 'activity-bet-race'];
                 return (
                     <div style={activityCardContainer.activityCardBase} className={className}>
-                        <img
-                            style={cardImg}
-                            src={image}
-                        />
+                        <div style={imageWrapper}>
+                            <img
+                                style={cardImg}
+                                src={image}
+                            />
+                        </div>
                         <p style={activityCardP}>{title}</p>
                         <p style={eventDetail}>
                             Bet <Link to={'/races/' + args._raceId.toNumber()}>Race</Link>
@@ -108,10 +118,12 @@ class ActivityCard extends Component{
                     [saleLog,`Horse to ${args._type} Market`,'activity-to-market'];
                 return (
                     <div style={activityCardContainer.activityCardBase} className={className}>
-                        <img
-                            style={cardImg}
-                            src={toMarketLog}
-                        />
+                        <div style={imageWrapper}>
+                            <img
+                                style={cardImg}
+                                src={toMarketLog}
+                            />
+                        </div>
                         <p style={activityCardP}>{title}</p>
                         <p style={eventDetail}>Sell <Link to={'/horses/' + args._tokenId.toNumber()}>Horse</Link> Price {window.web3.fromWei(args._price,'ether').toFixed(3)} ETH to {args._type} Market</p>
                     </div>
@@ -121,10 +133,12 @@ class ActivityCard extends Component{
                     [applyRaceLog, 'Apply Race', 'activity-to-market'];
                 return (
                     <div style={activityCardContainer.activityCardBase} className={className}>
-                        <img
-                            style={cardImg}
-                            src={image}
-                        />
+                        <div style={imageWrapper}>
+                            <img
+                                style={cardImg}
+                                src={image}
+                            />
+                        </div>
                         <p style={activityCardP}>{title}</p>
                         <p style={eventDetail}>Apply Race to
                             {<Link to={'/races/' + args._raceId.toNumber()}>The Race</Link>},
@@ -136,10 +150,12 @@ class ActivityCard extends Component{
                     [saleLog, 'Horse to Auction','activity-to-market'];
                 return (
                     <div style={activityCardContainer.activityCardBase} className={className}>
-                        <img
-                            style={cardImg}
-                            src={image}
-                        />
+                        <div style={imageWrapper}>
+                            <img
+                                style={cardImg}
+                                src={image}
+                            />
+                        </div>
                         <p style={activityCardP}>{title}</p>
                         <p style={eventDetail}> <Link to={'/horses/' + args._tokenId.toNumber()}>The Horse</Link> to Auction`,</p>
                     </div>
@@ -151,10 +167,12 @@ class ActivityCard extends Component{
     activityCardContent(img,title,content,className){
         return (
             <div style={activityCardContainer.activityCardBase} className={className}>
-                <img
-                    style={cardImg}
-                    src={boughtLog}
-                />
+                <div style={activityCardContainer.activityImageWrapper}>
+                    <img
+                        style={cardImg}
+                        src={boughtLog}
+                    />
+                </div>
                 <p style={activityCardP}>{title}</p>
                 <p style={eventDetail}>{content}</p>
             </div>

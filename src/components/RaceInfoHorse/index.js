@@ -49,7 +49,7 @@ class RaceInfoHorse extends Component {
             isOwner: false,
             isOpenModal: false,
             secretNumber: 0,
-            isMessageShow: false,
+            isMessageCardShow: false,
             message: ''
         }
     }

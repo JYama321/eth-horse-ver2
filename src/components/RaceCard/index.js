@@ -218,18 +218,18 @@ class RaceCard extends Component{
                         onRequestClose={()=>this.closeShowRaceModal()}
                     >
                         <div style={raceCardStyles.raceResultHeader}>
-                            check race result
+                            <a href={'http://ehth-horse-scenes.s3-website-ap-northeast-1.amazonaws.com/StartScenes/StartScene.html?' +
+                            'tex1=' + horseGene1.slice(horseGene1.length-38,horseGene1.length-20) +
+                            '&tex2=' + horseGene2.slice(horseGene2.length-38,horseGene1.length-20) +
+                            '&winnerIndex=' + winnerHorseIndex +
+                            '&winnerName=' + winnerHorseName} target="_blank" className={'check-result'}>See Race Movie</a>
                         </div>
                         <div style={raceCardStyles.raceResultContent}>
-                            <div style={raceCardStyles}>
-                                <a href={'http://ehth-horse-scenes.s3-website-ap-northeast-1.amazonaws.com/StartScenes/StartScene.html?' +
-                                'tex1=' + horseGene1.slice(horseGene1.length-38,horseGene1.length-20) +
-                                '&tex2=' + horseGene2.slice(horseGene2.length-38,horseGene1.length-20) +
-                                '&winnerIndex=' + winnerHorseIndex +
-                                '&winnerName=' + winnerHorseName} target="_blank">See Race Movie</a>
+                            <div style={raceCardStyles.raceResultLink}>
+                                See Race Movie
                             </div>
                             or
-                            <div>
+                            <div style={raceCardStyles.raceResultLink} className='check-result'>
                                 <Link to={'/races/' + this.props.race[0].toNumber()}>Just check result</Link>
                             </div>
                         </div>

@@ -176,4 +176,13 @@ export const raceCardStyles = {
         textAlign: 'left',
         marginLeft: '28px'
     },
+    raceResultLink: {
+        width: '150px',
+        height: '30px',
+        backgroundColor: 'black',
+        color: 'white',
+        lineHeight: '30px',
+        textAlign: 'center',
+        fontSize: '14px'
+    }
 };

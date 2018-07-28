@@ -5,24 +5,24 @@ export const activityCard = {
         position: 'relative',
         margin: '7px 0',
         backgroundSize: '100% 70px',
-        fontFamily: 'yrsa-regular'
+        fontFamily: 'yrsa-regular',
+        display: 'flex'
     },
+    eventLogImage: {
+        width: '80px',
+        height: '70px',
+        textAlign: 'center'
+    }
 };
 export const cardImg = {
-    default :{
-        margin: '14px',
+    wide :{
+        margin: '14px 0',
         height: '42px',
         width: 'auto',
         display: 'inline-block'
     },
-    wide: {
-        margin: '14px 14px 14px 28px',
-        height: '42px',
-        width: 'auto',
-        display: 'inline-block',
-    },
     small: {
-        margin: '18px 14px 18px 28px',
+        margin: '18px 0',
         height: '32px',
         width: 'auto',
         display: 'inline-block',
@@ -32,8 +32,9 @@ export const cardImg = {
 export const activityOneLine = {
     display: 'inline-block',
     height: '70px',
+    width: '415px',
     position: 'absolute',
-    left: '90px',
+    left: '85px',
     fontWeight: 'bold',
     lineHeight: '70px',
     fontSize: '14px',

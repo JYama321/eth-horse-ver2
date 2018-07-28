@@ -43,6 +43,7 @@ class MyPageStatus extends Component{
         this.selectHorse = this.selectHorse.bind(this)
     }
 
+
     componentWillReceiveProps(props,state){
         if(this.state.totalPage !== Math.ceil(props.ownedHorses.length / 6)){
             this.setState({

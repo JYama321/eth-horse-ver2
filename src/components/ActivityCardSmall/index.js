@@ -24,19 +24,23 @@ class ActivityCardSmall extends Component{
         if(args._from === window.web3.eth.coinbase){
           return (
               <div style={activityCard.eventBase} className='activity-sell-horse'>
-                <img
-                    style={cardImg.wide}
-                    src={saleLog}
-                />
+                  <div style={activityCard.eventLogImage}>
+                        <img
+                            style={cardImg.wide}
+                            src={saleLog}
+                        />
+                  </div>
                 <p style={activityOneLine}>Sell <Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._to} </p>
               </div>);
         } else {
           return (
               <div style={activityCard.eventBase} className='activity-buy-horse'>
-                <img
-                    style={cardImg.wide}
-                    src={boughtLog}
-                />
+                  <div style={activityCard.eventLogImage}>
+                        <img
+                            style={cardImg.wide}
+                            src={boughtLog}
+                        />
+                  </div>
                 <p style={activityOneLine}>Buy <Link to={'/horses/' + args._tokenId}>Horse</Link> from {args._from} </p>
               </div>);
         }
@@ -45,16 +49,17 @@ class ActivityCardSmall extends Component{
         const minWinnerPrize = window.web3.fromWei(args._minWinnerPrize,'ether');
         return (
             <div style={activityCard.eventBase} className='activity-host-race'>
-              <img
-                  style={cardImg.wide}
-                  src={hostRaceLog}
-              />
+                <div style={activityCard.eventLogImage}>
+                    <img
+                        style={cardImg.wide}
+                        src={hostRaceLog}
+                    />
+                </div>
               <p style={activityOneLine}>HostRace
                 &nbsp;
                 <Link to={"/races/" + args._raceId}>The Race</Link>
                 &nbsp;
                 Deposit: {deposit == '0' ? 0 : deposit.toFixed(2)} ETH
-                <br/>
                 Min WinnerPrize: {minWinnerPrize == '0' ? 0 : minWinnerPrize.toFixed(2)} ETH
               </p>
             </div>
@@ -62,10 +67,12 @@ class ActivityCardSmall extends Component{
       case 'LotteryLog':
         return (
             <div style={activityCard.eventBase} className='activity-host-race'>
-              <img
-                  style={cardImg.wide}
-                  src={toMarketLog}
-              />
+                <div style={activityCard.eventLogImage}>
+                    <img
+                        style={cardImg.wide}
+                        src={toMarketLog}
+                    />
+                </div>
               <p style={activityOneLine}>
                 Did a Lottery{args._success ? 'You win a prize!' : 'You couldn\'t win a prize.'}
               </p>
@@ -74,10 +81,12 @@ class ActivityCardSmall extends Component{
       case 'BetRace':
         return (
             <div style={activityCard.eventBase} className='activity-bet-race'>
-              <img
-                  style={cardImg.small}
-                  src={betRaceLog}
-              />
+                <div style={activityCard.eventLogImage}>
+                    <img
+                        style={cardImg.small}
+                        src={betRaceLog}
+                    />
+                </div>
               <p style={activityOneLine}>Bet Race Price {window.web3.fromWei(args._betValue,'ether').toFixed(3)} ETH to &nbsp;
                 <Link to={'/races/' + args._raceId}>Race</Link></p>
             </div>
@@ -85,20 +94,24 @@ class ActivityCardSmall extends Component{
       case 'HorseOnSale':
         return (
             <div style={activityCard.eventBase} className='activity-to-market'>
-              <img
-                  style={cardImg.wide}
-                  src={toMarketLog}
-              />
+                <div style={activityCard.eventLogImage}>
+                    <img
+                        style={cardImg.wide}
+                        src={toMarketLog}
+                    />
+                </div>
               <p style={activityOneLine}><Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._type} Market Price ETH </p>
             </div>
         );
       case 'ApplyRace':
         return (
             <div style={activityCard.eventBase} className='activity-apply-race'>
-              <img
-                  style={cardImg.wide}
-                  src={applyRaceLog}
-              />
+                <div style={activityCard.eventLogImage}>
+                    <img
+                        style={cardImg.wide}
+                        src={applyRaceLog}
+                    />
+                </div>
               <p style={activityOneLine}>Apply to
                 <Link to={"/races/"+  args._raceId.toNumber()}> Race</Link>&nbsp;
                 <Link to={"/horses/"+  args._horseId.toNumber()}> The Horse</Link>
@@ -108,10 +121,12 @@ class ActivityCardSmall extends Component{
       case 'HorseOnBidSale':
         return (
             <div style={activityCard.eventBase} className='activity-to-market'>
-              <img
-                  style={cardImg.default}
-                  src={toMarketLog}
-              />
+                <div style={activityCard.eventLogImage}>
+                    <img
+                        style={cardImg.wide}
+                        src={toMarketLog}
+                    />
+                </div>
               <p style={activityOneLine}>Horse to Auction
                 <Link to={"/horses/"+  args._tokenId.toNumber()}> The Horse</Link>
               </p>

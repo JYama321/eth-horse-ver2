@@ -28,6 +28,11 @@ class MyPage extends Component {
   componentDidMount(){
     this.props.startGetMyHorses()
   }
+  componentWillReceiveProps(props,state){
+      if(props.currentDisplay !== this.props.currentDisplay){
+        window.scrollTo(0,120);
+      }
+  }
   render(){
     if(this.props.myHorseIdsLoaded){
       switch(this.props.currentDisplay){
