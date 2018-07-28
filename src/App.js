@@ -69,138 +69,153 @@ import {
 import { appStyles } from "./style"
 import loadGif from './assets/static_assets/umaLoading.gif'
 import goalGif from "./assets/static_assets/goal_movie.gif";
+import MetamaskModal from './components/Modal-metamask/'
 
 class App extends Component {
     constructor (props) {
         super(props);
         this.state = {
             loaded: false,
+            metaMaskModalOpen: false,
+            browserModalOpen: false
         }
     }
     async componentWillMount() {
         const result = await getWeb3();
         window.web3 = result.web3;
-        const coinbase = window.web3.eth.coinbase;
-        const contract = window.web3.eth.contract(HorseGame.abi);
-        const lottery = window.web3.eth.contract(Lottery.abi);
-        const Race = window.web3.eth.contract(RaceFunction.abi);
-        window.contract_instance = contract.at(address);
-        window.lottery_contract = lottery.at(lotteryAddress);
-        window.race_contract = Race.at(raceAddress);
-        //raceArrays
-        const wantedArray = await getWantedRaceArray();
-        const bettingArray = await getBettingRaceArray();
-        const checkedArray = await getCheckedRaceArray();
-        const myRaceArray = await getMyRaceArray();
-        const myHorseArray = await getMyHorsesArray();
-        const totalPrizeArray = await getHorseTotalPrizeArray();
-        const winCountArray = await getHorseWinCountArray();
-        const geneArray = await getGeneArray();
-        const priceArray = await getHorsePrices();
-        const sirePrices = await getSirePricesArray();
-        const sireArray = await getSireHorsesArray();
-        const saleHorseArray = await getOnSaleHorses();
-        const matePrice = await getMatePrice();
+        console.log(window.navigator.userAgent);
+        if(window.web3){
+            const coinbase = window.web3.eth.coinbase;
+            const contract = window.web3.eth.contract(HorseGame.abi);
+            const lottery = window.web3.eth.contract(Lottery.abi);
+            const Race = window.web3.eth.contract(RaceFunction.abi);
+            window.contract_instance = contract.at(address);
+            window.lottery_contract = lottery.at(lotteryAddress);
+            window.race_contract = Race.at(raceAddress);
+            //raceArrays
+            const wantedArray = await getWantedRaceArray();
+            const bettingArray = await getBettingRaceArray();
+            const checkedArray = await getCheckedRaceArray();
+            const myRaceArray = await getMyRaceArray();
+            const myHorseArray = await getMyHorsesArray();
+            const totalPrizeArray = await getHorseTotalPrizeArray();
+            const winCountArray = await getHorseWinCountArray();
+            const geneArray = await getGeneArray();
+            const priceArray = await getHorsePrices();
+            const sirePrices = await getSirePricesArray();
+            const sireArray = await getSireHorsesArray();
+            const saleHorseArray = await getOnSaleHorses();
+            const matePrice = await getMatePrice();
 
-        this.props.getMatePrice(matePrice.toNumber());
-        this.props.getSaleHorses(saleHorseArray);
-        this.props.getSireHorses(sireArray);
-        this.props.getSirePrices(sirePrices);
-        this.props.getTotalPrizeArray(totalPrizeArray);
-        this.props.getWinCountArray(winCountArray);
-        this.props.getGeneArray(geneArray);
-        this.props.getMyHorseArray(myHorseArray);
-        this.props.getWantedArray(wantedArray);
-        this.props.getBettingArray(bettingArray);
-        this.props.getCheckedArray(checkedArray);
-        this.props.getMyRace(myRaceArray);
-        this.props.getHorsePrices(priceArray);
-        const trainTicketNum = await getTrainTicketNum();
-        const dressUpTicketNum= await getDressUpTicketNum();
-        const shuffleAllTicketNum = await getShuffleAllTicketNum();
-        this.props.getTicket(trainTicketNum);
-        this.props.getDressUpTicket(dressUpTicketNum);
-        this.props.getShuffleAllTicket(shuffleAllTicketNum);
-        this.setState({ loaded: true});
-        //get events
-        const self = this;
-        window.web3.eth.getBalance(window.web3.eth.coinbase,function(err,result){
-            if(err){console.log(err)}
-            self.props.getBalance(window.web3.fromWei(result,'ether').toNumber().toFixed(2))
-        });
-        const hostRace = window.contract_instance.HostRace({_host:window.web3.eth.coinbase},{
-            fromBlock: 0,
-            toBlock: 'latest',
-        });
-        const GetHorse = window.contract_instance.Transfer({
-            _to: window.web3.eth.coinbase
-        },{
-            fromBlock: 0,
-            toBlock: 'latest',
-        });
-        const SellHorse = window.contract_instance.Transfer({
-            _from: window.web3.eth.coinbase
-        },{
-            fromBlock: 0,
-            toBlock: 'latest',
-        });
-        const HorseOnSale = window.contract_instance.HorseOnSale({
-            _from: window.web3.eth.coinbase
-        },{
-            fromBlock: 0,
-            toBlock: 'latest'
-        });
-        const ApplyRace = window.contract_instance.ApplyRace({
-            _owner: window.web3.eth.coinbase
-        },{
-            fromBlock: 0,
-            toBlock: 'latest'
-        });
-        const BetRace = window.contract_instance.BetRace({
-            _voter: window.web3.eth.coinbase
-        },{
-            fromBlock: 0,
-            toBlock: 'latest'
-        });
-        const LotteryLog = window.lottery_contract.LotteryLog({
-            _from: window.web3.eth.coinbase
-        },{
-            fromBlock: 0,
-            toBlock: 'latest'
-        });
-        BetRace.watch(function(err,result){
-            self.props.getActivity(result);
-        });
-        HorseOnSale.watch(function(err,result){
-            self.props.getActivity(result);
-            getOnSaleHorses().then(array => {
-                self.props.getSaleHorses(array);
+            this.props.getMatePrice(matePrice.toNumber());
+            this.props.getSaleHorses(saleHorseArray);
+            this.props.getSireHorses(sireArray);
+            this.props.getSirePrices(sirePrices);
+            this.props.getTotalPrizeArray(totalPrizeArray);
+            this.props.getWinCountArray(winCountArray);
+            this.props.getGeneArray(geneArray);
+            this.props.getMyHorseArray(myHorseArray);
+            this.props.getWantedArray(wantedArray);
+            this.props.getBettingArray(bettingArray);
+            this.props.getCheckedArray(checkedArray);
+            this.props.getMyRace(myRaceArray);
+            this.props.getHorsePrices(priceArray);
+            const trainTicketNum = await getTrainTicketNum();
+            const dressUpTicketNum= await getDressUpTicketNum();
+            const shuffleAllTicketNum = await getShuffleAllTicketNum();
+            this.props.getTicket(trainTicketNum);
+            this.props.getDressUpTicket(dressUpTicketNum);
+            this.props.getShuffleAllTicket(shuffleAllTicketNum);
+            this.setState({ loaded: true});
+            //get events
+            const self = this;
+            window.web3.eth.getBalance(window.web3.eth.coinbase,function(err,result){
+                if(err){console.log(err)}
+                self.props.getBalance(window.web3.fromWei(result,'ether').toNumber().toFixed(2))
             });
-            getSirePricesArray().then(array => {
-                self.props.getSirePrices(array);
+            const hostRace = window.contract_instance.HostRace({_host:window.web3.eth.coinbase},{
+                fromBlock: 0,
+                toBlock: 'latest',
+            });
+            const GetHorse = window.contract_instance.Transfer({
+                _to: window.web3.eth.coinbase
+            },{
+                fromBlock: 0,
+                toBlock: 'latest',
+            });
+            const SellHorse = window.contract_instance.Transfer({
+                _from: window.web3.eth.coinbase
+            },{
+                fromBlock: 0,
+                toBlock: 'latest',
+            });
+            const HorseOnSale = window.contract_instance.HorseOnSale({
+                _from: window.web3.eth.coinbase
+            },{
+                fromBlock: 0,
+                toBlock: 'latest'
+            });
+            const ApplyRace = window.contract_instance.ApplyRace({
+                _owner: window.web3.eth.coinbase
+            },{
+                fromBlock: 0,
+                toBlock: 'latest'
+            });
+            const BetRace = window.contract_instance.BetRace({
+                _voter: window.web3.eth.coinbase
+            },{
+                fromBlock: 0,
+                toBlock: 'latest'
+            });
+            const LotteryLog = window.lottery_contract.LotteryLog({
+                _from: window.web3.eth.coinbase
+            },{
+                fromBlock: 0,
+                toBlock: 'latest'
+            });
+            BetRace.watch(function(err,result){
+                self.props.getActivity(result);
+            });
+            HorseOnSale.watch(function(err,result){
+                self.props.getActivity(result);
+                getOnSaleHorses().then(array => {
+                    self.props.getSaleHorses(array);
+                });
+                getSirePricesArray().then(array => {
+                    self.props.getSirePrices(array);
+                })
+            });
+            hostRace.watch(function(err,result){
+                self.props.getActivity(result);
+                getWantedRaceArray().then(wantedArray => {
+                    self.props.getWantedArray(wantedArray);
+                });
+            });
+            ApplyRace.watch(function(err,result){
+                self.props.getActivity(result);
+            });
+            GetHorse.watch(function(err,result){
+                self.props.getActivity(result);
+                getMyHorsesArray().then(myRaces => {
+                    self.props.getMyHorseArray(myRaces);
+                });
+            });
+            SellHorse.watch(function(err,result){
+                self.props.getActivity(result)
+            });
+            LotteryLog.watch(function(err, result){
+                self.props.getActivity(result)
+            });
+        }else{
+            this.setState({
+                metaMaskModalOpen: true
             })
-        });
-        hostRace.watch(function(err,result){
-            self.props.getActivity(result);
-            getWantedRaceArray().then(wantedArray => {
-                self.props.getWantedArray(wantedArray);
-            });
-        });
-        ApplyRace.watch(function(err,result){
-            self.props.getActivity(result);
-        });
-        GetHorse.watch(function(err,result){
-            self.props.getActivity(result);
-            getMyHorsesArray().then(myRaces => {
-                self.props.getMyHorseArray(myRaces);
-            });
-        });
-        SellHorse.watch(function(err,result){
-            self.props.getActivity(result)
-        });
-        LotteryLog.watch(function(err, result){
-            self.props.getActivity(result)
-        });
+        }
+    }
+    closeMetamaskModal(){
+        this.setState({
+            metaMaskModalOpen: false
+        })
     }
     render() {
         if(this.state.loaded){
@@ -232,6 +247,7 @@ class App extends Component {
         }else{
             return(
                 <div style={appStyles.gifContainer}>
+                    <MetamaskModal isModalOpen={this.state.metaMaskModalOpen} closeModal={this.closeMetamaskModal.bind(this)}/>
                     <img
                         src={goalGif}
                         style={appStyles.backGif}

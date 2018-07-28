@@ -9,6 +9,7 @@ import {
 } from "../../utils/eth-function";
 import Modal from 'react-modal'
 
+
 Modal.setAppElement('#root');
 class BookMakeModal extends Component{
     static propTypes={

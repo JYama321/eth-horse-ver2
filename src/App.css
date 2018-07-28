@@ -378,3 +378,7 @@ code {
     top: 203px;
     font-size: 14px
 }
+
+.hover{
+    cursor: pointer;
+}
