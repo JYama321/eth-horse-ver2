@@ -42,9 +42,6 @@ import {
     getHorseInfo,
     dispatchGetMatePrice
 } from './actions'
-const address = '0x9fbda871d559710256a2502a2517b794b482db40';
-const lotteryAddress = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
-const raceAddress = '0xf25186b5081ff5ce73482ad761db0eb0d25abfbf';
 import {
     getWantedRaceArray,
     getBettingRaceArray,
@@ -69,7 +66,11 @@ import {
 import { appStyles } from "./style"
 import loadGif from './assets/static_assets/umaLoading.gif'
 import goalGif from "./assets/static_assets/goal_movie.gif";
+import DownloadBrowserModal from './components/Modal-download-browser/'
 import MetamaskModal from './components/Modal-metamask/'
+const address = '0x9fbda871d559710256a2502a2517b794b482db40';
+const lotteryAddress = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
+const raceAddress = '0xf25186b5081ff5ce73482ad761db0eb0d25abfbf';
 
 class App extends Component {
     constructor (props) {
@@ -83,7 +84,7 @@ class App extends Component {
     async componentWillMount() {
         const result = await getWeb3();
         window.web3 = result.web3;
-        console.log(window.navigator.userAgent);
+        const browserInfo = window.navigator.userAgent.toLowerCase();
         if(window.web3){
             const coinbase = window.web3.eth.coinbase;
             const contract = window.web3.eth.contract(HorseGame.abi);
@@ -207,14 +208,25 @@ class App extends Component {
                 self.props.getActivity(result)
             });
         }else{
-            this.setState({
-                metaMaskModalOpen: true
-            })
+            if(browserInfo.search('chrome') === -1 && (browserInfo.search('opera') === -1 && browserInfo.search('firefox') === -1)){
+                this.setState({
+                    browserModalOpen: true
+                })
+            }else{
+                this.setState({
+                    metaMaskModalOpen: true
+                })
+            }
         }
     }
     closeMetamaskModal(){
         this.setState({
             metaMaskModalOpen: false
+        })
+    }
+    closeBrowserModal(){
+        this.setState({
+            browserModalOpen: false
         })
     }
     render() {
@@ -247,6 +259,7 @@ class App extends Component {
         }else{
             return(
                 <div style={appStyles.gifContainer}>
+                    <DownloadBrowserModal isModalOpen={this.state.browserModalOpen} closeModal={this.closeBrowserModal.bind(this)}/>
                     <MetamaskModal isModalOpen={this.state.metaMaskModalOpen} closeModal={this.closeMetamaskModal.bind(this)}/>
                     <img
                         src={goalGif}

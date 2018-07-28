@@ -1,39 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Modal from 'react-modal'
-import { styles } from "./styles";
-import { browserInstallLinks } from "../../utils/constants";
-const icons = {
-  chrome: '../../assets/static_assets/browser-chrome.png',
-  opera: '../../assets/static_assets/browser-opera.png',
-  firefox: '../../assets/static_assets/browser-firefox.png',
-  brave: '../../assets/static_assets/browser-brave.png'
-};
+import {styles} from "./styles";
 Modal.setAppElement('#root');
 
-class MetamaskModal extends Component{
+class MetaMaskModal extends Component{
     static propTypes = {
         isModalOpen: PropTypes.bool.isRequired,
         closeModal: PropTypes.func.isRequired,
     };
-
-    renderBrowserInstallLink(browserType){
-        return(
-            <div style={styles.browserCard}>
-                <div style={styles.browserText}>
-                    Download {browserType}
-                </div>
-                <a href={browserInstallLinks[browserType.toLowerCase()]} target='_blank'className='hover'>
-                    <div style={styles.browserIconContainer}>
-                        <img
-                            src={require(`../../assets/static_assets/browser-${browserType.toLowerCase()}.png`)}
-                            style={{width: 'auto', height: '40px',marginTop: '10px'}}
-                        />
-                    </div>
-                </a>
-            </div>
-        )
-    }
 
     render(){
         return(
@@ -44,22 +19,33 @@ class MetamaskModal extends Component{
                     style={styles.modalContainer}
                 >
                     <div style={styles.modalHeader}>
-                        <p style={styles.headerTitle}>What's this neigh!</p>
-                        <p style={styles.headerText}>
-                            You can only play ETH Horse on a desktop browser like
-                            Chrome, Opera, Firefox or Brave.
-                        </p>
+                        <p style={styles.modalTitle}>Wanna play ?</p>
+                        <p style={styles.modalText}>You'll need a safe place to store all of your adorable ETH Horse</p>
+                    </div>
+                    <div style={styles.modalImageContainer}>
+                        <img
+                            src={require('../../assets/static_assets/metamask.png')}
+                            style={{height: '180px',width: 'auto', marginTop: '60px'}}
+                        />
                     </div>
                     <div style={styles.modalBottomContent}>
-                        {this.renderBrowserInstallLink('Chrome')}
-                        {this.renderBrowserInstallLink('Opera')}
-                        {this.renderBrowserInstallLink('FireFox')}
-                        {this.renderBrowserInstallLink('Brave')}
+                        <p style={styles.modalBottomText}>
+                            The perfect place is in a secure wallet like MetaMask.<br/>
+                            This will also act as your login to the game (no extra password needed).
+                        </p>
+                        <div style={styles.modalBottomButton}>
+                            <a href='https://metamask.io/' target='_blank'>
+                            <button style={styles.downloadButton}>
+                                Download Metamask
+                            </button>
+                            </a>
+                        </div>
                     </div>
                 </Modal>
             </div>
         )
     }
+
 }
 
-export default MetamaskModal
+export default MetaMaskModal

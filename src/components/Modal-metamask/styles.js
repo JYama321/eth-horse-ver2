@@ -1,57 +1,66 @@
 export const styles = {
     modalContainer: {
         content: {
-            width: '320px',
-            height: '530px',
-            position: 'absolute',
+            width: '560px',
+            height: '570px',
+            background: 'linear-gradient(to right top, #fbf3af, #fdd5be)',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%,-50%)',
-            padding: 0
+            padding: 0,
+            fontFamily: 'yrsa-regular'
         }
     },
     modalHeader: {
         width: 'calc(100% - 56px)',
-        height: '140px',
+        height: '100px',
         padding: '0 28px',
-        position: 'absolute',
-        top: 0,
-        backgroundColor: 'black',
-        color: 'white',
         textAlign: 'left'
     },
-    headerTitle: {
-        marginTop: '21px',
-        fontSize: '18px'
+    modalTitle: {
+        width: '100%',
+        height: '70px',
+        lineHeight: '70px',
+        fontSize: '22px'
     },
-    headerText: {
-        marginTop: '21px',
-        fontSize: '14px'
+    modalText: {
+        width: '100%',
+        height: '30px',
+        lineHeight: '30px',
+        fontSize: '16px'
+    },
+    modalImageContainer: {
+        width: '100%',
+        height: '300px',
+        textAlign: 'center',
     },
     modalBottomContent: {
+        width: 'calc(100% - 56px)',
+        height: '170px',
+        padding: '0 28px'
+    },
+    modalBottomText: {
+        height: '50px',
+        lineHeight: '25px',
+        fontSize: '16px',
+        width: '100%'
+    },
+    modalBottomButton: {
+        height: '60px',
         width: '100%',
-        position: 'absolute',
-        top: '140px',
-        height: '390px'
-    },
-    browserCard: {
-        width: '260px',
-        height: '60px',
-        margin: '21px auto 0',
-        backgroundColor: 'rgba(0,0,0,0.2)',
-        display: 'flex'
-    },
-    browserText: {
-        width: '180px',
-        height: '60px',
         textAlign: 'left',
-        paddingLeft: '10px',
-        lineHeight: '60px'
+        marginTop: '28px'
     },
-    browserIconContainer: {
-        display: 'inline-block',
-        width: '80px',
-        height: '60px',
+    downloadButton: {
+        outline: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        backgroundColor: '#f09505',
+        color: 'white',
         textAlign: 'center',
+        width: '300px',
+        height: '60px',
+        lineHeight: '60px',
+        fontSize: '20px',
     }
 };
