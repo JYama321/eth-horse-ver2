@@ -68,9 +68,9 @@ import loadGif from './assets/static_assets/umaLoading.gif'
 import goalGif from "./assets/static_assets/goal_movie.gif";
 import DownloadBrowserModal from './components/Modal-download-browser/'
 import MetamaskModal from './components/Modal-metamask/'
-const address = '0x9fbda871d559710256a2502a2517b794b482db40';
-const lotteryAddress = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
-const raceAddress = '0xf25186b5081ff5ce73482ad761db0eb0d25abfbf';
+const address = '0x19a5371609377da1bf11719594fb60e068d74e50';
+const lotteryAddress = '0xdc5f127c8dfe4921c39abd68ddd3c2339636d646';
+const raceAddress = '0x237d6dde5b6fc5ba19dda45f4226648791dc62a3';
 
 class App extends Component {
     constructor (props) {
