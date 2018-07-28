@@ -30,7 +30,7 @@ import {getRace, getHorseData} from "../../utils/eth-function";
 import ApplyRaceModal from '../../components/ModalApplyRace'
 import HostRaceModal from '../../components/ModalHostRace'
 import Modal from 'react-modal'
-const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
+const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gif';
 
 Modal.setAppElement('#root');
 
@@ -146,14 +146,7 @@ class Races extends Component{
                             self.props.getRaceInfo(result)
                         });
                         return(
-                            <img
-                                key={'loading-'+index}
-                                src={loadingGif}
-                                style={{
-                                    width: '200px',
-                                    height: '200px'
-                                }}
-                            />
+                            <LoadGif key={'loading-' + index}/>
                         )
                     }else{
                         return null
@@ -184,16 +177,7 @@ class Races extends Component{
                         getRace(elem.id-1).then(result => {
                             self.props.getRaceInfo(result)
                         });
-                        return(
-                            <img
-                                key={'loading-'+index}
-                                src={loadingGif}
-                                style={{
-                                    width: '200px',
-                                    height: '200px'
-                                }}
-                            />
-                        )
+                        return(<LoadGif key={'loading-' + index}/>)
                     }else{
                         return null
                     }
@@ -217,16 +201,7 @@ class Races extends Component{
                         getRace(elem.id-1).then(result => {
                             self.props.getRaceInfo(result)
                         });
-                        return(
-                            <img
-                                key={'loading-'+index}
-                                src={loadingGif}
-                                style={{
-                                    width: '200px',
-                                    height: '200px'
-                                }}
-                            />
-                        )
+                        return(<LoadGif key={'loading-' + index}/>)
                     } else {
                         return null
                     }
@@ -252,16 +227,7 @@ class Races extends Component{
                         getRace(elem.id-1).then(result => {
                             self.props.getRaceInfo(result)
                         });
-                        return(
-                            <img
-                                key={'loading-'+index}
-                                src={loadingGif}
-                                style={{
-                                    width: '200px',
-                                    height: '200px'
-                                }}
-                            />
-                        )
+                        return(<LoadGif key={'loading-' + index}/>)
                     } else {
                         return null
                     }
@@ -315,6 +281,28 @@ class Races extends Component{
             </div>
         )
     }
+}
+
+function LoadGif(){
+    return (
+        <div style={{
+            width: '515px',
+            height: '580px',
+            display: 'relative'
+        }}>
+            <img
+                src={loadingGif}
+                style={{
+                    width: '80px',
+                    height: '80px',
+                    position: 'absolute',
+                    top: '100px',
+                    left: '50%',
+                    transform: 'translateX(-50%)'
+                }}
+            />
+        </div>
+    )
 }
 
 const mapStateToProps = (state) => createStructuredSelector({

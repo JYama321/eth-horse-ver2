@@ -38,7 +38,7 @@ import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import MessageCard from '../../components/MessageCard'
-const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
+const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gif';
 
 const styles = theme => ({
     button: {
@@ -197,8 +197,8 @@ class SireHorsePage extends Component{
                         key={'loading-'+index}
                         src={loadingGif}
                         style={{
-                            width: '200px',
-                            height: '200px',
+                            width: '50px',
+                            height: '50px',
                             top: '65px'
                         }}
                     />

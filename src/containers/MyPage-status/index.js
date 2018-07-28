@@ -9,10 +9,10 @@ import Modal from 'react-modal'
 import Pagination from '../../components/Pagination'
 import { getHorseData, trainHorse, shuffleAll } from "../../utils/eth-function"
 import EmptyBox from '../../components/EmptyBox'
-const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
+const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gif';
 const trainHorseGif = 'https://image.eth-horse.com/static_assets/ticket_training.gif';
-const shuffleDressUpGif = 'https://image.eth-horse.com/static_assets/ticket-s-dress-up.gif'
-const dressUpGif = 'https://image.eth-horse.com/static_assets/ticket_change_texture.gif'
+const shuffleDressUpGif = 'https://image.eth-horse.com/static_assets/ticket-s-dress-up.gif';
+const dressUpGif = 'https://image.eth-horse.com/static_assets/ticket_change_texture.gif';
 
 Modal.setAppElement('#root');
 class MyPageStatus extends Component{

@@ -168,8 +168,8 @@ class RaceInfoHorse extends Component {
             return (
                 <img
                     src={loadingGif}
-                    width="250px"
-                    height="250px"
+                    width="50px"
+                    height="50px"
                 />)
         }
     }

@@ -28,7 +28,8 @@ import {
 } from "./actions";
 import HorseStatusCard from '../../components/MarketHorseStatusCard';
 import saga from './saga'
-const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
+import LoadingHorseStatus from '../../components/HorseStatusLoading'
+const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gif';
 
 class Market extends Component{
     constructor(props){
@@ -93,16 +94,6 @@ class Market extends Component{
                         getHorseData(String(elem.toNumber())).then((result) => {
                             self.props.getHorse(result);
                         });
-                        return(
-                            <img
-                                key={'loading-'+index}
-                                src={loadingGif}
-                                style={{
-                                    width: '200px',
-                                    height: '200px'
-                                }}
-                            />
-                        )
                     }
                 });
             case 'high-price':
@@ -189,14 +180,7 @@ class Market extends Component{
                             self.props.getHorse(result);
                         });
                         return (
-                            <img
-                                key={'loading-' + index}
-                                src={loadingGif}
-                                style={{
-                                    width: '200px',
-                                    height: '200px'
-                                }}
-                            />
+                           <LoadingHorseStatus isLeft={(num - 1) % 4 === 0} key={'loading' + index}/>
                         )
                     }
                 });

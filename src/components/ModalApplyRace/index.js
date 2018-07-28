@@ -11,7 +11,7 @@ import { createStructuredSelector } from 'reselect'
 import {selectCurrentApplyModalPage} from "./selectors";
 import { changeApplyRaceHorsePage } from "./actions";
 import saga from './saga'
-const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
+const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gif';
 
 Modal.setAppElement('#root');
 
@@ -77,8 +77,8 @@ class ApplyRaceModal extends Component{
                         key={'loading-'+index}
                         src={loadingGif}
                         style={{
-                            width: '200px',
-                            height: '200px'
+                            width: '50px',
+                            height: '50px'
                         }}
                     />
                 )

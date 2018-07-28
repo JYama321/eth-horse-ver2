@@ -17,7 +17,8 @@ import {getHorseData} from "../../utils/eth-function";
 import { horseStatus } from "../../utils/functions";
 import RankingModalHorse from '../../components/RankingModalHorse'
 import Modal from 'react-modal'
-const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
+import LoadingHorseStatus from '../../components/HorseStatusLoading'
+const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gif';
 Modal.setAppElement('#root');
 
 
@@ -65,7 +66,7 @@ class Ranking extends Component{
             }else{
                 getHorseData(elem.id).then(horse => self.props.getHorse(horse));
                 return(
-                    <b key={'loading-'+index}>Loading{elem.id}</b>
+                    <LoadingHorseStatus isLeft={isLeft}/>
                 )
             }
         })
@@ -105,12 +106,7 @@ class Ranking extends Component{
             }else{
                 getHorseData(elem.id).then(horse => self.props.getHorse(horse));
                 return(
-                    <img
-                        key={'loading-'+index}
-                        width="250px"
-                        height="250px"
-                        src={loadingGif}
-                    />
+                    <LoadingHorseStatus isLeft={isLeft} key={'loading'+index}/>
                 )
             }
         })
@@ -148,14 +144,7 @@ class Ranking extends Component{
                 )
             }else{
                 getHorseData(elem.id).then(horse => self.props.getHorse(horse));
-                return(
-                    <img
-                        key={'loading-'+index}
-                        width="250px"
-                        height="250px"
-                        src={loadingGif}
-                    />
-                )
+                return <LoadingHorseStatus isLeft={isLeft} key={'loading'+index}/>;
             }
         })
     }
@@ -199,12 +188,7 @@ class Ranking extends Component{
                         return <RankingModalHorse horseInfo={horse} totalPrize={Number(window.web3.fromWei(prize.get(String(elem.id - 1)),"ether"))} rank={index + 1} key={'modal-rank-horse' + index}/>
                     }else {
                         getHorseData(elem.id).then(horse => self.props.getHorse(horse));
-                        return <img
-                            key={'loading-'+index}
-                            width="60px"
-                            height="60px"
-                            src={loadingGif}
-                        />
+                        return <RankModalHorse key={'Loading'+index}/>;
                     }
                 });
             case 'total-prize':
@@ -227,11 +211,7 @@ class Ranking extends Component{
                     if(horse){
                         return <RankingModalHorse horseInfo={horse} totalPrize={Number(window.web3.fromWei(prize.get(String(elem.id-1)),"ether"))} rank={index + 1} key={'modal-rank-horse' + index}/>
                     }else {
-                        return <img
-                            width="60px"
-                            height="60px"
-                            src={loadingGif}
-                        />
+                        return <RankModalHorse key={'Loading'+index}/>
                     }
                 });
             case 'win-count':
@@ -255,12 +235,7 @@ class Ranking extends Component{
                         return <RankingModalHorse horseInfo={horse} totalPrize={Number(window.web3.fromWei(prize.get(String(elem.id-1)),"ether"))} rank={index + 1} key={'modal-rank-horse' + index}/>
                     }else{
                         getHorseData(elem.id).then(horse => self.props.getHorse(horse));
-                        return(<img
-                                width="60px"
-                                height="60px"
-                                src={loadingGif}
-                            />
-                        )
+                        return(<RankModalHorse key={'Loading'+index}/>)
                     }
                 });
             default:
@@ -319,6 +294,24 @@ class Ranking extends Component{
             </div>
         )
     }
+}
+
+function RankModalHorse(){
+    return(
+        <div style={{
+            height: '70px',
+            width: '70px'
+        }}>
+            <img
+                style={{
+                    width: '50px',
+                    height: '50px',
+                    marginTop: '10px'
+                }}
+                src={loadingGif}
+            />
+        </div>
+    )
 }
 
 const mapStateToProps = createStructuredSelector({
