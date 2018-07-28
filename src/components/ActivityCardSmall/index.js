@@ -1,10 +1,4 @@
 import React,{Component} from 'react'
-import saleLog from '../../assets/static_assets/activity-icon-sell-horse.png'
-import boughtLog from '../../assets/static_assets/activity-icon-buy-horse.png'
-import hostRaceLog from '../../assets/static_assets/activity-icon-host-race.png'
-import applyRaceLog from '../../assets/static_assets/activity-icon-apply-race.png'
-import toMarketLog from '../../assets/static_assets/activity-icon-to-market.png'
-import betRaceLog from '../../assets/static_assets/activity-icon-bet-race.png'
 import {
   activityCard,
   activityOneLine,
@@ -12,7 +6,12 @@ import {
 } from "./styles";
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
-
+const saleLog = 'https://image.eth-horse.com/static_assets/activity-icon-sell-horse.png';
+const boughtLog = 'https://image.eth-horse.com/static_assets/activity-icon-buy-horse.png';
+const hostRaceLog = 'https://image.eth-horse.com/static_assets/activity-icon-host-race.png';
+const applyRaceLog = 'https://image.eth-horse.com/static_assets/activity-icon-apply-race.png';
+const toMarketLog = 'https://image.eth-horse.com/static_assets/activity-icon-to-market.png';
+const betRaceLog = 'https://image.eth-horse.com/static_assets/activity-icon-bet-race.png';
 
 class ActivityCardSmall extends Component{
   static propTypes={

@@ -24,7 +24,7 @@ class MetaMaskModal extends Component{
                     </div>
                     <div style={styles.modalImageContainer}>
                         <img
-                            src={require('../../assets/static_assets/metamask.png')}
+                            src={'https://image.eth-horse.com/static_assets/metamask.png'}
                             style={{height: '180px',width: 'auto', marginTop: '60px'}}
                         />
                     </div>

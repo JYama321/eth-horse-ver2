@@ -4,27 +4,27 @@ export default function HorseStatusParamImages(props){
   return (
       <div style={props.style}>
         <p style={styles.statusParamDiagramP}>
-          <img src={require('../../assets/static_assets/power-square.png')}/>
+          <img src={'https://image.eth-horse.com/static_assets/power-square.png'}/>
           &nbsp; strength
           <span style={styles.statusParamNum}>{Math.ceil(Number(props.gene.slice(0,3)) / 100)}</span>
         </p>
         <p style={styles.statusParamDiagramP}>
-          <img src={require('../../assets/static_assets/power-square2.png')}/>
+          <img src={'https://image.eth-horse.com/static_assets/power-square2.png'}/>
           &nbsp; speed
           <span style={styles.statusParamNum}>{Math.ceil(Number(props.gene.slice(3,6)) / 100)}</span>
         </p>
         <p style={styles.statusParamDiagramP}>
-          <img src={require('../../assets/static_assets/power-square3.png')}/>
+          <img src={'https://image.eth-horse.com/static_assets/power-square3.png'}/>
           &nbsp; stamina
           <span style={styles.statusParamNum}>{Math.ceil(Number(props.gene.slice(6,9)) / 100)}</span>
         </p>
         <p style={styles.statusParamDiagramP}>
-          <img src={require('../../assets/static_assets/power-square4.png')}/>
+          <img src={'https://image.eth-horse.com/static_assets/power-square4.png'}/>
           &nbsp; intelligence
           <span style={styles.statusParamNum}>{Math.ceil(Number(props.gene.slice(9,12)) / 100)}</span>
         </p>
         <p style={styles.statusParamDiagramP}>
-          <img src={require('../../assets/static_assets/power-square5.png')}/>
+          <img src={'https://image.eth-horse.com/static_assets/power-square5.png'}/>
           &nbsp; luck
           <span style={styles.statusParamNum}>{Math.ceil(Number(props.gene.slice(12,15)) / 100)}</span>
         </p>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import HorseImage from '../HorseImage/'
 import * as functions from '../../utils/functions'
-import daen from '../../assets/static_assets/daen.png'
+const daen = 'https://image.eth-horse.com/static_assets/daen.png'
 
 
 class RaceAppliedHorseList extends Component {

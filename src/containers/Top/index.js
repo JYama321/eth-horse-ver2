@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import { topStyles } from "./styles";
-import goalGif from '../../assets/static_assets/goal_movie.gif'
 import TopTutorialTextures from '../../components/TopTutorialTexture'
+const goalGif = 'https://image.eth-horse.com/static_assets/goal_movie.gif';
+
 class Top extends Component{
     constructor(props){
         super(props);

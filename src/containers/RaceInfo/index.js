@@ -17,7 +17,7 @@ import {
   getHorseInfo
 } from "./actions";
 import RaceInfoHorse from '../../components/RaceInfoHorse'
-const loadingGif = require('../../assets/static_assets/umaLoading.gif');
+const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
 
 class RaceInfo extends Component {
   componentDidMount(){

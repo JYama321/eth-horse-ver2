@@ -28,7 +28,7 @@ export default function HorseTextureParamSire(props){
           <span style={styles.texRight}>
           <img src={require(`../../assets/texture_icons/${textureName}.png`)} style={styles.bottomIconImg}/>
             &nbsp;&nbsp;{mapGeneToTextureName(props.gene)[props.num]}
-            &nbsp;<img src={require(`../../assets/static_assets/${rankImage}.png`)} style={styles.bottomRankImg}/>
+            &nbsp;<img src={`https://image.eth-horse.com/static_assets/${rankImage}.png`} style={styles.bottomRankImg}/>
             &nbsp;<span style={styles.rarityTex}>rarity {texRarity}</span>
           </span>
         </p>

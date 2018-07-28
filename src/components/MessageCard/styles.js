@@ -7,7 +7,6 @@ export const styles = {
         color: 'white',
         lineHeight: '60px',
         position: 'fixed',
-        zIndex: '9000',
         left: '50%',
         top: '50%',
         transform: 'translate(-50%,-50%)',

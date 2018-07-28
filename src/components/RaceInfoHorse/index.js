@@ -15,13 +15,13 @@ import {
     getTokenOwner
 } from "../../utils/eth-function";
 import {horseStatus} from "../../utils/functions";
-const loadingGif = require('../../assets/static_assets/umaLoading.gif');
 import { createStructuredSelector } from 'reselect'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import MessageCard from '../../components/MessageCard'
-import winImage from '../../assets/static_assets/rarity-high.png'
 import {selectBalance} from "./selectors";
+const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
+const winImage = 'https://image.eth-horse.com/static_assets/rarity-high.png';
 Modal.setAppElement('#root');
 
 class RaceInfoHorse extends Component {

@@ -26,9 +26,9 @@ import {
     changePage,
     getHorseInfoSuccess
 } from "./actions";
-import HorseStatusCard from '../../components/MarketHorseStatusCard'
-import loadingGif from '../../assets/static_assets/umaLoading.gif'
+import HorseStatusCard from '../../components/MarketHorseStatusCard';
 import saga from './saga'
+const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
 
 class Market extends Component{
     constructor(props){

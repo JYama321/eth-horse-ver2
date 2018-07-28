@@ -6,7 +6,6 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import RaceCard from '../../components/RaceCard'
 import Pagination from '../../components/Pagination'
-import loadingGif from '../../assets/static_assets/umaLoading.gif'
 import saga from './saga'
 import {
     startLoadRaceArray,
@@ -31,7 +30,7 @@ import {getRace, getHorseData} from "../../utils/eth-function";
 import ApplyRaceModal from '../../components/ModalApplyRace'
 import HostRaceModal from '../../components/ModalHostRace'
 import Modal from 'react-modal'
-import withStyles from '@material-ui/core/styles'
+const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
 
 Modal.setAppElement('#root');
 

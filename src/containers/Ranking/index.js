@@ -13,11 +13,11 @@ import {
     selectRankWinCountArray,
 } from "./selectors";
 import HorseRankStatusCard from '../../components/HorseRankStatusCard'
-import loadingGif from '../../assets/static_assets/umaLoading.gif'
 import {getHorseData} from "../../utils/eth-function";
 import { horseStatus } from "../../utils/functions";
 import RankingModalHorse from '../../components/RankingModalHorse'
 import Modal from 'react-modal'
+const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
 Modal.setAppElement('#root');
 
 

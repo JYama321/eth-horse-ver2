@@ -31,7 +31,6 @@ import {
 } from "../../utils/mapHorseInfoToRarity";
 import HorseStatusCard from '../../components/HorseStatusCard/'
 import { createStructuredSelector } from 'reselect';
-import loadingGif from '../../assets/static_assets/umaLoading.gif'
 import saga from './saga'
 import injectSaga from "../../utils/injectSaga";
 import Modal from 'react-modal'
@@ -39,6 +38,7 @@ import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import MessageCard from '../../components/MessageCard'
+const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
 
 const styles = theme => ({
     button: {

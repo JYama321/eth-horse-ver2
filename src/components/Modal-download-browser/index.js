@@ -20,7 +20,7 @@ class DownloadBrowserModal extends Component{
                 <a href={browserInstallLinks[browserType.toLowerCase()]} target='_blank'className='hover'>
                     <div style={styles.browserIconContainer}>
                         <img
-                            src={require(`../../assets/static_assets/browser-${browserType.toLowerCase()}.png`)}
+                            src={`https://image.eth-horse.com/static_assets/browser-${browserType.toLowerCase()}.png`}
                             style={{width: 'auto', height: '40px',marginTop: '10px'}}
                         />
                     </div>

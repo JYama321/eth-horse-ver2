@@ -101,195 +101,195 @@ code {
 }
 
 .horse-back{
-    background-image: url("./assets/static_assets/horse-back2.png");
+    background-image: url("https://image.eth-horse.com/static_assets/horse-back2.png");
 }
 
 .horse-back1{
-    background-image: url("./assets/static_assets/horse-back.png");
+    background-image: url("https://image.eth-horse.com/static_assets/horse-back.png");
 }
 
 .horse-back2{
-    background-image: url("./assets/static_assets/horse-back2.png");
+    background-image: url("https://image.eth-horse.com/static_assets/horse-back2.png");
 }
 
 .horse-back3{
-    background-image: url('assets/static_assets/horse-back3.png');
+    background-image: url('https://image.eth-horse.com/static_assets/horse-back3.png');
 }
 
 .horse-back4{
-    background-image: url("assets/static_assets/horse-back4.png");
+    background-image: url("https://image.eth-horse.com/static_assets/horse-back4.png");
 }
 
 .horse-back-silver{
-    background-image: url("./assets/static_assets/horse-back-silver.png");
+    background-image: url("https://image.eth-horse.com/static_assets/horse-back-silver.png");
 }
 
 .horse-back-gold{
-    background-image: url("./assets/static_assets/horse-back-gold.png");
+    background-image: url("https://image.eth-horse.com/static_assets/horse-back-gold.png");
 }
 
 .sellHorseButton{
-    background-image: url("./assets/static_assets/sq.png");
+    background-image: url("https://image.eth-horse.com/static_assets/sq.png");
 }
 
 .holdRaceButton{
-    background-image: url("./assets/static_assets/sq.png");
+    background-image: url("https://image.eth-horse.com/static_assets/sq.png");
 }
 
 .button-back-transparent{
-    background-image: url("./assets/static_assets/buton-back-transparent.png");
+    background-image: url("https://image.eth-horse.com/static_assets/buton-back-transparent.png");
 }
 
 .sire-horse-back{
-    background-image: url("./assets/static_assets/horse-back.png")
+    background-image: url("https://image.eth-horse.com/static_assets/horse-back.png")
 }
 
 .sire-horse-button{
-    background-image: url("./assets/static_assets/sq.png");
+    background-image: url("https://image.eth-horse.com/static_assets/sq.png");
 }
 
 .horse-price-imgae{
-    background-image: url("./assets/static_assets/priceBack.png");
+    background-image: url("https://image.eth-horse.com/static_assets/priceBack.png");
 }
 
 .market-buy-button{
-    background-image: url('./assets/static_assets/buyButton.png');
+    background-image: url('https://image.eth-horse.com/static_assets/buyButton.png');
 }
 
 .race-current-state{
-    background-image: url("./assets/static_assets/raceStatus.png");
+    background-image: url("https://image.eth-horse.com/static_assets/raceStatus.png");
 }
 
 .race-current-state-wanted{
-    background-image: url("./assets/static_assets/race-now-wanted.png");
+    background-image: url("https://image.eth-horse.com/static_assets/race-now-wanted.png");
 }
 
 .race-current-state-betting{
-    background-image: url("./assets/static_assets/race-now-betting.png");
+    background-image: url("https://image.eth-horse.com/static_assets/race-now-betting.png");
 }
 
 .race-current-state-ended{
-    background-image: url("./assets/static_assets/race-ended.png");
+    background-image: url("https://image.eth-horse.com/static_assets/race-ended.png");
 }
 
 .race-current-state-check-result{
-    background-image: url("./assets/static_assets/race-check-result.png");
+    background-image: url("https://image.eth-horse.com/static_assets/race-check-result.png");
 }
 
 .race-info-horse-back{
-    background-image: url('./assets/static_assets/horse-back2.png');
+    background-image: url('https://image.eth-horse.com/static_assets/horse-back2.png');
 }
 
 .race-horse-info-back{
-    background-image: url('./assets/static_assets/buton-back-transparent.png');
+    background-image: url('https://image.eth-horse.com/static_assets/buton-back-transparent.png');
 }
 
 .bet-button{
-    background-image: url("./assets/static_assets/sq.png");
+    background-image: url("https://image.eth-horse.com/assets/static_assets/sq.png");
 }
 
 .eth-balance-back{
-    background-image: url("./assets/static_assets/square3.png");
+    background-image: url("https://image.eth-horse.com/static_assets/square3.png");
 }
 
 .trainTicket{
-    background-image: url("./assets/static_assets/event-training.png");
+    background-image: url("https://image.eth-horse.com/static_assets/event-training.png");
 }
 
 .dressUpTicket{
-    background-image: url("./assets/static_assets/event-dressup.png");
+    background-image: url("https://image.eth-horse.com/static_assets/event-dressup.png");
 }
 
 .shuffleDressUpTicket{
-    background-image: url("./assets/static_assets/event-shuffle-dressup.png");
+    background-image: url("https://image.eth-horse.com/static_assets/event-shuffle-dressup.png");
 }
 
 .sale-horse-back{
-    background-image: url("./assets/static_assets/buton-back-transparent.png");
+    background-image: url("https://image.eth-horse.com/static_assets/buton-back-transparent.png");
 }
 
 .horse-rank-image{
-    background-image: url("./assets/static_assets/rank-triangle.png");
+    background-image: url("https://image.eth-horse.com/static_assets/rank-triangle.png");
 }
 
 .activity-buy-horse{
-    background-image: url("./assets/static_assets/activity-buy-horse.png");
+    background-image: url("https://image.eth-horse.com/static_assets/activity-buy-horse.png");
 }
 
 .activity-bet-race{
-    background-image: url("./assets/static_assets/activity-bet-race.png");
+    background-image: url("https://image.eth-horse.com/static_assets/activity-bet-race.png");
 }
 
 .activity-to-market{
-    background-image: url('./assets/static_assets/activity-horse-on-market.png');
+    background-image: url('https://image.eth-horse.com/static_assets/activity-horse-on-market.png');
 }
 
 .activity-apply-race{
-    background-image: url("./assets/static_assets/activity-apply-race.png");
+    background-image: url("https://image.eth-horse.com/static_assets/activity-apply-race.png");
 }
 
 .activity-host-race{
-    background-image: url("./assets/static_assets/activity-host-race.png");
+    background-image: url("https://image.eth-horse.com/static_assets/activity-host-race.png");
 }
 
 .activity-sell-horse{
-    background-image: url("./assets/static_assets/activity-sell-horse.png");
+    background-image: url("https://image.eth-horse.com/static_assets/activity-sell-horse.png");
 }
 
 .rank-modal-horse-back{
-    background-image: url("./assets/static_assets/rank-modal-horse-back1.png");
+    background-image: url("https://image.eth-horse.com/static_assets/rank-modal-horse-back1.png");
 }
 
 .rank-modal-horse-back1{
-    background-image: url("./assets/static_assets/rank-modal-horse-back3.png");
+    background-image: url("https://image.eth-horse.com/static_assets/rank-modal-horse-back3.png");
 }
 
 .rank-modal-horse-back2{
-    background-image: url("./assets/static_assets/rank-modal-horse-back2.png");
+    background-image: url("https://image.eth-horse.com/static_assets/rank-modal-horse-back2.png");
 }
 
 .rank-modal-horse-back3{
-    background-image: url('./assets/static_assets/rank-modal-horse-back1.png');
+    background-image: url('https://image.eth-horse.com/static_assets/rank-modal-horse-back1.png');
 }
 
 .event-back-training{
-    background-image: url("./assets/static_assets/event-back-training.png");
+    background-image: url("https://image.eth-horse.com/static_assets/event-back-training.png");
 }
 
 .event-back-gift-horse{
-    background-image: url("./assets/static_assets/event-back-gift-horse.png");
+    background-image: url("https://image.eth-horse.com/static_assets/event-back-gift-horse.png");
 }
 
 .event-back-shuffle-dress-up{
-    background-image: url("./assets/static_assets/event-back-shuffle-dress-up.png");
+    background-image: url("https://image.eth-horse.com/static_assets/event-back-shuffle-dress-up.png");
 }
 
 .event-back-dress-up{
-    background-image: url('./assets/static_assets/event-back-dress-up.png');
+    background-image: url('https://image.eth-horse.com/static_assets/event-back-dress-up.png');
 }
 
 .lottery-button{
-    background-image: url("./assets/static_assets/square3.png");
+    background-image: url("https://image.eth-horse.com/static_assets/square3.png");
 }
 
 .event-dress-up{
-    background-image: url("./assets/static_assets/event-dressup.png");
+    background-image: url("https://image.eth-horse.com/static_assets/event-dressup.png");
 }
 
 .event-shuffle-dress-up{
-    background-image: url("./assets/static_assets/event-shuffle-dressup.png");
+    background-image: url("https://image.eth-horse.com/static_assets/event-shuffle-dressup.png");
 }
 
 .event-training{
-    background-image: url("./assets/static_assets/event-training.png");
+    background-image: url("https://image.eth-horse.com/static_assets/event-training.png");
 }
 
 .event-gift-horse{
-    background-image: url("./assets/static_assets/event-gifthorse.png");
+    background-image: url("https://image.eth-horse.com/static_assets/event-gifthorse.png");
 }
 
 .event-buy-ticket-back{
-    background-image: url("./assets/static_assets/sq.png");
+    background-image: url("https://image.eth-horse.com/static_assets/sq.png");
 }
 
 .horse-star-base{
@@ -344,7 +344,7 @@ code {
 .show-flash-message{
     opacity: 1;
     transition: opacity 0.5s linear;
-    z-index: 10;
+    z-index: 9000;
 }
 
 .hide-flash-message{

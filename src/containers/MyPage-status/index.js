@@ -5,14 +5,14 @@ import ActivityCardSmall from '../../components/ActivityCardSmall'
 import TicketCard from '../../components/TicketCard'
 import HorseStatusCard from '../../components/HorseStatusCard'
 import HorseStatusCardModal from '../../components/HorseStatusCardTicketModal'
-import loadingGif from '../../assets/static_assets/umaLoading.gif'
 import Modal from 'react-modal'
 import Pagination from '../../components/Pagination'
-import trainHorseGif from '../../assets/static_assets/ticket_training.gif'
-import shuffleDressUpGif from '../../assets/static_assets/ticket-s-dress-up.gif'
-import dressUpGif from '../../assets/static_assets/ticket_change_texture.gif'
 import { getHorseData, trainHorse, shuffleAll } from "../../utils/eth-function"
 import EmptyBox from '../../components/EmptyBox'
+const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
+const trainHorseGif = 'https://image.eth-horse.com/static_assets/ticket_training.gif';
+const shuffleDressUpGif = 'https://image.eth-horse.com/static_assets/ticket-s-dress-up.gif'
+const dressUpGif = 'https://image.eth-horse.com/static_assets/ticket_change_texture.gif'
 
 Modal.setAppElement('#root');
 class MyPageStatus extends Component{

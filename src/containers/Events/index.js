@@ -1,10 +1,5 @@
 import React, { Component } from 'react'
 import { eventStyles } from "./styles";
-import gif from '../../assets/static_assets/start_movie.gif'
-import trainingImage from '../../assets/static_assets/event-training.png'
-import giftHorseImage from '../../assets/static_assets/event-gifthorse.png'
-import dressUpImage from '../../assets/static_assets/event-dressup.png'
-import shuffleDressUpImage from '../../assets/static_assets/event-shuffle-dressup.png'
 import {
     doTrainLottery,
     doShuffleAllLottery,
@@ -25,6 +20,11 @@ import Modal from 'react-modal'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core/styles'
+const trainingImage = 'https://image.eth-horse.com/static_assets/event-training.png';
+const giftHorseImage = 'https://image.eth-horse.com/static_assets/event-gifthorse.png';
+const dressUpImage = 'https://image.eth-horse.com/static_assets/event-dressup.png';
+const shuffleDressUpImage = 'https://image.eth-horse.com/static_assets/event-shuffle-dressup.png';
+const gif = 'https://image.eth-horse.com/static_assets/start_movie.gif';
 const styles = theme => ({
     buyTicketButton: {
         fontSize: '12px',
