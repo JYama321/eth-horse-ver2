@@ -129,7 +129,7 @@ class RaceCard extends Component{
                 case 'ended':
                     return <button style={raceCardStyles.currentState} className='race-current-state-ended'/>;
                 case 'calculate odds':
-                    return <button style={raceCardStyles.currentState} className='race-current-state' onClick={()=>this.openBookMakeModal()}>decide odds</button>;
+                    return <button style={raceCardStyles.decideBet} className='race-current-state' onClick={()=>this.openBookMakeModal()}>decide odds</button>;
                 case 'check result':
                     return <button style={raceCardStyles.currentState} className='race-current-state-check-result' onClick={() => checkResult(raceId)}/>;
                 default:
@@ -282,6 +282,7 @@ class RaceCard extends Component{
                         <div  style={raceCardStyles.modalContentField}>
                             <Button
                                 onClick={()=>commitRace(raceId,this.state.secretNum)}
+                                style={{backgroundColor: 'black', color: 'white', fontFamily: 'yrsa-regular'}}
                                 className={classes.commitRaceButton}
                             >Confirm</Button>
                         </div>

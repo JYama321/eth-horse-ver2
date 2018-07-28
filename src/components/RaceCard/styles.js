@@ -51,6 +51,21 @@ export const raceCardStyles = {
         paddingLeft: '10px',
         backgroundColor: 'transparent'
     },
+    decideBet: {
+        width: '120px',
+        height: '30px',
+        backgroundSize: '120px 30px',
+        marginTop: '30px',
+        fontSize: '14px',
+        color: 'white',
+        lineHeight: '30px',
+        backgroundRepeat: 'no-repeat',
+        outline: 'none',
+        border: 'none',
+        textAlign: 'left',
+        paddingLeft: '10px',
+        backgroundColor: 'transparent'
+    },
     nowStateLoading: {
         width: '100%',
         height: '30px',
@@ -86,7 +101,7 @@ export const raceCardStyles = {
             bottom : 'auto',
             marginRight : '-50%',
             transform : 'translate(-50%, -50%)',
-            height: '250px',
+            height: '215px',
             width: '450px',
             position: 'absolute',
             padding: 0,
@@ -145,9 +160,10 @@ export const raceCardStyles = {
     },
     modalTitle: {
         height: '80px',
-        width: '100%',
+        width: 'calc(100% - 56px)',
+        padding: '0 28px',
         lineHeight: '40px',
-        textAlign: 'center',
+        textAlign: 'left',
         fontSize: '16px',
         backgroundColor: 'black',
         color: 'white',
@@ -156,7 +172,8 @@ export const raceCardStyles = {
         height: '30px',
         width: '100%',
         lineHeight: '30px',
-        marginTop: '14px',
-        textAlign: 'left'
+        marginTop: '21px',
+        textAlign: 'left',
+        marginLeft: '28px'
     },
 };

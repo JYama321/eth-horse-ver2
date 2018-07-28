@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 import { hostModalStyle } from "./styles";
 import { hostRace } from "../../utils/eth-function";
+import MessageCard from "../MessageCard";
 
 const styles = theme => ({
     button: {
@@ -36,7 +37,9 @@ class HostRaceModal extends Component{
             raceName: '',
             prizeRate: 0,
             minWinnerPrize: 0,
-            deposit: 0
+            deposit: 0,
+            isMessageCardShow: false,
+            alertMessage: ''
         }
     }
     changeRaceName(e){
@@ -59,6 +62,38 @@ class HostRaceModal extends Component{
             deposit: e.target.value
         })
     }
+
+    showAlertMessage(message){
+        console.log(message)
+        this.setState({
+            isMessageCardShow: true,
+            alertMessage: message
+        });
+        window.setTimeout(()=>{
+            console.log('uhoho')
+            this.setState({
+                isMessageCardShow: false
+            })
+        },4500)
+    }
+
+    holdRace(){
+        //レースに関するvalidation
+        //1, race name cannot be empty
+        if(this.state.raceName.length === 0){this.showAlertMessage('race name must not be empty'); return;}
+        //2, deposit must higher than 0.1ETH
+        if(this.state.deposit < 0.1){this.showAlertMessage('deposit must be higher than 0.1 ETH'); return;}
+        //3, min winner prize should be lower than deposit
+        if(this.state.minWinnerPrize >= this.state.deposit){this.showAlertMessage('deposit must be greater than min winner prize'); return;}
+        //4, rate for prize cannot be 0
+        if(this.state.winnerPrizeFromBet === 0){this.showAlertMessage('rate for prize in total bet cannot be 0');return;}
+        hostRace({
+            raceName: this.state.raceName,
+            minWinnerPrize: window.web3.toWei(this.state.minWinnerPrize,'ether'),
+            winnerPrizeFromBet: this.state.prizeRate,
+            deposit: window.web3.toWei(this.state.deposit, 'ether')
+        })
+    }
     render(){
         return (
             <Modal
@@ -66,6 +101,7 @@ class HostRaceModal extends Component{
                 onRequestClose={this.props.closeModal}
                 style={hostModalStyle.modalStyle}
             >
+                <MessageCard message={this.state.alertMessage} isShown={this.state.isMessageCardShow}/>
                 <div style={hostModalStyle.modalHeader}>
                     hold race
                 </div>
@@ -110,12 +146,7 @@ class HostRaceModal extends Component{
                 </div>
                 <button style={hostModalStyle.holdRaceButton}
                         className="eth-balance-back"
-                        onClick={()=>hostRace({
-                            raceName: this.state.raceName,
-                            minWinnerPrize: window.web3.toWei(this.state.minWinnerPrize,'ether'),
-                            winnerPrizeFromBet: this.state.prizeRate,
-                            deposit: window.web3.toWei(this.state.deposit, 'ether')
-                        })}
+                        onClick={()=>this.holdRace()}
                 >Hold Your Race</button>
             </Modal>
         )

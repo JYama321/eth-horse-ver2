@@ -42,9 +42,9 @@ import {
     getHorseInfo,
     dispatchGetMatePrice
 } from './actions'
-const address = '0xf8164a53ae4cba95ac88369a4d094ecf097f8ebd';
-const lotteryAddress = '0xde888008e7f63ee6084b27349aac0a6d41f0afc5';
-const raceAddress = '0x237d6dde5b6fc5ba19dda45f4226648791dc62a3';
+const address = '0x9fbda871d559710256a2502a2517b794b482db40';
+const lotteryAddress = '0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f';
+const raceAddress = '0xf25186b5081ff5ce73482ad761db0eb0d25abfbf';
 import {
     getWantedRaceArray,
     getBettingRaceArray,
@@ -67,7 +67,8 @@ import {
     selectBalance
 } from "./selectors"
 import { appStyles } from "./style"
-import loadGif from './assets/umaLoading.gif'
+import loadGif from './assets/static_assets/umaLoading.gif'
+import goalGif from "./assets/static_assets/goal_movie.gif";
 
 class App extends Component {
     constructor (props) {
@@ -229,10 +230,18 @@ class App extends Component {
                 </div>
             )
         }else{
-            return <img
-                src={loadGif}
-                style={appStyles.loadGif}
-            />
+            return(
+                <div style={appStyles.gifContainer}>
+                    <img
+                        src={goalGif}
+                        style={appStyles.backGif}
+                    />
+                    <img
+                        src={loadGif}
+                        style={appStyles.loadGif}
+                    />
+                </div>
+            )
         }
     }
 }

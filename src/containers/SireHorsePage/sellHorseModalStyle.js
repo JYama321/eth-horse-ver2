@@ -129,6 +129,7 @@ export const sellHorseModalStyle = {
         width: '800px',
         height: '320px',
         margin: '0 auto',
+        right: '56px',
         position: 'relative',
         top: '90px',
         display: 'flex'
@@ -151,7 +152,7 @@ export const sellHorseModalStyle = {
         color: 'white',
         outline: 'none',
         border: 'none',
-        fontSize: '10px',
+        fontSize: '14px',
         textAlign: 'left',
         paddingLeft: '10px'
     },
@@ -199,7 +200,7 @@ export const sellHorseModalStyle = {
             bottom : 'auto',
             marginRight : '-50%',
             transform : 'translate(-50%, -50%)',
-            height: '150px',
+            height: '200px',
             width: '300px',
             position: 'absolute',
             padding: 0,
@@ -208,9 +209,21 @@ export const sellHorseModalStyle = {
     },
     modalHorseName: {
         fontSize: '16px',
+        lineHeight: '45px',
+        position: 'relative',
+        width: '100%',
+        height: '45px',
+        textAlign: 'center',
+        color: 'white',
+        backgroundColor: 'black'
     },
-    sireHorseModalButton: {
-        display: 'block',
-        left: 0
-    }
+    sireModalInputWrapper: {
+        width: '244px',
+        height: '42px',
+        position: 'relative',
+        lineHeight: '42px',
+        marginLeft: '28px',
+        marginTop: '21px',
+    },
+
 };

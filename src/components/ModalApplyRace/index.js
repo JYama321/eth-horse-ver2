@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { modalStyles } from "./styles";
 import { applyRace } from "../../utils/eth-function";
 import HorseStatusCard from '../../components/HorseStatusCard'
-import loadingGif from '../../assets/static_assets/umaloading.gif'
+import loadingGif from '../../assets/static_assets/umaLoading.gif'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import injectSaga from '../../utils/injectSaga'

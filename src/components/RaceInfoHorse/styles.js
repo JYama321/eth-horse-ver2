@@ -140,7 +140,7 @@ export const raceInfoHorseStyle = {
             bottom : 'auto',
             marginRight : '-50%',
             transform : 'translate(-50%, -50%)',
-            height: '250px',
+            height: '260px',
             width: '450px',
             position: 'absolute',
             padding: 0,
@@ -149,9 +149,10 @@ export const raceInfoHorseStyle = {
     },
     modalTitle: {
         height: '80px',
-        width: '100%',
+        width: 'calc(100% - 56px)',
         lineHeight: '40px',
-        textAlign: 'center',
+        padding: '0 28px',
+        textAlign: 'left',
         fontSize: '16px',
         backgroundColor: 'black',
         color: 'white',
@@ -160,8 +161,9 @@ export const raceInfoHorseStyle = {
         height: '30px',
         width: '100%',
         lineHeight: '30px',
-        marginTop: '14px',
-        textAlign: 'left'
+        marginTop: '21px',
+        marginLeft: '28px',
+        textAlign: 'left',
     },
     currentBetInfo: {
         height: '30px',

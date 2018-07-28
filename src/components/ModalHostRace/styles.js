@@ -1,8 +1,8 @@
 export const hostModalStyle = {
 	modalStyle: {
         content: {
-            width: '650px',
-            height: '500px',
+            width: '425px',
+            height: '565px',
             position: 'absolute',
             top: '50%',
             left: '50%',
@@ -17,6 +17,7 @@ export const hostModalStyle = {
         paddingLeft: '35px'
     },
     formContainer: {
+	    marginTop: '28px',
         width: '100%',
         height: '80px',
         display: 'flex'

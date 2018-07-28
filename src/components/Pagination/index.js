@@ -35,7 +35,10 @@ export default class Pagination extends Component{
           key={i}
           value={i+1}
           onClick={()=>this.clickButton(i+1)}
-          style={{backgroundColor: i+1 === this.state.currentPage ? 'rgba(200,50,50,0.5)' : 'rgba(0,0,0,0)'}}
+          style={{
+            backgroundColor: i+1 === this.state.currentPage ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0)',
+              fontFamily: 'yrsa-regular', fonSize: '14px',
+              color: i+1 === this.state.currentPage ? 'white' : 'black'}}
       >
         {i+1}
       </Button>);

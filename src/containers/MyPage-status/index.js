@@ -5,13 +5,14 @@ import ActivityCardSmall from '../../components/ActivityCardSmall'
 import TicketCard from '../../components/TicketCard'
 import HorseStatusCard from '../../components/HorseStatusCard'
 import HorseStatusCardModal from '../../components/HorseStatusCardTicketModal'
-import loadingGif from '../../assets/static_assets/umaloading.gif'
+import loadingGif from '../../assets/static_assets/umaLoading.gif'
 import Modal from 'react-modal'
 import Pagination from '../../components/Pagination'
 import trainHorseGif from '../../assets/static_assets/ticket_training.gif'
 import shuffleDressUpGif from '../../assets/static_assets/ticket-s-dress-up.gif'
 import dressUpGif from '../../assets/static_assets/ticket_change_texture.gif'
 import { getHorseData, trainHorse, shuffleAll } from "../../utils/eth-function"
+import EmptyBox from '../../components/EmptyBox'
 
 Modal.setAppElement('#root');
 class MyPageStatus extends Component{
@@ -50,21 +51,27 @@ class MyPageStatus extends Component{
         }
     }
     renderActivityCard(){
-        return this.props.activities.sort((a,b) => {
-            if(a.args._now.toNumber() < b.args._now.toNumber()){
-                return 1
-            } else if(a.args._now.toNumber() > b.args._now.toNumber()){
-                return -1
-            } else {
-                return 0
-            }
-        }).slice(0,3).map((elem,index,self) => {
-            return <ActivityCardSmall
-                event={elem.event}
-                args={elem.args}
-                key={'activity-' + index}
-            />
-        })
+        if(this.props.activities.length !== 0){
+            return this.props.activities.sort((a,b) => {
+                if(a.args._now.toNumber() < b.args._now.toNumber()){
+                    return 1
+                } else if(a.args._now.toNumber() > b.args._now.toNumber()){
+                    return -1
+                } else {
+                    return 0
+                }
+            }).slice(0,3).map((elem,index,self) => {
+                return <ActivityCardSmall
+                    event={elem.event}
+                    args={elem.args}
+                    key={'activity-' + index}
+                />
+            })
+        }else{
+            return (
+                <EmptyBox type='activity'/>
+            )
+        }
     }
     renderTrainTicket(){
         const trainTicketNum = this.props.trainTicketNum > 2 ? 2 : this.props.trainTicketNum;
@@ -91,34 +98,58 @@ class MyPageStatus extends Component{
         return ticketCard;
     }
 
+    renderTickets(){
+        const totalTicketNum = this.props.shuffleAllTicketNum + this.props.shuffleTicketNum + this.props.trainTicketNum;
+        if(totalTicketNum !== 0){
+            return (
+                <div style={myPageStyles.ticketCardContainer}>
+                    {this.renderTrainTicket()}
+                    {this.renderShuffleTicket()}
+                    {this.renderShuffleAllTicket()}
+                </div>
+            )
+        }else{
+            return (
+                <div style={myPageStyles.ticketCardContainer}>
+                    <EmptyBox type='ticket'/>
+                </div>
+            )
+        }
+
+    }
+
     renderHorses(){
         const self = this;
         const array = this.props.ownedHorses ? this.props.ownedHorses.slice(0,4) : [];
-        return array.map(function (elem,index) {
-            const horse = self.props.horseIdToInfo.get(String(elem.toNumber())) ? self.props.horseIdToInfo.get(String(elem.toNumber())) : null;
-            if(horse){
-                const isLeft = index === 0;
-                return (
-                    <HorseStatusCard
-                        info={horse}
-                        isMyHorse={true}
-                        isLeft={isLeft}
-                        key={'myhorse-'+index}
-                    />
-                )
-            }else{
-                return(
-                    <img
-                        key={'loading-'+index}
-                        src={loadingGif}
-                        style={{
-                            width: '200px',
-                            height: '200px'
-                        }}
-                    />
-                )
-            }
-        })
+        if(array.length !== 0){
+            return array.map(function (elem,index) {
+                const horse = self.props.horseIdToInfo.get(String(elem.toNumber())) ? self.props.horseIdToInfo.get(String(elem.toNumber())) : null;
+                if(horse){
+                    const isLeft = index === 0;
+                    return (
+                        <HorseStatusCard
+                            info={horse}
+                            isMyHorse={true}
+                            isLeft={isLeft}
+                            key={'myhorse-'+index}
+                        />
+                    )
+                }else{
+                    return(
+                        <img
+                            key={'loading-'+index}
+                            src={loadingGif}
+                            style={{
+                                width: '200px',
+                                height: '200px'
+                            }}
+                        />
+                    )
+                }
+            })
+        }else{
+            return <EmptyBox type='horse'/>
+        }
     }
     openTicketModal(){
         this.setState({
@@ -310,11 +341,7 @@ class MyPageStatus extends Component{
                                     More >
                                 </button>
                             </div>
-                            <div style={myPageStyles.ticketCardContainer}>
-                                {this.renderTrainTicket()}
-                                {this.renderShuffleTicket()}
-                                {this.renderShuffleAllTicket()}
-                            </div>
+                            {this.renderTickets()}
                         </div>
                     </div>
                     <div style={myPageStyles.statusHorseList}>

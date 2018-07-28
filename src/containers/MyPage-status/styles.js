@@ -133,7 +133,7 @@ export const myPageStyles = {
         width: '100%',
         height: '270px',
         display: 'flex',
-        justifyContent: 'space-around',
+        alignContent: 'flex-start',
         marginTop: '56px',
     }
 };
@@ -242,7 +242,7 @@ export const modalStyles = {
     },
     ticketNum: {
         float: 'right',
-    }
+    },
 
 };
 

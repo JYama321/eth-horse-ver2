@@ -31,19 +31,28 @@ import {
 } from "../../utils/mapHorseInfoToRarity";
 import HorseStatusCard from '../../components/HorseStatusCard/'
 import { createStructuredSelector } from 'reselect';
-import loadingGif from '../../assets/static_assets/umaloading.gif'
+import loadingGif from '../../assets/static_assets/umaLoading.gif'
 import saga from './saga'
 import injectSaga from "../../utils/injectSaga";
 import Modal from 'react-modal'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-
+import MessageCard from '../../components/MessageCard'
 
 const styles = theme => ({
     button: {
-        margin: theme.spacing.unit,
+        fontFamily: 'yrsa-regular',
+        fontSize: '14px',
+        backgroundColor: 'black',
+        color: 'white',
+        height: '35px'
     },
+    inputField: {
+        fontFamily: 'yrsa-regular',
+        fontSize: '14px',
+        height: '42px'
+    }
 });
 
 class SireHorsePage extends Component{
@@ -58,6 +67,8 @@ class SireHorsePage extends Component{
             papaId: 0,
             mamaId: 0,
             isMyHorse: false,
+            alertMessage: '',
+            isMessageCardShow: false
         }
     }
     async componentDidMount(){
@@ -94,62 +105,62 @@ class SireHorsePage extends Component{
                 for(var i=0;i<1;i++){
                     stars.push(<span key={i+'star'}>★</span>)
                 }
-                return <div style={{
+                return <span style={{
                     height: '30px',
                     width: '35%',
                     lineHeight: '30px',
                     position: 'relative',
                     fontSize: '14px',
                     color: level === 2 ? 'rgb(104,134,184)' : 'rgb(156,229,225)'
-                }}>{stars} lev.{level}</div>;
+                }}>{stars} lev.{level}</span>;
             case 2:
                 for(var i=0;i<2;i++){
                     stars.push(<span key={i+'star'}>★</span>)
                 }
-                return <div style={{
+                return <span style={{
                     height: '30px',
                     width: '35%',
                     lineHeight: '30px',
                     position: 'relative',
                     fontSize: '14px',
                     color: level === 4 ? 'rgb(241,167,186)' : 'rgb(139,134,202)'
-                }}>{stars} lev.{level}</div>;
+                }}>{stars} lev.{level}</span>;
             case 3:
                 for(var i=0;i<3;i++){
                     stars.push(<span key={i+'star'}>★</span>)
                 }
-                return <div style={{
+                return <span style={{
                     height: '30px',
                     width: '35%',
                     position: 'relative',
                     lineHeight: '30px',
                     fontSize: '14px',
                     color: level === 6 ? 'rgb(239,139,106)' : 'rgb(233,94,190)'
-                }}>{stars} lev.{level}</div>;
+                }}>{stars} lev.{level}</span>;
             case 4:
                 for(var i=0;i<4;i++){
                     stars.push(<span key={i+'star'}>★</span>)
                 }
-                return <div style={{
+                return <span style={{
                     height: '30px',
                     width: '35%',
                     position: 'relative',
                     lineHeight: '30px',
                     fontSize: '14px',
                     color: level === 8 ? 'rgb(249,198,51)' : 'rgb(237,109,51)'
-                }}>{stars} lev.{level}</div>;
+                }}>{stars} lev.{level}</span>;
             case 5:
                 for(var i=0;i<5;i++){
                     stars.push(<span key={i+'star'}>★</span>)
                 }
-                return <div style={{
+                return <span style={{
                     height: '30px',
                     width: '35%',
                     position: 'relative',
                     lineHeight: '30px',
                     fontSize: '14px',
                     color: level === 10 ? 'rgb(0,28,113)' : 'rgb(234,63,51)'
-                }}>{stars} lev.{level}</div>;
+                }}>{stars} lev.{level}</span>;
             default:
                 return null
         }
@@ -242,7 +253,21 @@ class SireHorsePage extends Component{
             isMyHorse: false
         })
     }
+    showAlertMessage(message){
+        this.setState({
+            isMessageCardShow: true,
+            alertMessage: message
+        });
+        window.setTimeout(()=>{
+            this.setState({
+                isMessageCardShow: false
+            })
+        },4500)
+    }
     sireHorse(){
+        //name is empty
+        if(this.state.papaId === 0 || this.state.mamaId === 0){this.showAlertMessage('Sorry, something works incorrect, please retry.'); return;}
+        if(this.state.horseName.length === 0){this.showAlertMessage('HorseName should not be empty.'); return;}
         if(this.state.isMyHorse){
             sireHorses(this.state.papaId,this.state.mamaId,this.state.horseName,this.props.matePrice)
         }else{
@@ -262,30 +287,36 @@ class SireHorsePage extends Component{
             const rarity = returnRarity(gene) + mateRaceIndex;
             return (
                 <div style={sellHorseModalStyle.modalContainer}>
+                    <MessageCard message={this.state.alertMessage} isShown={this.state.isMessageCardShow}/>
                     <Modal
                         isOpen={this.state.isNameModalOpen}
                         style={sellHorseModalStyle.sireNameModalContent}
                         onRequestClose={()=>this.closeNameModalOpen()}
                         contentLabel={'Name'}
                     >
-              <span>
-                <p style={sellHorseModalStyle.modalHorseName}>Horse Name</p>
-              <TextField
-                  type='string'
-                  label='Name'
-                  onChange={e=>this.changeName(e)}
-                  value={this.state.horseName}
-              />
-              <Button
-                  variant="raised"
-                  size='medium'
-                  color='primary'
-                  style={sellHorseModalStyle.sireHorseModalButton}
-                  className={classes.button}
-                  onClick={()=>this.sireHorse()}
-              >
-                Sire Horses
-              </Button>
+                        <span>
+                  <div style={sellHorseModalStyle.modalHorseName}>
+                     Horse Name
+                  </div>
+                  <div style={sellHorseModalStyle.sireModalInputWrapper}>
+                    <TextField
+                        type='string'
+                        label='Name'
+                        onChange={e=>this.changeName(e)}
+                        value={this.state.horseName}
+                        className={classes.inputField}
+                    />
+                  </div>
+                  <div style={sellHorseModalStyle.sireModalInputWrapper}>
+                        <Button
+                            variant="raised"
+                            className={classes.button}
+                            size={'small'}
+                            onClick={()=>this.sireHorse()}
+                        >
+                        Sire Horses
+                        </Button>
+                  </div>
               </span>
                     </Modal>
                     <div style={sellHorseModalStyle.modalContent}>

@@ -15,7 +15,7 @@ import {
 } from "./selectors";
 import HorseStatusCard from '../../components/HorseStatusCard'
 import Pagination from '../../components/Pagination'
-import loadingGif from '../../assets/static_assets/umaloading.gif'
+import loadingGif from '../../assets/static_assets/umaLoading.gif'
 
 
 class MyPageHorses extends Component{

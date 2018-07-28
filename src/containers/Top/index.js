@@ -1,13 +1,5 @@
 import React,{Component} from 'react';
-import injectSaga from '../../utils/injectSaga';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect'
 import { topStyles } from "./styles";
-import {
-    selectHorseArray,
-    selectHorseArrayLoaded
-} from "./selectors";
 import goalGif from '../../assets/static_assets/goal_movie.gif'
 import TopTutorialTextures from '../../components/TopTutorialTexture'
 class Top extends Component{

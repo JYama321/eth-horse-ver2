@@ -13,7 +13,7 @@ import {
     selectRankWinCountArray,
 } from "./selectors";
 import HorseRankStatusCard from '../../components/HorseRankStatusCard'
-import loadingGif from '../../assets/static_assets/umaloading.gif'
+import loadingGif from '../../assets/static_assets/umaLoading.gif'
 import {getHorseData} from "../../utils/eth-function";
 import { horseStatus } from "../../utils/functions";
 import RankingModalHorse from '../../components/RankingModalHorse'
@@ -312,7 +312,7 @@ class Ranking extends Component{
                         { this.renderWinCountRankHorses() }
                     </div>
                     <div style={styles.rankingContainer}>
-                        <div style={styles.rankTitle}>TotalPrize<button style={styles.showMore} onClick={()=>this.openModal('total-prize')}>Show More ></button></div>
+                        <div style={styles.rankTitle}>Total Prize<button style={styles.showMore} onClick={()=>this.openModal('total-prize')}>Show More ></button></div>
                         {this.renderTotalPrizeRankHorses()}
                     </div>
                 </div>

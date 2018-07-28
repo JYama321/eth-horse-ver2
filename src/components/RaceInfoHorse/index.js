@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import HorseImage from '../HorseImage'
 import { raceInfoHorseStyle } from "./styles"
+import { connect } from 'react-redux';
 import Modal from 'react-modal'
 import {
     getHorseData,
@@ -14,10 +15,13 @@ import {
     getTokenOwner
 } from "../../utils/eth-function";
 import {horseStatus} from "../../utils/functions";
-const loadingGif = require('../../assets/static_assets/umaloading.gif');
+const loadingGif = require('../../assets/static_assets/umaLoading.gif');
+import { createStructuredSelector } from 'reselect'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
+import MessageCard from '../../components/MessageCard'
 import winImage from '../../assets/static_assets/rarity-high.png'
+import {selectBalance} from "./selectors";
 Modal.setAppElement('#root');
 
 class RaceInfoHorse extends Component {
@@ -44,7 +48,9 @@ class RaceInfoHorse extends Component {
             expectedReturn: 0,
             isOwner: false,
             isOpenModal: false,
-            secretNumber: 0
+            secretNumber: 0,
+            isMessageShow: false,
+            message: ''
         }
     }
     componentDidMount(){
@@ -195,7 +201,6 @@ class RaceInfoHorse extends Component {
         const isChecked = this.props.race[12];
         const raceId = this.props.race[0].toNumber();
         const winnerId = this.props.race[8].toNumber();
-        console.log(isChecked,winnerId,raceId,this.state.betHorseId)
         if(this.state.betHorseId === this.props.horseId && (!this.props.isWanted && !isChecked)){
             return(
                 <div style={raceInfoHorseStyle.participantInfo}>
@@ -220,6 +225,25 @@ class RaceInfoHorse extends Component {
         }
     }
 
+    showAlertMessage(message){
+        this.setState({
+            isMessageCardShow: true,
+            message: message
+        });
+        window.setTimeout(()=>{
+            this.setState({
+                isMessageCardShow: false
+            })
+        },4500)
+    }
+
+    betRace(raceId,horseId){
+        if(this.state.betNum === 0){this.showAlertMessage('You cannot bet 0 ETH'); return;}
+        if(this.state.betNum / 100 > this.state.maxBet){this.showAlertMessage(`You cannot bet more than ${this.state.maxBet} ETH`);return;}
+        if(this.state.betNum / 100 > this.props.balance){this.showAlertMessage('You cannot bet more ETH than you have.');return;}
+        betRace(raceId,horseId,this.state.betNum / 100,this.state.secretNumber)
+    }
+
     render(){
         const horseId = this.props.horseId;
         const raceId = this.props.race[0].toNumber();
@@ -231,6 +255,7 @@ class RaceInfoHorse extends Component {
                     style={raceInfoHorseStyle.modal}
                     onRequestClose={()=>this.closeModal()}
                 >
+                    <MessageCard message={this.state.message} isShown={this.state.isMessageCardShow}/>
                     <div style={raceInfoHorseStyle.modalTitle}>
                         You have to choose your secret number you like as a password. Please note race Id <b style={{color: 'red'}}>{raceId}</b> and a number you chose.
                     </div>
@@ -249,9 +274,8 @@ class RaceInfoHorse extends Component {
                     </div>
                     <div style={raceInfoHorseStyle.modalTextField}>
                         <Button
-                            onClick={()=>betRace(raceId,horseId,this.state.betNum / 100,this.state.secretNumber)}
-                            color='secondary'
-                            style={{backgroundColor: 'black'}}
+                            onClick={()=>this.betRace(raceId,horseId)}
+                            style={{backgroundColor: 'black', color: 'white', fontFamily: 'yrsa-regular'}}
                         >Bet Race</Button>
                     </div>
                 </Modal>
@@ -270,7 +294,7 @@ class RaceInfoHorse extends Component {
                     </div>
                 </div>
                 {this.renderBettingInfo()}
-                <div style={raceInfoHorseStyle.betAction(this.state.betHorseId === 0 && !this.props.isWanted)}>
+                <div style={raceInfoHorseStyle.betAction(this.state.betHorseId === 0 && this.props.isBetting)}>
                     <button
                         style={raceInfoHorseStyle.changeBetNumButton}
                         onClick={()=>this.downBetNum()}
@@ -291,7 +315,7 @@ class RaceInfoHorse extends Component {
                     ETH
                     <button style={raceInfoHorseStyle.betButton}
                             className='bet-button'
-                            disabled={this.state.betHorseId !== 0 || this.props.isWanted}
+                            disabled={this.state.betHorseId !== 0 || !this.props.isBetting}
                             onClick={()=>this.openModal()}>
                         bet
                     </button>
@@ -301,4 +325,8 @@ class RaceInfoHorse extends Component {
     }
 }
 
-export default RaceInfoHorse
+const mapStateToProps = () => createStructuredSelector({
+    balance: selectBalance()
+});
+
+export default connect(mapStateToProps)(RaceInfoHorse);

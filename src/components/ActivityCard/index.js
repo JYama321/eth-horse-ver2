@@ -5,8 +5,6 @@ import hostRaceLog from '../../assets/static_assets/activity-icon-host-race.png'
 import applyRaceLog from '../../assets/static_assets/activity-icon-apply-race.png'
 import toMarketLog from '../../assets/static_assets/activity-icon-to-market.png'
 import betRaceLog from '../../assets/static_assets/activity-icon-bet-race.png'
-
-import {betRace} from "../../utils/functions";
 import {
     activityCardContainer,
     activityCardP,

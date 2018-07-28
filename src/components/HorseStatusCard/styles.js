@@ -2,7 +2,7 @@ export const styles = (props) =>  ({
     horseStatusCard: {
         width: '225px',
         height: '275px',
-        marginLeft: props.isLeft ? '0' : '56px',
+        marginLeft: props.isLeft ? '5px' : '56px',
         marginBottom: '3%'
     },
     horseStatus: {

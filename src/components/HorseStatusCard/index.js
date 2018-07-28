@@ -9,7 +9,6 @@ import PropTypes from 'prop-types'
 export default class HorseStatusCard extends Component{
   static propTypes = {
     info: PropTypes.array.isRequired,
-    isMyHorse: PropTypes.bool,
     isLeft: PropTypes.bool,
     horsePrice: PropTypes.string,
     isTicketModal: PropTypes.bool
