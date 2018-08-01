@@ -11,16 +11,7 @@ import './App.css'
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect'
 import Header from './components/Header/'
-import {Link, Route} from 'react-router-dom'
-import HorseInfo from './containers/Info-horse/'
-import SireHorsePage from './containers/SireHorsePage/'
-import Market from './containers/Market/'
-import Races from './containers/Races/'
-import RaceInfo from './containers/RaceInfo'
-import MyPage from './containers/MyPage'
-import Top from './containers/Top'
-import Ranking from './containers/Ranking'
-import Event from './containers/Events'
+import { Route } from 'react-router-dom'
 import {
     getWantedRaces,
     getBettingRaces,
@@ -66,14 +57,20 @@ import {
 import { appStyles } from "./style"
 import DownloadBrowserModal from './components/Modal-download-browser/'
 import MetamaskModal from './components/Modal-metamask/'
-import {raceCardStyles} from "./components/RaceCard/styles";
-import Modal from "react-modal";
 const loadGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
 const goalGif = "https://image.eth-horse.com/static_assets/goal_movie.gif";
 const address = '0x5fce17623826a16a04de90fcfa5455ab89a8ba86';
 const lotteryAddress = '0xdc5f127c8dfe4921c39abd68ddd3c2339636d646';
 const raceAddress = '0x237d6dde5b6fc5ba19dda45f4226648791dc62a3';
-
+import  HorseInfo from './containers/Info-horse'
+import  Top from './containers/Top'
+import SireHorsePage from './containers/SireHorsePage/'
+import Market from './containers/Market/'
+import Races from './containers/Races/';
+import RaceInfo from './containers/RaceInfo'
+import MyPage from './containers/MyPage'
+import Ranking from './containers/Ranking'
+import Event from'./containers/Events'
 class App extends Component {
     constructor (props) {
         super(props);

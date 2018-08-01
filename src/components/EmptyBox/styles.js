@@ -18,7 +18,7 @@ export const styles = {
     },
     emptyBoxTickets: {
         width: '100%',
-        height: '80px',
+        height: '70px',
         fontSize: '16px',
         textAlign: 'center',
         lineHeight: '80px',

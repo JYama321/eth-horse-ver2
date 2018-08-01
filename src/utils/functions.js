@@ -25,8 +25,7 @@ export function horseStatus(gene){
 }
 
 export function calculateDate(num){
-    let dateNum;
-    if(num === 0){ dateNum = num}else{dateNum = num.toNumber()};
+    const dateNum = num.toNumber();
     const date = new Date(dateNum * 1000);
     const month = '0' + (date.getMonth() + 1);
     const day = '0'+date.getDate();

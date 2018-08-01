@@ -55,7 +55,7 @@ export const topStyles = {
     lineHeight: '35px',
     marginTop: '30px',
     wordBreak: 'normal',
-    textAlign: 'left'
+    textAlign: 'justify'
   },
   playList: {
     width: '90%',

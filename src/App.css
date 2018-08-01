@@ -382,3 +382,11 @@ code {
 .hover{
     cursor: pointer;
 }
+
+.rank-modal-stars{
+    width: 120px;
+    height: 100%;
+    text-align: center;
+    line-height: 70px;
+    margin-left: 56px;
+}

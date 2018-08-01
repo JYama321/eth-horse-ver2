@@ -7,7 +7,6 @@ import {
     getRaceBetEndTime,
     checkResult,
     getRaceCommitEndTime,
-    commitRace
 } from "../../utils/eth-function";
 import {
     calculateDate
@@ -16,8 +15,8 @@ import { withStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import BookMakeModal from '../Modal-bookmake'
 import Modal from 'react-modal'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+import CommitRaceModal from '../Modal-commitRace'
+import ModalCheckResult from '../Modal-checkResult'
 const styles = theme => ({
     commitRaceButton: {
         fontSize: '12px',
@@ -96,7 +95,7 @@ class RaceCard extends Component{
                 });
             });
             getRaceCommitEndTime(props.raceId).then((result) => {
-                const date = calculateDate(result.toNumber());
+                const date = calculateDate(result);
                 self.setState({
                     commitEndTime: date[0],
                     commitEndRowDate: date[1],
@@ -184,11 +183,6 @@ class RaceCard extends Component{
             isOpenCommitModal: false
         })
     }
-    onChangeSecretNum(e){
-        this.setState({
-            secretNum: e.target.value
-        })
-    }
 
     render(){
         const { classes } = this.props;
@@ -206,34 +200,14 @@ class RaceCard extends Component{
         if(this.props.isMyRace){
             return(
                 <div style={raceCardStyles.cardContainer}>
+                    <CommitRaceModal isModalOpen={this.state.isOpenCommitModal} closeModal={this.closeCommitModal.bind(this)} raceId={raceId}/>
                     <BookMakeModal
                         isModalOpen={this.state.isBookMakeModalOpen}
                         closeModal={this.closeBookMakeModal}
                         race={this.props.race}
                         horseInfo={this.props.horseInfo}
                     />
-                    <Modal
-                        isOpen={this.state.isShowRaceModalOpen}
-                        style={raceCardStyles.raceResultModal}
-                        onRequestClose={()=>this.closeShowRaceModal()}
-                    >
-                        <div style={raceCardStyles.raceResultHeader}>
-                            <a href={'http://ehth-horse-scenes.s3-website-ap-northeast-1.amazonaws.com/StartScenes/StartScene.html?' +
-                            'tex1=' + horseGene1.slice(horseGene1.length-38,horseGene1.length-20) +
-                            '&tex2=' + horseGene2.slice(horseGene2.length-38,horseGene1.length-20) +
-                            '&winnerIndex=' + winnerHorseIndex +
-                            '&winnerName=' + winnerHorseName} target="_blank" className={'check-result'}>See Race Movie</a>
-                        </div>
-                        <div style={raceCardStyles.raceResultContent}>
-                            <div style={raceCardStyles.raceResultLink}>
-                                See Race Movie
-                            </div>
-                            or
-                            <div style={raceCardStyles.raceResultLink} className='check-result'>
-                                <Link to={'/races/' + this.props.race[0].toNumber()}>Just check result</Link>
-                            </div>
-                        </div>
-                    </Modal>
+                    <ModalCheckResult gene1={horseGene1} gene2={horseGene2} raceId={this.props.race[0].toNumber()} isOpen={this.state.isShowRaceModalOpen} closeModal={this.closeShowRaceModal.bind(this)} winnerHorseIndex={winnerHorseIndex} winnerHorseName={winnerHorseName}/>
                     <div style={raceCardStyles.cartContainerTop}>
                         <p>{currentState === 'now wanted' ? 'now you can apply race' : this.renderTimeInfo(betEndTime)}</p>
                     </div>
@@ -261,57 +235,8 @@ class RaceCard extends Component{
         }else{
             return(
                 <div style={raceCardStyles.cardContainer}>
-                    <Modal
-                        isOpen={this.state.isOpenCommitModal}
-                        style={raceCardStyles.modal}
-                        onRequestClose={()=>this.closeCommitModal()}
-                    >
-                        <div style={raceCardStyles.modalTitle}>
-                            Confirm your secret number you choose when you bet. This is a security reason.
-                        </div>
-                        <div style={raceCardStyles.modalContentField}>
-                            Secret Number
-                            <TextField
-                                value={this.state.secretNum}
-                                type='number'
-                                inputProps={{step: 1, min: 0}}
-                                onChange={e=>this.onChangeSecretNum(e)}
-                                style={{marginLeft: '14px'}}
-                            />
-                        </div>
-                        <div  style={raceCardStyles.modalContentField}>
-                            <Button
-                                onClick={()=>commitRace(raceId,this.state.secretNum)}
-                                style={{backgroundColor: 'black', color: 'white', fontFamily: 'yrsa-regular'}}
-                                className={classes.commitRaceButton}
-                            >Confirm</Button>
-                        </div>
-                    </Modal>
-                    <Modal
-                        isOpen={this.state.isShowRaceModalOpen}
-                        style={raceCardStyles.raceResultModal}
-                        onRequestClose={()=>this.closeShowRaceModal()}
-                    >
-                        <div style={raceCardStyles.raceResultHeader}>
-                            check race result
-                        </div>
-                        <div style={raceCardStyles.raceResultContent}>
-                            <div style={raceCardStyles.raceResultModalButton}>
-                                <a style={{color: 'white'}} href={'http://ehth-horse-scenes.s3-website-ap-northeast-1.amazonaws.com/StartScenes/StartScene.html?' +
-                                'tex1=' + horseGene1.slice(horseGene1.length-38,horseGene1.length-20) +
-                                '&tex2=' + horseGene2.slice(horseGene2.length-38,horseGene1.length-20) +
-                                '&winnerIndex=' + winnerHorseIndex +
-                                '&winnerName=' + winnerHorseName} target="_blank">See Race Movie
-                                </a>
-                            </div>
-                            or
-                            <div style={raceCardStyles.raceResultModalButtonBlue} className='just-check-result'>
-                                <Link to={'/races/' + this.props.race[0].toNumber()}>
-                                    Just check result
-                                </Link>
-                            </div>
-                        </div>
-                    </Modal>
+                    <CommitRaceModal isModalOpen={this.state.isOpenCommitModal} closeModal={this.closeCommitModal.bind(this)} raceId={raceId}/>
+                    <ModalCheckResult gene1={horseGene1} gene2={horseGene2} raceId={this.props.race[0].toNumber()} isOpen={this.state.isShowRaceModalOpen} closeModal={this.closeShowRaceModal.bind(this)} winnerHorseIndex={winnerHorseIndex} winnerHorseName={winnerHorseName}/>
                     <div style={raceCardStyles.cartContainerTop}>
                         <p>{currentState === 'now wanted' ? 'now you can apply race' : this.renderTimeInfo(betEndTime)}</p>
                     </div>

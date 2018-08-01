@@ -33,61 +33,41 @@ export default class HorseStatusCard extends Component{
           stars.push(<span key={i+'star'}>★</span>)
         }
         return <div style={{
-          height: '30px',
-          width: '35%',
-          lineHeight: '30px',
-          position: 'relative',
           fontSize: '12px',
           color: level === 2 ? 'rgb(104,134,184)' : 'rgb(156,229,225)'
-        }}>{stars} lev.{level}</div>;
+        }} className='horse-star-base'>{stars} lev.{level}</div>;
       case 2:
         for(var i=0;i<2;i++){
           stars.push(<span key={i+'star'}>★</span>)
         }
         return <div style={{
-          height: '30px',
-          width: '35%',
-          lineHeight: '30px',
-          position: 'relative',
           fontSize: '12px',
           color: level === 4 ? 'rgb(241,167,186)' : 'rgb(139,134,202)'
-        }}>{stars} lev.{level}</div>;
+        }} className='horse-star-base'>{stars} lev.{level}</div>;
       case 3:
         for(var i=0;i<3;i++){
           stars.push(<span key={i+'star'}>★</span>)
         }
         return <div style={{
-          height: '30px',
-          width: '35%',
-          position: 'relative',
-          lineHeight: '30px',
           fontSize: '12px',
           color: level === 6 ? 'rgb(239,139,106)' : 'rgb(233,94,190)'
-        }}>{stars} lev.{level}</div>;
+        }} className='horse-star-base'>{stars} lev.{level}</div>;
       case 4:
         for(var i=0;i<4;i++){
           stars.push(<span key={i+'star'}>★</span>)
         }
         return <div style={{
-          height: '30px',
-          width: '35%',
-          position: 'relative',
-          lineHeight: '30px',
           fontSize: '10px',
           color: level === 8 ? 'rgb(249,198,51)' : 'rgb(237,109,51)'
-        }}>{stars} lev.{level}</div>;
+        }} className='horse-star-base'>{stars} lev.{level}</div>;
       case 5:
         for(var i=0;i<5;i++){
           stars.push(<span key={i+'star'}>★</span>)
         }
         return <div style={{
-          height: '30px',
-          width: '35%',
-          position: 'relative',
-          lineHeight: '30px',
           fontSize: '10px',
           color: level === 10 ? 'rgb(0,28,113)' : 'rgb(234,63,51)'
-        }}>{stars} lev.{level}</div>;
+        }} className='horse-star-base'>{stars} lev.{level}</div>;
       default:
         return null
     }

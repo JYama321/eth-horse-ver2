@@ -11,6 +11,7 @@ export const styles = (props) =>  ({
         height: '30px',
         textAlign: 'left',
         fontSize: '21px',
+        marginTop: '14px',
         display: 'flex'
     },
     powerTotal: {
@@ -57,7 +58,7 @@ export const STYLE = {
     },
     horseName: {
         fontSize: '21px',
-        width: '70%'
+        width: '64%'
     },
     horsePowerDiagram: {
         height: '30px',
