@@ -58,7 +58,6 @@ class Events extends Component{
         const account = window.web3.eth.accounts[0];
         getTrainLottery().then((result) => {
             const date = new Date(result.toNumber() * 1000 + 60 * 60 * 24 * 1000);
-            console.log(date,'trainLotteryTime');
             self.setState({
                 trainLotteryTime: date
             })

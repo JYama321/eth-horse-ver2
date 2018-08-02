@@ -20,7 +20,7 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import MessageCard from '../../components/MessageCard'
 import {selectBalance} from "./selectors";
-const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
+const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gif';
 const winImage = 'https://image.eth-horse.com/static_assets/rarity-high.png';
 Modal.setAppElement('#root');
 
@@ -96,7 +96,6 @@ class RaceInfoHorse extends Component {
         }
         if(this.props.isBetting || this.props.race[12]){
             getParticipantPantInfo(raceId).then(result =>{
-                console.log('getParticipantinfo',result);
                 self.setState({
                     betHorseId: result[0].toNumber(),
                     betPrice: window.web3.fromWei(result[1], 'ether').toFixed(3),
@@ -168,8 +167,14 @@ class RaceInfoHorse extends Component {
             return (
                 <img
                     src={loadingGif}
-                    width="50px"
-                    height="50px"
+                    style={{
+                        position: 'absolute',
+                        width: '300px',
+                        height: '300px',
+                        left: '50%',
+                        top: '50%',
+                        transform: 'translate(-50%, -50%)'
+                    }}
                 />)
         }
     }

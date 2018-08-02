@@ -274,22 +274,28 @@ code {
 
 .event-dress-up{
     background-image: url("https://image.eth-horse.com/static_assets/event-dressup.png");
+    background-size: 75px 75px;
 }
 
 .event-shuffle-dress-up{
     background-image: url("https://image.eth-horse.com/static_assets/event-shuffle-dressup.png");
+    background-size: 65px 75px;
+    background-position: center;
 }
 
 .event-training{
     background-image: url("https://image.eth-horse.com/static_assets/event-training.png");
+    background-size: 75px 75px;
 }
 
 .event-gift-horse{
     background-image: url("https://image.eth-horse.com/static_assets/event-gifthorse.png");
+    background-size: 75px 75px;
 }
 
 .event-buy-ticket-back{
     background-image: url("https://image.eth-horse.com/static_assets/sq.png");
+    background-size: 75px 75px;
 }
 
 .horse-star-base{

@@ -101,7 +101,6 @@ export const eventStyles = {
         return  {
             width: '75px',
             height: '75px',
-            backgroundSize: '75px 75px',
             backgroundRepeat: 'no-repeat',
             backgroundColor: 'transparent',
             marginLeft: '14px',

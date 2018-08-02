@@ -17,7 +17,7 @@ import {
   getHorseInfo
 } from "./actions";
 import RaceInfoHorse from '../../components/RaceInfoHorse'
-const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
+const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gif';
 
 class RaceInfo extends Component {
   componentDidMount(){
@@ -86,8 +86,14 @@ class RaceInfo extends Component {
             <div style={raceInfoStyle.innerContainer}>
             <img
                 src={loadingGif}
-                width="250px"
-                height="250px"
+                style={{
+                    width: "250px",
+                    height: "250px",
+                    position: 'absolute',
+                    left: '50%',
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)'
+                }}
             />
             </div>
           </div>
