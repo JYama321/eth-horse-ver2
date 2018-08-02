@@ -62,15 +62,16 @@ const goalGif = "https://image.eth-horse.com/static_assets/goal_movie.gif";
 const address = '0x5fce17623826a16a04de90fcfa5455ab89a8ba86';
 const lotteryAddress = '0xdc5f127c8dfe4921c39abd68ddd3c2339636d646';
 const raceAddress = '0x237d6dde5b6fc5ba19dda45f4226648791dc62a3';
-import  HorseInfo from './containers/Info-horse'
-import  Top from './containers/Top'
-import SireHorsePage from './containers/SireHorsePage/'
-import Market from './containers/Market/'
-import Races from './containers/Races/';
-import RaceInfo from './containers/RaceInfo'
-import MyPage from './containers/MyPage'
-import Ranking from './containers/Ranking'
-import Event from'./containers/Events'
+import AsyncContainer from './containers/asyncContiner'
+const  HorseInfo = AsyncContainer(() => import('./containers/Info-horse'));
+const  Top = AsyncContainer(() => import('./containers/Top'));
+const SireHorsePage = AsyncContainer(() => import('./containers/SireHorsePage/'));
+const Market = AsyncContainer(() => import('./containers/Market/'));
+const Races =  AsyncContainer(() => import('./containers/Races/'));
+const RaceInfo = AsyncContainer(()=> import('./containers/RaceInfo'));
+const MyPage = AsyncContainer(() => import('./containers/MyPage'));
+const Ranking = AsyncContainer(() => import('./containers/Ranking'));
+const Event = AsyncContainer(() => import('./containers/Events'));
 class App extends Component {
     constructor (props) {
         super(props);
