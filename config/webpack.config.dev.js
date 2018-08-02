@@ -1,6 +1,7 @@
 var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
@@ -26,6 +27,9 @@ module.exports = {
     // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
     // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
     devtool: 'cheap-module-source-map',
+    resolveLoader: {
+        moduleExtensions: ['-loader']
+    },
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
     // The first two entry points enable "hot" CSS and auto-refreshes for JS.
@@ -43,7 +47,6 @@ module.exports = {
         require.resolve('react-dev-utils/webpackHotDevClient'),
         // We ship a few polyfills by default:
         require.resolve('./polyfills'),
-        'react-hot-loader/patch',
         // Finally, this is your app's code:
         paths.appIndexJs,
         // We include the app code last so that if there is a runtime error during
@@ -69,12 +72,11 @@ module.exports = {
         // We use `fallback` instead of `root` because we want `node_modules` to "win"
         // if there any conflicts. This matches Node resolution mechanism.
         // https://github.com/facebookincubator/create-react-app/issues/253
-        fallback: paths.nodePaths,
         // These are the reasonable defaults supported by the Node ecosystem.
         // We also include JSX as a common component filename extension to support
         // some tools, although we do not recommend using it, see:
         // https://github.com/facebookincubator/create-react-app/issues/290
-        extensions: ['.js', '.json', '.jsx', ''],
+        extensions: ['.js', '.json', '.jsx'],
         alias: {
             // Support React Native Web
             // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -85,14 +87,7 @@ module.exports = {
     module: {
         // First, run the linter.
         // It's important to do this before Babel processes the JS.
-        preLoaders: [
-            {
-                test: /\.(js|jsx)$/,
-                loader: 'eslint',
-                include: paths.appSrc,
-            }
-        ],
-        loaders: [
+        rules: [
             // Default loader: load all assets that are not handled
             // by other loaders with the url loader.
             // Note: This list needs to be updated with every change of extensions
@@ -117,24 +112,35 @@ module.exports = {
                     /\.woff2$/,
                     /\.(ttf|svg|eot)$/
                 ],
-                loader: 'url',
-                query: {
-                    limit: 10000,
-                    name: 'static/media/[name].[hash:8].[ext]'
+                use: {
+                    loader: 'url',
+                    options: {
+                        limit: 10000,
+                        name: 'static/media/[name].[hash:8].[ext]'
+                    }
                 }
             },
             // Process JS with Babel.
             {
                 test: /\.(js|jsx)$/,
                 include: paths.appSrc,
-                loader: 'babel',
-                query: {
+                use: {
+                    loader: 'babel',
+                    options: {
 
-                    // This is a feature of `babel-loader` for webpack (not Babel itself).
-                    // It enables caching results in ./node_modules/.cache/babel-loader/
-                    // directory for faster rebuilds.
-                    cacheDirectory: true
+                        // This is a feature of `babel-loader` for webpack (not Babel itself).
+                        // It enables caching results in ./node_modules/.cache/babel-loader/
+                        // directory for faster rebuilds.
+                        cacheDirectory: true
+                    }
                 }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
             },
             // "postcss" loader applies autoprefixer to our CSS.
             // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -142,43 +148,19 @@ module.exports = {
             // In production, we use a plugin to extract that CSS to a file, but
             // in development "style" loader enables hot editing of CSS.
             {
-                test: /\.css$/,
-                loader: 'style!css?importLoaders=1!postcss'
+                test: /\.(woff|woff2|ttf|eot)$/,
+                use: 'file-loader',
             },
             // JSON is not enabled by default in Webpack but both Node and Browserify
             // allow it implicitly so we also enable it.
-            {
-                test: /\.json$/,
-                loader: 'json'
-            },
             // "file" loader for svg
             {
                 test: /\.svg$/,
-                loader: 'file',
-                query: {
-                    name: 'static/media/[name].[hash:8].[ext]'
-                }
-            },
-            // "file" loader for fonts
-            {
-                test: /\.woff$/,
-                loader: 'file',
-                query: {
-                    name: 'fonts/[name].[hash].[ext]'
-                }
-            },
-            {
-                test: /\.woff2$/,
-                loader: 'file',
-                query: {
-                    name: 'fonts/[name].[hash].[ext]'
-                }
-            },
-            {
-                test: /\.(ttf|eot)$/,
-                loader: 'file',
-                query: {
-                    name: 'fonts/[name].[hash].[ext]'
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'static/media/[name].[hash:8].[ext]'
+                    }
                 }
             }
             // Truffle solidity loader to watch for changes in Solitiy files and hot
@@ -195,18 +177,6 @@ module.exports = {
     },
 
     // We use PostCSS for autoprefixing only.
-    postcss: function() {
-        return [
-            autoprefixer({
-                browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9', // React doesn't support IE8 anyway
-                ]
-            }),
-        ];
-    },
     plugins: [
         // Makes the public URL available as %PUBLIC_URL% in index.html, e.g.:
         // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
