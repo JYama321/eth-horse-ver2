@@ -24,7 +24,6 @@ import {
     selectRaceCurrentDisp,
     selectMyRaeArray,
     selectMyHorseIdArray,
-
 } from "./selectors";
 import {getRace, getHorseData} from "../../utils/eth-function";
 import ApplyRaceModal from '../../components/ModalApplyRace'

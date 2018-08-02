@@ -34,7 +34,7 @@ export const myPageStyles = {
         textAlign: 'center',
         lineHeight: '230px',
         fontSize: '35px',
-        zIndex: 1
+        zIndex: 0
     },
     statusData: {
         width: '320px',
@@ -147,12 +147,12 @@ export const modalStyles = {
             right : 'auto',
             bottom : 'auto',
             transform : 'translate(-50%, -50%)',
-            position: 'absolute',
+            position: 'fixed',
             width: '1080px',
             height: '90%',
             minHeight: '650px',
             padding: 0,
-            zIndex: 8888
+            zIndex: '8888'
         }
     },
     modalHeader: {

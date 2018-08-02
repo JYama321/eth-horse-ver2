@@ -65,7 +65,7 @@ class Market extends Component{
     renderHorses(sort){
         const self = this;
         const marketType = this.props.marketType;
-        const isSire = marketType === 'sire-horse' ? true : false;
+        const isSire = (marketType === 'sire-horse' ? true : false);
         const priceOriginArray = isSire ? this.props.sirePrices : this.props.saleHorsePrices;
         let num = 0;
         switch(sort){
@@ -103,7 +103,7 @@ class Market extends Component{
                     }else{
                         return null
                     }
-                }).filter(elem => {console.log(elem);return elem !== null}).sort((a,b) => {
+                }).filter(elem => {return elem !== null}).sort((a,b) => {
                     if(a.price < b.price){
                         return 1
                     } else if(a.price > b.price){
@@ -114,7 +114,7 @@ class Market extends Component{
                 }).slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
                 return higherOrderArray.map(function (elem,index) {
                     const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
-                    if(horse && horse[11]){
+                    if((horse && horse[11]) || (horse && horse[13])){
                         num+=1;
                         return (
                             <HorseStatusCard
@@ -161,7 +161,7 @@ class Market extends Component{
                 }).slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
                 return lowerOrderArray.map(function (elem,index) {
                     const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
-                    if (horse && horse[11]) {
+                    if ((horse && horse[11]) || (horse && horse[13])) {
                         num+=1;
                         return (
                             <HorseStatusCard

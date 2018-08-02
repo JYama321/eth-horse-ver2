@@ -7,7 +7,8 @@ class Top extends Component{
     constructor(props){
         super(props);
         this.state={
-            tutorialMenu: 'my-page'
+            tutorialMenu: 'my-page',
+            loaded: false
         }
     }
     changeTutorial(menu){

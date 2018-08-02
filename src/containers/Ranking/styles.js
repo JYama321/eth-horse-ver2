@@ -5,6 +5,7 @@ export const styles =  {
         bottom: 0,
         left: 0,
         right: 0,
+        zIndex: 0,
         width: '100%',
         height: '1350px'
     },
@@ -37,9 +38,10 @@ export const styles =  {
         border: 'none'
     },
     modalContent: {
-        position: 'relative',
+        position: 'absolute',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        zIndex: 8887
     },
     modalTitle: {
         width: '100%',
@@ -111,9 +113,9 @@ export const modalStyle = {
         left  : '50%',
         right : 'auto',
         bottom : 'auto',
-        marginRight : '-50%',
         transform : 'translate(-50%, -50%)',
         height: '80%',
+        minHeight: '500px',
         width: '1080px',
         position: 'absolute',
         padding: 0,

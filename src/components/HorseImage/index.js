@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import {mapGeneToTexture} from "../../utils/mapGeneToTextures";
 import {styles} from './styles'
-import origin from '../../assets/textures/origins/origin1_2.png'
+import origin from '../../assets/origins/origin1_2.png'
 import PropTypes from 'prop-types'
 
 

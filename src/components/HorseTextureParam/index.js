@@ -24,7 +24,7 @@ export default function HorseTextureParam(props){
       <div style={props.style}>
         <p style={styles.bottomTexTop}>{types[props.num]}/</p>
         <p style={styles.bottomTexText}>
-          <img src={require(`../../assets/texture_icons/${textureName}.png`)} style={styles.bottomIconImg}/>
+          <img src={`https://image.eth-horse.com/texture_icons/${textureName}.png`} style={styles.bottomIconImg}/>
           &nbsp;{mapGeneToTextureName(props.gene)[props.num]}/
           &nbsp;<img src={`https://image.eth-horse.com/static_assets/${rankImage}.png`} style={styles.bottomRankImg}/>
           &nbsp;rarity {texRarity}

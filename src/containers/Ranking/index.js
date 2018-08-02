@@ -19,7 +19,6 @@ import RankingModalHorse from '../../components/RankingModalHorse'
 import Modal from 'react-modal'
 import LoadingHorseStatus from '../../components/HorseStatusLoading'
 const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gif';
-Modal.setAppElement('#root');
 
 
 class Ranking extends Component{
@@ -66,7 +65,7 @@ class Ranking extends Component{
             }else{
                 getHorseData(elem.id).then(horse => self.props.getHorse(horse));
                 return(
-                    <LoadingHorseStatus isLeft={isLeft}/>
+                    <LoadingHorseStatus isLeft={isLeft} key={index + 'loading-horse'}/>
                 )
             }
         })
