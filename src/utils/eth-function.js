@@ -496,7 +496,7 @@ export const getShuffleAllLottery = () => {
 
 export const getGiftHorseLottery = () => {
     return new Promise((resolve, reject) => {
-        window.lottery_contract.giftHorseLottery({from:window.web3.eth.coinbase},function(err, result) {
+        window.contract_instance.giftHorseLottery({from:window.web3.eth.coinbase},function(err, result) {
             if(err){reject(err)}
             resolve(result)
         })

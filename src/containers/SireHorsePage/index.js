@@ -323,7 +323,7 @@ class SireHorsePage extends Component{
                         <div style={sellHorseModalStyle.sireHorseTop}>
                             <div style={sellHorseModalStyle.sireHorseImgWrapper}>
                                 <div style={sellHorseModalStyle.sireHorseImgBack} className='sire-horse-back'>
-                                    {horse[13] ? <div
+                                    {horse[12] ? <div
                                         className='horse-price-imgae'
                                         style={sellHorseModalStyle.sirePrice}
                                     >{window.web3.fromWei(horse[9],'ether').toFixed(3)} ETH</div> : ''}
@@ -333,7 +333,7 @@ class SireHorsePage extends Component{
                             <div style={sellHorseModalStyle.sireHorseStatus}>
                                 <p style={sellHorseModalStyle.sireHorseName}>
                                     {horse[2]}
-                                    <span style={sellHorseModalStyle.isOnSireSale}> {horse[13] ? 'now on sire sale' : ''}</span>
+                                    <span style={sellHorseModalStyle.isOnSireSale}> {horse[12] ? 'now on sire sale' : ''}</span>
                                 </p>
                                 <div style={sellHorseModalStyle.sireHorseStatus}>
                                     <div style={sellHorseModalStyle.sireHorseStatusComponent}>

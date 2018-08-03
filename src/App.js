@@ -60,8 +60,8 @@ import DownloadBrowserModal from './components/Modal-download-browser/'
 import MetamaskModal from './components/Modal-metamask/'
 const loadGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
 const goalGif = "https://image.eth-horse.com/static_assets/goal_movie.gif";
-const address = '0x5fce17623826a16a04de90fcfa5455ab89a8ba86';
-const lotteryAddress = '0xdc5f127c8dfe4921c39abd68ddd3c2339636d646';
+const address = '0x101730fb477e31bfcda8966c53e130b943e5b275';
+const lotteryAddress = '0xd0a2a47056aeaf2451d7de5237f7d6d0882e006c';
 const raceAddress = '0x237d6dde5b6fc5ba19dda45f4226648791dc62a3';
 import AsyncContainer from './containers/asyncContiner'
 const  HorseInfo = AsyncContainer(() => import('./containers/Info-horse'));
@@ -179,6 +179,12 @@ class App extends Component {
                 fromBlock: 0,
                 toBlock: 'latest'
             });
+            const GiftHorseLottery = window.lottery_contract.GiftHorseLottery({
+               _from: window.web3.eth.coinbase
+            },{
+                fromBlock: 0,
+                toBlock: 'latest'
+            });
             BetRace.watch(function(err,result){
                 self.props.getActivity(result);
             });
@@ -212,6 +218,9 @@ class App extends Component {
             LotteryLog.watch(function(err, result){
                 self.props.getActivity(result)
             });
+            GiftHorseLottery.watch(function(err, result){
+                self.props.getActivity(result)
+            })
         }else{
             if(browserInfo.search('chrome') === -1 && (browserInfo.search('opera') === -1 && browserInfo.search('firefox') === -1)){
                 this.setState({

@@ -60,13 +60,34 @@ class ActivityCard extends Component{
                             />
                         </div>
                         <p style={activityCardP}>Lottery</p>
-                        <p style={eventDetail}>{args._type} Lottery
+                        <p style={eventDetail}>{args._type}
                             &nbsp;
                             Did a {args._type} lottery.
                             &nbsp;
                             <span style={{
                                 color: args._success ? 'red' : 'blue'
                             }}>{args._success ? 'You win a prize! Congratulations!' : 'You couldn\'t win a prize.'}</span>
+                            &nbsp;{args._success ? '' : 'Please do a lottery again!'}
+                        </p>
+                    </div>
+                );
+            case 'GiftHorseLottery':
+                return (
+                    <div style={activityCardContainer.activityCardBase} className='activity-host-race'>
+                        <div style={imageWrapper}>
+                            <img
+                                style={cardImg}
+                                src={betRaceLog}
+                            />
+                        </div>
+                        <p style={activityCardP}>Lottery</p>
+                        <p style={eventDetail}>{args._type}
+                            &nbsp;
+                            Did a Gift Horse lottery.
+                            &nbsp;
+                            <span style={{
+                                color: args._success ? 'red' : 'blue'
+                            }}>{args._success ? 'You win a prize! Congratulations! Please wait until a horse is gifted.' : 'You couldn\'t win a prize.'}</span>
                             &nbsp;{args._success ? '' : 'Please do a lottery again!'}
                         </p>
                     </div>

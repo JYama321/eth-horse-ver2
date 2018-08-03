@@ -1,8 +1,8 @@
 import React,{Component} from 'react'
 import {
-  activityCard,
-  activityOneLine,
-  cardImg
+    activityCard,
+    activityOneLine,
+    cardImg
 } from "./styles";
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
@@ -14,133 +14,147 @@ const toMarketLog = 'https://image.eth-horse.com/static_assets/activity-icon-to-
 const betRaceLog = 'https://image.eth-horse.com/static_assets/activity-icon-bet-race.png';
 
 class ActivityCardSmall extends Component{
-  static propTypes={
-    event: PropTypes.string.isRequired,
-    args: PropTypes.object.isRequired
-  };
-  renderCard(event,args){
-    switch (event){
-      case 'Transfer':
-        if(args._from === window.web3.eth.coinbase){
-          return (
-              <div style={activityCard.eventBase} className='activity-sell-horse'>
-                  <div style={activityCard.eventLogImage}>
-                        <img
-                            style={cardImg.wide}
-                            src={saleLog}
-                        />
-                  </div>
-                <p style={activityOneLine}>Sell <Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._to} </p>
-              </div>);
-        } else {
-          return (
-              <div style={activityCard.eventBase} className='activity-buy-horse'>
-                  <div style={activityCard.eventLogImage}>
-                        <img
-                            style={cardImg.wide}
-                            src={boughtLog}
-                        />
-                  </div>
-                <p style={activityOneLine}>Buy <Link to={'/horses/' + args._tokenId}>Horse</Link> from {args._from} </p>
-              </div>);
+    static propTypes={
+        event: PropTypes.string.isRequired,
+        args: PropTypes.object.isRequired
+    };
+    renderCard(event,args){
+        switch (event){
+            case 'Transfer':
+                if(args._from === window.web3.eth.coinbase){
+                    return (
+                        <div style={activityCard.eventBase} className='activity-sell-horse'>
+                            <div style={activityCard.eventLogImage}>
+                                <img
+                                    style={cardImg.wide}
+                                    src={saleLog}
+                                />
+                            </div>
+                            <p style={activityOneLine}>Sell <Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._to} </p>
+                        </div>);
+                } else {
+                    return (
+                        <div style={activityCard.eventBase} className='activity-buy-horse'>
+                            <div style={activityCard.eventLogImage}>
+                                <img
+                                    style={cardImg.wide}
+                                    src={boughtLog}
+                                />
+                            </div>
+                            <p style={activityOneLine}>Buy <Link to={'/horses/' + args._tokenId}>Horse</Link> from {args._from} </p>
+                        </div>);
+                }
+            case 'HostRace':
+                const deposit = window.web3.fromWei(args._deposit,'ether');
+                const minWinnerPrize = window.web3.fromWei(args._minWinnerPrize,'ether');
+                return (
+                    <div style={activityCard.eventBase} className='activity-host-race'>
+                        <div style={activityCard.eventLogImage}>
+                            <img
+                                style={cardImg.wide}
+                                src={hostRaceLog}
+                            />
+                        </div>
+                        <p style={activityOneLine}>HostRace
+                            &nbsp;
+                            <Link to={"/races/" + args._raceId}>The Race</Link>
+                            &nbsp;
+                            Deposit: {deposit == '0' ? 0 : deposit.toFixed(2)} ETH
+                            Min WinnerPrize: {minWinnerPrize == '0' ? 0 : minWinnerPrize.toFixed(2)} ETH
+                        </p>
+                    </div>
+                );
+            case 'LotteryLog':
+                return (
+                    <div style={activityCard.eventBase} className='activity-host-race'>
+                        <div style={activityCard.eventLogImage}>
+                            <img
+                                style={cardImg.wide}
+                                src={toMarketLog}
+                            />
+                        </div>
+                        <p style={activityOneLine}>
+                            Did a Lottery{args._success ? 'You win a prize!' : 'You couldn\'t win a prize.'}
+                        </p>
+                    </div>
+                );
+            case 'GiftHorseLottery':
+                return (
+                    <div style={activityCard.eventBase} className='activity-host-race'>
+                        <div style={activityCard.eventLogImage}>
+                            <img
+                                style={cardImg.wide}
+                                src={toMarketLog}
+                            />
+                        </div>
+                        <p style={activityOneLine}>
+                            Did a Lottery{args._success ? 'You win a prize!' : 'You couldn\'t win a prize.'}
+                        </p>
+                    </div>
+                );
+            case 'BetRace':
+                return (
+                    <div style={activityCard.eventBase} className='activity-bet-race'>
+                        <div style={activityCard.eventLogImage}>
+                            <img
+                                style={cardImg.small}
+                                src={betRaceLog}
+                            />
+                        </div>
+                        <p style={activityOneLine}>Bet Race Price {window.web3.fromWei(args._betValue,'ether').toFixed(3)} ETH to &nbsp;
+                            <Link to={'/races/' + args._raceId}>Race</Link></p>
+                    </div>
+                );
+            case 'HorseOnSale':
+                return (
+                    <div style={activityCard.eventBase} className='activity-to-market'>
+                        <div style={activityCard.eventLogImage}>
+                            <img
+                                style={cardImg.wide}
+                                src={toMarketLog}
+                            />
+                        </div>
+                        <p style={activityOneLine}><Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._type} Market Price ETH </p>
+                    </div>
+                );
+            case 'ApplyRace':
+                return (
+                    <div style={activityCard.eventBase} className='activity-apply-race'>
+                        <div style={activityCard.eventLogImage}>
+                            <img
+                                style={cardImg.wide}
+                                src={applyRaceLog}
+                            />
+                        </div>
+                        <p style={activityOneLine}>Apply to
+                            <Link to={"/races/"+  args._raceId.toNumber()}> Race</Link>&nbsp;
+                            <Link to={"/horses/"+  args._horseId.toNumber()}> The Horse</Link>
+                        </p>
+                    </div>
+                );
+            case 'HorseOnBidSale':
+                return (
+                    <div style={activityCard.eventBase} className='activity-to-market'>
+                        <div style={activityCard.eventLogImage}>
+                            <img
+                                style={cardImg.wide}
+                                src={toMarketLog}
+                            />
+                        </div>
+                        <p style={activityOneLine}>Horse to Auction
+                            <Link to={"/horses/"+  args._tokenId.toNumber()}> The Horse</Link>
+                        </p>
+                    </div>
+                );
+            default:
+                return null
         }
-      case 'HostRace':
-        const deposit = window.web3.fromWei(args._deposit,'ether');
-        const minWinnerPrize = window.web3.fromWei(args._minWinnerPrize,'ether');
-        return (
-            <div style={activityCard.eventBase} className='activity-host-race'>
-                <div style={activityCard.eventLogImage}>
-                    <img
-                        style={cardImg.wide}
-                        src={hostRaceLog}
-                    />
-                </div>
-              <p style={activityOneLine}>HostRace
-                &nbsp;
-                <Link to={"/races/" + args._raceId}>The Race</Link>
-                &nbsp;
-                Deposit: {deposit == '0' ? 0 : deposit.toFixed(2)} ETH
-                Min WinnerPrize: {minWinnerPrize == '0' ? 0 : minWinnerPrize.toFixed(2)} ETH
-              </p>
-            </div>
-        );
-      case 'LotteryLog':
-        return (
-            <div style={activityCard.eventBase} className='activity-host-race'>
-                <div style={activityCard.eventLogImage}>
-                    <img
-                        style={cardImg.wide}
-                        src={toMarketLog}
-                    />
-                </div>
-              <p style={activityOneLine}>
-                Did a Lottery{args._success ? 'You win a prize!' : 'You couldn\'t win a prize.'}
-              </p>
-            </div>
-        );
-      case 'BetRace':
-        return (
-            <div style={activityCard.eventBase} className='activity-bet-race'>
-                <div style={activityCard.eventLogImage}>
-                    <img
-                        style={cardImg.small}
-                        src={betRaceLog}
-                    />
-                </div>
-              <p style={activityOneLine}>Bet Race Price {window.web3.fromWei(args._betValue,'ether').toFixed(3)} ETH to &nbsp;
-                <Link to={'/races/' + args._raceId}>Race</Link></p>
-            </div>
-        );
-      case 'HorseOnSale':
-        return (
-            <div style={activityCard.eventBase} className='activity-to-market'>
-                <div style={activityCard.eventLogImage}>
-                    <img
-                        style={cardImg.wide}
-                        src={toMarketLog}
-                    />
-                </div>
-              <p style={activityOneLine}><Link to={'/horses/' + args._tokenId}>Horse</Link> to {args._type} Market Price ETH </p>
-            </div>
-        );
-      case 'ApplyRace':
-        return (
-            <div style={activityCard.eventBase} className='activity-apply-race'>
-                <div style={activityCard.eventLogImage}>
-                    <img
-                        style={cardImg.wide}
-                        src={applyRaceLog}
-                    />
-                </div>
-              <p style={activityOneLine}>Apply to
-                <Link to={"/races/"+  args._raceId.toNumber()}> Race</Link>&nbsp;
-                <Link to={"/horses/"+  args._horseId.toNumber()}> The Horse</Link>
-              </p>
-            </div>
-        );
-      case 'HorseOnBidSale':
-        return (
-            <div style={activityCard.eventBase} className='activity-to-market'>
-                <div style={activityCard.eventLogImage}>
-                    <img
-                        style={cardImg.wide}
-                        src={toMarketLog}
-                    />
-                </div>
-              <p style={activityOneLine}>Horse to Auction
-                <Link to={"/horses/"+  args._tokenId.toNumber()}> The Horse</Link>
-              </p>
-            </div>
-        );
-      default:
-        return null
     }
-  }
-  render(){
-    return(
-        this.renderCard(this.props.event,this.props.args)
-    )
-  }
+    render(){
+        return(
+            this.renderCard(this.props.event,this.props.args)
+        )
+    }
 }
 
 

@@ -114,7 +114,7 @@ class Market extends Component{
                 }).slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
                 return higherOrderArray.map(function (elem,index) {
                     const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
-                    if((horse && horse[11]) || (horse && horse[13])){
+                    if((horse && horse[11]) || (horse && horse[12])){
                         num+=1;
                         return (
                             <HorseStatusCard
@@ -161,7 +161,7 @@ class Market extends Component{
                 }).slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
                 return lowerOrderArray.map(function (elem,index) {
                     const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
-                    if ((horse && horse[11]) || (horse && horse[13])) {
+                    if ((horse && horse[11]) || (horse && horse[12])) {
                         num+=1;
                         return (
                             <HorseStatusCard

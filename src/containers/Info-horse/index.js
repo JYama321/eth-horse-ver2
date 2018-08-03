@@ -175,7 +175,7 @@ class HorseInfo extends Component{
     renderTopButtons(){
         if(this.props.horseOwner === window.web3.eth.coinbase){
             const horseInfo = this.props.horseIdToInfo.get(this.props.match.params.id);
-            const isOnSire = horseInfo[13];
+            const isOnSire = horseInfo[12];
             const sireIndex = horseInfo[6].toNumber();
             return (
                 <span>
