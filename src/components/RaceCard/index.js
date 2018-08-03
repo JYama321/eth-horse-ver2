@@ -209,7 +209,7 @@ class RaceCard extends Component{
                     />
                     <ModalCheckResult gene1={horseGene1} gene2={horseGene2} raceId={this.props.race[0].toNumber()} isOpen={this.state.isShowRaceModalOpen} closeModal={this.closeShowRaceModal.bind(this)} winnerHorseIndex={winnerHorseIndex} winnerHorseName={winnerHorseName}/>
                     <div style={raceCardStyles.cartContainerTop}>
-                        <p>{currentState === 'now wanted' ? 'now you can apply race' : this.renderTimeInfo(betEndTime)}</p>
+                        <p style={raceCardStyles.currentStateText}>{currentState === 'now wanted' ? 'now you can apply race' : this.renderTimeInfo(betEndTime)} <span style={raceCardStyles.raceId}>Race No. {raceId}</span></p>
                     </div>
                     <div style={raceCardStyles.raceInfoContainer}>
                         {this.renderLink(currentState)}
@@ -238,7 +238,7 @@ class RaceCard extends Component{
                     <CommitRaceModal isModalOpen={this.state.isOpenCommitModal} closeModal={this.closeCommitModal.bind(this)} raceId={raceId}/>
                     <ModalCheckResult gene1={horseGene1} gene2={horseGene2} raceId={this.props.race[0].toNumber()} isOpen={this.state.isShowRaceModalOpen} closeModal={this.closeShowRaceModal.bind(this)} winnerHorseIndex={winnerHorseIndex} winnerHorseName={winnerHorseName}/>
                     <div style={raceCardStyles.cartContainerTop}>
-                        <p>{currentState === 'now wanted' ? 'now you can apply race' : this.renderTimeInfo(betEndTime)}</p>
+                        <p style={raceCardStyles.currentStateText}>{currentState === 'now wanted' ? 'now you can apply race' : this.renderTimeInfo(betEndTime)} <span style={raceCardStyles.raceId}>Race No. {raceId}</span></p>
                     </div>
                     <div style={raceCardStyles.raceInfoContainer}>
                         {this.renderLink(currentState)}

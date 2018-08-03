@@ -61,12 +61,14 @@ import {
     CHANGE_APPLY_RACE_HORSE_CURRENT_PAGE,
     CHANGE_MARKET_SORT,
     //Ranking Array
-    GET_MATE_PRICE
+    GET_MATE_PRICE,
+    MYPAGE_INFO_LAODED
 } from "./actionTypes";
 
 const globalState = fromJS({
     isMyHorseArrayLoadDone: false,
     isMySireHorseArrayLoading: false,
+    myPageInfoLoaded: false,
     myHorseIdArray: [], //my horse
     myHorsePageCurrentPage: 1,
     applyRaceHorseCurrentPage: 1,
@@ -257,6 +259,8 @@ function globalReducer(state = globalState ,action){
             return state.set('sireHorseArray',List(action.data));
         case GET_MATE_PRICE:
             return state.set('matePrice', action.data);
+        case MYPAGE_INFO_LAODED:
+            return state.set('myPageInfoLoaded', true);
         default:
             return state;
     }

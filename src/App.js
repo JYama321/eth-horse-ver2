@@ -31,7 +31,8 @@ import {
     getOnSaleHorsesArray,
     getSaleHorsePrices,
     getHorseInfo,
-    dispatchGetMatePrice
+    dispatchGetMatePrice,
+    dispatchLoadMyPageInfo
 } from './actions'
 import {
     getWantedRaceArray,
@@ -82,7 +83,6 @@ class App extends Component {
         }
     }
     async componentWillMount() {
-
         const result = await getWeb3();
         window.web3 = result.web3;
         const browserInfo = window.navigator.userAgent.toLowerCase();
@@ -95,11 +95,23 @@ class App extends Component {
             window.lottery_contract = lottery.at(lotteryAddress);
             window.race_contract = Race.at(raceAddress);
             //raceArrays
+            this.setState({ loaded: true});
+            //myPageで必要な情報
+            const myHorseArray = await getMyHorsesArray();
+            const trainTicketNum = await getTrainTicketNum();
+            const dressUpTicketNum= await getDressUpTicketNum();
+            const shuffleAllTicketNum = await getShuffleAllTicketNum();
+            this.props.getTicket(trainTicketNum);
+            this.props.getDressUpTicket(dressUpTicketNum);
+            this.props.getShuffleAllTicket(shuffleAllTicketNum);
+            this.props.getMyHorseArray(myHorseArray);
+            this.props.myPageLoaded();
+
             const wantedArray = await getWantedRaceArray();
             const bettingArray = await getBettingRaceArray();
             const checkedArray = await getCheckedRaceArray();
             const myRaceArray = await getMyRaceArray();
-            const myHorseArray = await getMyHorsesArray();
+
             const totalPrizeArray = await getHorseTotalPrizeArray();
             const winCountArray = await getHorseWinCountArray();
             const geneArray = await getGeneArray();
@@ -116,19 +128,11 @@ class App extends Component {
             this.props.getTotalPrizeArray(totalPrizeArray);
             this.props.getWinCountArray(winCountArray);
             this.props.getGeneArray(geneArray);
-            this.props.getMyHorseArray(myHorseArray);
             this.props.getWantedArray(wantedArray);
             this.props.getBettingArray(bettingArray);
             this.props.getCheckedArray(checkedArray);
             this.props.getMyRace(myRaceArray);
             this.props.getHorsePrices(priceArray);
-            const trainTicketNum = await getTrainTicketNum();
-            const dressUpTicketNum= await getDressUpTicketNum();
-            const shuffleAllTicketNum = await getShuffleAllTicketNum();
-            this.props.getTicket(trainTicketNum);
-            this.props.getDressUpTicket(dressUpTicketNum);
-            this.props.getShuffleAllTicket(shuffleAllTicketNum);
-            this.setState({ loaded: true});
             //get events
             const self = this;
             window.web3.eth.getBalance(window.web3.eth.coinbase,function(err,result){
@@ -276,7 +280,7 @@ class App extends Component {
     }
 }
 const mapStateToProps = (state,ownProps) => createStructuredSelector({
-    balance: selectBalance()
+    balance: selectBalance(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -298,7 +302,8 @@ const mapDispatchToProps = (dispatch) => ({
     getSaleHorses: array => dispatch(getOnSaleHorsesArray(array)),
     getHorsePrices: array => dispatch(getSaleHorsePrices(array)),
     getHorseInfo: horse => dispatch(getHorseInfo(horse)),
-    getMatePrice: price => dispatch(dispatchGetMatePrice(price))
+    getMatePrice: price => dispatch(dispatchGetMatePrice(price)),
+    myPageLoaded: () => dispatch(dispatchLoadMyPageInfo())
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);

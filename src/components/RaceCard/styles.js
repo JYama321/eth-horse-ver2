@@ -1,4 +1,10 @@
 export const raceCardStyles = {
+    raceId: {
+        fontSize: '12px',
+        position: 'absolute',
+        lineHeight: '20px',
+        right: 0
+    },
     cardContainer: {
         width: '515px',
         height: '580px',
@@ -8,6 +14,10 @@ export const raceCardStyles = {
         height: '40px',
         width: '100%',
         fontSize: '12px'
+    },
+    currentStateText: {
+        position: 'relative',
+        width: '100%',
     },
     raceInfoContainer: {
         height: '250px',

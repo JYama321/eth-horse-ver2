@@ -49,15 +49,21 @@ const selectHorseIdToHorseInfo = () => createSelector(
     (substate) => substate.get('horseIdToHorseInfo')
 );
 
+const selectMyPageLoaded = () => createSelector(
+    selectGlobal,
+    substate => substate.get('myPageInfoLoaded')
+);
+
 export {
-  selectMyPageCurrentDisp,
-  selectBalance,
-  selectActivity,
-  selectTrainTicketNum,
-  selectShuffleTicketNum,
-  selectShuffleAllTicketNum,
-  selectHorseIdArray,
-  selectHorseArrayLoading,
-  selectCurrentPage,
-  selectHorseIdToHorseInfo
+    selectMyPageCurrentDisp,
+    selectBalance,
+    selectActivity,
+    selectTrainTicketNum,
+    selectShuffleTicketNum,
+    selectShuffleAllTicketNum,
+    selectHorseIdArray,
+    selectHorseArrayLoading,
+    selectCurrentPage,
+    selectHorseIdToHorseInfo,
+    selectMyPageLoaded
 }
