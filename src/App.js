@@ -60,7 +60,7 @@ import DownloadBrowserModal from './components/Modal-download-browser/'
 import MetamaskModal from './components/Modal-metamask/'
 const loadGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
 const goalGif = "https://image.eth-horse.com/static_assets/goal_movie.gif";
-const address = '0x101730fb477e31bfcda8966c53e130b943e5b275';
+const address = '0xc22323d61c4f2bd39bd613431f0c65e79676bb82';
 const lotteryAddress = '0xd0a2a47056aeaf2451d7de5237f7d6d0882e006c';
 const raceAddress = '0x237d6dde5b6fc5ba19dda45f4226648791dc62a3';
 import AsyncContainer from './containers/asyncContiner'

@@ -230,7 +230,7 @@ class SireHorsePage extends Component{
                     isMyHorse: true
                 })
             }else{
-                this.setState({
+                self.setState({
                     isNameModalOpen: true,
                     papaId: papaId,
                     mamaId: mamaId,
@@ -272,7 +272,7 @@ class SireHorsePage extends Component{
             sireHorses(this.state.papaId,this.state.mamaId,this.state.horseName,this.props.matePrice)
         }else{
             const horse = this.props.horseIdToInfo.get(this.props.match.params.id);
-            sireWithOnSaleHorse(this.state.papaId,this.state.mamaId,this.state.horseName,horse[9])
+            sireWithOnSaleHorse(this.state.mamaId,this.state.papaId,this.state.horseName,horse[9])
         }
     }
     render () {

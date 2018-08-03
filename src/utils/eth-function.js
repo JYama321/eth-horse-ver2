@@ -162,9 +162,10 @@ export const buyHorse = (horseId,price) => {
 };
 
 export const sireWithOnSaleHorse = (myHorse,sireHorse,name,price) => {
+    console.log(price,myHorse,sireHorse,name);
     return new Promise((resolve, reject) => {
-        window.contract_instance.sireHorseWithOnSaleHorse(myHorse,sireHorses,name,
-            {from:window.web3.eth.coinbase,value: window.web3.toWei(price,'ether')},function(err, result){
+        window.contract_instance.sireHorseWithOnSaleHorse(myHorse,sireHorse,name,
+            {from:window.web3.eth.coinbase,value: price},function(err, result){
                 if(err){reject(err)}
                 resolve(result)
             })
