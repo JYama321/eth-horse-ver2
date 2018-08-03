@@ -17,7 +17,7 @@ export default class Parent extends Component {
     const gene = this.props.gene.slice(this.props.gene.length-15,this.props.gene.length);
     return (
         <div style={parentsInfoStyle.parentInnerContainer}>
-          <Link to={'/horses/' + this.props.horseId}>
+          <Link to={this.props.horseId !== 0 ? '/horses/' + this.props.horseId : '#'}>
             <div style={parentsInfoStyle.parentImgContainer}>
               <HorseImage type='parents' horseGene={this.props.gene}/>
             </div>

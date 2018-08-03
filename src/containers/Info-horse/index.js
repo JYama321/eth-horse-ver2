@@ -194,9 +194,21 @@ class HorseInfo extends Component{
     saleInfo(){
         const horseInfo = this.props.horseIdToInfo.get(this.props.match.params.id);
         const price = window.web3.fromWei(horseInfo[8],'ether');
-        if(horseInfo[11] || horseInfo[12]){
+        const sirePrice = window.web3.fromWei(horseInfo[9],'ether');
+        if(horseInfo[11] && horseInfo[12]){
+            return (
+                <span>
+                    <div style={horseInfoStyles.currentSirePrice} className='sale-horse-back'>current sire price {sirePrice.toFixed(2)} ETH</div>
+                    <div style={horseInfoStyles.currentHorsePrice} className='sale-horse-back'>current sale price {price.toFixed(2)} ETH</div>
+                </span>
+            )
+        }else if(horseInfo[11]){
             return (
                 <div style={horseInfoStyles.currentHorsePrice} className='sale-horse-back'>current sale price {price.toFixed(2)} ETH</div>
+            )
+        }else if(horseInfo[12]){
+            return (
+                <div style={horseInfoStyles.currentHorsePrice} className='sale-horse-back'>current sire price {sirePrice.toFixed(2)} ETH</div>
             )
         }
     }
@@ -213,7 +225,6 @@ class HorseInfo extends Component{
         }
     }
     render () {
-        console.log(this.props.history);
         if(!this.props.isHorseInfoLoading){
             const horseInfo = this.props.horseIdToInfo.get(this.props.match.params.id);
             const gene = horseInfo[1] ? horseInfo[0].c.join(',').replace(/,/g,'') : '0000000000';

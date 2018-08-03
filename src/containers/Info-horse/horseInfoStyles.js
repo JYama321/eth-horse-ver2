@@ -76,6 +76,20 @@ export const horseInfoStyles = {
         outline: 'none',
         textAlign: 'center'
     },
+    currentSirePrice: {
+        width: '220px',
+        height: '20px',
+        backgroundSize: '220px 20px',
+        position: 'absolute',
+        right: '390px',
+        bottom: '30px',
+        fontSize: '15px',
+        lineHeight: '20px',
+        backgroundColor: 'transparent',
+        border: 'none',
+        outline: 'none',
+        textAlign: 'center'
+    },
     sireHorseButton: {
         width: '80px',
         height: '20px',
