@@ -99,6 +99,7 @@ contract LotteryInterface{
     function trainHorse(address) external;
     function dressUpHorse(address) external;
     function shuffleDressUp(address) external;
+    function horseGifted(address) external;
 }
 
 
@@ -127,7 +128,6 @@ contract HorseGameBase is Ownable{
         uint sirePrice;
         uint saleDuration;
         bool isOnSale;
-        bool isOnAuction;
         bool isOnSireSale;
     }
 
@@ -365,8 +365,7 @@ contract HorseGameBase is Ownable{
             saleDuration: 0,
             sirePrice: 0,
             isOnSale: false,
-            isOnSireSale: false,
-            isOnAuction: false
+            isOnSireSale: false
             });
         horses.push(newHorse);
         horseGenes.push(newGene);
@@ -634,7 +633,7 @@ contract HorseGame is HorseBet{
       geneFunction = GeneFunctionInterface(_geneAddress);
     }
 
-    function setRaceFunction(address _raceAddress) external onlyOwner{ 
+    function setRaceFunction(address _raceAddress) external onlyOwner{
       raceFunction = RaceFunctionInterface(_raceAddress);
     }
 
@@ -755,6 +754,11 @@ contract HorseGame is HorseBet{
     function presentHorse(uint _tokenId, address _to) external onlyOwner{
         transfer(msg.sender,_to,_tokenId);
         emit GiftHorseLottery(msg.sender,_tokenId);
+    }
+
+    function giftHorse(uint _tokenId, address _to) external onlyOwner{
+        transfer(msg.sender,_to,_tokenId);
+        lotteryFunction.horseGifted(_to);
     }
 
     function trainTicketPrice() external view returns(uint){

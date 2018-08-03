@@ -55,7 +55,7 @@ contract Lottery{
     uint public lotteryNum=0;
 
     event LotteryLog(address indexed _from, bool _success, string _type, uint _now);
-    event GiftHorseLottery(address indexed _from, uint _tokenId);
+    event GiftHorseLottery(address indexed _from, bool _success , uint _now);
 
     constructor() public{
         owner = msg.sender;
@@ -176,8 +176,18 @@ contract Lottery{
     function doGiftHorseLottery(address _user) external onlyOwnerContract{
         require((now - giftHorseLotteryTime[_user]) > 24 hours);
         lotteryNum = lotteryNum.add(1);
+        uint _seed = uint(keccak256(abi.encodePacked(bytes32(lotteryNum)^blockhash(block.number-1))));
+        if((_seed % 100) < 2){
+            giftHorseLotteryTime[_user] = 1;
+            emit GiftHorseLottery(_user,true,now);
+        }
         giftHorseLotteryTime[_user] = now;
-        emit GiftHorseLottery(_user,0);
+        emit GiftHorseLottery(_user,false,now);
+    }
+
+    function horseGifted(address _user) external onlyOwnerContract{
+        giftHorseLotteryTime[_user] = 0;
+        emit GiftHorseLottery(_user, true, 0);
     }
 
     function presentTrainTicket(address _user) external onlyOwnerContract{

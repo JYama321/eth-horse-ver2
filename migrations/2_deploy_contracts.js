@@ -8,6 +8,6 @@ module.exports = function(deployer) {
   }).then(function(){
     return deployer.deploy(Lottery)
   }).then(function () {
-    return deployer.deploy(HorseGameNew,{gas: 5800000})
+    return deployer.deploy(HorseGameNew,{gas: 5900000})
   });
 };
