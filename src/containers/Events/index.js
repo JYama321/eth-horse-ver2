@@ -25,6 +25,7 @@ const giftHorseImage = 'https://image.eth-horse.com/static_assets/event-gifthors
 const dressUpImage = 'https://image.eth-horse.com/static_assets/event-dressup.png';
 const shuffleDressUpImage = 'https://image.eth-horse.com/static_assets/event-shuffle-dressup.png';
 const gif = 'https://image.eth-horse.com/static_assets/start_movie.gif';
+const oneDay = 60 * 60 * 24 * 1000;
 const styles = theme => ({
     buyTicketButton: {
         fontSize: '12px',
@@ -57,25 +58,25 @@ class Events extends Component{
         const self = this;
         const account = window.web3.eth.accounts[0];
         getTrainLottery().then((result) => {
-            const date = new Date(result.toNumber() * 1000 + 60 * 60 * 24 * 1000);
+            const date = new Date(result.toNumber() * 1000 + oneDay);
             self.setState({
                 trainLotteryTime: date
             })
         });
         getShuffleLottery().then((result) => {
-            const date = new Date(result.toNumber() * 1000 + 60 * 60 * 24 * 1000);
+            const date = new Date(result.toNumber() * 1000 + oneDay);
             self.setState({
                 shuffleLotteryTime: date
             })
         });
         getShuffleAllLottery().then((result) => {
-            const date = new Date(result.toNumber() * 1000 + 60 * 60 * 24 * 1000);
+            const date = new Date(result.toNumber() * 1000 + oneDay);
             self.setState({
                 shuffleAllLotteryTime: date
             })
         });
         getGiftHorseLottery().then((result) => {
-            const date = new Date(result.toNumber() * 1000 + 60 * 60 * 24 * 1000);
+            const date = new Date(result.toNumber() * 1000 + oneDay);
             self.setState({
                 giftHorseLotteryTime: date
             })
@@ -130,7 +131,7 @@ class Events extends Component{
                     return null
                 }
             case 'gift-horse':
-                if(this.state.giftHorseLotteryTime < now){
+                if(this.state.giftHorseLotteryTime < now || this.state.giftHorseLotteryTime === oneDay + 1000){
                     return (
                         <button style={eventStyles.lotteryButton} className='lottery-button' onClick={()=>doGiftHorseLottery()}>
                             do a lottery
@@ -167,7 +168,7 @@ class Events extends Component{
                             style={eventStyles.eventImage}
                         />
                         <p style={eventStyles.eventText(this.state.giftHorseLotteryTime < now)}>
-                            {this.state.giftHorseLotteryTime < now ? 'Do a lottery for free to get a horse!' : 'You can lot only once a day. Wait a moment! '}
+                            {(this.state.giftHorseLotteryTime < now || this.state.giftHorseLotteryTime === oneDay + 1000) ? 'Do a lottery for free to get a horse!' : 'You can lot only once a day. Wait a moment! '}
                         </p>
                         {this.renderLotteryButton('gift-horse')}
                     </div>

@@ -35,10 +35,10 @@ class ModalCheckResult extends Component{
                 <div style={style.raceResultContent}>
                     <div style={style.raceResultLink}>
                         <button onClick={()=>this.openRaceMovie('https://scenes.eth-horse.com/StartScenes/StartScene.html?' +
-                        'tex1=' + gene1.slice(gene1.length-38,gene1.length-20) +
-                        '&tex2=' + gene2.slice(gene2.length-38,gene2.length-20) +
-                        '&winnerIndex=' + winnerHorseIndex +
-                        '&winnerName=' + winnerHorseName) } style={style.showRaceMovie} className={'check-result'}>See Race Movie</button>
+                        'c550c=' + gene1.slice(gene1.length-38,gene1.length-20) +
+                        '&e4982=' + gene2.slice(gene2.length-38,gene2.length-20) +
+                        '&ce40c=' + winnerHorseIndex +
+                        '&27b7e9=' + winnerHorseName) } style={style.showRaceMovie} className={'check-result'}>See Race Movie</button>
                     </div>
                     or
                     <div style={style.raceResultLink} className='check-result'>

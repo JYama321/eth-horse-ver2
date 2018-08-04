@@ -257,6 +257,7 @@ contract HorseGameBase is Ownable{
         myHorse.mateIndex -= 1;
         saleHorse.mateIndex -= 1;
         _mint(_myTokenId,_saleTokenId,myHorse.genes,saleHorse.genes,msg.sender,horses.length.add(1),_name);
+        tokenOwner[_saleTokenId].transfer(msg.value);
     }
 
     function takeOwnership(address _from,address _to,uint256 _tokenId) external payable{
