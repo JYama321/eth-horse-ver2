@@ -15,7 +15,7 @@ import {
 } from "./selectors";
 import HorseStatusCard from '../../components/HorseStatusCard'
 import Pagination from '../../components/Pagination'
-const loadingGif = 'https://image.eth-horse.com/static_assets/umaLoading.gif';
+const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gif';
 
 
 class MyPageHorses extends Component{

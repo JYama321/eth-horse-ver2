@@ -14,7 +14,6 @@ import {
 import { withStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import BookMakeModal from '../Modal-bookmake'
-import Modal from 'react-modal'
 import CommitRaceModal from '../Modal-commitRace'
 import ModalCheckResult from '../Modal-checkResult'
 const styles = theme => ({
