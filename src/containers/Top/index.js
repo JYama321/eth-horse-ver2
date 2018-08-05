@@ -21,10 +21,42 @@ class Top extends Component{
             case 'textures':
                 return <TopTutorialTextures/>;
             default:
-                return null
+                return this.renderYoutube(menu);
         }
     }
 
+    renderYoutube(type){
+        switch (type) {
+            case 'my-page':
+                return (<div style={topStyles.youtubeContainer}>
+                        <iframe width="920" height="518" src="https://www.youtube.com/embed/ej1NB0WaHIY?autoplay=1" frameBorder="0"
+                            allow="autoplay; encrypted-media" allowFullScreen/>
+                        </div>);
+            case 'race':
+                return (<div style={topStyles.youtubeContainer}>
+                        <iframe width="920" height="518" src="https://www.youtube.com/embed/Hmq8Gl71fF8?autoplay=1" frameBorder="0"
+                                allow="autoplay; encrypted-media" allowFullScreen/>
+                        </div>
+                );
+            case 'market':
+                return (<div style={topStyles.youtubeContainer}>
+                            <iframe width="920" height="518" src="https://www.youtube.com/embed/LoB3d51jpkI?autoplay=1" frameBorder="0"
+                                allow="autoplay; encrypted-media" allowFullScreen/>
+                        </div>)
+            case 'events':
+                return (<div style={topStyles.youtubeContainer}>
+                            <iframe width="920" height="518" src="https://www.youtube.com/embed/5GTSHvQkxWw?autoplay=1" frameBorder="0"
+                            allow="autoplay; encrypted-media" allowFullScreen/>
+                        </div>);
+            case 'ranking':
+                return (<div style={topStyles.youtubeContainer}>
+                            <iframe width="920" height="518" src="https://www.youtube.com/embed/MjAZZ9uRcjU?autoplay=1" frameBorder="0"
+                            allow="autoplay; encrypted-media" allowFullScreen/>
+                        </div>);
+            default:
+                return null;
+        }
+    }
     moveToMyPage(){
         this.props.history.push('/my-page');
         window.scrollTo(0,0)
@@ -78,6 +110,9 @@ class Top extends Component{
                             </button>
                             <button style={topStyles.tutorialMenus('events',this.state.tutorialMenu)} onClick={()=>this.changeTutorial('events')}>
                                 events
+                            </button>
+                            <button style={topStyles.tutorialMenus('events',this.state.tutorialMenu)} onClick={()=>this.changeTutorial('ranking')}>
+                                Ranking
                             </button>
                             <button style={topStyles.tutorialMenus('textures',this.state.tutorialMenu)} onClick={()=>this.changeTutorial('textures')}>
                                 textures

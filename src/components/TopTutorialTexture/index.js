@@ -19,7 +19,7 @@ class TopTutorialTextures extends Component{
                 style={tutorialTextureStyles.textureIconStyle}
                 src={'https://image.eth-horse.com/texture_icons/' + elem + '.png'}
             />
-            <p>{mapEnToTextureNames.en[elem]}</p>
+            <p style={tutorialTextureStyles.textureName}>{mapEnToTextureNames.en[elem]}</p>
           </div>
       )
     })
@@ -36,7 +36,7 @@ class TopTutorialTextures extends Component{
                 src={'https://image.eth-horse.com/texture_icons/' + elem + '.png'}
                 key={'texture'+index}
             />
-            <p>{mapEnToTextureNames.en[elem]}</p>
+            <p style={tutorialTextureStyles.textureName}>{mapEnToTextureNames.en[elem]}</p>
           </div>
       )
     })
@@ -52,7 +52,7 @@ class TopTutorialTextures extends Component{
                 style={tutorialTextureStyles.textureIconStyle}
                 src={'https://image.eth-horse.com/texture_icons/' + elem + '.png'}
             />
-            <p>{mapEnToTextureNames.en[elem]}</p>
+            <p style={tutorialTextureStyles.textureName}>{mapEnToTextureNames.en[elem]}</p>
           </div>
       )
     })
