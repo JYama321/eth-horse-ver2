@@ -33,7 +33,7 @@ const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gi
 
 Modal.setAppElement('#root');
 
-class Races extends Component{
+class Races extends React.PureComponent{
     constructor(props){
         super(props);
         this.state = {
@@ -141,7 +141,7 @@ class Races extends Component{
                             />
                         )
                     }else if(elem){
-                        getRace(elem.id-1).then(result => {
+                        getRace(index+1).then(result => {
                             self.props.getRaceInfo(result)
                         });
                         return(
@@ -183,6 +183,7 @@ class Races extends Component{
                 });
             case 'ended':
                 const checkedArray = this.props.checkedRaceArray ? this.props.checkedRaceArray.slice(4*(this.state.currentPage-1),4*this.state.currentPage) : [];
+                console.log(checkedArray);
                 return checkedArray.map((elem,index) => {
                     const race = self.props.raceIdToRaceInfo.get(String(index + 1 + (self.state.currentPage-1) * 4)) ? self.props.raceIdToRaceInfo.get(String(index+1)) : null;
                     if(race && elem){
@@ -223,7 +224,7 @@ class Races extends Component{
                             />
                         )
                     }else if (elem) {
-                        getRace(elem.id-1).then(result => {
+                        getRace(index+1).then(result => {
                             self.props.getRaceInfo(result)
                         });
                         return(<LoadGif key={'loading-' + index}/>)
