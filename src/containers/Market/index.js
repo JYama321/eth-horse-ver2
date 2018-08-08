@@ -31,7 +31,7 @@ import saga from './saga'
 import LoadingHorseStatus from '../../components/HorseStatusLoading'
 const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gif';
 
-class Market extends Component{
+class Market extends React.PureComponent{
     constructor(props){
         super(props);
         this.state = {
@@ -99,7 +99,7 @@ class Market extends Component{
             case 'high-price':
                 const higherOrderArray = priceOriginArray ? priceOriginArray.map((elem,index) => {
                     if(elem.toNumber() > 0){
-                        return {id: index+1, price: window.web3.fromWei(elem).toFixed(3)}
+                        return {id: index+1, price: Number(window.web3.fromWei(elem).toFixed(3))}
                     }else{
                         return null
                     }
@@ -111,37 +111,44 @@ class Market extends Component{
                     } else {
                         return 0
                     }
-                }).slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
+                }) : [];
                 return higherOrderArray.map(function (elem,index) {
+                    //あとでコントラクト修正する
+                    const rangeMin = 8*(self.state.currentPage-1);
+                    const rangeMax = 8*(self.state.currentPage);
                     const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
                     if((horse && horse[11]) || (horse && horse[12])){
                         num+=1;
-                        return (
-                            <HorseStatusCard
-                                info={horse}
-                                isMyHorse={false}
-                                isLeft={(num - 1) % 4 === 0}
-                                isSire={isSire}
-                                history={self.props.history}
-                                key={'saleHorse-'+index}
-                            />
-                        )
+                        if(rangeMin < num && rangeMax >= num){
+                            return (
+                                <HorseStatusCard
+                                    info={horse}
+                                    isMyHorse={false}
+                                    isLeft={(num - 1) % 4 === 0}
+                                    isSire={isSire}
+                                    history={self.props.history}
+                                    key={'saleHorse-'+index}
+                                />
+                            )
+                        }
                     }else if(horse && !horse[11]){
                         return null
                     }else{
-                        getHorseData(elem.id).then((result) => {
-                            self.props.getHorse(result);
-                        });
-                        return(
-                            <img
-                                key={'loading-'+index}
-                                src={loadingGif}
-                                style={{
-                                    width: '200px',
-                                    height: '200px'
-                                }}
-                            />
-                        )
+                        if(rangeMin < num && rangeMax >= num) {
+                            getHorseData(elem.id).then((result) => {
+                                self.props.getHorse(result);
+                            });
+                            return (
+                                <img
+                                    key={'loading-' + index}
+                                    src={loadingGif}
+                                    style={{
+                                        width: '200px',
+                                        height: '200px'
+                                    }}
+                                />
+                            )
+                        }
                     }
                 });
             case 'low-price':
@@ -158,30 +165,36 @@ class Market extends Component{
                     } else {
                         return 0
                     }
-                }).slice(8*(this.state.currentPage-1),8*this.state.currentPage) : [];
+                }) : [];
                 return lowerOrderArray.map(function (elem,index) {
+                    const rangeMin = 8*(self.state.currentPage-1);
+                    const rangeMax = 8*(self.state.currentPage);
                     const horse = self.props.horseIdToInfo.get(String(elem.id)) ? self.props.horseIdToInfo.get(String(elem.id)) : null;
                     if ((horse && horse[11]) || (horse && horse[12])) {
                         num+=1;
-                        return (
-                            <HorseStatusCard
-                                info={horse}
-                                isMyHorse={false}
-                                isLeft={(num - 1) % 4 === 0}
-                                isSire={isSire}
-                                history={self.props.history}
-                                key={'saleHorse-' + index}
-                            />
-                        )
+                        if(rangeMin < num && rangeMax >= num){
+                            return (
+                                <HorseStatusCard
+                                    info={horse}
+                                    isMyHorse={false}
+                                    isLeft={(num - 1) % 4 === 0}
+                                    isSire={isSire}
+                                    history={self.props.history}
+                                    key={'saleHorse-' + index}
+                                />
+                            )
+                        }
                     } else if(horse && !horse[11]){
                         return null
                     }else {
-                        getHorseData(elem.id).then((result) => {
-                            self.props.getHorse(result);
-                        });
-                        return (
-                           <LoadingHorseStatus isLeft={(num - 1) % 4 === 0} key={'loading' + index}/>
-                        )
+                        if(rangeMin < num && rangeMax >= num) {
+                            getHorseData(elem.id).then((result) => {
+                                self.props.getHorse(result);
+                            });
+                            return (
+                                <LoadingHorseStatus isLeft={(num - 1) % 4 === 0} key={'loading' + index}/>
+                            )
+                        }
                     }
                 });
             default:
