@@ -85,7 +85,8 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "deploy": "aws s3 sync build_webpack/ s3://rinkeby.eth-horse.com/",
-    "invalidate": "aws cloudfront create-invalidation --distribution-id E2OKQ7Q9ZDITE5 --paths /*"
+    "invalidate": "aws cloudfront create-invalidation --distribution-id E2OKQ7Q9ZDITE5 --paths /*",
+    "clean": "rm -r build_webpack/*"
   },
   "jest": {
     "collectCoverageFrom": [
