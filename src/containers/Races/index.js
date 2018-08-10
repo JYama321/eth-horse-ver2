@@ -53,23 +53,29 @@ class Races extends Component{
         this.openHostRaceModal = this.openHostRaceModal.bind(this);
         this.closeHostRaceModal = this.closeHostRaceModal.bind(this)
     }
-
-    // componentDidMount(){
-    //     const self = this;
-    //     if(!this.props.raceArrayLoaded){
-    //         this.props.startLoadRaces();
-    //     }
-    //     //my horse の先頭3匹は取得しておく
-    //     this.props.ownedHorses.toArray().slice(0,3).forEach(function(elem,index){
-    //         getHorseData(elem.toNumber()).then((elem) => {
-    //             self.props.getHorse(elem)
-    //         })
-    //     })
-    // }
-    // shouldComponentUpdate(props,state){
-    //     return (this.props.wantedRaceArray.length !== props.wantedRaceArray.length ||
-    //         this.props.bettingRaceArray.length !== this.props.bettingRaceArray.length) || (this.props.checkedRaceArray.length !== props.checkedRaceArray.length)
-    // }
+    componentDidMount(){
+        let totalPage;
+        switch (this.props.currentDisplay){
+            case 'now-wanted':
+                totalPage = Math.ceil(this.props.wantedRaceArray.filter(race=>race).length / 4);
+                break;
+            case 'now-betting':
+                totalPage = Math.ceil(this.props.bettingRaceArray.filter(race => race).length / 4);
+                break;
+            case 'my-races':
+                totalPage = Math.ceil(this.props.myRaceArray.filter(race => race).length / 4);
+                break;
+            case 'ended':
+                totalPage = Math.ceil(this.props.checkedRaceArray.filter(race => race).length / 4 );
+                break;
+            default:
+                totalPage = 1;
+                break;
+        }
+        this.setState({
+            totalPage: totalPage
+        });
+    }
 
     componentWillReceiveProps(props,state){
         let totalPage;
