@@ -46,6 +46,7 @@ export const racePageStyles = {
     },
     gifContainer:{
         position: 'relative',
+        top: '250px',
         width: '100%',
         height: '100%'
     }
