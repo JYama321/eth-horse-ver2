@@ -28,13 +28,6 @@ export const getRaceInfo = (info) => ({
   }
 });
 
-export const getHorseInfo = (data) => ({
-  type: GET_HORSE_INFO,
-  data: {
-    id: data[0].toNumber(),
-    horse: data
-  }
-});
 
 export const changeRacePage = (page) => ({
   type: CHANGE_RACE_PAGE,

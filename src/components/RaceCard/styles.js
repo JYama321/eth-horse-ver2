@@ -8,7 +8,7 @@ export const raceCardStyles = {
     cardContainer: {
         width: '515px',
         height: '580px',
-        display: 'relative',
+        position: 'relative'
     },
     cartContainerTop: {
         height: '40px',

@@ -2,20 +2,29 @@ import React, { Component } from 'react'
 import HorseImage from '../../components/HorseImage'
 import PropTypes from 'prop-types'
 import { raceCardStyles } from "./styles";
+import { connect } from 'react-redux';
 import {
     getHorseData,
     getRaceBetEndTime,
     checkResult,
     getRaceCommitEndTime,
+    getRace
 } from "../../utils/eth-function";
 import {
     calculateDate
 } from "../../utils/functions";
+import {
+    selectRaceInfo,
+    selectHorseInfo
+} from "./selectors";
 import { withStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import BookMakeModal from '../Modal-bookmake'
 import CommitRaceModal from '../Modal-commitRace'
 import ModalCheckResult from '../Modal-checkResult'
+import {createStructuredSelector} from "reselect";
+import { getRaceInfo, getHorseInfo} from "./actions";
+const loadingGif = 'https://image.eth-horse.com/static_assets/loading_default.gif';
 const styles = theme => ({
     commitRaceButton: {
         fontSize: '12px',
@@ -31,8 +40,6 @@ class RaceCard extends Component{
     static propTypes = {
         race: PropTypes.array,
         raceId: PropTypes.number.isRequired,
-        getHorse: PropTypes.func,
-        horseInfo: PropTypes.object,
         currentState: PropTypes.string,
         isMyRace: PropTypes.bool,
         openApplyRaceModal: PropTypes.func,
@@ -46,25 +53,19 @@ class RaceCard extends Component{
             betEndTime: '',
             commitEndTime: '',
             betEndLoaded: false,
-            betEndRowDate: null,
+            betEndRowDate: '',
             commitEndLoaded: false,
-            commitEndRowDate: null,
+            commitEndRowDate: '',
             isOpenCommitModal: false,
             secretNum: 0
         };
-        this.closeBookMakeModal = this.closeBookMakeModal.bind(this)
+        this.closeBookMakeModal = this.closeBookMakeModal.bind(this);
+        this.openBookMakeModal = this.openBookMakeModal.bind(this)
     }
-    async componentDidMount(){
+    componentDidMount(){
         const self = this;
         const raceId = this.props.raceId;
-        if(this.props.race[2].toNumber() !== 0 && !this.props.horseInfo.get(String(this.props.race[2].toNumber()))){
-            const horseOne = await getHorseData(this.props.race[2].toNumber());
-            await this.props.getHorse(horseOne);
-        }
-        if(this.props.race[3].toNumber() !== 0 && !this.props.horseInfo.get(String(this.props.race[3].toNumber()))) {
-            const horseTwo = await getHorseData(this.props.race[3].toNumber());
-            await this.props.getHorse(horseTwo);
-        }
+        const race = this.props.raceIdToRaceInfo.get(String(this.props.raceId));
         getRaceBetEndTime(raceId).then((result) => {
             const date = calculateDate(result);
             self.setState({
@@ -80,11 +81,19 @@ class RaceCard extends Component{
                 commitEndRowDate: date[1],
                 commitEndLoaded: true
             })
-        })
+        });
+        if(!race){
+            getRace(this.props.raceId - 1).then(race => {
+                self.props.getRaceInfo(race);
+            })
+        }
+
     }
-    componentWillReceiveProps(props){
+    async componentWillReceiveProps(props){
         const self = this;
-        if(this.props.raceId !== props.raceId){
+        const race = this.props.raceIdToRaceInfo.get(String(props.raceId));
+        const raceId = props.raceId;
+        if(this.state.betEndRowDate==''){
             getRaceBetEndTime(props.raceId).then((result) => {
                 const date = calculateDate(result);
                 self.setState({
@@ -93,6 +102,8 @@ class RaceCard extends Component{
                     betEndLoaded: true
                 });
             });
+        }
+        if(this.state.commitEndRowDate == ''){
             getRaceCommitEndTime(props.raceId).then((result) => {
                 const date = calculateDate(result);
                 self.setState({
@@ -101,6 +112,21 @@ class RaceCard extends Component{
                     commitEndLoaded: true
                 })
             })
+        }
+        if(!race){
+            getRace(this.props.raceId - 1).then(race => {
+                self.props.getRaceInfo(race);
+            })
+        }
+        if(race){
+            if(race[2].toNumber() !== 0 && !this.props.horseInfo.get(String(race[2].toNumber()))){
+                const horseOne = await getHorseData(race[2].toNumber());
+                this.props.getHorse(horseOne);
+            }
+            if(race[3].toNumber() !== 0 && !this.props.horseInfo.get(String(race[3].toNumber()))) {
+                const horseTwo = await getHorseData(race[3].toNumber());
+                this.props.getHorse(horseTwo);
+            }
         }
     }
     openBookMakeModal(){
@@ -115,7 +141,7 @@ class RaceCard extends Component{
     }
 
     renderCurrentStateButton(state,isLoaded){
-        const raceId = this.props.race[0].toNumber();
+        const raceId = this.props.raceId;
         if(isLoaded){
             switch(state){
                 case 'now wanted':
@@ -148,11 +174,12 @@ class RaceCard extends Component{
         })
     }
     renderLink(state){
+        const race = this.props.raceIdToRaceInfo.get(String(this.props.raceId));
         switch (state){
             case 'ended':
-                return <button style={{textDecoration: 'underline', backgroundColor:'transparent', outline: 'none', border: 'none'}} onClick={()=>this.openShowRaceModal()}><p style={raceCardStyles.raceNameP}>{this.props.race[5]}</p></button>
+                return <button style={{textDecoration: 'underline', backgroundColor:'transparent', outline: 'none', border: 'none'}} onClick={()=>this.openShowRaceModal()}><p style={raceCardStyles.raceNameP}>{race[5]}</p></button>
             default:
-                return <Link to={'/races/' + this.props.race[0].toNumber()}><p style={raceCardStyles.raceNameP}>{this.props.race[5]}</p></Link>;
+                return <Link to={'/races/' + race[0].toNumber()}><p style={raceCardStyles.raceNameP}>{race[5]}</p></Link>;
 
         }
     }
@@ -184,86 +211,102 @@ class RaceCard extends Component{
     }
 
     render(){
-        const { classes } = this.props;
-        const betEndTime = this.state.betEndRowDate;
-        const commitEndTime = this.state.commitEndRowDate;
-        const currentState = this.props.currentState === 'now betting' ? this.renderCurrentState(betEndTime,commitEndTime) : this.props.currentState;
-        const raceId = this.props.raceId;
-        const horse1 = this.props.horseInfo.get(String(this.props.race[2].toNumber()));
-        const horse2 = this.props.horseInfo.get(String(this.props.race[3].toNumber()));
-        const horseGene1 = horse1 ? horse1[1].c.join(',').replace(/,/g,'') : '0000000';
-        const horseGene2 = horse2 ? horse2[1].c.join(',').replace(/,/g,'') : '000000';
-        const winnerHorseIndex = this.props.race[2].toNumber() === this.props.race[8].toNumber() ? '0' : '1';
-        const winnerHorseName = this.props.horseInfo.get(String(this.props.race[8].toNumber())) ? this.props.horseInfo.get(String(this.props.race[8].toNumber()))[2] : '';
-        const isLoaded = this.state.betEndLoaded && this.state.commitEndLoaded;
-        if(this.props.isMyRace){
-            return(
-                <div style={raceCardStyles.cardContainer}>
-                    <CommitRaceModal isModalOpen={this.state.isOpenCommitModal} closeModal={this.closeCommitModal.bind(this)} raceId={raceId}/>
-                    <BookMakeModal
-                        isModalOpen={this.state.isBookMakeModalOpen}
-                        closeModal={this.closeBookMakeModal}
-                        race={this.props.race}
-                        horseInfo={this.props.horseInfo}
-                    />
-                    <ModalCheckResult gene1={horseGene1} gene2={horseGene2} raceId={this.props.race[0].toNumber()} isOpen={this.state.isShowRaceModalOpen} closeModal={this.closeShowRaceModal.bind(this)} winnerHorseIndex={winnerHorseIndex} winnerHorseName={winnerHorseName}/>
-                    <div style={raceCardStyles.cartContainerTop}>
-                        <p style={raceCardStyles.currentStateText}>{currentState === 'now wanted' ? 'now you can apply race' : this.renderTimeInfo(betEndTime)} <span style={raceCardStyles.raceId}>Race No. {raceId}</span></p>
-                    </div>
-                    <div style={raceCardStyles.raceInfoContainer}>
-                        {this.renderLink(currentState)}
-                        <p style={raceCardStyles.winnerPrizeP}>Winner Prize:&nbsp; <b>{window.web3.fromWei(this.props.race[6],'ether').toNumber().toFixed(2)}</b> ETH + <b>{this.props.race[7].toNumber()}</b> % of total bet</p>
-                        {this.renderCurrentStateButton(currentState,isLoaded)}
-                    </div>
-                    <div style={raceCardStyles.horseImgContainer}>
-                        <div style={raceCardStyles.horseContainer}>
-                            <div className='horse-back' style={raceCardStyles.horseBack}>
-                                <HorseImage type={'normal'} horseGene={horseGene1}/>
-                            </div>
-                            <p style={raceCardStyles.horseNameP}>{this.props.horseInfo.get(String(this.props.race[2].toNumber())) ? this.props.horseInfo.get(String(this.props.race[2].toNumber()))[2] : '???'}</p>
+        if(this.props.raceIdToRaceInfo.get(String(this.props.raceId))){
+            const { classes } = this.props;
+            const race = this.props.raceIdToRaceInfo.get(String(this.props.raceId));
+            const betEndTime = this.state.betEndRowDate;
+            const commitEndTime = this.state.commitEndRowDate;
+            const currentState = this.props.currentState === 'now betting' ? this.renderCurrentState(betEndTime,commitEndTime) : this.props.currentState;
+            const raceId = this.props.raceId;
+            const horse1 = this.props.horseInfo.get(String(race[2].toNumber()));
+            const horse2 = this.props.horseInfo.get(String(race[3].toNumber()));
+            const horseGene1 = horse1 ? horse1[1].c.join(',').replace(/,/g,'') : '0000000';
+            const horseGene2 = horse2 ? horse2[1].c.join(',').replace(/,/g,'') : '000000';
+            const winnerHorseIndex = race[2].toNumber() === race[8].toNumber() ? '0' : '1';
+            const winnerHorseName = this.props.horseInfo.get(String(race[8].toNumber())) ? this.props.horseInfo.get(String(race[8].toNumber()))[2] : '';
+            const isLoaded = this.state.betEndLoaded && this.state.commitEndLoaded;
+            if(this.props.isMyRace){
+                return(
+                    <div style={raceCardStyles.cardContainer}>
+                        <CommitRaceModal isModalOpen={this.state.isOpenCommitModal} closeModal={this.closeCommitModal.bind(this)} raceId={raceId}/>
+                        <BookMakeModal
+                            isModalOpen={this.state.isBookMakeModalOpen}
+                            closeModal={this.closeBookMakeModal}
+                            race={race}
+                            horseInfo={this.props.horseInfo}
+                        />
+                        <ModalCheckResult gene1={horseGene1} gene2={horseGene2} raceId={race[0].toNumber()} isOpen={this.state.isShowRaceModalOpen} closeModal={this.closeShowRaceModal.bind(this)} winnerHorseIndex={winnerHorseIndex} winnerHorseName={winnerHorseName}/>
+                        <div style={raceCardStyles.cartContainerTop}>
+                            <p>{currentState === 'now wanted' ? 'now you can apply race' : this.renderTimeInfo(betEndTime)}</p>
                         </div>
-                        <div style={raceCardStyles.horseContainer}>
-                            <div className='horse-back' style={raceCardStyles.horseBack}>
-                                <HorseImage type={'normal'} horseGene={horseGene2}/>
+                        <div style={raceCardStyles.raceInfoContainer}>
+                            {this.renderLink(currentState)}
+                            <p style={raceCardStyles.winnerPrizeP}>Winner Prize:&nbsp; <b>{window.web3.fromWei(race[6],'ether').toNumber().toFixed(2)}</b> ETH + <b>{race[7].toNumber()}</b> % of total bet</p>
+                            {this.renderCurrentStateButton(currentState,isLoaded)}
+                        </div>
+                        <div style={raceCardStyles.horseImgContainer}>
+                            <div style={raceCardStyles.horseContainer}>
+                                <div className='horse-back' style={raceCardStyles.horseBack}>
+                                    <HorseImage type={'normal'} horseGene={horseGene1}/>
+                                </div>
+                                <p style={raceCardStyles.horseNameP}>{this.props.horseInfo.get(String(race[2].toNumber())) ? this.props.horseInfo.get(String(race[2].toNumber()))[2] : '???'}</p>
                             </div>
-                            <p style={raceCardStyles.horseNameP}>{this.props.horseInfo.get(String(this.props.race[3].toNumber())) ? this.props.horseInfo.get(String(this.props.race[3].toNumber()))[2] : '???'}</p>
+                            <div style={raceCardStyles.horseContainer}>
+                                <div className='horse-back' style={raceCardStyles.horseBack}>
+                                    <HorseImage type={'normal'} horseGene={horseGene2}/>
+                                </div>
+                                <p style={raceCardStyles.horseNameP}>{this.props.horseInfo.get(String(race[3].toNumber())) ? this.props.horseInfo.get(String(race[3].toNumber()))[2] : '???'}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )
+                )
+            }else{
+                return(
+                    <div style={raceCardStyles.cardContainer}>
+                        <CommitRaceModal isModalOpen={this.state.isOpenCommitModal} closeModal={this.closeCommitModal.bind(this)} raceId={raceId}/>
+                        <ModalCheckResult gene1={horseGene1} gene2={horseGene2} raceId={race[0].toNumber()} isOpen={this.state.isShowRaceModalOpen} closeModal={this.closeShowRaceModal.bind(this)} winnerHorseIndex={winnerHorseIndex} winnerHorseName={winnerHorseName}/>
+                        <div style={raceCardStyles.cartContainerTop}>
+                            <p>{currentState === 'now wanted' ? 'now you can apply race' : this.renderTimeInfo(betEndTime)}</p>
+                        </div>
+                        <div style={raceCardStyles.raceInfoContainer}>
+                            {this.renderLink(currentState)}
+                            <p style={raceCardStyles.winnerPrizeP}>Winner Prize:&nbsp;<b>{window.web3.fromWei(race[6],'ether').toNumber().toFixed(2)}</b> ETH + <b>{race[7].toNumber()}</b> % of total bet</p>
+                            {this.renderCurrentStateButton(currentState,isLoaded)}
+                        </div>
+                        <div style={raceCardStyles.horseImgContainer}>
+                            <div style={raceCardStyles.horseContainer}>
+                                <div className='horse-back' style={raceCardStyles.horseBack}>
+                                    <HorseImage type={'normal'} horseGene={this.props.horseInfo.get(String(race[2].toNumber())) ? this.props.horseInfo.get(String(race[2].toNumber()))[1].c.join(',').replace(/,/g,'') : '00000000000'}/>
+                                </div>
+                                <p style={raceCardStyles.horseNameP}>{this.props.horseInfo.get(String(race[2].toNumber())) ? this.props.horseInfo.get(String(race[2].toNumber()))[2] : '???'}</p>
+                            </div>
+                            <div style={raceCardStyles.horseContainer}>
+                                <div className='horse-back' style={raceCardStyles.horseBack}>
+                                    <HorseImage type={'normal'} horseGene={this.props.horseInfo.get(String(race[3].toNumber())) ? this.props.horseInfo.get(String(race[3].toNumber()))[1].c.join(',').replace(/,/g,'') : '0000000000'}/>
+                                </div>
+                                <p style={raceCardStyles.horseNameP}>{this.props.horseInfo.get(String(race[3].toNumber())) ? this.props.horseInfo.get(String(race[3].toNumber()))[2] : '???'}</p>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
         }else{
-            return(
+            return (
                 <div style={raceCardStyles.cardContainer}>
-                    <CommitRaceModal isModalOpen={this.state.isOpenCommitModal} closeModal={this.closeCommitModal.bind(this)} raceId={raceId}/>
-                    <ModalCheckResult gene1={horseGene1} gene2={horseGene2} raceId={this.props.race[0].toNumber()} isOpen={this.state.isShowRaceModalOpen} closeModal={this.closeShowRaceModal.bind(this)} winnerHorseIndex={winnerHorseIndex} winnerHorseName={winnerHorseName}/>
-                    <div style={raceCardStyles.cartContainerTop}>
-                        <p style={raceCardStyles.currentStateText}>{currentState === 'now wanted' ? 'now you can apply race' : this.renderTimeInfo(betEndTime)} <span style={raceCardStyles.raceId}>Race No. {raceId}</span></p>
-                    </div>
-                    <div style={raceCardStyles.raceInfoContainer}>
-                        {this.renderLink(currentState)}
-                        <p style={raceCardStyles.winnerPrizeP}>Winner Prize:&nbsp;<b>{window.web3.fromWei(this.props.race[6],'ether').toNumber().toFixed(2)}</b> ETH + <b>{this.props.race[7].toNumber()}</b> % of total bet</p>
-                        {this.renderCurrentStateButton(currentState,isLoaded)}
-                    </div>
-                    <div style={raceCardStyles.horseImgContainer}>
-                        <div style={raceCardStyles.horseContainer}>
-                            <div className='horse-back' style={raceCardStyles.horseBack}>
-                                <HorseImage type={'normal'} horseGene={this.props.horseInfo.get(String(this.props.race[2].toNumber())) ? this.props.horseInfo.get(String(this.props.race[2].toNumber()))[1].c.join(',').replace(/,/g,'') : '0000000'}/>
-                            </div>
-                            <p style={raceCardStyles.horseNameP}>{this.props.horseInfo.get(String(this.props.race[2].toNumber())) ? this.props.horseInfo.get(String(this.props.race[2].toNumber()))[2] : '???'}</p>
-                        </div>
-                        <div style={raceCardStyles.horseContainer}>
-                            <div className='horse-back' style={raceCardStyles.horseBack}>
-                                <HorseImage type={'normal'} horseGene={this.props.horseInfo.get(String(this.props.race[3].toNumber())) ? this.props.horseInfo.get(String(this.props.race[3].toNumber()))[1].c.join(',').replace(/,/g,'') : '000000'}/>
-                            </div>
-                            <p style={raceCardStyles.horseNameP}>{this.props.horseInfo.get(String(this.props.race[3].toNumber())) ? this.props.horseInfo.get(String(this.props.race[3].toNumber()))[2] : '???'}</p>
-                        </div>
-                    </div>
-                </div>
-            )
+                    <img src={loadingGif} style={{position: 'absolute', width: '200px', height: '200px', transform: 'translate(-50%,-50%)', left: '50%', top: '50%'}}/>
+                </div>)
         }
     }
 }
 
+const mapStateToProps = (state) => createStructuredSelector({
+    raceIdToRaceInfo: selectRaceInfo(),
+    horseInfo: selectHorseInfo()
+});
 
-export default withStyles(styles)(RaceCard)
+const mapDispatchToProps = (dispatch) => ({
+    getRaceInfo: race => dispatch(getRaceInfo(race)),
+    getHorse: (horse) => dispatch(getHorseInfo(horse)),
+});
 
+export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(RaceCard))

@@ -62,13 +62,19 @@ import {
     CHANGE_MARKET_SORT,
     //Ranking Array
     GET_MATE_PRICE,
-    MYPAGE_INFO_LAODED
+    //loaded
+    MYPAGE_INFO_LAODED,
+    MARKET_INFO_LOADED,
+    RACES_INFO_LOADED
 } from "./actionTypes";
 
 const globalState = fromJS({
     isMyHorseArrayLoadDone: false,
     isMySireHorseArrayLoading: false,
-    myPageInfoLoaded: false,
+    myPageInfoLoaded: false, //my page loaded
+    marketInfoLoaded: false,
+    racesInfoLoaded: false,
+
     myHorseIdArray: [], //my horse
     myHorsePageCurrentPage: 1,
     applyRaceHorseCurrentPage: 1,
@@ -261,6 +267,10 @@ function globalReducer(state = globalState ,action){
             return state.set('matePrice', action.data);
         case MYPAGE_INFO_LAODED:
             return state.set('myPageInfoLoaded', true);
+        case MARKET_INFO_LOADED:
+            return state.set('marketInfoLoaded', true);
+        case RACES_INFO_LOADED:
+            return state.set('racesInfoLoaded', true);
         default:
             return state;
     }

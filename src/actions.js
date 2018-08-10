@@ -6,7 +6,8 @@ import {
     LOAD_HORSE_TOTAL_PRIZE_ARRAY_SUCCESS, GET_SIRE_PRICES_ARRAY,
     GET_SIRE_HORSES, GET_SHUFFLE_TICKET_NUM, GET_SHUFFLE_ALL_TICKET_NUM,
     GET_ON_SALE_HORSE_SUCCESS, GET_SALE_HORSE_PRICES_SUCCESS,
-    GET_RACE_INFO, GET_HORSE_INFO, GET_MATE_PRICE,MYPAGE_INFO_LAODED
+    GET_RACE_INFO, GET_HORSE_INFO, GET_MATE_PRICE,MYPAGE_INFO_LAODED,
+    RACES_INFO_LOADED,MARKET_INFO_LOADED
 } from "./actionTypes";
 
 export const getWantedRaces = (array) => ({
@@ -124,3 +125,10 @@ export const dispatchLoadMyPageInfo = () => ({
     type: MYPAGE_INFO_LAODED
 });
 
+export const dispatchRaceInfoLoaded = () => ({
+   type: RACES_INFO_LOADED
+});
+
+export const dispatchMarketPageLoaded = () => ({
+   type: MARKET_INFO_LOADED
+});

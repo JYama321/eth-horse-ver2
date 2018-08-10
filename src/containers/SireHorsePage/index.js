@@ -230,7 +230,7 @@ class SireHorsePage extends Component{
                     isMyHorse: true
                 })
             }else{
-                self.setState({
+                this.setState({
                     isNameModalOpen: true,
                     papaId: papaId,
                     mamaId: mamaId,
@@ -272,7 +272,7 @@ class SireHorsePage extends Component{
             sireHorses(this.state.papaId,this.state.mamaId,this.state.horseName,this.props.matePrice)
         }else{
             const horse = this.props.horseIdToInfo.get(this.props.match.params.id);
-            sireWithOnSaleHorse(this.state.mamaId,this.state.papaId,this.state.horseName,horse[9])
+            sireWithOnSaleHorse(this.state.papaId,this.state.mamaId,this.state.horseName,horse[9])
         }
     }
     render () {
@@ -323,7 +323,7 @@ class SireHorsePage extends Component{
                         <div style={sellHorseModalStyle.sireHorseTop}>
                             <div style={sellHorseModalStyle.sireHorseImgWrapper}>
                                 <div style={sellHorseModalStyle.sireHorseImgBack} className='sire-horse-back'>
-                                    {horse[12] ? <div
+                                    {horse[13] ? <div
                                         className='horse-price-imgae'
                                         style={sellHorseModalStyle.sirePrice}
                                     >{window.web3.fromWei(horse[9],'ether').toFixed(3)} ETH</div> : ''}
@@ -333,7 +333,7 @@ class SireHorsePage extends Component{
                             <div style={sellHorseModalStyle.sireHorseStatus}>
                                 <p style={sellHorseModalStyle.sireHorseName}>
                                     {horse[2]}
-                                    <span style={sellHorseModalStyle.isOnSireSale}> {horse[12] ? 'now on sire sale' : ''}</span>
+                                    <span style={sellHorseModalStyle.isOnSireSale}> {horse[13] ? 'now on sire sale' : ''}</span>
                                 </p>
                                 <div style={sellHorseModalStyle.sireHorseStatus}>
                                     <div style={sellHorseModalStyle.sireHorseStatusComponent}>

@@ -57,3 +57,5 @@ export const GET_SIRE_HORSES = 'getSireHorsesArray';
 export const CHANGE_MARKET_TYPE = 'changeMarketType';
 export const GET_MATE_PRICE = 'getMatePrice';
 export const MYPAGE_INFO_LAODED = 'myPageInfoLoaded';
+export const RACES_INFO_LOADED = 'racePageInfoLoaded';
+export const MARKET_INFO_LOADED = 'marketPageLoaded';

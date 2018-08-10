@@ -32,7 +32,9 @@ import {
     getSaleHorsePrices,
     getHorseInfo,
     dispatchGetMatePrice,
-    dispatchLoadMyPageInfo
+    dispatchLoadMyPageInfo,
+    dispatchMarketPageLoaded,
+    dispatchRaceInfoLoaded
 } from './actions'
 import {
     getWantedRaceArray,
@@ -82,7 +84,7 @@ class App extends Component {
             browserModalOpen: false
         }
     }
-    async componentWillMount() {
+    async componentDidMount() {
         const result = await getWeb3();
         window.web3 = result.web3;
         const browserInfo = window.navigator.userAgent.toLowerCase();
@@ -107,19 +109,25 @@ class App extends Component {
             this.props.getMyHorseArray(myHorseArray);
             this.props.myPageLoaded();
 
+            //レースページで必要な情報
             const wantedArray = await getWantedRaceArray();
             const bettingArray = await getBettingRaceArray();
             const checkedArray = await getCheckedRaceArray();
             const myRaceArray = await getMyRaceArray();
+            this.props.racesLoaded();
 
+            //ランキングで必要な情報
             const totalPrizeArray = await getHorseTotalPrizeArray();
             const winCountArray = await getHorseWinCountArray();
             const geneArray = await getGeneArray();
+
+            //マーケットページに必要な情報
             const priceArray = await getHorsePrices();
             const sirePrices = await getSirePricesArray();
             const sireArray = await getSireHorsesArray();
             const saleHorseArray = await getOnSaleHorses();
             const matePrice = await getMatePrice();
+            this.props.marketLoaded();
 
             this.props.getMatePrice(matePrice.toNumber());
             this.props.getSaleHorses(saleHorseArray);
@@ -312,7 +320,9 @@ const mapDispatchToProps = (dispatch) => ({
     getHorsePrices: array => dispatch(getSaleHorsePrices(array)),
     getHorseInfo: horse => dispatch(getHorseInfo(horse)),
     getMatePrice: price => dispatch(dispatchGetMatePrice(price)),
-    myPageLoaded: () => dispatch(dispatchLoadMyPageInfo())
+    myPageLoaded: () => dispatch(dispatchLoadMyPageInfo()),
+    marketLoaded: () => dispatch(dispatchMarketPageLoaded()),
+    racesLoaded: () => dispatch(dispatchRaceInfoLoaded())
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
