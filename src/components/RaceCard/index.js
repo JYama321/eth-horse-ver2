@@ -93,8 +93,8 @@ class RaceCard extends Component{
         const self = this;
         const race = this.props.raceIdToRaceInfo.get(String(props.raceId));
         const raceId = props.raceId;
-        if(this.state.betEndRowDate==''){
-            getRaceBetEndTime(props.raceId).then((result) => {
+        if(!this.state.betEndLoaded){
+            getRaceBetEndTime(raceId).then((result) => {
                 const date = calculateDate(result);
                 self.setState({
                     betEndTime: date[0],
@@ -103,8 +103,8 @@ class RaceCard extends Component{
                 });
             });
         }
-        if(this.state.commitEndRowDate == ''){
-            getRaceCommitEndTime(props.raceId).then((result) => {
+        if(!this.state.commitEndLoaded){
+            getRaceCommitEndTime(raceId).then((result) => {
                 const date = calculateDate(result);
                 self.setState({
                     commitEndTime: date[0],
