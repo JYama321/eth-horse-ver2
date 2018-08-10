@@ -87,13 +87,12 @@ class RaceCard extends Component{
                 self.props.getRaceInfo(race);
             })
         }
-
     }
     async componentWillReceiveProps(props){
         const self = this;
         const race = this.props.raceIdToRaceInfo.get(String(props.raceId));
         const raceId = props.raceId;
-        if(!this.state.betEndLoaded){
+        if(!this.state.betEndLoaded || this.props.raceId !== raceId){
             getRaceBetEndTime(raceId).then((result) => {
                 const date = calculateDate(result);
                 self.setState({
@@ -103,7 +102,7 @@ class RaceCard extends Component{
                 });
             });
         }
-        if(!this.state.commitEndLoaded){
+        if(!this.state.commitEndLoaded || this.props.raceId !== raceId){
             getRaceCommitEndTime(raceId).then((result) => {
                 const date = calculateDate(result);
                 self.setState({
@@ -114,12 +113,12 @@ class RaceCard extends Component{
             })
         }
         if(!race){
-            getRace(this.props.raceId - 1).then(race => {
+            getRace(props.raceId - 1).then(race => {
                 self.props.getRaceInfo(race);
             })
         }
         if(race){
-            if(race[2].toNumber() !== 0 && !this.props.horseInfo.get(String(race[2].toNumber()))){
+            if(race[2].toNumber() !== 0 && !props.horseInfo.get(String(race[2].toNumber()))){
                 const horseOne = await getHorseData(race[2].toNumber());
                 this.props.getHorse(horseOne);
             }
