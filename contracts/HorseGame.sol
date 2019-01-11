@@ -213,7 +213,7 @@ contract HorseGameBase is Ownable{
     }
 
     function _removeToken(address _from,uint256 _tokenId) private {
-        require(tokenOwner[_tokenId] == _from);
+        require(tokenOwner[_tokenId] == _from,"_from should be token owner");
 
         uint tokenIndex = ownedTokensIndex[_tokenId];
         uint ownedTokenNum = ownedTokens[_from].length;
@@ -230,17 +230,17 @@ contract HorseGameBase is Ownable{
     }
 
     function _addToken(address _to,uint256 _tokenId) private{
-        require(tokenOwner[_tokenId] == address(0));
+        require(tokenOwner[_tokenId] == address(0), "address should not be 0");
         tokenOwner[_tokenId] = _to;
         ownedTokensIndex[_tokenId] = ownedTokens[_to].push(_tokenId) - 1;
     }
 
     function mateHorses(uint _papaId, uint _mamaId, string _name) external payable {
-        require(_papaId != _mamaId && msg.value >= matePrice);
-        require(tokenOwner[_papaId] == msg.sender && tokenOwner[_mamaId] == msg.sender);
+        require(_papaId != _mamaId && msg.value >= matePrice,"papa and mama should be diffrence and msg.value is higher or equal to matePrice");
+        require(tokenOwner[_papaId] == msg.sender && tokenOwner[_mamaId] == msg.sender,"user should be owner of both papa and mama.");
         Horse storage papa = horses[_papaId.sub(1)];
         Horse storage mama = horses[_mamaId.sub(1)];
-        require(papa.mateIndex >= 1 && mama.mateIndex >= 1);
+        require(papa.mateIndex >= 1 && mama.mateIndex >= 1, "mateIndex should be remained.");
         papa.mateIndex -= 1;
         mama.mateIndex -= 1;
         _mint(_papaId,_mamaId,papa.genes,mama.genes,msg.sender, horses.length.add(1),_name);
@@ -248,7 +248,7 @@ contract HorseGameBase is Ownable{
     }
 
     function sireHorseWithOnSaleHorse(uint _myTokenId,uint _saleTokenId,string _name) external payable{
-        require(_myTokenId != _saleTokenId);
+        require(_myTokenId != _saleTokenId,"");
         require(tokenOwner[_myTokenId] == msg.sender);
         Horse storage myHorse = horses[_myTokenId.sub(1)];
         Horse storage saleHorse = horses[_saleTokenId.sub(1)];
@@ -277,14 +277,14 @@ contract HorseGameBase is Ownable{
         delete tokenIdToOnSaleIndex[_tokenId];
         horsesOnSale.length--;
         transfer(_from,_to,_tokenId);
-        emit Transfer(_from,_to,_tokenId,'buy',now);
+        emit Transfer(_from,_to,_tokenId,"buy", now);
         _from.transfer(price);
     }
 
     function horseTokenToOnSale(uint _tokenId,uint _price) external{
-        require(tokenOwner[_tokenId] == msg.sender);
+        require(tokenOwner[_tokenId] == msg.sender,"msg.sender should be token owner.");
         Horse storage horse = horses[_tokenId.sub(1)];
-        require(!horse.isOnSale);
+        require(!horse.isOnSale, "horse should be on sale.");
         horse.price = _price;
         horse.isOnSale = true;
         tokenIdToOnSaleIndex[_tokenId] = horsesOnSale.push(_tokenId) - 1;
@@ -293,7 +293,7 @@ contract HorseGameBase is Ownable{
     }
 
     function horseTokenToNotOnSale(uint _tokenId) external{
-        require(tokenOwner[_tokenId] == msg.sender);
+        require(tokenOwner[_tokenId] == msg.sender,"msg.sender should be token owner.");
         Horse storage horse = horses[_tokenId.sub(1)];
         horse.isOnSale = false;
         horse.price = 0;
@@ -311,7 +311,7 @@ contract HorseGameBase is Ownable{
     }
 
     function horseTokenToNotOnSireSale(uint _tokenId) external{
-        require(tokenOwner[_tokenId] == msg.sender);
+        require(tokenOwner[_tokenId] == msg.sender, "msg.sender should be token owner");
         Horse storage horse = horses[_tokenId.sub(1)];
         horse.isOnSireSale = false;
         horse.sirePrice = 0;
@@ -328,7 +328,7 @@ contract HorseGameBase is Ownable{
     }
 
     function horseTokenToOnSireSale(uint _tokenId, uint _price) external{
-        require(tokenOwner[_tokenId] == msg.sender);
+        require(tokenOwner[_tokenId] == msg.sender, "msg.sender shoudl be token owner.");
         Horse storage horse = horses[_tokenId.sub(1)];
         horse.sirePrice = _price;
         horse.isOnSireSale = true;
@@ -349,8 +349,8 @@ contract HorseGameBase is Ownable{
     )
     private
     {
-        require(_to != address(0));
-        require(_papaId != _momId || (_papaId == 0 && _momId == 0));
+        require(_to != address(0), "_to should not be address(0)");
+        require(_papaId != _momId || (_papaId == 0 && _momId == 0),"papaID should not be equal to mmamaID, papaID and mamaId should not be 0.");
         _addToken(_to,_tokenId);
         uint newGene = geneFunction.generateGenes(_maleGenes,_femaleGenes,_name);
         Horse memory newHorse = Horse({
@@ -435,7 +435,7 @@ contract HorseBet is HorseGameBase{
 
     function checkRaceResult(uint _raceId) external {
         Race storage race = races[_raceId.sub(1)];
-        require(!race.isChecked && raceCommitEnd[_raceId] < now);
+        require(!race.isChecked && raceCommitEnd[_raceId] < now, "confirm that race is checked");
         Horse storage horse1 = horses[race.horseOne.sub(1)];
         Horse storage horse2 = horses[race.horseTwo.sub(1)];
         uint winnerIndex = raceFunction.generateWinnerIndex(
@@ -452,14 +452,13 @@ contract HorseBet is HorseGameBase{
         race.isChecked = true;
         checkedRaces[_raceId.sub(1)] = true;
         bettingRaces[_raceId.sub(1)] = false;
-        uint hostPayback =
-        race.deposit + race.totalBet - race.minWinnerPrize - race.totalBet * race.winnerPrizeFromBet / 100 - race.horseIdToBetAmount[winnerId] * race.horseIdToBetRate[winnerId] / 100;
+        uint hostPayback = race.deposit + race.totalBet - race.minWinnerPrize - race.totalBet * race.winnerPrizeFromBet / 100 - race.horseIdToBetAmount[winnerId] * race.horseIdToBetRate[winnerId] / 100;
         race.host.transfer(hostPayback);
     }
 
     function decideBetRate(uint _raceId,uint _rate1,uint _rate2) external hostOnly(_raceId,msg.sender){
         Race storage race = races[_raceId.sub(1)];
-        require(!race.isBetting && race.horseOne != 0 && race.horseTwo != 0);
+        require(!race.isBetting && race.horseOne != 0 && race.horseTwo != 0,"");
         race.horseIdToBetRate[race.horseOne] = _rate1;
         race.horseIdToBetRate[race.horseTwo] = _rate2;
         race.isBetting = true;
@@ -470,8 +469,8 @@ contract HorseBet is HorseGameBase{
 
     function withdrawPayback(uint _raceId) external{
         Race storage race = races[_raceId.sub(1)];
-        require(race.participantInfo[msg.sender].betHorseId == race.winnerHorseId);
-        require(race.isChecked == true);
+        require(race.participantInfo[msg.sender].betHorseId == race.winnerHorseId, "betHorseId should equal to winnerHorseId");
+        require(race.isChecked == true,"race is not checked ye");
         uint payback = race.participantInfo[msg.sender].expectedReturn;
         race.participantInfo[msg.sender].expectedReturn = 0;
         msg.sender.transfer(payback);
@@ -479,8 +478,8 @@ contract HorseBet is HorseGameBase{
 
     function withdrawPrize(uint _raceId) external{
         Race storage race = races[_raceId.sub(1)];
-        require(race.isChecked);
-        require(msg.sender == tokenOwner[race.winnerHorseId]);
+        require(race.isChecked, "rasce should already be checked.");
+        require(msg.sender == tokenOwner[race.winnerHorseId], "shouldb e token owner");
         Horse storage horse = horses[race.winnerHorseId.sub(1)];
         uint prize = race.minWinnerPrize + race.totalBet * race.winnerPrizeFromBet / 100;
         race.minWinnerPrize = 0;
@@ -499,14 +498,14 @@ contract HorseBet is HorseGameBase{
 
     function getRaceStrengthInfo(uint _raceId) external view hostOnly(_raceId,msg.sender) returns(uint,uint){
         Race storage race = races[_raceId.sub(1)];
-        require(race.horseOne != 0 && race.horseTwo != 0);
+        require(race.horseOne != 0 && race.horseTwo != 0, "Two horses are not applied yet.");
         return raceFunction.horseStrengthBalance(horses[race.horseOne.sub(1)].genes,horses[race.horseTwo.sub(1)].genes);
     }
 
 
     function bettingInfo(uint _raceId) external view returns(uint,uint,uint,uint,uint,uint){
         Race storage race = races[_raceId.sub(1)];
-        require(race.horseOne != 0 && race.horseTwo != 0);
+        require(race.horseOne != 0 && race.horseTwo != 0, "Two horses are not applied yet.");
         uint paybackMax = race.totalBet * (100 - race.winnerPrizeFromBet) / 100 + (race.deposit * 98 / 100 - race.minWinnerPrize);
         uint max1 = ((paybackMax - (race.horseIdToBetAmount[race.horseOne] * race.horseIdToBetRate[race.horseOne] / 100)) / race.horseIdToBetRate[race.horseOne]) * 100;
         uint max2 = ((paybackMax - (race.horseIdToBetAmount[race.horseTwo] * race.horseIdToBetRate[race.horseTwo] / 100)) / race.horseIdToBetRate[race.horseTwo]) * 100;
@@ -534,10 +533,10 @@ contract HorseBet is HorseGameBase{
 
     function commitRace(uint _raceId, uint _secret) external {
         Race storage race = races[_raceId.sub(1)];
-        require(race.participantInfo[msg.sender].betPrice != 0);
-        require(raceBetEnd[_raceId] < now && raceCommitEnd[_raceId] > now);
+        require(race.participantInfo[msg.sender].betPrice != 0, "Bet value should not be 0");
+        require(raceBetEnd[_raceId] < now && raceCommitEnd[_raceId] > now, "Betting time is already ended.");
         RaceParticipant storage person = race.participantInfo[msg.sender];
-        require(person.nonce == keccak256(abi.encodePacked(bytes32(_secret))) && person.committed == false);
+        require(person.nonce == keccak256(abi.encodePacked(bytes32(_secret))) && person.committed == false, "The person has already ");
         race.nonce = race.nonce^bytes32(_secret);
         person.committed = true;
         uint payback = race.deposit / 50 / raceParticipantNum[_raceId];
@@ -562,8 +561,8 @@ contract HorseBet is HorseGameBase{
     }
 
     function hostRace(string _raceName,uint _minWinnerPrize, uint _winnerPrizeFromBet) external payable{
-        require((msg.value * 98 / 100) > _minWinnerPrize);
-        Race memory race =  Race({
+        require((msg.value * 98 / 100) > _minWinnerPrize, "98% value should higher than minnimum winner prieze.");
+        Race memory race = Race({
             raceId: races.length.add(1),
             host: msg.sender,
             horseOne: 0,
@@ -589,10 +588,10 @@ contract HorseBet is HorseGameBase{
     }
 
     function applyRace(uint _raceId, uint _horseId) external{
-        require(tokenOwner[_horseId] == msg.sender);
+        require(tokenOwner[_horseId] == msg.sender,"msg.sender should be token owner.");
         Race storage race = races[_raceId.sub(1)];
-        require(race.horseOne == 0 || race.horseTwo == 0);
-        require(race.horseOne != _horseId && race.horseTwo != _horseId);
+        require(race.horseOne == 0 || race.horseTwo == 0, "Remnant should be remained.");
+        require(race.horseOne != _horseId && race.horseTwo != _horseId, "horse should be new commer.");
         Horse storage horse = horses[_horseId.sub(1)];
         horse.raceIndex = horse.raceIndex.sub(1);
         if(race.horseOne == 0){
@@ -627,15 +626,15 @@ contract HorseBet is HorseGameBase{
 
 contract HorseGame is HorseBet{
     function setLotteryFunction(address _lotteryAddress) external onlyOwner{
-      lotteryFunction = LotteryInterface(_lotteryAddress);
+        lotteryFunction = LotteryInterface(_lotteryAddress);
     }
 
     function setGeneFunction(address _geneAddress) external onlyOwner{
-      geneFunction = GeneFunctionInterface(_geneAddress);
+        geneFunction = GeneFunctionInterface(_geneAddress);
     }
 
     function setRaceFunction(address _raceAddress) external onlyOwner{
-      raceFunction = RaceFunctionInterface(_raceAddress);
+        raceFunction = RaceFunctionInterface(_raceAddress);
     }
 
     function setTrainTicketPrice(uint _price) external onlyOwner{
@@ -651,19 +650,19 @@ contract HorseGame is HorseBet{
     }
 
     function buyTrainTicket() external payable{
-        require(msg.value >= lotteryFunction.trainTicketPrice());
+        require(msg.value >= lotteryFunction.trainTicketPrice(),"msg.value should be higher or equal to ticket price");
         lotteryFunction.buyTrainTicket(msg.value,msg.sender);
         owner.transfer(msg.value);
     }
 
     function buyShuffleDressUpTicket() external payable{
-        require(msg.value >= lotteryFunction.shuffleDressUpTicketPrice());
+        require(msg.value >= lotteryFunction.shuffleDressUpTicketPrice(),"msg.value should be higher or equal to ticket price");
         lotteryFunction.buyShuffleDressUpTicket(msg.value,msg.sender);
         owner.transfer(msg.value);
     }
 
     function buyDressUpTicket() external payable{
-        require(msg.value >= lotteryFunction.dressUpTicketPrice());
+        require(msg.value >= lotteryFunction.dressUpTicketPrice(),"msg.value should be higher or equal to ticket price");
         lotteryFunction.buyDressUpTicket(msg.value,msg.sender);
         owner.transfer(msg.value);
     }
@@ -673,11 +672,11 @@ contract HorseGame is HorseBet{
     }
 
     function dressUpTicketNum() external view returns(uint){
-      return lotteryFunction.dressUpTicketNum(msg.sender);
+        return lotteryFunction.dressUpTicketNum(msg.sender);
     }
 
     function shuffleDressUpTicketNum() external view returns(uint){
-      return lotteryFunction.shuffleDressUpTicketNum(msg.sender);
+        return lotteryFunction.shuffleDressUpTicketNum(msg.sender);
     }
 
     function shuffleDressUpTexture(uint _horseId, uint _nonce) external{
@@ -763,19 +762,19 @@ contract HorseGame is HorseBet{
     }
 
     function trainTicketPrice() external view returns(uint){
-      return lotteryFunction.trainTicketPrice();
+        return lotteryFunction.trainTicketPrice();
     }
 
     function dressUpTicketPrice() external view returns(uint){
-      return lotteryFunction.dressUpTicketPrice();
+        return lotteryFunction.dressUpTicketPrice();
     }
 
     function shuffleDressUpTicketPrice() external view returns(uint){
-      return lotteryFunction.shuffleDressUpTicketPrice();
+        return lotteryFunction.shuffleDressUpTicketPrice();
     }
 
     function dressUpLottery() external view returns(uint){
-      return lotteryFunction.dressUpLottery(msg.sender);
+        return lotteryFunction.dressUpLottery(msg.sender);
     }
 
     function trainLottery() external view returns(uint){
