@@ -428,7 +428,7 @@ contract HorseBet is HorseGameBase{
 
     modifier hostOnly(uint _raceId,address _sender){
         Race storage race = races[_raceId.sub(1)];
-        require(race.host == _sender);
+        require(race.host == _sender, "host should be _sender");
         _;
     }
 
@@ -458,7 +458,7 @@ contract HorseBet is HorseGameBase{
 
     function decideBetRate(uint _raceId,uint _rate1,uint _rate2) external hostOnly(_raceId,msg.sender){
         Race storage race = races[_raceId.sub(1)];
-        require(!race.isBetting && race.horseOne != 0 && race.horseTwo != 0,"");
+        require(!race.isBetting && race.horseOne != 0 && race.horseTwo != 0,"race is not betting or two horses are not applied yet.");
         race.horseIdToBetRate[race.horseOne] = _rate1;
         race.horseIdToBetRate[race.horseTwo] = _rate2;
         race.isBetting = true;
