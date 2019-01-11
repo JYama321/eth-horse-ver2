@@ -149,6 +149,8 @@ contract HorseGameBase is Ownable{
     mapping(uint => uint[]) public raceIdToHorseIds;//raceIdと参加する馬のIdを紐付ける
     mapping(uint => uint) public raceIdToDeposit; //レースにデポジットされたETHの値
 
+    string baseURI;
+
     event HorseOnSale(address indexed _from,uint _price, uint _tokenId, string _type, uint _now);
     event Transfer(address indexed _from,address indexed _to,uint256 _tokenId, string _type, uint _now);
     event ApplyRace(address indexed _owner,uint _raceId,uint _horseId,uint _now);
@@ -210,6 +212,17 @@ contract HorseGameBase is Ownable{
         //remove and add
         _removeToken(_from,_tokenId);
         _addToken(_to,_tokenId);
+    }
+
+    function baseTokenURI() public view returns (string) {
+        return baseURI;
+    }
+
+    function tokenURI(uint256 _tokenId) public view returns(string) {
+        return String.strConcat(
+            baseTokenURI(),
+            Strings.uint2str(_tokenId)
+        )
     }
 
     function _removeToken(address _from,uint256 _tokenId) private {
@@ -514,9 +527,9 @@ contract HorseBet is HorseGameBase{
 
     function betRace(uint _raceId, uint _horseId, uint _secret) external payable{
         Race storage race = races[_raceId.sub(1)];
-        require(race.participantInfo[msg.sender].betPrice == 0);
-        require(race.isBetting && !race.isChecked);
-        require(raceBetEnd[_raceId] > now);
+        require(race.participantInfo[msg.sender].betPrice == 0, "The participant has already bet race.");
+        require(race.isBetting && !race.isChecked, "Race is not in betting time");
+        require(raceBetEnd[_raceId] > now, "Betting time is already ended.");
         RaceParticipant memory person = RaceParticipant({
             betHorseId: _horseId,
             betPrice: msg.value,
