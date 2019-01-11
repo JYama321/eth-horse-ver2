@@ -1,6 +1,8 @@
 pragma solidity ^0.4.23;
+import "./Strings.sol";
 
 library SafeMath{
+    using strings for *;
 
     function mul(uint a, uint b) internal pure returns(uint c){
         if (a == 0){
@@ -218,11 +220,24 @@ contract HorseGameBase is Ownable{
         return baseURI;
     }
 
+    function uintToString(uint v) internal view returns(string) {
+        uint maxLength = 100;
+        bytes memory reversed = new bytes(maxLength);
+        uint i = 0;
+        while(v != 0) {
+            uint remainder = v % 10;
+            v = v / 10;
+            reversed[i++] = byte(48 + remainder);
+        }
+        bytes memory s = new bytes(i + 1);
+        for (uint j = 0; j <= i; j++) {
+            s[j] = reversed[i - j];
+        }
+        return string(s);
+    }
+
     function tokenURI(uint256 _tokenId) public view returns(string) {
-        return String.strConcat(
-            baseTokenURI(),
-            Strings.uint2str(_tokenId)
-        )
+        return baseTokenURI().toSlice().concat(strings.uintToString(_tokenId).toSlice());
     }
 
     function _removeToken(address _from,uint256 _tokenId) private {
@@ -444,7 +459,6 @@ contract HorseBet is HorseGameBase{
         require(race.host == _sender, "host should be _sender");
         _;
     }
-
 
     function checkRaceResult(uint _raceId) external {
         Race storage race = races[_raceId.sub(1)];
