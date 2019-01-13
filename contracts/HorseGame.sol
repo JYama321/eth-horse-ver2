@@ -220,7 +220,11 @@ contract HorseGameBase is Ownable{
         return baseURI;
     }
 
-    function uintToString(uint v) public view returns(string) {
+    function setBaseTokenURI(string _uri) external onlyOwner {
+        baseURI = _uri;
+    }
+
+    function uintToString(uint v) public pure returns(string) {
         uint maxLength = 100;
         bytes memory reversed = new bytes(maxLength);
         uint i = 0;
@@ -236,6 +240,7 @@ contract HorseGameBase is Ownable{
         return string(s);
     }
 
+    
 
     function tokenURI(uint256 _tokenId) public view returns(string) {
         string memory tokenId = uintToString(_tokenId);
