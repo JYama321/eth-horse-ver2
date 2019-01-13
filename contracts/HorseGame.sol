@@ -528,6 +528,7 @@ contract HorseBet is HorseGameBase{
         require(msg.sender == tokenOwner[race.winnerHorseId], "shouldb e token owner");
         Horse storage horse = horses[race.winnerHorseId.sub(1)];
         uint prize = race.minWinnerPrize + race.totalBet * race.winnerPrizeFromBet / 100;
+        require(prize > 0, "prize should be higher than 0.");
         race.minWinnerPrize = 0;
         race.winnerPrizeFromBet = 0;
         horseTotalPrize[race.winnerHorseId.sub(1)] = horseTotalPrize[race.winnerHorseId.sub(1)].add(prize);
