@@ -220,7 +220,7 @@ contract HorseGameBase is Ownable{
         return baseURI;
     }
 
-    function uintToString(uint v) internal view returns(string) {
+    function uintToString(uint v) public view returns(string) {
         uint maxLength = 100;
         bytes memory reversed = new bytes(maxLength);
         uint i = 0;
@@ -236,8 +236,22 @@ contract HorseGameBase is Ownable{
         return string(s);
     }
 
+
     function tokenURI(uint256 _tokenId) public view returns(string) {
-        return baseTokenURI().toSlice().concat(strings.uintToString(_tokenId).toSlice());
+        string memory tokenId = uintToString(_tokenId);
+        bytes memory strbyte1 = bytes(baseTokenURI());
+        bytes memory strbyte2 = bytes(tokenId);
+        bytes memory str = new bytes(strbyte1.length + strbyte2.length);
+        uint8 point = 0;
+        for(uint8 j = 0; j < strbyte1.length; j++) {
+            str[point] = strbyte1[j];
+            point++;
+        }
+        for(uint8 k=0;k < strbyte2.length; k++) {
+            str[point] = strbyte2[k];
+            point++;
+        }
+        return string(str);
     }
 
     function _removeToken(address _from,uint256 _tokenId) private {
