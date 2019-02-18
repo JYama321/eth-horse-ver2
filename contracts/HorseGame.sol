@@ -48,20 +48,6 @@ contract Ownable{
     }
 }
 
-//
-//contract ERC721{
-//    event Transfer(address indexed _from,address indexed _to,uint _tokenId);
-//    event Approval(address indexed _owner,address indexed _approved,uint _tokenId);
-//
-//    function balanceOf(address _owner) external view returns (uint _balance);
-//    function ownerOf(uint _tokenId) external view returns (address);
-//    function transfer(address _to,uint _tokenId) internal;
-//    //    function approve(address _to,uint _tokenId) external;
-//    function takeOwnership(address _from,address _to,uint _tokenId) external payable;
-//    //    function name() external view returns (string name);
-//    //    function symbol() external view returns (string symbol);
-//}
-
 
 contract RaceFunctionInterface{
     function generateWinnerIndex(bytes32 _nonce, uint _gene1, uint _gene2) external view returns(uint);
@@ -528,7 +514,7 @@ contract HorseBet is HorseGameBase{
         require(msg.sender == tokenOwner[race.winnerHorseId], "shouldb e token owner");
         Horse storage horse = horses[race.winnerHorseId.sub(1)];
         uint prize = race.minWinnerPrize + race.totalBet * race.winnerPrizeFromBet / 100;
-        require(prize > 0, "prize should be higher than 0.");
+        require(prize > 0, "prize should be higher than 0.k");
         race.minWinnerPrize = 0;
         race.winnerPrizeFromBet = 0;
         horseTotalPrize[race.winnerHorseId.sub(1)] = horseTotalPrize[race.winnerHorseId.sub(1)].add(prize);
