@@ -520,23 +520,50 @@ contract GameBase is ERC1155NonFungible, Ownable {
         emit Mint(nonce, _name, _totalSupply, _uri, _decimals, _symbol, _isNFI);
     }
 
+    function _mintNonFungible
+    (
+        string _name,
+        uint _momId,
+        uint _papaId,
+    )
+    private
+    {
+        require(_to != address(0), "_to should not be address(0)")
+        require(_papaId != _momId || _momId ==0 &&  _papaId == 0,"papaID should not be equal to mamaId,  papaID and mamaId should not be 0. ");
+        uint newGene = geneFunction.generateGenes(0, 0, _name);
+        NonFungibleMetaData memory metaData = NonFungibleMetaData({
+            id: _nfi,
+            genes: newGene,
+            name: _name,
+            winCount: 0,
+            papaId: 0,
+            mamaId: 0,
+            mateIndex:(newGene % (10 ** 30) / (10 ** 29)) + (newGene % (10 ** 29) / (10 ** 28)),
+            raceIndex:(newGene % (10 ** 32) / (10 ** 31)) + (newGene % (10 ** 31) / (10 ** 30)),
+            saleDuration: 0,
+            totalPrize: 0,
+            isOnSale: false,
+            isOnSireSale: false
+        });
+        nonFungibleIdToMetadata[_nfi] = _to;
+    }
+
     function mintNonFungible
     (
         uint256 _type,
-        address[] _to
+        address _to,
+        string _name
     )
     external onlyOwner
     {
         require(isNonFungible(_type), "should be non fungible type");
         uint256 _startIndex = items[_type].totalSupply;
-        for (uint256 i=0; i < _to.length; ++i) {
-            address _dst = _to[i];
-            uint256 _nfi = _type | (_startIndex  + 1);
-            nfiOwners[_nfi] = _dst;
-            items[_type].balances[_dst] = items[_type].balances[_dst].add(1);
-        }
-
-        items[_type].totalSupply = items[_type].totalSupply.add(_to.length);
+        address _dst = _to;
+        uint256 _nfi = _type | (_startIndex  + 1);
+        nfiOwners[_nfi] = _dst;
+        items[_type].balances[_dst] = items[_type].balances[_dst].add(1);
+        _mintNonFungible(0,0,_name);
+        items[_type].totalSupply = items[_type].totalSupply.add(1);
     }
 
     function setURI
@@ -548,6 +575,7 @@ contract GameBase is ERC1155NonFungible, Ownable {
     {
         metadataURIs[_id] = _uri;
     }   
+
 }
 
 contract GameAuction is GameBase {
@@ -595,6 +623,26 @@ contract GameAuction is GameBase {
             uint256(_auction.endingPrice),
             uint256(_auction.duration)
         );
+    }
+}
+
+contract GameMating is GameAuction {
+    uint public matePrice;
+
+    function setMatePrice(uint _price) external onlyOwner {
+        matePrice = _price;
+    }
+
+    function mateHorses(uint _papaId, uint _mamaId, string _name) external payable {
+        require(_papaId != _mamaId && msg.value >= matePrice,"papa and mama should be diffrence and msg.value is higher or equal to matePrice");
+        require(tokenOwner[_papaId] == msg.sender && tokenOwner[_mamaId] == msg.sender,"user should be owner of both papa and mama.");
+        Horse storage papa = horses[_papaId.sub(1)];
+        Horse storage mama = horses[_mamaId.sub(1)];
+        require(papa.mateIndex >= 1 && mama.mateIndex >= 1, "mateIndex should be remained.");
+        papa.mateIndex -= 1;
+        mama.mateIndex -= 1;
+        _mint(_papaId,_mamaId,papa.genes,mama.genes,msg.sender, horses.length.add(1),_name);
+        owner.transfer(msg.value);
     }
 }
 
