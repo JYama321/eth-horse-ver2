@@ -525,12 +525,16 @@ contract GameBase is ERC1155NonFungible, Ownable {
         string _name,
         uint _momId,
         uint _papaId,
+        uint _id,
+        address _to
     )
     private
     {
         require(_to != address(0), "_to should not be address(0)")
         require(_papaId != _momId || _momId ==0 &&  _papaId == 0,"papaID should not be equal to mamaId,  papaID and mamaId should not be 0. ");
-        uint newGene = geneFunction.generateGenes(0, 0, _name);
+        NonFungibleMetaData memory mom = nonFungibleMetaData[_momId];
+        NonFungibleMetaData memory papa = nonFungibleMetaData[_papaId];
+        uint newGene = geneFunction.generateGenes(papa.genes, mama.genes, _name);
         NonFungibleMetaData memory metaData = NonFungibleMetaData({
             id: _nfi,
             genes: newGene,
@@ -546,6 +550,7 @@ contract GameBase is ERC1155NonFungible, Ownable {
             isOnSireSale: false
         });
         nonFungibleIdToMetadata[_nfi] = _to;
+        nfiOwners[_nfi] = _to;
     }
 
     function mintNonFungible
@@ -558,11 +563,9 @@ contract GameBase is ERC1155NonFungible, Ownable {
     {
         require(isNonFungible(_type), "should be non fungible type");
         uint256 _startIndex = items[_type].totalSupply;
-        address _dst = _to;
         uint256 _nfi = _type | (_startIndex  + 1);
-        nfiOwners[_nfi] = _dst;
-        items[_type].balances[_dst] = items[_type].balances[_dst].add(1);
-        _mintNonFungible(0,0,_name);
+        items[_type].balances[_to] = items[_type].balances[_to].add(1);
+        _mintNonFungible(_name,0,0, _nfi, _to);
         items[_type].totalSupply = items[_type].totalSupply.add(1);
     }
 
@@ -598,7 +601,7 @@ contract GameAuction is GameBase {
         )
         external
     {
-         require(_startingPrice == uint256(uint128(_startingPrice)));
+        require(_startingPrice == uint256(uint128(_startingPrice)));
         require(_endingPrice == uint256(uint128(_endingPrice)));
         require(_duration == uint256(uint64(_duration)));
         require(ownerOf(_tokenId) == msg.sender);
@@ -633,17 +636,20 @@ contract GameMating is GameAuction {
         matePrice = _price;
     }
 
-    function mateHorses(uint _papaId, uint _mamaId, string _name) external payable {
+    function mateHorses(uint _type,uint _papaId, uint _mamaId, string _name) external payable {
         require(_papaId != _mamaId && msg.value >= matePrice,"papa and mama should be diffrence and msg.value is higher or equal to matePrice");
-        require(tokenOwner[_papaId] == msg.sender && tokenOwner[_mamaId] == msg.sender,"user should be owner of both papa and mama.");
-        Horse storage papa = horses[_papaId.sub(1)];
-        Horse storage mama = horses[_mamaId.sub(1)];
+        require(nfiOwner[_papaId] == msg.sender && nfiOwner[_mamaId] == msg.sender,"user should be owner of both papa and mama.");
+        NonFungibleMetaData storage papa = nonFungibleIdToMetadata[_papaId];
+        NonFungibleMetaData storage mama = nonFungibleIdToMetadata[_mamaId];
         require(papa.mateIndex >= 1 && mama.mateIndex >= 1, "mateIndex should be remained.");
+        uint _startIndex = items[_type].totalSupply;
+        uint256 _nfi = _type | (_startIndex  + 1);
         papa.mateIndex -= 1;
         mama.mateIndex -= 1;
-        _mint(_papaId,_mamaId,papa.genes,mama.genes,msg.sender, horses.length.add(1),_name);
-        owner.transfer(msg.value);
+        _mintNonFungible(_name,_papaId,_mamaId,_nfi,msg.sender);
     }
+     
+     function() public payalbe{}
 }
 
 
