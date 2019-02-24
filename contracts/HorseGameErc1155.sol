@@ -86,7 +86,7 @@ library Address {
     }
 }
 
-interface IERC11155 {
+interface IERC1155 {
     event Approval(address indexed _owner, address indexed _spender, uint256 indexed _id, uint256 _oldValue, uint256 _value);
     event Transfer(address _spender, address indexed _from, address _to, uint256 indexed _id, uint256 _value);
 
@@ -147,20 +147,25 @@ contract ERC1155HorseGame is IERC1155 {
     using SafeMath for uint256;
     using Address for address;
 
-    struct Items {
+    struct FungibleItems {
         string name;
         uint256 totalSupply;
+        uint256 lotteryRate;
+        uint256 lotterySeedNum;      
+        uint256 itemPrice;
+        FungibleItemExecInterface tokenContent;
+        mapping(address => uint256) remainIndex;
         mapping(address => uint256) balances;
-        bool isNFT
+        bool isNFT;
     }
     
     mapping (uint256 => uint8) public decimals;
     mapping (uint256 => string) public symbols;
     mapping (uint256 => mapping(address => mapping(address => uint256))) public allowances;
-    mapping (uint256 => Items) public items;
+    mapping (uint256 => FungibleItems) public items;
     mapping (uint256 => string) public metadataURIs;
 
-    bytes4 constnat private ERC1155_RECEIVED = 0xf23a6e61;
+    bytes4 constant private ERC1155_RECEIVED = 0xf23a6e61;
 
     // Event
     event Approval(address indexed _owner, address indexed _spender, uint indexed _id, uint256 _oldValue, uint256 _value);
@@ -180,7 +185,7 @@ contract ERC1155HorseGame is IERC1155 {
     }
 }
 
-contract ERC1155NonFungible is ERC1155 {
+contract ERC1155NonFungible is ERC1155HorseGame {
     uint256 constant TYPE_MASK = uint256(uint128(~0)) << 128; 
     uint256 constant NF_INDEX_MASK = uint128(~0); // 128bit 11...111
     uint256 constant TYPE_NF_BIT = 1 << 255; //100...00 256 bit
@@ -194,7 +199,7 @@ contract ERC1155NonFungible is ERC1155 {
     public pure
     returns (bool)
     {
-        retunr (_id & TYPE_NF_BIT)
+        return (_id & TYPE_NF_BIT);
     }
 
     function isFungible
@@ -214,7 +219,7 @@ contract ERC1155NonFungible is ERC1155 {
     public pure
     returns (uint256)
     {
-        return _id & NF_INDEX_MASK
+        return _id & NF_INDEX_MASK;
     }
 
     function isNonFungibleBaseType
@@ -235,7 +240,7 @@ contract ERC1155NonFungible is ERC1155 {
     returns (address)
     {
         if(isNonFungible(_id)){
-            return nfiOwners[_id]
+            return nfiOwners[_id];
         } else {
             return address(0);
         }
@@ -270,7 +275,7 @@ contract ERC1155NonFungible is ERC1155 {
         uint256 _value;
 
         for (uint256 i = 0; i < _ids.length; ++i) {
-            _ id = _ids[i];
+            _id = _ids[i];
             _value = _values[i];
 
             if (isNonFungible(_id)) {
@@ -283,7 +288,7 @@ contract ERC1155NonFungible is ERC1155 {
                 require(_value == 0 || allowances[_id][msg.sender][_spender] == _currentValues[i], "should value id 0 or allowance is equal to current value");
             }
             allowances[_id][msg.sender][_spender] = _value;
-            emit Approval(msg.sender, _spender, _id, _currentValues[i], _value)
+            emit Approval(msg.sender, _spender, _id, _currentValues[i], _value);
         }
         return true;
     }
@@ -326,7 +331,7 @@ contract ERC1155NonFungible is ERC1155 {
         address _from,
         address _to,
         uint256[] _ids,
-        uint256[] _value
+        uint256[] _values
     )
     external returns (bool)
     {
@@ -389,7 +394,7 @@ contract ERC1155NonFungible is ERC1155 {
     returns (uint256)
     {
         uint256 _type = _typeId & TYPE_MASK;
-        return iems[_type].balances[_owner];
+        return items[_type].balances[_owner];
     }
 
 
@@ -416,12 +421,14 @@ contract ERC1155NonFungible is ERC1155 {
             }
 
             return result;
+        }
     }
 
     function ownerOf
     (
         uint256 _id
-    ) public view
+    ) 
+    public view
     returns (address)
     {
         if(isNonFungible(_id)){
@@ -475,6 +482,8 @@ contract ERC1155NonFungible is ERC1155 {
 }
 
 contract GameBase is ERC1155NonFungible, Ownable {
+
+    event LotteryLog(address indexed _from, bool _success, string _type,uint _tokenId, uint _now);
     uint256 public nonce;
 
     struct NonFungibleMetaData {
@@ -493,10 +502,13 @@ contract GameBase is ERC1155NonFungible, Ownable {
     }
     mapping(uint256 => NonFungibleMetaData[]) nonFungibleIdToMetadata;
 
-    function mint
+    function mintFungible
     (
         string _name,
         uint256 _totalSupply,
+        uint256 _lotteryRate,
+        uint256 _remainIndex,
+        address _tokenContent,
         string _uri,
         uint8 _decimals,
         string _symbol,
@@ -509,9 +521,10 @@ contract GameBase is ERC1155NonFungible, Ownable {
             require(_totalSupply == 0, "Non-fungible token supply should be 0 at first.");
             _type = _type | TYPE_NF_BIT;
         }
-
+        items[_type].tokenContent = FungibleItemExecInterface(_tokenContent);
         items[_type].name = _name;
         items[_type].totalSupply = _totalSupply;
+        items[_type].lotteryRate = _lotteryRate;
         metadataURIs[_type] = _uri;
         decimals[_type] = _decimals;
         symbols[_type] = _symbol;
@@ -530,12 +543,12 @@ contract GameBase is ERC1155NonFungible, Ownable {
     )
     private
     {
-        require(_to != address(0), "_to should not be address(0)")
+        require(_to != address(0), "_to should not be address(0)");
         require(_papaId != _momId || _momId ==0 &&  _papaId == 0,"papaID should not be equal to mamaId,  papaID and mamaId should not be 0. ");
-        NonFungibleMetaData memory mom = nonFungibleMetaData[_momId];
-        NonFungibleMetaData memory papa = nonFungibleMetaData[_papaId];
+        NonFungibleMetaData memory mom = nonFungibleIdToMetadata[_momId];
+        NonFungibleMetaData memory papa = nonFungibleIdToMetadata[_papaId];
         uint newGene = geneFunction.generateGenes(papa.genes, mama.genes, _name);
-        NonFungibleMetaData memory metaData = NonFungibleMetaData({
+        NonFungibleMetaData memory metaData = nonFungibleIdToMetadata({
             id: _nfi,
             genes: newGene,
             name: _name,
@@ -649,9 +662,31 @@ contract GameMating is GameAuction {
         _mintNonFungible(_name,_papaId,_mamaId,_nfi,msg.sender);
     }
      
-     function() public payalbe{}
+    function() public payalbe{}
 }
 
+contract GameItem is GameMating {
+
+    function setItemPrice(uint _type, uint _price) external onlyOwner {
+        items[_type].itemPrice = _price;
+    }
+
+    function execLottery(uint256 _fungibleType, uint _nonFungibleId) external {
+        require(items[_fungibleType]);
+        items[_fungibleType].lotterySeedNum.add(1);
+        uint _seed = uint(keccak256(abi.encodePacked(bytes32(items[_fungibleType].lotterySeedNum)^blockhash(block.number-1))));
+        if((_seed % 100) < 5) {
+            items[_fungibleType].balances[msg.sender] += 1;
+            emit LotteryLog(msg.sender, true, items[_fungibleType].name,_fungibleType);
+        }
+    }
+
+}
+
+contract FungibleItemExecInterface {
+    // アイテムは基本的にgeneを書き換えて新しいものを返す。大元のコントラクトはそれをただ置き換えるだけ
+    function execItemEffect(uint256 _gene) extenral returns(uint256);
+}
 
 contract RaceFunctionInterface {
     function generateWinnerIndex(bytes32 _nonce, uint _gene1, uint _gene2) external view returns(uint);
@@ -661,48 +696,4 @@ contract RaceFunctionInterface {
 contract GeneFunctionInterface {
     function generateGenes(uint,uint,string) external view returns(uint);
     function generateReplaceGene(uint) external view returns(uint);
-}
-
-contract Lottery {
-    using SafeMath for uint256;
-
-    modifier onlyOwnerContract(){
-        require(msg.sender == ownerContract);
-        _;
-    }
-    modifier onlyOwner{
-        require(msg.sender == owner);
-        _;
-    }
-    address ownerContract;
-    address owner;
-    uint public ticketPrice;
-    mapping(address => uint) ticketNumber;
-    mapping(address => uint) ticketRefreshTime;
-    uint public lotteryNum;
-    string public ticketName;
-
-    event LotteryLog(address indexed _from, bool _success, string _type, uint _now);
-    
-    constructor(string name) public {
-        owner = msg.sender;
-        lotteryNum=0; 
-        ticketName = name;
-    }
-
-    function setOwner(address _newOwner) external onlyOwner{
-        owner = _newOwner;
-    }
-    
-    function execLottery(address _user) external onlyOwnerContract{
-        require(now - ticketRefreshTime[_user] > 24 hours);
-        lotteryNum = lotteryNum.add(1);
-        ticketRefreshTime[_user] = now;
-        uint _seed = uint(keccak256(abi.encodePacked(bytes32(lotteryNum)^blockhash(block.number-1)));
-        if((_seed % 100) < 5) {
-            ticketNumber[_user] += 1;
-            emit LotteryLog(_user,true,ticketName,now)
-        }
-        emit LotteryLog(_user, false, ticketName, now)
-    }
 }
