@@ -558,9 +558,11 @@ contract GameBase is ERC1155NonFungible, Ownable {
         NonFungibleMetaData memory mom = nonFungibleIdToMetadata[_momId];
         NonFungibleMetaData memory papa = nonFungibleIdToMetadata[_papaId];
         uint newGene = geneFunction.generateGenes(papa.genes, mom.genes, _name);
+        uint8[] memory skills = new uint8[](0);
         NonFungibleMetaData memory metaData = NonFungibleMetaData({
             id: _nfi,
             genes: newGene,
+            skills: skills,
             name: _name,
             winCount: 0,
             papaId: _papaId,
@@ -692,17 +694,17 @@ contract HorseGameErc1155 is GameAuction {
 
     function execGeneChangeFungibleItem(uint256 _fungibleType, uint256 _nonFungibleId) external {
         require(items[_fungibleType].balances[msg.sender] > 0,"You must have one or more fungible items.");
-        require(ownerOf(_nonfungibleId) == msg.sender,"Owner of Non-Fungible Item should be msg.sender");
-        nonFungibleItem = nonFungibleIdToMetadata[_nonFungibleId];
-        nonFungibleItem.genes = items[_fungibleType].tokenContent.execItemEffect(nonFungibleitem.genes);
+        require(ownerOf(_nonFungibleId) == msg.sender,"Owner of Non-Fungible Item should be msg.sender");
+        NonFungibleMetaData memory nonFungibleItem = nonFungibleIdToMetadata[_nonFungibleId];
+        nonFungibleItem.genes = items[_fungibleType].tokenContent.modifyGenes(nonFungibleItem.genes);
         emit ExecItemEffect(msg.sender, _fungibleType, _nonFungibleId);
     }
 
     function execSkillsChangeFungibleItem(uint256 _fungibleType, uint256 _nonFungibleId) external {
         require(items[_fungibleType].balances[msg.sender] > 0,"You must have one or more fungible items.");
         require(ownerOf(_nonFungibleId) == msg.sender,"msg.sender should be owner of the token.");
-        nonFungibleItem = nonFungibleIdToMetadata[_nonFungibleId];
-        nonFungibleItem.skills = items[_fungibleType].tokenContent.execItemEffect(nonFungibleitem.genes);
+        NonFungibleMetaData memory nonFungibleItem = nonFungibleIdToMetadata[_nonFungibleId];
+        nonFungibleItem.skills = items[_fungibleType].tokenContent.modifySkills(nonFungibleItem.skills);
         emit ExecItemEffect(msg.sender, _fungibleType, _nonFungibleId);
     }
 
@@ -711,7 +713,8 @@ contract HorseGameErc1155 is GameAuction {
 
 contract FungibleItemExecInterface {
     // アイテムは基本的にgeneを書き換えて新しいものを返す。大元のコントラクトはそれをただ置き換えるだけ
-    function execItemEffect(uint256 _gene) external returns(uint256);
+    function modifyGenes(uint256 _gene) external returns(uint256);
+    function modifySkills(uint8[] _skills) external returns(uint8[]);
 }
 
 contract RaceFunctionInterface {
