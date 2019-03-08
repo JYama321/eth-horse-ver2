@@ -22,7 +22,7 @@ module.exports = {
   },
   rpc: {
     host: "localhost",
-    gas: 5000000,
+    gas: 8600000,
     port: 8545
   },
   solc: {

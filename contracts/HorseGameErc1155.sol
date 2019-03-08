@@ -489,6 +489,7 @@ contract GameBase is ERC1155NonFungible, Ownable {
     struct NonFungibleMetaData {
         uint id;
         uint genes;
+        uint8[] skills;
         string name;
         uint winCount;
         uint papaId;
@@ -670,7 +671,9 @@ contract GameAuction is GameBase {
     }
 }
 
-contract GameMating is GameAuction {
+contract HorseGameErc1155 is GameAuction {
+
+    event ExecItemEffect(address indexed _user, uint256  indexed _tokenId, uint256 _nonFungibleTokenId);
 
     function setItemPrice(uint _type, uint _price) external onlyOwner {
         items[_type].itemPrice = _price;
@@ -686,6 +689,23 @@ contract GameMating is GameAuction {
             emit LotteryLog(msg.sender, true, items[_fungibleType].name,_fungibleType, now);
         }
     }
+
+    function execGeneChangeFungibleItem(uint256 _fungibleType, uint256 _nonFungibleId) external {
+        require(items[_fungibleType].balances[msg.sender] > 0,"You must have one or more fungible items.");
+        require(ownerOf(_nonfungibleId) == msg.sender,"Owner of Non-Fungible Item should be msg.sender");
+        nonFungibleItem = nonFungibleIdToMetadata[_nonFungibleId];
+        nonFungibleItem.genes = items[_fungibleType].tokenContent.execItemEffect(nonFungibleitem.genes);
+        emit ExecItemEffect(msg.sender, _fungibleType, _nonFungibleId);
+    }
+
+    function execSkillsChangeFungibleItem(uint256 _fungibleType, uint256 _nonFungibleId) external {
+        require(items[_fungibleType].balances[msg.sender] > 0,"You must have one or more fungible items.");
+        require(ownerOf(_nonFungibleId) == msg.sender,"msg.sender should be owner of the token.");
+        nonFungibleItem = nonFungibleIdToMetadata[_nonFungibleId];
+        nonFungibleItem.skills = items[_fungibleType].tokenContent.execItemEffect(nonFungibleitem.genes);
+        emit ExecItemEffect(msg.sender, _fungibleType, _nonFungibleId);
+    }
+
     function() public payable{}
 }
 
