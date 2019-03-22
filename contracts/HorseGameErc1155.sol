@@ -486,6 +486,7 @@ contract GameBase is ERC1155NonFungible, Ownable {
     event LotteryLog(address indexed _from, bool _success, string _type,uint _tokenId, uint _now);
     uint256 public nonce;
     uint public matePrice;
+    uint geneModulus = 10 ** 64; // length of genes
     struct NonFungibleMetaData {
         uint id;
         uint genes;
@@ -496,7 +497,6 @@ contract GameBase is ERC1155NonFungible, Ownable {
         uint momId;
         uint mateIndex;
         uint raceIndex;
-        uint saleDuration;
         uint totalPrize;
         bool isOnSale;
         bool isOnSireSale;
@@ -555,9 +555,17 @@ contract GameBase is ERC1155NonFungible, Ownable {
     {
         require(_to != address(0), "_to should not be address(0)");
         require(_papaId != _momId || _momId ==0 &&  _papaId == 0,"papaID should not be equal to mamaId,  papaID and mamaId should not be 0. ");
-        NonFungibleMetaData memory mom = nonFungibleIdToMetadata[_momId];
-        NonFungibleMetaData memory papa = nonFungibleIdToMetadata[_papaId];
-        uint newGene = geneFunction.generateGenes(papa.genes, mom.genes, _name);
+        uint newGene;
+        if (_momId == 0 && _papaId == 0) {
+            uint _seed = uint(keccak256(abi.encodePacked(_name,blockhash(block.number-1))));
+            uint fakeGene = _seed % geneModulus;
+            newGene = fakeGene;
+        } else {
+            NonFungibleMetaData memory mom = nonFungibleIdToMetadata[_momId];
+            NonFungibleMetaData memory papa = nonFungibleIdToMetadata[_papaId];
+            newGene = geneFunction.generateGenes(papa.genes, mom.genes, _name);
+        }
+    
         uint8[] memory skills = new uint8[](0);
         NonFungibleMetaData memory metaData = NonFungibleMetaData({
             id: _nfi,
@@ -569,7 +577,6 @@ contract GameBase is ERC1155NonFungible, Ownable {
             momId: _momId,
             mateIndex:(newGene % (10 ** 30) / (10 ** 29)) + (newGene % (10 ** 29) / (10 ** 28)),
             raceIndex:(newGene % (10 ** 32) / (10 ** 31)) + (newGene % (10 ** 31) / (10 ** 30)),
-            saleDuration: 0,
             totalPrize: 0,
             isOnSale: false,
             isOnSireSale: false
@@ -620,8 +627,7 @@ contract GameBase is ERC1155NonFungible, Ownable {
     external onlyOwner
     {
         metadataURIs[_id] = _uri;
-    }   
-
+    }
 }
 
 contract GameAuction is GameBase {
@@ -697,6 +703,7 @@ contract HorseGameErc1155 is GameAuction {
         require(ownerOf(_nonFungibleId) == msg.sender,"Owner of Non-Fungible Item should be msg.sender");
         NonFungibleMetaData memory nonFungibleItem = nonFungibleIdToMetadata[_nonFungibleId];
         nonFungibleItem.genes = items[_fungibleType].tokenContent.modifyGenes(nonFungibleItem.genes);
+        items[_fungibleType].balances[msg.sender].sub(1);
         emit ExecItemEffect(msg.sender, _fungibleType, _nonFungibleId);
     }
 
@@ -705,6 +712,7 @@ contract HorseGameErc1155 is GameAuction {
         require(ownerOf(_nonFungibleId) == msg.sender,"msg.sender should be owner of the token.");
         NonFungibleMetaData memory nonFungibleItem = nonFungibleIdToMetadata[_nonFungibleId];
         nonFungibleItem.skills = items[_fungibleType].tokenContent.modifySkills(nonFungibleItem.skills);
+        items[_fungibleType].balances[msg.sender].sub(1);
         emit ExecItemEffect(msg.sender, _fungibleType, _nonFungibleId);
     }
 
