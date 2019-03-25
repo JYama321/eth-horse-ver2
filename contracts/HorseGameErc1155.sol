@@ -246,21 +246,6 @@ contract ERC1155NonFungible is ERC1155HorseGame {
         }
     }
 
-    function nonFungibleByIndex
-    (
-        uint256 _nfiType,
-        uint128 _index
-    )
-    external view
-    returns (uint256)
-    {
-        require(isNonFungibleBaseType(_nfiType),"should be non fungible type");
-        require(uint256(_index) <= items[_nfiType].totalSupply, "should be lower or equal to ");
-
-        uint256 nfiId = _nfiType | uint256(_index);
-
-        return nfiId;
-    }
 
     function approve
     (
@@ -499,13 +484,12 @@ contract GameBase is ERC1155NonFungible, Ownable {
         uint raceIndex;
         uint totalPrize;
         bool isOnSale;
-        bool isOnSireSale;
     }
-    mapping(uint256 => NonFungibleMetaData) nonFungibleIdToMetadata;
+    mapping(uint256 => NonFungibleMetaData) public nonFungibleIdToMetadata;
     GeneFunctionInterface geneFunction;
     RaceFunctionInterface raceFunction;
 
-    function mintFungible
+    function mint
     (
         string _name,
         uint256 _totalSupply,
@@ -578,8 +562,7 @@ contract GameBase is ERC1155NonFungible, Ownable {
             mateIndex:(newGene % (10 ** 30) / (10 ** 29)) + (newGene % (10 ** 29) / (10 ** 28)),
             raceIndex:(newGene % (10 ** 32) / (10 ** 31)) + (newGene % (10 ** 31) / (10 ** 30)),
             totalPrize: 0,
-            isOnSale: false,
-            isOnSireSale: false
+            isOnSale: false
         });
         nonFungibleIdToMetadata[_nfi] = metaData;
         nfiOwners[_nfi] = _to;
@@ -596,6 +579,7 @@ contract GameBase is ERC1155NonFungible, Ownable {
         require(isNonFungible(_type), "should be non fungible type");
         uint256 _startIndex = items[_type].totalSupply;
         uint256 _nfi = _type | (_startIndex  + 1);
+        //TODO: type && TYPE_MASK を追加する
         items[_type].balances[_to] = items[_type].balances[_to].add(1);
         _mintNonFungible(_name,0,0, _nfi, _to);
         items[_type].totalSupply = items[_type].totalSupply.add(1);
